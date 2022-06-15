@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>at.physics.energy_loss &#8212; Accelerator Toolbox 0.1.dev1+ga7ac51e documentation</title>
+    <title>at.physics.energy_loss &#8212; Accelerator Toolbox 0.1.dev1+g35a7614 documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -567,7 +567,7 @@
 </table>
 <dl class="py class">
 <dt class="sig sig-object py" id="at.physics.energy_loss.ELossMethod">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ELossMethod</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#at.physics.energy_loss.ELossMethod" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ELossMethod</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/physics/energy_loss.html#ELossMethod"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.physics.energy_loss.ELossMethod" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.Enum" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></a></p>
 <p>Enum class for energy loss methods</p>
 <dl class="py attribute">
@@ -584,7 +584,7 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="at.physics.energy_loss.get_energy_loss">
-<span class="sig-name descname"><span class="pre">get_energy_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">ELossMethod.INTEGRAL</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#at.physics.energy_loss.get_energy_loss" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_energy_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">ELossMethod.INTEGRAL</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/physics/energy_loss.html#get_energy_loss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.physics.energy_loss.get_energy_loss" title="Permalink to this definition">#</a></dt>
 <dd><p>Compute the energy loss per turn [eV]</p>
 <dl>
 <dt>PARAMETERS</dt><dd><p>ring                        lattice description</p>
@@ -608,7 +608,7 @@ Takes into account bending magnets and wigglers.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="at.physics.energy_loss.get_timelag_fromU0">
-<span class="sig-name descname"><span class="pre">get_timelag_fromU0</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">ELossMethod.INTEGRAL</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cavpts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#at.physics.energy_loss.get_timelag_fromU0" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_timelag_fromU0</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">ELossMethod.INTEGRAL</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cavpts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/physics/energy_loss.html#get_timelag_fromU0"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.physics.energy_loss.get_timelag_fromU0" title="Permalink to this definition">#</a></dt>
 <dd><p>Get the TimeLag attribute of RF cavities based on frequency,
 voltage and energy loss per turn, so that the synchronous phase is zero.
 An error occurs if all cavities do not have the same frequency.
@@ -631,7 +631,7 @@ ts          Time difference with the present value</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="at.physics.energy_loss.set_cavity_phase">
-<span class="sig-name descname"><span class="pre">set_cavity_phase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">ELossMethod.TRACKING</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refpts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cavpts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">copy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#at.physics.energy_loss.set_cavity_phase" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_cavity_phase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">ELossMethod.TRACKING</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refpts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cavpts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">copy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/physics/energy_loss.html#set_cavity_phase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.physics.energy_loss.set_cavity_phase" title="Permalink to this definition">#</a></dt>
 <dd><p>Adjust the TimeLag attribute of RF cavities based on frequency,
 voltage and energy loss per turn, so that the synchronous phase is zero.
 An error occurs if all cavities do not have the same frequency.</p>
