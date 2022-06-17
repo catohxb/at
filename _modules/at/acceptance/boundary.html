@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>at.acceptance.boundary &#8212; Accelerator Toolbox 0.1.dev1+g35a7614 documentation</title>
+    <title>at.acceptance.boundary &#8212; Accelerator Toolbox 0.1.dev1+gdeaf24f documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -171,12 +171,10 @@
 <span class="sd">grid definitions</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">at</span>
 <span class="kn">from</span> <span class="nn">at.lattice</span> <span class="kn">import</span> <span class="n">AtError</span>
 <span class="kn">from</span> <span class="nn">at.tracking</span> <span class="kn">import</span> <span class="n">lattice_pass</span><span class="p">,</span> <span class="n">patpass</span>
 <span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
 <span class="kn">import</span> <span class="nn">numpy</span>
-<span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">scipy.ndimage</span> <span class="kn">import</span> <span class="n">binary_dilation</span><span class="p">,</span> <span class="n">binary_opening</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
 <span class="kn">import</span> <span class="nn">time</span>
@@ -246,20 +244,14 @@
 <span class="sd">    Returns a ring starting at obspt and initial</span>
 <span class="sd">    closed orbit</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">ring</span><span class="o">.</span><span class="n">radiation</span><span class="p">:</span>
-        <span class="n">newring</span> <span class="o">=</span> <span class="n">ring</span><span class="o">.</span><span class="n">set_rf_frequency</span><span class="p">(</span><span class="n">dp</span><span class="o">=</span><span class="n">dp</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">dp</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">newring</span> <span class="o">=</span> <span class="n">ring</span>
-
     <span class="k">if</span> <span class="n">obspt</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">assert</span> <span class="n">numpy</span><span class="o">.</span><span class="n">isscalar</span><span class="p">(</span><span class="n">obspt</span><span class="p">),</span> <span class="s1">&#39;Scalar value needed for obspt&#39;</span>
-        <span class="n">newring</span> <span class="o">=</span> <span class="n">newring</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">obspt</span><span class="p">)</span>
+        <span class="n">ring</span> <span class="o">=</span> <span class="n">ring</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">obspt</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">orbit</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">orbit</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">newring</span><span class="o">.</span><span class="n">find_orbit</span><span class="p">(</span><span class="n">dp</span><span class="o">=</span><span class="n">dp</span><span class="p">)</span>
+        <span class="n">orbit</span> <span class="o">=</span> <span class="n">ring</span><span class="o">.</span><span class="n">find_orbit</span><span class="p">(</span><span class="n">dp</span><span class="o">=</span><span class="n">dp</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 
-    <span class="k">return</span> <span class="n">orbit</span><span class="p">,</span> <span class="n">newring</span>
+    <span class="k">return</span> <span class="n">orbit</span><span class="p">,</span> <span class="n">ring</span>
 
 
 <span class="k">def</span> <span class="nf">grid_configuration</span><span class="p">(</span><span class="n">planes</span><span class="p">,</span> <span class="n">npoints</span><span class="p">,</span> <span class="n">amplitudes</span><span class="p">,</span> <span class="n">grid_mode</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>

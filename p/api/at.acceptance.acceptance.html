@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>at.acceptance.acceptance &#8212; Accelerator Toolbox 0.1.dev1+g35a7614 documentation</title>
+    <title>at.acceptance.acceptance &#8212; Accelerator Toolbox 0.1.dev1+gdeaf24f documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -543,7 +543,7 @@
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#at.acceptance.acceptance.get_acceptance" title="at.acceptance.acceptance.get_acceptance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_acceptance</span></code></a>(ring, planes, npoints, amplitudes)</p></td>
-<td><p>Computes the acceptance at repfts observation points Grid Coordiantes ordering is as follows: CARTESIAN: (x,y), RADIAL/RECURSIVE (r, theta).</p></td>
+<td><p>Computes the acceptance at repfts observation points Grid Coordinates ordering is as follows: CARTESIAN: (x,y), RADIAL/RECURSIVE (r, theta).</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#at.acceptance.acceptance.get_1d_acceptance" title="at.acceptance.acceptance.get_1d_acceptance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_1d_acceptance</span></code></a>(ring, plane, resolution, ...)</p></td>
 <td><p>Computes the 1D acceptance at refpts observation points Scalar parameters required</p></td>
@@ -613,7 +613,7 @@ The boundary output is squeezed to an array with shape (len(refpts),2)</p>
 <dt class="sig sig-object py" id="at.acceptance.acceptance.get_acceptance">
 <span class="sig-name descname"><span class="pre">get_acceptance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">planes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">npoints</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amplitudes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nturns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1024</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refpts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bounds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">GridMode.RADIAL</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_mp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">divider</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shift_zero</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-09</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/acceptance/acceptance.html#get_acceptance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.acceptance.acceptance.get_acceptance" title="Permalink to this definition">#</a></dt>
 <dd><p>Computes the acceptance at repfts observation points
-Grid Coordiantes ordering is as follows: CARTESIAN: (x,y), RADIAL/RECURSIVE
+Grid Coordinates ordering is as follows: CARTESIAN: (x,y), RADIAL/RECURSIVE
 (r, theta). Scalar inputs can be used for 1D grid.
 The grid can be changed using grid_mode input:
 at.GridMode.CARTESIAN: (x,y) grid
