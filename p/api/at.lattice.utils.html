@@ -1,12 +1,12 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>at.lattice.utils &#8212; Accelerator Toolbox 0.1.dev1+gdeaf24f documentation</title>
+    <title>at.lattice.utils &#8212; Accelerator Toolbox 0.1.dev1+g84e13ef documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -34,6 +34,7 @@
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
@@ -44,7 +45,7 @@
     <link rel="next" title="at.load" href="at.load.html" />
     <link rel="prev" title="at.lattice.particle_object" href="at.lattice.particle_object.html" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="docsearch:language" content="None">
+<meta name="docsearch:language" content="en">
   </head>
   
   
@@ -536,7 +537,7 @@
               <article class="bd-article" role="main">
                 
   <section id="module-at.lattice.utils">
-<span id="at-lattice-utils"></span><h1>at.lattice.utils<a class="headerlink" href="#module-at.lattice.utils" title="Permalink to this headline">#</a></h1>
+<span id="at-lattice-utils"></span><h1>at.lattice.utils<a class="headerlink" href="#module-at.lattice.utils" title="Permalink to this heading">#</a></h1>
 <p>Helper functions for working with AT lattices.</p>
 <p>A lattice as understood by pyAT is any sequence of elements.  These functions
 are useful for working with these sequences.</p>
@@ -553,10 +554,6 @@ elements are True.</p></li>
 </ol>
 <p class="rubric">Functions</p>
 <table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#at.lattice.utils.check_radiation" title="at.lattice.utils.check_radiation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_radiation</span></code></a>(rad)</p></td>
 <td><p>Function to be used as a decorator for optics functions</p></td>
@@ -625,10 +622,6 @@ elements are True.</p></li>
 </table>
 <p class="rubric">Exceptions</p>
 <table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#at.lattice.utils.AtError" title="at.lattice.utils.AtError"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AtError</span></code></a></p></td>
 <td><p></p></td>
@@ -655,7 +648,7 @@ elements are True.</p></li>
 <span class="sig-name descname"><span class="pre">bool_refpts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">refpts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_elements</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/utils.html#bool_refpts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.utils.bool_refpts" title="Permalink to this definition">#</a></dt>
 <dd><p>Returns n bool array of element indices, selecting ring elements.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>refpts</strong> (<em>Refpts</em>) – <p>refpts may be:</p>
 <ol class="arabic simple">
@@ -667,7 +660,7 @@ elements are True.</p></li>
 <li><p><strong>n_elements</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Length of the lattice</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>bool_refs</strong> (<em>BoolRefpts</em>) – A bool numpy array used for indexing
 <code class="docutils literal notranslate"><span class="pre">Elements</span></code> in a lattice.</p>
 </dd>
@@ -681,7 +674,7 @@ elements are True.</p></li>
 <p>Wraps a function like <code class="docutils literal notranslate"><span class="pre">func(ring,</span> <span class="pre">*Args,</span> <span class="pre">**kwargs)</span></code> where ring is a
 <cite>Lattice`</cite> object.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>rad</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Desired radiation state</p>
 </dd>
 </dl>
@@ -699,7 +692,7 @@ presence or the value of an attribute of the provided <code class="docutils lite
 This function can be used to extract from a ring all elements
 having a given attribute.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>attrname</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Attribute name</p></li>
 <li><p><strong>attrvalue</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a>) – Attribute value. If absent, the returned function checks
@@ -707,7 +700,7 @@ the presence of an <code class="docutils literal notranslate"><span class="pre">
 returned function checks if <code class="docutils literal notranslate"><span class="pre">attrname</span></code> == <code class="docutils literal notranslate"><span class="pre">attrvalue</span></code>.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>checkfun</strong> (<em>ElementFilter</em>) – Element filter function</p>
 </dd>
 </dl>
@@ -733,11 +726,11 @@ name of the provided <code class="docutils literal notranslate"><span class="pre
 This function can be used to extract from a ring all elements
 having a given name.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>pattern</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Desired <code class="docutils literal notranslate"><span class="pre">Element</span></code> name. Unix shell-style wildcards are
 supported (see <code class="docutils literal notranslate"><span class="pre">fnmatch.fnmatch</span></code>)</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>checkfun</strong> (<em>ElementFilter</em>) – Element filter function</p>
 </dd>
 </dl>
@@ -757,10 +750,10 @@ type of the provided <code class="docutils literal notranslate"><span class="pre
 This function can be used to extract from a ring all elements
 having a given type.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>eltype</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#type" title="(in Python v3.10)"><em>type</em></a>) – Desired <code class="docutils literal notranslate"><span class="pre">Element</span></code> type</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>checkfun</strong> (<em>ElementFilter</em>) – Element filter function</p>
 </dd>
 </dl>
@@ -780,7 +773,7 @@ having a given type.</p>
 <span class="sig-name descname"><span class="pre">get_cells</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrvalue</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></span></dt>
 <dd><p>Returns a bool array of element indices, selecting ring elements.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ring</strong> (<em>Sequence</em><em>[</em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>]</em>) – Lattice description</p></li>
 <li><p><strong>filtfunc</strong> (<em>ElementFilter</em>) – Filter function. Selects <code class="docutils literal notranslate"><span class="pre">Elements</span></code>
@@ -791,7 +784,7 @@ presence of an <code class="docutils literal notranslate"><span class="pre">attr
 <code class="docutils literal notranslate"><span class="pre">Elements</span></code> with <code class="docutils literal notranslate"><span class="pre">attrname</span></code> == <code class="docutils literal notranslate"><span class="pre">attrvalue</span></code>.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>bool_refs</strong> (<em>BoolRefpts</em>) – numpy Array of <code class="docutils literal notranslate"><span class="pre">bool</span></code> with the same
 length as <code class="docutils literal notranslate"><span class="pre">ring</span></code></p>
 </dd>
@@ -814,7 +807,7 @@ attribute equal to 0.0 are True</p>
 <span class="sig-name descname"><span class="pre">get_elements</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quiet</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/utils.html#get_elements"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.utils.get_elements" title="Permalink to this definition">#</a></dt>
 <dd><p>Returns a list of elements selected by <code class="docutils literal notranslate"><span class="pre">key</span></code>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ring</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.10)"><em>Sequence</em></a><em>[</em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>]</em>) – Lattice description</p></li>
 <li><p><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><em>Union</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#type" title="(in Python v3.10)"><em>type</em></a><em>, </em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>]</em>) – <p>Element selection key. May be:</p>
@@ -831,7 +824,7 @@ Unix shell-style wildcards, e.g. <code class="docutils literal notranslate"><spa
 matches.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>elem_list</strong> (<em>list</em>) – list of <code class="docutils literal notranslate"><span class="pre">Elements</span></code> matching key</p>
 </dd>
 </dl>
@@ -842,7 +835,7 @@ matches.</p></li>
 <span class="sig-name descname"><span class="pre">get_refpts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quiet</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/utils.html#get_refpts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.utils.get_refpts" title="Permalink to this definition">#</a></dt>
 <dd><p>Returns an <code class="docutils literal notranslate"><span class="pre">int</span></code> array of element indices, selecting ring elements.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ring</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.10)"><em>Sequence</em></a><em>[</em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>]</em>) – Lattice description</p></li>
 <li><p><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><em>Union</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#type" title="(in Python v3.10)"><em>type</em></a><em>, </em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>]</em>) – <p>Element selection key. May be:</p>
@@ -859,7 +852,7 @@ Unix shell-style wildcards, e.g. <code class="docutils literal notranslate"><spa
 matches.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>uint32_refs</strong> (<em>Uint32Refs</em>) – numpy Array of <code class="docutils literal notranslate"><span class="pre">int</span></code> as long as the
 number of refpts</p>
 </dd>
@@ -875,7 +868,7 @@ number of refpts</p>
 <span class="sig-name descname"><span class="pre">get_s_pos</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refpts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/utils.html#get_s_pos"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.utils.get_s_pos" title="Permalink to this definition">#</a></dt>
 <dd><p>Returns the locations of selected elements</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ring</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.10)"><em>Sequence</em></a><em>[</em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>]</em>) – Lattice description</p></li>
 <li><p><strong>refpts</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><em>Refpts</em><em>]</em>) – <p>refpts may be:</p>
@@ -889,7 +882,7 @@ selected elements</p></li>
 </p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>s_pos</strong> – Array of locations of the elements selected by <code class="docutils literal notranslate"><span class="pre">refpts</span></code></p>
 </dd>
 </dl>
@@ -900,7 +893,7 @@ selected elements</p></li>
 <span class="sig-name descname"><span class="pre">get_value_refpts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refpts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/utils.html#get_value_refpts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.utils.get_value_refpts" title="Permalink to this definition">#</a></dt>
 <dd><p>Extracts attribute values from selected lattice <code class="docutils literal notranslate"><span class="pre">Elements</span></code>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ring</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.10)"><em>Sequence</em></a><em>[</em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>]</em>) – Lattice description</p></li>
 <li><p><strong>refpts</strong> (<em>Refpts</em>) – <p>refpts may be:</p>
@@ -919,7 +912,7 @@ an array.</p>
 </p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>attrvalues</strong> – numpy Array of attribute values.</p>
 </dd>
 </dl>
@@ -944,7 +937,7 @@ and the new ring is returned.</p>
 <span class="sig-name descname"><span class="pre">refpts_count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">refpts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_elements</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/utils.html#refpts_count"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.utils.refpts_count" title="Permalink to this definition">#</a></dt>
 <dd><p>Returns the number of reference points</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>refpts</strong> (<em>Refpts</em>) – <p>refpts may be:</p>
 <ol class="arabic simple">
@@ -956,7 +949,7 @@ and the new ring is returned.</p>
 <li><p><strong>n_elements</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Lattice length</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>nrefs</strong> (<em>int</em>) – The number of reference points</p>
 </dd>
 </dl>
@@ -967,7 +960,7 @@ and the new ring is returned.</p>
 <span class="sig-name descname"><span class="pre">refpts_iterator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refpts</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/utils.html#refpts_iterator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.utils.refpts_iterator" title="Permalink to this definition">#</a></dt>
 <dd><p>Return an iterator over selected elements in a lattice</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ring</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.10)"><em>Sequence</em></a><em>[</em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>]</em>) – Lattice description</p></li>
 <li><p><strong>refpts</strong> (<em>Refpts</em>) – <p>refpts may be:</p>
@@ -981,7 +974,7 @@ selected elements</p></li>
 </p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>elem_iter</strong> (<em>Iterator[Element]</em>) – Iterator over the elements in <code class="docutils literal notranslate"><span class="pre">ring</span></code>
 selected by <code class="docutils literal notranslate"><span class="pre">refpts</span></code>.</p>
 </dd>
@@ -993,7 +986,7 @@ selected by <code class="docutils literal notranslate"><span class="pre">refpts<
 <span class="sig-name descname"><span class="pre">refpts_len</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refpts</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/utils.html#refpts_len"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.utils.refpts_len" title="Permalink to this definition">#</a></dt>
 <dd><p>Returns the number of reference points</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ring</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.10)"><em>Sequence</em></a><em>[</em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>]</em>) – Lattice description</p></li>
 <li><p><strong>refpts</strong> (<em>Refpts</em>) – <p>refpts may be:</p>
@@ -1007,7 +1000,7 @@ selected elements</p></li>
 </p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>nrefs</strong> (<em>int</em>) – The number of reference points</p>
 </dd>
 </dl>
@@ -1020,7 +1013,7 @@ selected elements</p></li>
 <p>Wraps a function like <code class="docutils literal notranslate"><span class="pre">func(ring,</span> <span class="pre">*Args,</span> <span class="pre">**kwargs)</span></code> where ring is a
 <code class="docutils literal notranslate"><span class="pre">Lattice</span></code> object.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>rad</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Desired radiation state</p>
 </dd>
 </dl>
@@ -1033,7 +1026,7 @@ state is set to rad (no copy is done if it’s already the case).</p>
 <span class="sig-name descname"><span class="pre">set_shift</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dxs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dzs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">relative</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/utils.html#set_shift"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.utils.set_shift" title="Permalink to this definition">#</a></dt>
 <dd><p>Sets the translations of a list of elements.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ring</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.10)"><em>Sequence</em></a><em>[</em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>]</em>) – Lattice description</p></li>
 <li><p><strong>dxs</strong> – Sequence of horizontal displacements values as long as
@@ -1051,7 +1044,7 @@ ring or scalar value applied to all elements [m]</p></li>
 <span class="sig-name descname"><span class="pre">set_tilt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tilts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">relative</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/utils.html#set_tilt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.utils.set_tilt" title="Permalink to this definition">#</a></dt>
 <dd><p>Sets the tilts of a list of elements.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ring</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.10)"><em>Sequence</em></a><em>[</em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>]</em>) – Lattice description</p></li>
 <li><p><strong>tilts</strong> – Sequence of tilt values as long as ring or
@@ -1068,7 +1061,7 @@ scalar tilt value applied to all elements</p></li>
 <dd><p>Set the values of an attribute of an array of elements based on
 their refpts</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ring</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.10)"><em>Sequence</em></a><em>[</em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>]</em>) – Lattice description</p></li>
 <li><p><strong>refpts</strong> (<em>Refpts</em>) – <p>refpts may be:</p>
@@ -1108,7 +1101,7 @@ Any further modification will affect in both lattices.</p>
 <dd><p>Sets the transverse displacement of an <code class="docutils literal notranslate"><span class="pre">Element</span></code></p>
 <p>The translation vectors are stored in the <code class="docutils literal notranslate"><span class="pre">T1</span></code> and <code class="docutils literal notranslate"><span class="pre">T2</span></code> attributes</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>elem</strong> (<a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a>) – Element to be shifted</p></li>
 <li><p><strong>deltax</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Horizontal displacement [m]</p></li>
@@ -1127,7 +1120,7 @@ Any further modification will affect in both lattices.</p>
 <p><span class="math notranslate nohighlight">\(R_1=\begin{pmatrix} cos\theta &amp; sin\theta \\ -sin\theta &amp; cos\theta \end{pmatrix}\)</span>,
 <span class="math notranslate nohighlight">\(R_2=\begin{pmatrix} cos\theta &amp; -sin\theta \\ sin\theta &amp; cos\theta \end{pmatrix}\)</span></p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>elem</strong> (<a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a>) – Element to be tilted</p></li>
 <li><p><strong>rots</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Tilt angle <span class="math notranslate nohighlight">\(\theta\)</span> [rd].
@@ -1144,7 +1137,7 @@ looking in the direction of the beam</p></li>
 <span class="sig-name descname"><span class="pre">uint32_refpts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">refpts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_elements</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/utils.html#uint32_refpts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.utils.uint32_refpts" title="Permalink to this definition">#</a></dt>
 <dd><p>Returns an integer array of element indices, selecting ring elements.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>refpts</strong> (<em>Refpts</em>) – <p>refpts may be:</p>
 <ol class="arabic simple">
@@ -1156,7 +1149,7 @@ looking in the direction of the beam</p></li>
 <li><p><strong>n_elements</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Length of the lattice</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>uint32_ref</strong> (<em>Uint32Refpts</em>) – uint32 numpy array used for indexing
 <code class="docutils literal notranslate"><span class="pre">Elements</span></code> in a lattice.</p>
 </dd>
@@ -1210,7 +1203,7 @@ looking in the direction of the beam</p></li>
   
   <div class="footer-item">
     <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.0.2.<br>
 </p>
   </div>
   

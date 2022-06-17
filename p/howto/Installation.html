@@ -1,12 +1,12 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Installation &#8212; Accelerator Toolbox 0.1.dev1+gdeaf24f documentation</title>
+    <title>Installation &#8212; Accelerator Toolbox 0.1.dev1+g84e13ef documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -34,6 +34,7 @@
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
@@ -42,7 +43,7 @@
     <link rel="next" title="PyAT Primer" href="Primer.html" />
     <link rel="prev" title="pyAT" href="../getting_started.html" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="docsearch:language" content="None">
+<meta name="docsearch:language" content="en">
   </head>
   
   
@@ -566,26 +567,26 @@
               <article class="bd-article" role="main">
                 
   <section id="installation">
-<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">#</a></h1>
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">#</a></h1>
 <p>pyAT is a Python interface to Accelerator Toolbox. It uses the ‘pass
 methods’ defined in Accelerator Toolbox, implemented by compiling the C
 code used in the AT ‘integrators’ into a Python extension. These pass
 methods are used by higher-level functions to provide physics results.</p>
 <section id="requirements">
-<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">#</a></h2>
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this heading">#</a></h2>
 <p>pyAT supports Python 3.6 to 3.10.</p>
 </section>
 <section id="id1">
-<h2>Installation<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h2>
+<h2>Installation<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
 <section id="from-pypi">
-<h3>From PyPI<a class="headerlink" href="#from-pypi" title="Permalink to this headline">#</a></h3>
+<h3>From PyPI<a class="headerlink" href="#from-pypi" title="Permalink to this heading">#</a></h3>
 <p>Install accelerator-toolbox from PyPI:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install accelerator-toolbox
 </pre></div>
 </div>
 </section>
 <section id="from-github">
-<h3>From GitHub<a class="headerlink" href="#from-github" title="Permalink to this headline">#</a></h3>
+<h3>From GitHub<a class="headerlink" href="#from-github" title="Permalink to this heading">#</a></h3>
 <ol class="arabic">
 <li><p>Install git on your computer.</p></li>
 <li><p>Download the latest version of AT:</p>
@@ -607,7 +608,7 @@ methods are used by higher-level functions to provide physics results.</p>
 </section>
 </section>
 <section id="usage">
-<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">#</a></h2>
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading">#</a></h2>
 <p>Example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">at</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ring</span> <span class="o">=</span> <span class="n">at</span><span class="o">.</span><span class="n">Lattice</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;machine_data/hmba.mat&#39;</span><span class="p">)</span>
@@ -683,7 +684,7 @@ methods are used by higher-level functions to provide physics results.</p>
   
   <div class="footer-item">
     <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.0.2.<br>
 </p>
   </div>
   

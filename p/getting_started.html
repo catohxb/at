@@ -1,12 +1,12 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>pyAT &#8212; Accelerator Toolbox 0.1.dev1+gdeaf24f documentation</title>
+    <title>pyAT &#8212; Accelerator Toolbox 0.1.dev1+g84e13ef documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -34,6 +34,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
@@ -42,7 +43,7 @@
     <link rel="next" title="Installation" href="howto/Installation.html" />
     <link rel="prev" title="Welcome to pyAT’s documentation!" href="index.html" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="docsearch:language" content="None">
+<meta name="docsearch:language" content="en">
   </head>
   
   
@@ -642,9 +643,9 @@
               <article class="bd-article" role="main">
                 
   <section id="pyat">
-<h1>pyAT<a class="headerlink" href="#pyat" title="Permalink to this headline">#</a></h1>
+<h1>pyAT<a class="headerlink" href="#pyat" title="Permalink to this heading">#</a></h1>
 <section id="introduction">
-<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">#</a></h2>
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">#</a></h2>
 <p>Accelerator Toolbox is a code used for simulating particle accelerators, used
 particularly for synchrotron light sources. It is hosted on <a class="reference external" href="https://github.com/atcollab/at">Github</a>. Its original implementation is in Matlab.</p>
 <p>pyAT is a Python interface to Accelerator Toolbox. It uses the ‘pass methods’
@@ -656,14 +657,14 @@ more detailed introduction.</p>
 <p>pyAT supports Python 3.6 to 3.10.</p>
 </section>
 <section id="installation">
-<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">#</a></h2>
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">#</a></h2>
 <p>Install accelerator-toolbox from PyPI:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install accelerator-toolbox
 </pre></div>
 </div>
 </section>
 <section id="usage">
-<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">#</a></h2>
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading">#</a></h2>
 <p>Example usage:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">at</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ring</span> <span class="o">=</span> <span class="n">at</span><span class="o">.</span><span class="n">Lattice</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;machine_data/hmba.mat&#39;</span><span class="p">)</span>
@@ -693,21 +694,21 @@ more detailed introduction.</p>
 <p>For more examples of how to use pyAT, see <code class="docutils literal notranslate"><span class="pre">pyat_examples.rst</span></code>.</p>
 </section>
 <section id="developer-notes">
-<h2>Developer Notes<a class="headerlink" href="#developer-notes" title="Permalink to this headline">#</a></h2>
+<h2>Developer Notes<a class="headerlink" href="#developer-notes" title="Permalink to this heading">#</a></h2>
 <p>Developer notes are in <code class="docutils literal notranslate"><span class="pre">developers.rst</span></code>.</p>
 </section>
 </section>
 <section id="pyat-developer-notes">
-<h1>pyAT Developer Notes<a class="headerlink" href="#pyat-developer-notes" title="Permalink to this headline">#</a></h1>
+<h1>pyAT Developer Notes<a class="headerlink" href="#pyat-developer-notes" title="Permalink to this heading">#</a></h1>
 <p>See also README.rst.</p>
 <section id="installation-preparation">
-<h2>Installation preparation<a class="headerlink" href="#installation-preparation" title="Permalink to this headline">#</a></h2>
+<h2>Installation preparation<a class="headerlink" href="#installation-preparation" title="Permalink to this heading">#</a></h2>
 <section id="windows">
-<h3>Windows<a class="headerlink" href="#windows" title="Permalink to this headline">#</a></h3>
+<h3>Windows<a class="headerlink" href="#windows" title="Permalink to this heading">#</a></h3>
 <p>Download the appropriate version of Visual C++.</p>
 </section>
 <section id="linux">
-<h3>Linux<a class="headerlink" href="#linux" title="Permalink to this headline">#</a></h3>
+<h3>Linux<a class="headerlink" href="#linux" title="Permalink to this heading">#</a></h3>
 <p>Install the Python development package for your OS. For example, using yum:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sudo yum install python3-devel
 </pre></div>
@@ -715,14 +716,14 @@ more detailed introduction.</p>
 </section>
 </section>
 <section id="source-download">
-<h2>Source download<a class="headerlink" href="#source-download" title="Permalink to this headline">#</a></h2>
+<h2>Source download<a class="headerlink" href="#source-download" title="Permalink to this heading">#</a></h2>
 <p>Download the latest version of AT:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/atcollab/at.git
 </pre></div>
 </div>
 </section>
 <section id="installation-all-platforms">
-<h2>Installation (all platforms)<a class="headerlink" href="#installation-all-platforms" title="Permalink to this headline">#</a></h2>
+<h2>Installation (all platforms)<a class="headerlink" href="#installation-all-platforms" title="Permalink to this heading">#</a></h2>
 <p>All the binaries should be built when building the Python extension.</p>
 <p>It is easiest to do this using a virtualenv. inside pyat:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python3 -m venv venv
@@ -763,13 +764,13 @@ more detailed introduction.</p>
 </div>
 </section>
 <section id="comparing-results-with-matlab">
-<h2>Comparing results with Matlab<a class="headerlink" href="#comparing-results-with-matlab" title="Permalink to this headline">#</a></h2>
+<h2>Comparing results with Matlab<a class="headerlink" href="#comparing-results-with-matlab" title="Permalink to this heading">#</a></h2>
 <p>There is a second set of tests that require a Matlab licence and allows
 comparing results directly with a Matlab session.  See test_matlab/README
 for information.</p>
 </section>
 <section id="debugging">
-<h2>Debugging<a class="headerlink" href="#debugging" title="Permalink to this headline">#</a></h2>
+<h2>Debugging<a class="headerlink" href="#debugging" title="Permalink to this heading">#</a></h2>
 <p>Print statements in the C code will work once the integrators are
 recompiled.  To force recompilation, remove the build directory:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ rm -rf build
@@ -792,7 +793,7 @@ $ pip install -e .
 numpy) that you are using to run pyAT.</p>
 </section>
 <section id="releasing-a-version-to-pypi">
-<h2>Releasing a version to PyPI<a class="headerlink" href="#releasing-a-version-to-pypi" title="Permalink to this headline">#</a></h2>
+<h2>Releasing a version to PyPI<a class="headerlink" href="#releasing-a-version-to-pypi" title="Permalink to this heading">#</a></h2>
 <p>Because pyAT compiles C code, releasing a version is not simple. The code
 must be compiled for different operating systems and Python versions.</p>
 <p>To do this, we use the continuous integration service Github Actions.
@@ -800,7 +801,7 @@ When a tag of the form pyat-* is pushed to Github, wheels for each
 supported platform will be built and automatically uploaded as an ‘artifact’.</p>
 </section>
 <section id="release-procedure">
-<h2>Release procedure<a class="headerlink" href="#release-procedure" title="Permalink to this headline">#</a></h2>
+<h2>Release procedure<a class="headerlink" href="#release-procedure" title="Permalink to this heading">#</a></h2>
 <p>To upload a release to PyPI, you will need to be a ‘maintainer’ of
 <a class="reference external" href="https://pypi.org/project/accelerator-toolbox/">Accelerator Toolbox on PyPI</a>.</p>
 <p>For testing any version that you have installed, the simple snippet in
@@ -854,13 +855,13 @@ platforms and architectures.</p>
 </section>
 </section>
 <section id="pyat-examples">
-<h1>pyAT Examples<a class="headerlink" href="#pyat-examples" title="Permalink to this headline">#</a></h1>
+<h1>pyAT Examples<a class="headerlink" href="#pyat-examples" title="Permalink to this heading">#</a></h1>
 <p>Please follow <code class="docutils literal notranslate"><span class="pre">at/pyat/README.rst</span></code> for installation instructions.
 In these examples, we use the ring from <cite>hmba.mat</cite> found in <code class="docutils literal notranslate"><span class="pre">test_matlab</span></code>;
 however, they will also work on the <code class="docutils literal notranslate"><span class="pre">err.mat</span></code> ring if you want to be more
 representative of a real accelerator.</p>
 <section id="initialisation">
-<h2>Initialisation:<a class="headerlink" href="#initialisation" title="Permalink to this headline">#</a></h2>
+<h2>Initialisation:<a class="headerlink" href="#initialisation" title="Permalink to this heading">#</a></h2>
 <ul>
 <li><p>Start Python inside the <code class="docutils literal notranslate"><span class="pre">pyat</span></code> directory:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd pyat
@@ -883,7 +884,7 @@ Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;licen
 </ul>
 </section>
 <section id="basic-use">
-<h2>Basic Use:<a class="headerlink" href="#basic-use" title="Permalink to this headline">#</a></h2>
+<h2>Basic Use:<a class="headerlink" href="#basic-use" title="Permalink to this heading">#</a></h2>
 <ul>
 <li><p>The lattice object is a Python interator:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">ring</span><span class="p">:</span>
@@ -911,7 +912,7 @@ Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;licen
 </ul>
 </section>
 <section id="calculating-physics-data">
-<h2>Calculating Physics Data:<a class="headerlink" href="#calculating-physics-data" title="Permalink to this headline">#</a></h2>
+<h2>Calculating Physics Data:<a class="headerlink" href="#calculating-physics-data" title="Permalink to this heading">#</a></h2>
 <ul>
 <li><p>Return the linear optics data at the first 5 elements:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">at</span><span class="o">.</span><span class="n">get_optics</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">refpts</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
@@ -972,7 +973,7 @@ Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;licen
   
   <div class="footer-item">
     <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.0.2.<br>
 </p>
   </div>
   

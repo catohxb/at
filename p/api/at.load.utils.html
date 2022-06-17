@@ -1,12 +1,12 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>at.load.utils &#8212; Accelerator Toolbox 0.1.dev1+gdeaf24f documentation</title>
+    <title>at.load.utils &#8212; Accelerator Toolbox 0.1.dev1+g84e13ef documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -34,6 +34,7 @@
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
@@ -42,7 +43,7 @@
     <link rel="next" title="at.matching" href="at.matching.html" />
     <link rel="prev" title="at.load.tracy" href="at.load.tracy.html" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="docsearch:language" content="None">
+<meta name="docsearch:language" content="en">
   </head>
   
   
@@ -534,14 +535,10 @@
               <article class="bd-article" role="main">
                 
   <section id="module-at.load.utils">
-<span id="at-load-utils"></span><h1>at.load.utils<a class="headerlink" href="#module-at.load.utils" title="Permalink to this headline">#</a></h1>
+<span id="at-load-utils"></span><h1>at.load.utils<a class="headerlink" href="#module-at.load.utils" title="Permalink to this heading">#</a></h1>
 <p>Conversion utilities for creating pyat elements</p>
 <p class="rubric">Functions</p>
 <table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#at.load.utils.element_from_dict" title="at.load.utils.element_from_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">element_from_dict</span></code></a>(elem_dict[, index, check, ...])</p></td>
 <td><p>return an AT element from a dictionary of attributes</p></td>
@@ -574,10 +571,6 @@
 </table>
 <p class="rubric">Classes</p>
 <table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#at.load.utils.RingParam" title="at.load.utils.RingParam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RingParam</span></code></a>(family_name, energy[, periodicity])</p></td>
 <td><p>Private class for Matlab RingParam element</p></td>
@@ -590,7 +583,7 @@
 <dd><p>Bases: <a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><code class="xref py py-class docutils literal notranslate"><span class="pre">Element</span></code></a></p>
 <p>Private class for Matlab RingParam element</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>family_name</strong> – Name of the element</p>
 </dd>
 </dl>
@@ -637,7 +630,7 @@
 <span class="sig-name descname"><span class="pre">find_class</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">elem_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quiet</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/load/utils.html#find_class"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.load.utils.find_class" title="Permalink to this definition">#</a></dt>
 <dd><p>Attempts to correctly identify the Class of the element from its kwargs.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>the</strong> (<em>elem_dict       The dictionary of keyword arguments passed to</em>) – Element constructor.</p>
 </dd>
 </dl>
@@ -646,7 +639,7 @@
 </dd>
 </dl>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>element_class</strong> – The guessed Class name</p>
 </dd>
 </dl>
@@ -663,7 +656,7 @@
 <dd><p>Check if the element would have the specified attribute(s), i.e. if they
 are in kwargs; allows checking for multiple attributes in one go.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – The dictionary of keyword arguments passed to the
 Element constructor.</p></li>
@@ -671,7 +664,7 @@ Element constructor.</p></li>
 checked.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>bool</strong> – A single boolean, True if the element has any of the specified
 attributes.</p>
 </dd>
@@ -730,7 +723,7 @@ attributes.</p>
   
   <div class="footer-item">
     <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.0.2.<br>
 </p>
   </div>
   

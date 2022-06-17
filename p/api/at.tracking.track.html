@@ -1,12 +1,12 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>at.tracking.track &#8212; Accelerator Toolbox 0.1.dev1+gdeaf24f documentation</title>
+    <title>at.tracking.track &#8212; Accelerator Toolbox 0.1.dev1+g84e13ef documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -34,6 +34,7 @@
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
@@ -42,7 +43,7 @@
     <link rel="next" title="at.constants" href="at.constants.html" />
     <link rel="prev" title="at.tracking.patpass" href="at.tracking.patpass.html" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="docsearch:language" content="None">
+<meta name="docsearch:language" content="en">
   </head>
   
   
@@ -534,13 +535,9 @@
               <article class="bd-article" role="main">
                 
   <section id="module-at.tracking.track">
-<span id="at-tracking-track"></span><h1>at.tracking.track<a class="headerlink" href="#module-at.tracking.track" title="Permalink to this headline">#</a></h1>
+<span id="at-tracking-track"></span><h1>at.tracking.track<a class="headerlink" href="#module-at.tracking.track" title="Permalink to this heading">#</a></h1>
 <p class="rubric">Functions</p>
 <table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#at.tracking.track.lattice_pass" title="at.tracking.track.lattice_pass"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lattice_pass</span></code></a>(lattice, r_in[, nturns, ...])</p></td>
 <td><p>lattice_pass tracks particles through each element of a lattice calling the element-specific tracking function specified in the Element's <code class="docutils literal notranslate"><span class="pre">PassMethod</span></code> field.</p></td>
@@ -561,7 +558,7 @@
 <span class="sig-name descname"><span class="pre">element_pass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">element</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r_in</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/tracking/track.html#element_pass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.tracking.track.element_pass" title="Permalink to this definition">#</a></dt>
 <dd><p>Tracks particles through a single element.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>element</strong> (<a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a>) – AT element</p></li>
 <li><p><strong>r_in</strong> – (6, N) array: input coordinates of N particles.
@@ -570,7 +567,7 @@ the end of the element. For the best efficiency, r_in
 should be given as F_CONTIGUOUS numpy array.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Keyword Arguments</dt>
+<dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
 <li><p><strong>particle</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="at.lattice.particle_object.html#at.lattice.particle_object.Particle" title="at.lattice.particle_object.Particle"><em>Particle</em></a><em>]</em>) – circulating particle.
 Default: Particle(‘relativistic’)</p></li>
@@ -581,7 +578,7 @@ Default: Particle(‘relativistic’)</p></li>
 <p>If <code class="docutils literal notranslate"><span class="pre">energy</span></code> is not available, relativistic tracking if forced,
 <code class="docutils literal notranslate"><span class="pre">rest_energy</span></code> is ignored.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>r_out</strong> – (6, N) array containing output the coordinates of
 the particles at the exit of the element.</p>
 </dd>
@@ -595,7 +592,7 @@ the particles at the exit of the element.</p>
 calling the element-specific tracking function specified in the Element’s
 <code class="docutils literal notranslate"><span class="pre">PassMethod</span></code> field.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>lattice</strong> (<em>Iterable</em><em>[</em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>]</em>) – list of elements</p></li>
 <li><p><strong>r_in</strong> – 6 x n_particles Fortran-ordered numpy array.
@@ -610,7 +607,7 @@ output is desired:</p>
 </p></li>
 </ul>
 </dd>
-<dt class="field-even">Keyword Arguments</dt>
+<dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
 <li><p><strong>keep_lattice</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>]</em>) – use elements persisted from a previous
 call. If True, assume that the lattice has not changed since
@@ -628,7 +625,7 @@ absolute path length used in RFCavityPass.</p></li>
 </dl>
 <p>The following keyword arguments overload the Lattice values</p>
 <dl class="field-list simple">
-<dt class="field-odd">Keyword Arguments</dt>
+<dt class="field-odd">Keyword Arguments<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>particle</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="at.lattice.particle_object.html#at.lattice.particle_object.Particle" title="at.lattice.particle_object.Particle"><em>Particle</em></a><em>]</em>) – circulating particle.
 Default: <code class="docutils literal notranslate"><span class="pre">lattice.particle</span></code> if existing,
@@ -640,7 +637,7 @@ otherwise <code class="docutils literal notranslate"><span class="pre">Particle(
 <p>If <code class="docutils literal notranslate"><span class="pre">energy</span></code> is not available, relativistic tracking if forced,
 <code class="docutils literal notranslate"><span class="pre">rest_energy</span></code> is ignored.</p>
 <dl class="field-list">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>r_out</strong> – (6, N, R, T) array containing output coordinates of N particles
 at R reference points for T turns.</p>
 <p>If losses is True: {islost,turn,elem,coord} dictionary containing
@@ -709,7 +706,7 @@ to ensure the continuity of the turn number.</p></li>
   
   <div class="footer-item">
     <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.0.2.<br>
 </p>
   </div>
   

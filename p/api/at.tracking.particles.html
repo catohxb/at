@@ -1,12 +1,12 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>at.tracking.particles &#8212; Accelerator Toolbox 0.1.dev1+gdeaf24f documentation</title>
+    <title>at.tracking.particles &#8212; Accelerator Toolbox 0.1.dev1+g84e13ef documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -34,6 +34,7 @@
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
@@ -42,7 +43,7 @@
     <link rel="next" title="at.tracking.patpass" href="at.tracking.patpass.html" />
     <link rel="prev" title="at.tracking.atpass" href="at.tracking.atpass.html" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="docsearch:language" content="None">
+<meta name="docsearch:language" content="en">
   </head>
   
   
@@ -534,14 +535,10 @@
               <article class="bd-article" role="main">
                 
   <section id="module-at.tracking.particles">
-<span id="at-tracking-particles"></span><h1>at.tracking.particles<a class="headerlink" href="#module-at.tracking.particles" title="Permalink to this headline">#</a></h1>
+<span id="at-tracking-particles"></span><h1>at.tracking.particles<a class="headerlink" href="#module-at.tracking.particles" title="Permalink to this heading">#</a></h1>
 <p>Functions relating to particle generation</p>
 <p class="rubric">Functions</p>
 <table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#at.tracking.particles.beam" title="at.tracking.particles.beam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">beam</span></code></a>(nparts, sigma[, orbit])</p></td>
 <td><p>Generates an array of random particles according to the given sigma matrix</p></td>
@@ -557,7 +554,7 @@
 <dd><p>Generates an array of random particles according to the given sigma
 matrix</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>nparts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of particles</p></li>
 <li><p><strong>sigma</strong> – sigma_matrix as calculated by at.sigma_matrix</p></li>
@@ -565,7 +562,7 @@ matrix</p>
 mass offset to the distribution</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>particle_dist</strong> – a (6, <code class="docutils literal notranslate"><span class="pre">nparts</span></code>) matrix of coordinates</p>
 </dd>
 </dl>
@@ -576,7 +573,7 @@ mass offset to the distribution</p></li>
 <span class="sig-name descname"><span class="pre">sigma_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">twiss_in</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">betax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">emitx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">betay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">emity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blength</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">espread</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/tracking/particles.html#sigma_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.tracking.particles.sigma_matrix" title="Permalink to this definition">#</a></dt>
 <dd><p>Calculate the correlation matrix to be used for particle generation</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ring</strong> – Lattice object or list of twiss parameters.</p></li>
 <li><p><strong>twiss_in</strong> – Data structure containing input twiss parameters.</p></li>
@@ -592,7 +589,7 @@ mass offset to the distribution</p></li>
 to the terminal</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>sigma_matrix</strong> – 6x6 correlation matrix</p>
 </dd>
 </dl>
@@ -658,7 +655,7 @@ This then computes the analytical uncoupled sigma matrix</p>
   
   <div class="footer-item">
     <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.0.2.<br>
 </p>
   </div>
   

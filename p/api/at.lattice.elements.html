@@ -1,12 +1,12 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>at.lattice.elements &#8212; Accelerator Toolbox 0.1.dev1+gdeaf24f documentation</title>
+    <title>at.lattice.elements &#8212; Accelerator Toolbox 0.1.dev1+g84e13ef documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -34,6 +34,7 @@
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
@@ -42,7 +43,7 @@
     <link rel="next" title="at.lattice.lattice_object" href="at.lattice.lattice_object.html" />
     <link rel="prev" title="at.lattice.cavity_access" href="at.lattice.cavity_access.html" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="docsearch:language" content="None">
+<meta name="docsearch:language" content="en">
   </head>
   
   
@@ -534,17 +535,13 @@
               <article class="bd-article" role="main">
                 
   <section id="module-at.lattice.elements">
-<span id="at-lattice-elements"></span><h1>at.lattice.elements<a class="headerlink" href="#module-at.lattice.elements" title="Permalink to this headline">#</a></h1>
+<span id="at-lattice-elements"></span><h1>at.lattice.elements<a class="headerlink" href="#module-at.lattice.elements" title="Permalink to this heading">#</a></h1>
 <p>Module to define common elements used in AT.</p>
 <p>Each element has a default PassMethod attribute for which it should have the
 appropriate attributes.  If a different PassMethod is set, it is the caller’s
 responsibility to ensure that the appropriate attributes are present.</p>
 <p class="rubric">Classes</p>
 <table class="autosummary longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#at.lattice.elements.Aperture" title="at.lattice.elements.Aperture"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Aperture</span></code></a>(family_name, limits, **kwargs)</p></td>
 <td><p>pyAT aperture element</p></td>
@@ -608,7 +605,7 @@ responsibility to ensure that the appropriate attributes are present.</p>
 <dd><p>Bases: <a class="reference internal" href="#at.lattice.elements.Element" title="at.lattice.elements.Element"><code class="xref py py-class docutils literal notranslate"><span class="pre">Element</span></code></a></p>
 <p>pyAT aperture element</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>family_name</strong> – Name of the element</p></li>
 <li><p><strong>limits</strong> – (4,) array of physical aperture:
@@ -636,7 +633,7 @@ responsibility to ensure that the appropriate attributes are present.</p>
 <dd><p>Bases: <a class="reference internal" href="#at.lattice.elements.Drift" title="at.lattice.elements.Drift"><code class="xref py py-class docutils literal notranslate"><span class="pre">Drift</span></code></a></p>
 <p>pyAT collimator element</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>family_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Name of the element</p></li>
 <li><p><strong>length</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Element length [m]</p></li>
@@ -659,7 +656,7 @@ responsibility to ensure that the appropriate attributes are present.</p>
 <dd><p>Bases: <a class="reference internal" href="#at.lattice.elements.LongElement" title="at.lattice.elements.LongElement"><code class="xref py py-class docutils literal notranslate"><span class="pre">LongElement</span></code></a></p>
 <p>pyAT corrector element</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>family_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Name of the element</p></li>
 <li><p><strong>length</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Element length [m]</p></li>
@@ -681,7 +678,7 @@ responsibility to ensure that the appropriate attributes are present.</p>
 <dd><p>Bases: <a class="reference internal" href="#at.lattice.elements.Multipole" title="at.lattice.elements.Multipole"><code class="xref py py-class docutils literal notranslate"><span class="pre">Multipole</span></code></a></p>
 <p>pyAT dipole element</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>family_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Name of the element</p></li>
 <li><p><strong>length</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Element length [m]</p></li>
@@ -691,7 +688,7 @@ responsibility to ensure that the appropriate attributes are present.</p>
 <li><p><strong>k=0</strong> – Field index</p></li>
 </ul>
 </dd>
-<dt class="field-even">Keyword Arguments</dt>
+<dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
 <li><p><strong>EntranceAngle=0.0</strong> – entrance angle</p></li>
 <li><p><strong>ExitAngle=0.0</strong> – exit angle</p></li>
@@ -737,7 +734,7 @@ responsibility to ensure that the appropriate attributes are present.</p>
 <dd><p>Bases: <a class="reference internal" href="#at.lattice.elements.LongElement" title="at.lattice.elements.LongElement"><code class="xref py py-class docutils literal notranslate"><span class="pre">LongElement</span></code></a></p>
 <p>pyAT drift space element</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>family_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Name of the element</p></li>
 <li><p><strong>length</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Element length [m]</p></li>
@@ -750,7 +747,7 @@ responsibility to ensure that the appropriate attributes are present.</p>
 <span class="sig-name descname"><span class="pre">insert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">insert_list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/elements.html#Drift.insert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.elements.Drift.insert" title="Permalink to this definition">#</a></dt>
 <dd><p>insert elements inside a drift</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>insert_list</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.10)"><em>Iterable</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><em>Tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference internal" href="#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>]</em><em>]</em><em>]</em>) – <p>iterable, each item of insert_list is itself an
 iterable with 2 objects:</p>
 <ol class="arabic simple">
@@ -761,7 +758,7 @@ the drift will be divided but no element will be inserted.</p></li>
 </ol>
 </p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>elem_list</strong> – a list of elements.</p>
 </dd>
 </dl>
@@ -789,7 +786,7 @@ the drift will be divided but no element will be inserted.</p></li>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Base class for AT elements</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>family_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Name of the element</p>
 </dd>
 </dl>
@@ -816,11 +813,11 @@ the drift will be divided but no element will be inserted.</p></li>
 <dd><p>split the element in len(frac) pieces whose length
 is frac[i]*self.Length</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>frac</strong> – length of each slice expressed as a fraction of the
 initial length. <code class="docutils literal notranslate"><span class="pre">sum(frac)</span></code> may differ from 1.</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>elem_list</strong> – a list of elements equivalent to the original.</p>
 </dd>
 </dl>
@@ -873,7 +870,7 @@ __eq__ method when comparing lattices.</p>
 <p>pyAT long element</p>
 <p>Bse class for long elements</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>family_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Name of the element</p></li>
 <li><p><strong>length</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Element length [m]</p></li>
@@ -887,11 +884,11 @@ __eq__ method when comparing lattices.</p>
 <dd><p>split the element in len(frac) pieces whose length
 is frac[i]*self.Length</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>frac</strong> – length of each slice expressed as a fraction of the
 initial length. <code class="docutils literal notranslate"><span class="pre">sum(frac)</span></code> may differ from 1.</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>elem_list</strong> – a list of elements equivalent to the original.</p>
 </dd>
 </dl>
@@ -915,7 +912,7 @@ initial length. <code class="docutils literal notranslate"><span class="pre">sum
 <dd><p>Bases: <a class="reference internal" href="#at.lattice.elements.Element" title="at.lattice.elements.Element"><code class="xref py py-class docutils literal notranslate"><span class="pre">Element</span></code></a></p>
 <p>Linear (6, 6) transfer matrix</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>family_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Name of the element</p></li>
 <li><p><strong>m66</strong> – Transfer matrix. Default: Identity matrix</p></li>
@@ -936,7 +933,7 @@ initial length. <code class="docutils literal notranslate"><span class="pre">sum
 <dd><p>Bases: <a class="reference internal" href="#at.lattice.elements.Element" title="at.lattice.elements.Element"><code class="xref py py-class docutils literal notranslate"><span class="pre">Element</span></code></a></p>
 <p>pyAT marker element</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>family_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Name of the element</p>
 </dd>
 </dl>
@@ -949,7 +946,7 @@ initial length. <code class="docutils literal notranslate"><span class="pre">sum
 <dd><p>Bases: <a class="reference internal" href="#at.lattice.elements.Element" title="at.lattice.elements.Element"><code class="xref py py-class docutils literal notranslate"><span class="pre">Element</span></code></a></p>
 <p>pyAT monitor element</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>family_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Name of the element</p>
 </dd>
 </dl>
@@ -962,7 +959,7 @@ initial length. <code class="docutils literal notranslate"><span class="pre">sum
 <dd><p>Bases: <a class="reference internal" href="#at.lattice.elements.LongElement" title="at.lattice.elements.LongElement"><code class="xref py py-class docutils literal notranslate"><span class="pre">LongElement</span></code></a>, <a class="reference internal" href="#at.lattice.elements.ThinMultipole" title="at.lattice.elements.ThinMultipole"><code class="xref py py-class docutils literal notranslate"><span class="pre">ThinMultipole</span></code></a></p>
 <p>pyAT multipole element</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>family_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Name of the element</p></li>
 <li><p><strong>length</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Element length [m]</p></li>
@@ -970,7 +967,7 @@ initial length. <code class="docutils literal notranslate"><span class="pre">sum
 <li><p><strong>poly_b</strong> – Array of skew multipole components</p></li>
 </ul>
 </dd>
-<dt class="field-even">Keyword Arguments</dt>
+<dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
 <li><p><strong>MaxOrder</strong> – Number of desired multipoles. Default: highest index of
 non-zero polynomial coefficients</p></li>
@@ -999,7 +996,7 @@ non-zero polynomial coefficients</p></li>
 <dd><p>Bases: <a class="reference internal" href="#at.lattice.elements.Multipole" title="at.lattice.elements.Multipole"><code class="xref py py-class docutils literal notranslate"><span class="pre">Multipole</span></code></a></p>
 <p>pyAT octupole element, with no changes from multipole at present</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>family_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Name of the element</p></li>
 <li><p><strong>length</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Element length [m]</p></li>
@@ -1007,7 +1004,7 @@ non-zero polynomial coefficients</p></li>
 <li><p><strong>poly_b</strong> – Array of skew multipole components</p></li>
 </ul>
 </dd>
-<dt class="field-even">Keyword Arguments</dt>
+<dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
 <li><p><strong>MaxOrder</strong> – Number of desired multipoles. Default: highest index of
 non-zero polynomial coefficients</p></li>
@@ -1035,14 +1032,14 @@ non-zero polynomial coefficients</p></li>
 <dd><p>Bases: <a class="reference internal" href="#at.lattice.elements.Multipole" title="at.lattice.elements.Multipole"><code class="xref py py-class docutils literal notranslate"><span class="pre">Multipole</span></code></a></p>
 <p>pyAT quadrupole element</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>family_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Name of the element</p></li>
 <li><p><strong>length</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Element length [m]</p></li>
 <li><p><strong>k</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>]</em>) – strength [mˆ-2]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Keyword Arguments</dt>
+<dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
 <li><p><strong>PolynomB</strong> – straight multipoles</p></li>
 <li><p><strong>PolynomA</strong> – skew multipoles</p></li>
@@ -1078,7 +1075,7 @@ non-zero polynomial coefficients</p></li>
 <dd><p>Bases: <a class="reference internal" href="#at.lattice.elements.LongElement" title="at.lattice.elements.LongElement"><code class="xref py py-class docutils literal notranslate"><span class="pre">LongElement</span></code></a></p>
 <p>pyAT RF cavity element</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>family_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Name of the element</p></li>
 <li><p><strong>length</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Element length [m]</p></li>
@@ -1088,7 +1085,7 @@ non-zero polynomial coefficients</p></li>
 <li><p><strong>energy</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – ring energy [eV]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Keyword Arguments</dt>
+<dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>TimeLag=0</strong> – Cavity time lag</p>
 </dd>
 </dl>
@@ -1106,14 +1103,14 @@ non-zero polynomial coefficients</p></li>
 <dd><p>Bases: <a class="reference internal" href="#at.lattice.elements.Multipole" title="at.lattice.elements.Multipole"><code class="xref py py-class docutils literal notranslate"><span class="pre">Multipole</span></code></a></p>
 <p>pyAT sextupole element</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>family_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Name of the element</p></li>
 <li><p><strong>length</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Element length [m]</p></li>
 <li><p><strong>h</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>]</em>) – strength [mˆ-3]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Keyword Arguments</dt>
+<dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
 <li><p><strong>PolynomB</strong> – straight multipoles</p></li>
 <li><p><strong>PolynomA</strong> – skew multipoles</p></li>
@@ -1147,14 +1144,14 @@ non-zero polynomial coefficients</p></li>
 <dd><p>Bases: <a class="reference internal" href="#at.lattice.elements.Element" title="at.lattice.elements.Element"><code class="xref py py-class docutils literal notranslate"><span class="pre">Element</span></code></a></p>
 <p>pyAT thin multipole element</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>family_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Name of the element</p></li>
 <li><p><strong>poly_a</strong> – Array of normal multipole components</p></li>
 <li><p><strong>poly_b</strong> – Array of skew multipole components</p></li>
 </ul>
 </dd>
-<dt class="field-even">Keyword Arguments</dt>
+<dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>MaxOrder</strong> – Number of desired multipoles. Default: highest index of
 non-zero polynomial coefficients</p>
 </dd>
@@ -1174,7 +1171,7 @@ non-zero polynomial coefficients</p>
 <p>pyAT wiggler element</p>
 <p>See atwiggler.m</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>length</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – total length of the wiggler</p></li>
 <li><p><strong>wiggle_period</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – length must be a multiple of this</p></li>
@@ -1244,7 +1241,7 @@ array-like object</p></li>
   
   <div class="footer-item">
     <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.0.2.<br>
 </p>
   </div>
   

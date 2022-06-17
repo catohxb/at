@@ -1,12 +1,12 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Cavity Control &#8212; Accelerator Toolbox 0.1.dev1+gdeaf24f documentation</title>
+    <title>Cavity Control &#8212; Accelerator Toolbox 0.1.dev1+g84e13ef documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -34,6 +34,7 @@
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
@@ -44,7 +45,7 @@
     <link rel="next" title="Collective" href="Collective.html" />
     <link rel="prev" title="PyAT Primer" href="Primer.html" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="docsearch:language" content="None">
+<meta name="docsearch:language" content="en">
   </head>
   
   
@@ -573,13 +574,13 @@
               <article class="bd-article" role="main">
                 
   <section id="cavity-control">
-<h1>Cavity Control<a class="headerlink" href="#cavity-control" title="Permalink to this headline">#</a></h1>
+<h1>Cavity Control<a class="headerlink" href="#cavity-control" title="Permalink to this heading">#</a></h1>
 <p>A lattice may contain multiple RF cavities, grouped according to
 different RF systems: main cavities, harmonic cavities…
 AT provides simple tools to tune them, with methods and properties of
 the <code class="docutils literal notranslate"><span class="pre">Lattice</span></code> object.</p>
 <section id="lattice-methods-for-cavity-control">
-<h2>Lattice methods for cavity control<a class="headerlink" href="#lattice-methods-for-cavity-control" title="Permalink to this headline">#</a></h2>
+<h2>Lattice methods for cavity control<a class="headerlink" href="#lattice-methods-for-cavity-control" title="Permalink to this heading">#</a></h2>
 <p>All methods have <code class="docutils literal notranslate"><span class="pre">array</span></code> and <code class="docutils literal notranslate"><span class="pre">cavpts</span></code> keyword arguments, used to
 select the cavities concerned by the command.</p>
 <ul class="simple">
@@ -623,7 +624,7 @@ cavity sets makes them available everywhere the lattice is visible.</p>
 in-place modification of the lattice, or creation of a shallow copy with
 modified cavities.</p>
 <section id="voltage">
-<h3>Voltage:<a class="headerlink" href="#voltage" title="Permalink to this headline">#</a></h3>
+<h3>Voltage:<a class="headerlink" href="#voltage" title="Permalink to this heading">#</a></h3>
 <p><a class="reference internal" href="../api/at.lattice.cavity_access.html#at.lattice.cavity_access.get_rf_voltage" title="at.lattice.cavity_access.get_rf_voltage"><code class="xref py py-func docutils literal notranslate"><span class="pre">voltage</span> <span class="pre">=</span> <span class="pre">ring.get_rf_voltage(cavpts=None,</span> <span class="pre">array=False)</span></code></a></p>
 <p>The scalar voltage is the sum of the cavity voltages of the cavities
 with the lowest frequency within the selection, multiplied by the
@@ -633,7 +634,7 @@ periodicity.</p>
 specified value on the fundamental mode.</p>
 </section>
 <section id="frequency">
-<h3>Frequency:<a class="headerlink" href="#frequency" title="Permalink to this headline">#</a></h3>
+<h3>Frequency:<a class="headerlink" href="#frequency" title="Permalink to this heading">#</a></h3>
 <p><a class="reference internal" href="../api/at.lattice.cavity_access.html#at.lattice.cavity_access.get_rf_frequency" title="at.lattice.cavity_access.get_rf_frequency"><code class="xref py py-func docutils literal notranslate"><span class="pre">frequency</span> <span class="pre">=</span> <span class="pre">ring.get_rf_frequency</span> <span class="pre">(cavpts=None,</span> <span class="pre">array=False)</span></code></a></p>
 <p>The frequency of the fundamental mode is returned.</p>
 <p><a class="reference internal" href="../api/at.physics.revolution.html#at.physics.revolution.set_rf_frequency" title="at.physics.revolution.set_rf_frequency"><code class="xref py py-func docutils literal notranslate"><span class="pre">ring.set_rf_frequency(frequency=None,</span> <span class="pre">dp=None,</span> <span class="pre">dct=None,</span> <span class="pre">cavpts=None,</span> <span class="pre">array=False,</span> <span class="pre">copy=False)</span></code></a></p>
@@ -648,7 +649,7 @@ cavities and the frequency of all other cavities is scaled by the same
 ratio.</p>
 </section>
 <section id="time-lag">
-<h3>Time lag<a class="headerlink" href="#time-lag" title="Permalink to this headline">#</a></h3>
+<h3>Time lag<a class="headerlink" href="#time-lag" title="Permalink to this heading">#</a></h3>
 <p>The time lag is expressed in values of path lengthening <span class="math notranslate nohighlight">\(c\tau\)</span>, the 6th
 particle coordinate [m].</p>
 <p><a class="reference internal" href="../api/at.lattice.cavity_access.html#at.lattice.cavity_access.get_rf_timelag" title="at.lattice.cavity_access.get_rf_timelag"><code class="xref py py-func docutils literal notranslate"><span class="pre">time_lag</span> <span class="pre">=</span> <span class="pre">ring.get_rf_timelag(cavpts=None,</span> <span class="pre">array=False)</span></code></a></p>
@@ -659,7 +660,7 @@ cavities and the time lag of all the other selected cavities is shifted
 by the same amount.</p>
 </section>
 <section id="all-in-one-method">
-<h3>All-in-one method<a class="headerlink" href="#all-in-one-method" title="Permalink to this headline">#</a></h3>
+<h3>All-in-one method<a class="headerlink" href="#all-in-one-method" title="Permalink to this heading">#</a></h3>
 <p><a class="reference internal" href="../api/at.lattice.cavity_access.html#at.lattice.cavity_access.set_cavity" title="at.lattice.cavity_access.set_cavity"><code class="xref py py-func docutils literal notranslate"><span class="pre">ring.set_cavity(ring,</span> <span class="pre">Voltage=None,</span> <span class="pre">Frequency=None,</span> <span class="pre">TimeLag=None,</span> <span class="pre">cavpts=None,</span> <span class="pre">array=False,</span> <span class="pre">copy=False)</span></code></a></p>
 <p>This method sets only the explicitly provided values, the other ones are
 left unchanged. For the frequency, a special value <a class="reference internal" href="../api/at.lattice.cavity_access.html#at.lattice.cavity_access.Frf" title="at.lattice.cavity_access.Frf"><code class="xref py py-class docutils literal notranslate"><span class="pre">at.Frf.NOMINAL</span></code></a>
@@ -670,7 +671,7 @@ for individual methods.</p>
 </section>
 </section>
 <section id="lattice-properties">
-<h2>Lattice properties<a class="headerlink" href="#lattice-properties" title="Permalink to this headline">#</a></h2>
+<h2>Lattice properties<a class="headerlink" href="#lattice-properties" title="Permalink to this heading">#</a></h2>
 <p>The properties provide an even easier way to control the cavities, but
 are restricted to the default behaviour of the equivalent Lattice
 method:</p>
@@ -732,7 +733,7 @@ cavities by default),</p></li>
   
   <div class="footer-item">
     <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.0.2.<br>
 </p>
   </div>
   

@@ -1,12 +1,12 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>PyAT Primer &#8212; Accelerator Toolbox 0.1.dev1+gdeaf24f documentation</title>
+    <title>PyAT Primer &#8212; Accelerator Toolbox 0.1.dev1+g84e13ef documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -34,6 +34,7 @@
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
@@ -44,7 +45,7 @@
     <link rel="next" title="Cavity Control" href="CavityControl.html" />
     <link rel="prev" title="Installation" href="Installation.html" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="docsearch:language" content="None">
+<meta name="docsearch:language" content="en">
   </head>
   
   
@@ -605,9 +606,9 @@
               <article class="bd-article" role="main">
                 
   <section id="pyat-primer">
-<h1>PyAT Primer<a class="headerlink" href="#pyat-primer" title="Permalink to this headline">#</a></h1>
+<h1>PyAT Primer<a class="headerlink" href="#pyat-primer" title="Permalink to this heading">#</a></h1>
 <section id="introduction">
-<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">#</a></h2>
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">#</a></h2>
 <p>The Accelerator Toolbox (AT) is a toolbox of functions in Matlab for
 charged particle beam simulation. It was created by Andrei Terebilo in
 the late 1990’s. The original papers still serve as a good introduction
@@ -616,7 +617,7 @@ produced by Terebilo. The next version of AT is considered AT2.0. Here
 we provide examples showing some of the changes from AT1.3, but also
 serving as an introduction for someone just starting AT.</p>
 <section id="coordinates">
-<h3>Coordinates<a class="headerlink" href="#coordinates" title="Permalink to this headline">#</a></h3>
+<h3>Coordinates<a class="headerlink" href="#coordinates" title="Permalink to this heading">#</a></h3>
 <p>The 6-d phase space coordinates used in AT are as follows</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\vec Z = \begin{pmatrix} x \\ \frac{p_x}{p_0}=x'(1+\delta) \\ y \\ \frac{p_y}{p_0}=y'(1+\delta) \\ \delta=\frac{\left(p_z-p_0\right)}{p_0} \\ c\tau\end{pmatrix}\end{split}\]</div>
@@ -625,7 +626,7 @@ relative to the ideal particle.</p>
 </section>
 </section>
 <section id="creation-of-elements-and-lattices">
-<h2>Creation of Elements and Lattices<a class="headerlink" href="#creation-of-elements-and-lattices" title="Permalink to this headline">#</a></h2>
+<h2>Creation of Elements and Lattices<a class="headerlink" href="#creation-of-elements-and-lattices" title="Permalink to this heading">#</a></h2>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import at
 import at.plot
 import numpy as np
@@ -704,11 +705,11 @@ an RF cavity, but one could track particles through this lattice, as is.</p>
 <strong>Quadrupole</strong>, <strong>RFcavity</strong>, <strong>Sextupole</strong>, <strong>Wiggler</strong>.</p>
 </section>
 <section id="lattice-querying-and-manipulation">
-<h2>Lattice Querying and Manipulation<a class="headerlink" href="#lattice-querying-and-manipulation" title="Permalink to this headline">#</a></h2>
+<h2>Lattice Querying and Manipulation<a class="headerlink" href="#lattice-querying-and-manipulation" title="Permalink to this heading">#</a></h2>
 <p>There are many parameters in a storage ring lattice. We need tools to
 view these parameters and to change them.</p>
 <section id="selecting-elements">
-<h3>Selecting elements<a class="headerlink" href="#selecting-elements" title="Permalink to this headline">#</a></h3>
+<h3>Selecting elements<a class="headerlink" href="#selecting-elements" title="Permalink to this heading">#</a></h3>
 <p>We have seen how to concatenate elements to form a lattice. To extract
 elements, two indexing methods may be used, similar to indexing in numpy
 arrays:</p>
@@ -785,7 +786,7 @@ boolean arrays, the same result can also be obtained as:</p>
 </div>
 </section>
 <section id="iterating-over-selected-elements">
-<h3>Iterating over selected elements<a class="headerlink" href="#iterating-over-selected-elements" title="Permalink to this headline">#</a></h3>
+<h3>Iterating over selected elements<a class="headerlink" href="#iterating-over-selected-elements" title="Permalink to this heading">#</a></h3>
 <p>The <strong>select</strong> method of the lattice object returns an iterator over the
 selected elements:</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>for elem in FODOcell.select(refqf | refqd):
@@ -814,7 +815,7 @@ selected elements:</p>
 </div>
 </section>
 <section id="extracting-attribute-values">
-<h3>Extracting attribute values<a class="headerlink" href="#extracting-attribute-values" title="Permalink to this headline">#</a></h3>
+<h3>Extracting attribute values<a class="headerlink" href="#extracting-attribute-values" title="Permalink to this heading">#</a></h3>
 <p>Following the previous example, we can get the quadrupole strengths
 (PolynomB[1]) with:</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>np.array([elem.PolynomB[1] for elem in FODOcell.select(refqf | refqd)])
@@ -833,7 +834,7 @@ function:</p>
 </div>
 </section>
 <section id="setting-attribute-values">
-<h3>Setting attribute values<a class="headerlink" href="#setting-attribute-values" title="Permalink to this headline">#</a></h3>
+<h3>Setting attribute values<a class="headerlink" href="#setting-attribute-values" title="Permalink to this heading">#</a></h3>
 <p>Similarly, using a the Lattice iterator, we can write:</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>new_strengths = [1.1, -1.3]
 for elem, strength in zip(FODOcell.select(refqf | refqd), new_strengths):
@@ -858,7 +859,7 @@ at.get_value_refpts(FODOcell, refqf | refqd, &#39;PolynomB&#39;, index=1)
 </section>
 </section>
 <section id="tracking">
-<h2>Tracking<a class="headerlink" href="#tracking" title="Permalink to this headline">#</a></h2>
+<h2>Tracking<a class="headerlink" href="#tracking" title="Permalink to this heading">#</a></h2>
 <p>Once a lattice is defined, electrons may be tracked through it.
 <strong>lattice_pass</strong> is the function that does the tracking. An example of
 its use is as follows:</p>
@@ -903,7 +904,7 @@ plt.plot(Z[0, 2, 0, :], Z[1, 2, 0, :],&#39;.&#39;)
 <img alt="../../_images/output_37_1.png" src="../../_images/output_37_1.png" />
 </section>
 <section id="computation-of-beam-parameters">
-<h2>Computation of beam parameters<a class="headerlink" href="#computation-of-beam-parameters" title="Permalink to this headline">#</a></h2>
+<h2>Computation of beam parameters<a class="headerlink" href="#computation-of-beam-parameters" title="Permalink to this heading">#</a></h2>
 <p>Now that particles can be tracked through the lattice, we can use the
 tracking to understand different properties of the lattice. First, we
 would like to understand the linear properties such as Twiss parameters,
@@ -1124,7 +1125,7 @@ smoother than those we saw before. They have been computed at more
 positions, by slicing the magnets in the <strong>plot_beta</strong> function.</p>
 </section>
 <section id="beam-sizes">
-<h2>Beam sizes<a class="headerlink" href="#beam-sizes" title="Permalink to this headline">#</a></h2>
+<h2>Beam sizes<a class="headerlink" href="#beam-sizes" title="Permalink to this heading">#</a></h2>
 <p>The parameters computed thus far use only the tracking through the
 lattice, with no radiation effects. In reality, for electrons, we know
 that there are radiation effects which cause a damping and diffusion and
@@ -1227,7 +1228,7 @@ for fld in beamdata.dtype.fields.keys():
 spread of <span class="math notranslate nohighlight">\(3.3\times 10^{-4}\)</span> and a bunch length of 12.2 mm.</p>
 </section>
 <section id="bibliography">
-<h2>Bibliography<a class="headerlink" href="#bibliography" title="Permalink to this headline">#</a></h2>
+<h2>Bibliography<a class="headerlink" href="#bibliography" title="Permalink to this heading">#</a></h2>
 <p><a class="reference external" href="https://www.slac.stanford.edu/pubs/slacpubs/8500/slac-pub-8732.pdf">1</a>
 A. Terebilo <em>Accelerator Toolbox for Matlab</em>, SLAC-PUB 8732 (May 2001)</p>
 <p><a class="reference external" href="https://inspirehep.net/files/298dd81ab9ce89bfb2a42442b46b0379">2</a>
@@ -1287,7 +1288,7 @@ Rev. Special Topics - Accelerators and Beams, Vol 2,(1999)</p>
   
   <div class="footer-item">
     <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.0.2.<br>
 </p>
   </div>
   
