@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>at.physics.amat &#8212; Accelerator Toolbox 0.1.dev1+g950c303 documentation</title>
+    <title>at.physics.amat &#8212; Accelerator Toolbox 0.1.dev1+gff2d0da documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -166,7 +166,7 @@
               <article class="bd-article" role="main">
                 
   <h1>Source code for at.physics.amat</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;A-matrix construction&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">numpy</span>
 <span class="kn">from</span> <span class="nn">scipy.linalg</span> <span class="kn">import</span> <span class="n">block_diag</span><span class="p">,</span> <span class="n">eig</span><span class="p">,</span> <span class="n">inv</span><span class="p">,</span> <span class="n">solve</span>
 <span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">pi</span>
@@ -186,55 +186,77 @@
 <span class="n">_submat</span> <span class="o">=</span> <span class="p">[</span><span class="nb">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="nb">slice</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="nb">slice</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">)]</span>
 
 
-<span class="k">def</span> <span class="nf">jmat</span><span class="p">(</span><span class="n">ind</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Return the antisymetric block diagonal matrix [[0, 1][-1, 0]]</span>
+<div class="viewcode-block" id="jmat"><a class="viewcode-back" href="../../../p/api/at.physics.amat.html#at.physics.amat.jmat">[docs]</a><span class="k">def</span> <span class="nf">jmat</span><span class="p">(</span><span class="n">ind</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;antisymetric block diagonal matrix [[0, 1][-1, 0]]</span>
 
-<span class="sd">    INPUT</span>
-<span class="sd">        ind     1, 2 or 3. Matrix dimension</span>
+<span class="sd">    Parameters:</span>
+<span class="sd">        ind:    Matrix dimension: 1, 2 or 3</span>
 
-<span class="sd">    OUTPUT</span>
-<span class="sd">        jm      block diagonal matrix, (2, 2) or (4, 4) or (6, 6)</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        S:      Block diagonal matrix, (2, 2) or (4, 4) or (6, 6)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">_jm</span><span class="p">[</span><span class="n">ind</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">_jm</span><span class="p">[</span><span class="n">ind</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span></div>
 
 
-<span class="k">def</span> <span class="nf">jmatswap</span><span class="p">(</span><span class="n">ind</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Modified version of jmat to deal with the swap of the</span>
-<span class="sd">    longitudinal coordinates&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">_jmswap</span><span class="p">[</span><span class="n">ind</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
-
-
-<span class="k">def</span> <span class="nf">a_matrix</span><span class="p">(</span><span class="n">tt</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;A, eigval = a_matrix(T)</span>
-<span class="sd">    Find the A matrix from one turn map matrix T such that:</span>
-
-<span class="sd">               [Rotx  0    0  ]</span>
-<span class="sd">    inv(A)*T*A=[ 0   Rotz  0  ]</span>
-<span class="sd">               [ 0    0   Rots]</span>
-
-<span class="sd">    Order it so that it is close to the order of x,y,z</span>
-<span class="sd">    also ensure that positive modes are before negative so that</span>
-<span class="sd">    one has proper symplecticity</span>
-<span class="sd">    B. Nash July 18, 2013</span>
-
-<span class="sd">    INPUT</span>
-<span class="sd">    T       (m, m)  transfer matrix for 1 turn</span>
-
-<span class="sd">    OUTPUT</span>
-<span class="sd">    A       (m, m)  A-matrix</span>
-<span class="sd">    eigval  (m,)    vector of Eigen values of T</span>
+<div class="viewcode-block" id="jmatswap"><a class="viewcode-back" href="../../../p/api/at.physics.amat.html#at.physics.amat.jmatswap">[docs]</a><span class="k">def</span> <span class="nf">jmatswap</span><span class="p">(</span><span class="n">ind</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Modified antisymetric block diagonal matrix to deal with the swap of the</span>
+<span class="sd">    longitudinal coordinates</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">nv</span> <span class="o">=</span> <span class="n">tt</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">_jmswap</span><span class="p">[</span><span class="n">ind</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span></div>
+
+
+<span class="c1"># noinspection PyPep8Naming</span>
+<div class="viewcode-block" id="a_matrix"><a class="viewcode-back" href="../../../p/api/at.physics.amat.html#at.physics.amat.a_matrix">[docs]</a><span class="k">def</span> <span class="nf">a_matrix</span><span class="p">(</span><span class="n">M</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Find the :math:`\mathbf{A}` matrix from one turn map :math:`\mathbf{M}`</span>
+
+<span class="sd">    :math:`\mathbf{A}` represents A change of referential which converts the</span>
+<span class="sd">    one-turn transfer matrix :math:`\mathbf{M}` into a set of rotations:</span>
+
+<span class="sd">    .. math:: \mathbf{M} = \mathbf{A} \cdot \mathbf{R} \cdot \mathbf{A}^{-1}</span>
+
+<span class="sd">    with :math:`\mathbf{R}` A block-diagonal matrix:</span>
+
+<span class="sd">    .. math::</span>
+
+<span class="sd">        \mathbf{R}=\begin{pmatrix}rot_1 &amp; 0 &amp; 0 \\ 0 &amp; rot_2 &amp; 0 \\ 0 &amp; 0 &amp;</span>
+<span class="sd">        rot_3\end{pmatrix} \text{, and } rot_i = \begin{pmatrix}\cos{\mu_i} &amp;</span>
+<span class="sd">        \sin{\mu_i} \\ -\sin{\mu_i} &amp; cos{\mu_i}\end{pmatrix}</span>
+
+<span class="sd">    With radiation damping, the diagonal blocks are instead damped rotations:</span>
+
+<span class="sd">    .. math::</span>
+
+<span class="sd">        rot_i = \begin{pmatrix}\exp{(-\alpha_i}) &amp; 0 \\ 0 &amp; \exp{(-\alpha_i)}</span>
+<span class="sd">        \end{pmatrix} \cdot \begin{pmatrix}\cos{\mu_i} &amp; \sin{\mu_i} \\</span>
+<span class="sd">        -\sin{\mu_i} &amp; cos{\mu_i}\end{pmatrix}</span>
+
+<span class="sd">    The order of diagonal blocks it set so that it is close to the order of</span>
+<span class="sd">    x,y,z.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        M:     (m, m)  transfer matrix for 1 turn</span>
+
+<span class="sd">    m, the dimension of :math:`\mathbf{M}`, may be 2 (single plane),</span>
+<span class="sd">    4 (betatron motion) or 6 (full motion)</span>
+
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A:      (m, m)  A-matrix</span>
+<span class="sd">        eigval: (m/2,)    Vector of Eigen values of T</span>
+
+<span class="sd">    References:</span>
+<span class="sd">        **[1]** Etienne Forest, Phys. Rev. E 58, 2481 – Published 1 August 1998</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">nv</span> <span class="o">=</span> <span class="n">M</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">dms</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">nv</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
     <span class="n">jmt</span> <span class="o">=</span> <span class="n">jmatswap</span><span class="p">(</span><span class="n">dms</span><span class="p">)</span>
     <span class="n">select</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">nv</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
     <span class="n">rbase</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">stack</span><span class="p">((</span><span class="n">select</span><span class="p">,</span> <span class="n">select</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
 
     <span class="c1"># noinspection PyTupleAssignmentBalance</span>
-    <span class="n">lmbd</span><span class="p">,</span> <span class="n">vv</span> <span class="o">=</span> <span class="n">eig</span><span class="p">(</span><span class="n">tt</span><span class="p">)</span>
+    <span class="n">lmbd</span><span class="p">,</span> <span class="n">vv</span> <span class="o">=</span> <span class="n">eig</span><span class="p">(</span><span class="n">M</span><span class="p">)</span>
     <span class="c1"># Compute the norms</span>
-    <span class="n">vp</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">vv</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">jmt</span><span class="p">)</span>
+    <span class="n">vp</span> <span class="o">=</span> <span class="n">vv</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">jmt</span>
     <span class="n">n</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.5</span><span class="n">j</span> <span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">vp</span><span class="o">.</span><span class="n">T</span> <span class="o">*</span> <span class="n">vv</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">1.0E-12</span><span class="p">):</span>
         <span class="k">raise</span> <span class="n">AtError</span><span class="p">(</span><span class="s1">&#39;Unstable ring&#39;</span><span class="p">)</span>
@@ -250,7 +272,7 @@
     <span class="c1">#  n1x n1y n1z</span>
     <span class="c1">#  n2x n2y n2z</span>
     <span class="c1">#  n3x n3y n3z</span>
-    <span class="n">nn</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="nb">abs</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="o">-</span><span class="mf">1.</span><span class="n">j</span> <span class="o">*</span> <span class="n">vn</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">jmt</span><span class="p">)</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">_vxyz</span><span class="p">[</span><span class="n">dms</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])))</span>
+    <span class="n">nn</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="nb">abs</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="o">-</span><span class="mf">1.</span><span class="n">j</span> <span class="o">*</span> <span class="n">vn</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">jmt</span> <span class="o">@</span> <span class="n">_vxyz</span><span class="p">[</span><span class="n">dms</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]))</span>
     <span class="n">rows</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">select</span><span class="p">)</span>
     <span class="n">order</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">ixz</span> <span class="ow">in</span> <span class="n">select</span><span class="p">:</span>
@@ -261,106 +283,136 @@
     <span class="n">lmbd</span> <span class="o">=</span> <span class="n">lmbd</span><span class="p">[</span><span class="n">order</span><span class="p">]</span>
     <span class="n">aa</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">numpy</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">v_ordered</span><span class="p">),</span> <span class="n">numpy</span><span class="o">.</span><span class="n">imag</span><span class="p">(</span><span class="n">v_ordered</span><span class="p">)))</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span>
         <span class="p">(</span><span class="n">nv</span><span class="p">,</span> <span class="n">nv</span><span class="p">),</span> <span class="n">order</span><span class="o">=</span><span class="s1">&#39;F&#39;</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">aa</span><span class="p">,</span> <span class="n">lmbd</span>
+    <span class="k">return</span> <span class="n">aa</span><span class="p">,</span> <span class="n">lmbd</span></div>
 
 
-<div class="viewcode-block" id="amat"><a class="viewcode-back" href="../../../p/api/at.physics.amat.html#at.physics.amat">[docs]</a><span class="k">def</span> <span class="nf">amat</span><span class="p">(</span><span class="n">tt</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;A = amat(T)</span>
-<span class="sd">    Find the A matrix from one turn map matrix T</span>
-<span class="sd">    Provided for backward compatibility, see &quot; A, eigval = a_matrix(T)&quot;</span>
+<span class="c1"># noinspection PyPep8Naming</span>
+<div class="viewcode-block" id="amat"><a class="viewcode-back" href="../../../p/api/at.physics.amat.html#at.physics.amat.amat">[docs]</a><span class="k">def</span> <span class="nf">amat</span><span class="p">(</span><span class="n">M</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Find the A matrix from one turn map matrix T</span>
 
-<span class="sd">    INPUT</span>
-<span class="sd">    T       (m, m)  transfer matrix for 1 turn</span>
+<span class="sd">    Provided for backward compatibility, see :py:func:`a_matrix`</span>
 
-<span class="sd">    OUTPUT</span>
-<span class="sd">    A       (m, m)  A-matrix</span>
+<span class="sd">    Parameters:</span>
+<span class="sd">        M:     (m, m)  transfer matrix for 1 turn</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A:     (m, m)  A-matrix</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">aa</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">a_matrix</span><span class="p">(</span><span class="n">tt</span><span class="p">)</span>
+    <span class="n">aa</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">a_matrix</span><span class="p">(</span><span class="n">M</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">aa</span></div>
 
 
 <span class="c1"># noinspection PyPep8Naming</span>
-<span class="k">def</span> <span class="nf">symplectify</span><span class="p">(</span><span class="n">M</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    symplectify makes a matrix more symplectic</span>
-<span class="sd">    follow Healy algorithm as described by McKay</span>
-<span class="sd">    BNL-75461-2006-CP</span>
+<div class="viewcode-block" id="symplectify"><a class="viewcode-back" href="../../../p/api/at.physics.amat.html#at.physics.amat.symplectify">[docs]</a><span class="k">def</span> <span class="nf">symplectify</span><span class="p">(</span><span class="n">M</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Makes A matrix more symplectic</span>
+
+<span class="sd">    following the Healy algorithm described by MacKay</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        M:  Almost symplectic matrix</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        MS: Symplectic matrix</span>
+
+<span class="sd">    References:</span>
+<span class="sd">        **[1]** `W.W.MacKay, Comment on Healy&#39;s symplectification algorithm,</span>
+<span class="sd">        Proceedings of EPAC 2006</span>
+<span class="sd">        &lt;https://accelconf.web.cern.ch/e06/PAPERS/WEPCH152.PDF&gt;`_</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">nv</span> <span class="o">=</span> <span class="n">M</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">J</span> <span class="o">=</span> <span class="n">jmat</span><span class="p">(</span><span class="n">nv</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">S</span> <span class="o">=</span> <span class="n">jmat</span><span class="p">(</span><span class="n">nv</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">I</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="n">nv</span><span class="p">)</span>
 
-    <span class="n">V</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">J</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="n">nv</span><span class="p">)</span> <span class="o">-</span> <span class="n">M</span><span class="p">),</span> <span class="n">inv</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="n">nv</span><span class="p">)</span> <span class="o">+</span> <span class="n">M</span><span class="p">))</span>
+    <span class="n">V</span> <span class="o">=</span> <span class="n">S</span> <span class="o">@</span> <span class="p">(</span><span class="n">I</span> <span class="o">-</span> <span class="n">M</span><span class="p">)</span> <span class="o">@</span> <span class="n">inv</span><span class="p">(</span><span class="n">I</span> <span class="o">+</span> <span class="n">M</span><span class="p">)</span>
     <span class="c1"># V should be almost symmetric.  Replace with symmetrized version.</span>
-
     <span class="n">W</span> <span class="o">=</span> <span class="p">(</span><span class="n">V</span> <span class="o">+</span> <span class="n">V</span><span class="o">.</span><span class="n">T</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
     <span class="c1"># Now reconstruct M from W</span>
-    <span class="n">JW</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">J</span><span class="p">,</span> <span class="n">W</span><span class="p">)</span>
-    <span class="n">MS</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="n">nv</span><span class="p">)</span> <span class="o">+</span> <span class="n">JW</span><span class="p">,</span> <span class="n">inv</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="n">nv</span><span class="p">)</span> <span class="o">-</span> <span class="n">JW</span><span class="p">))</span>
-    <span class="k">return</span> <span class="n">MS</span>
+    <span class="n">SW</span> <span class="o">=</span> <span class="n">S</span> <span class="o">@</span> <span class="n">W</span>
+    <span class="n">MS</span> <span class="o">=</span> <span class="p">(</span><span class="n">I</span> <span class="o">+</span> <span class="n">SW</span><span class="p">)</span> <span class="o">@</span> <span class="n">inv</span><span class="p">(</span><span class="n">I</span> <span class="o">-</span> <span class="n">SW</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">MS</span></div>
 
 
-<span class="k">def</span> <span class="nf">get_mode_matrices</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Given a (m, m) A matrix , find the R-matrices of the m/2 normal modes&quot;&quot;&quot;</span>
+<span class="c1"># noinspection PyPep8Naming</span>
+<div class="viewcode-block" id="get_mode_matrices"><a class="viewcode-back" href="../../../p/api/at.physics.amat.html#at.physics.amat.get_mode_matrices">[docs]</a><span class="k">def</span> <span class="nf">get_mode_matrices</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Derives the R-matrices from the A-matrix</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        A:  A-matrix</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        R:</span>
+
+<span class="sd">    References:</span>
+<span class="sd">        **[1]** Andrzej Wolski, Phys. Rev. ST Accel. Beams 9, 024001 –</span>
+<span class="sd">        Published 3 February 2006</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">mul2</span><span class="p">(</span><span class="n">slc</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">a</span><span class="p">[:,</span> <span class="n">slc</span><span class="p">]</span> <span class="o">@</span> <span class="n">tt</span><span class="p">[</span><span class="n">slc</span><span class="p">,</span> <span class="n">slc</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">A</span><span class="p">[:,</span> <span class="n">slc</span><span class="p">]</span> <span class="o">@</span> <span class="n">tt</span><span class="p">[</span><span class="n">slc</span><span class="p">,</span> <span class="n">slc</span><span class="p">]</span>
 
-    <span class="n">dms</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">//</span> <span class="mi">2</span>
+    <span class="n">dms</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">//</span> <span class="mi">2</span>
     <span class="c1"># Rk = A * Ik * A.T                     Only for symplectic</span>
-    <span class="c1"># modelist = [numpy.dot(a[:, sl], a.T[sl, :]) for sl in _submat[:dms]]</span>
+    <span class="c1"># modelist = [numpy.dot(A[:, sl], A.T[sl, :]) for sl in _submat[:dms]]</span>
     <span class="c1"># Rk = A * S * Ik * inv(A) * S.T        Even for non-symplectic</span>
     <span class="n">ss</span> <span class="o">=</span> <span class="n">jmat</span><span class="p">(</span><span class="n">dms</span><span class="p">)</span>
     <span class="n">tt</span> <span class="o">=</span> <span class="n">jmatswap</span><span class="p">(</span><span class="n">dms</span><span class="p">)</span>
     <span class="n">a_s</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">mul2</span><span class="p">(</span><span class="n">slc</span><span class="p">)</span> <span class="k">for</span> <span class="n">slc</span> <span class="ow">in</span> <span class="n">_submat</span><span class="p">[:</span><span class="n">dms</span><span class="p">]],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">inva</span> <span class="o">=</span> <span class="n">solve</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">ss</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+    <span class="n">inva</span> <span class="o">=</span> <span class="n">solve</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">ss</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
     <span class="n">modelist</span> <span class="o">=</span> <span class="p">[</span><span class="n">a_s</span><span class="p">[:,</span> <span class="n">sl</span><span class="p">]</span> <span class="o">@</span> <span class="n">inva</span><span class="p">[</span><span class="n">sl</span><span class="p">,</span> <span class="p">:]</span> <span class="k">for</span> <span class="n">sl</span> <span class="ow">in</span> <span class="n">_submat</span><span class="p">[:</span><span class="n">dms</span><span class="p">]]</span>
-    <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">modelist</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">modelist</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></div>
 
 
-<span class="k">def</span> <span class="nf">get_tunes_damp</span><span class="p">(</span><span class="n">tt</span><span class="p">,</span> <span class="n">rr</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    mode_emit, damping_rates, tunes = get_tunes_damp(T, R)</span>
+<span class="c1"># noinspection PyPep8Naming</span>
+<div class="viewcode-block" id="get_tunes_damp"><a class="viewcode-back" href="../../../p/api/at.physics.amat.html#at.physics.amat.get_tunes_damp">[docs]</a><span class="k">def</span> <span class="nf">get_tunes_damp</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">R</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Computes the mode emittances, tunes and damping times</span>
 
-<span class="sd">    INPUT</span>
-<span class="sd">        T                   (m, m) transfer matrix for 1 turn</span>
-<span class="sd">        R                   (m, m) beam matrix (optional)</span>
+<span class="sd">    Parameters:</span>
+<span class="sd">        M:     (m, m) transfer matrix for 1 turn</span>
+<span class="sd">        R:     (m, m) beam matrix (optional), allows computing the mode</span>
+<span class="sd">                emittances</span>
 
-<span class="sd">        m can be 2 (single plane), 4 (betatron motion) or 6 (full motion)</span>
+<span class="sd">    m, the dimension of :math:`\mathbf{M}`, may be 2 (single plane),</span>
+<span class="sd">    4 (betatron motion) or 6 (full motion)</span>
 
-<span class="sd">    OUTPUT</span>
-<span class="sd">        record array with the following fields:</span>
-<span class="sd">        tunes               (m/2,) tunes of the m/2 normal modes</span>
-<span class="sd">        damping_rates       (m/2,) damping rates of the m/2 normal modes</span>
-<span class="sd">        mode_matrices       (m/2, m, m) the R-matrices of the m/2 normal modes</span>
-<span class="sd">        mode_emittances     Only if R is specified: (m/2,) emittance of each</span>
-<span class="sd">                            of the m/2 normal modes</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        V:     record array with the following fields:</span>
+
+<span class="sd">          **tunes**             (m/2,) tunes of the m/2 normal modes</span>
+
+<span class="sd">          **damping_rates**     (m/2,) damping rates of the m/2 normal modes</span>
+
+<span class="sd">          **mode_matrices**     (m/2, m, m) the R-matrices of the m/2 normal</span>
+<span class="sd">          modes</span>
+
+<span class="sd">          **mode_emittances**   Only if R is specified: (m/2,) emittance of each</span>
+<span class="sd">          of the m/2 normal modes</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">nv</span> <span class="o">=</span> <span class="n">tt</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">nv</span> <span class="o">=</span> <span class="n">M</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">dms</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">nv</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
-    <span class="n">aa</span><span class="p">,</span> <span class="n">vps</span> <span class="o">=</span> <span class="n">a_matrix</span><span class="p">(</span><span class="n">tt</span><span class="p">)</span>
+    <span class="n">A</span><span class="p">,</span> <span class="n">vps</span> <span class="o">=</span> <span class="n">a_matrix</span><span class="p">(</span><span class="n">M</span><span class="p">)</span>
     <span class="n">tunes</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">mod</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">vps</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">/</span> <span class="n">pi</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
     <span class="n">damping_rates</span> <span class="o">=</span> <span class="o">-</span><span class="n">numpy</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">absolute</span><span class="p">(</span><span class="n">vps</span><span class="p">))</span>
 
-    <span class="k">if</span> <span class="n">rr</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">R</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">rec</span><span class="o">.</span><span class="n">fromarrays</span><span class="p">(</span>
             <span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">tunes</span><span class="p">),</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">damping_rates</span><span class="p">),</span>
-             <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">get_mode_matrices</span><span class="p">(</span><span class="n">aa</span><span class="p">))),</span>
+             <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">get_mode_matrices</span><span class="p">(</span><span class="n">A</span><span class="p">))),</span>
             <span class="n">dtype</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;tunes&#39;</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="p">(</span><span class="n">dms</span><span class="p">,)),</span>
                    <span class="p">(</span><span class="s1">&#39;damping_rates&#39;</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="p">(</span><span class="n">dms</span><span class="p">,)),</span>
                    <span class="p">(</span><span class="s1">&#39;mode_matrices&#39;</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="p">(</span><span class="n">dms</span><span class="p">,</span> <span class="n">nv</span><span class="p">,</span> <span class="n">nv</span><span class="p">))]</span>
         <span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">jmt</span> <span class="o">=</span> <span class="n">jmat</span><span class="p">(</span><span class="n">dms</span><span class="p">)</span>
-        <span class="n">rdiag</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">aa</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">jmt</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">rr</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">jmt</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">aa</span><span class="p">)))))</span>
+        <span class="n">rdiag</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">jmt</span> <span class="o">@</span> <span class="n">R</span> <span class="o">@</span> <span class="n">jmt</span> <span class="o">@</span> <span class="n">A</span><span class="p">)</span>
         <span class="n">mode_emit</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">rdiag</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">nv</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">rdiag</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">nv</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span>
         <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">rec</span><span class="o">.</span><span class="n">fromarrays</span><span class="p">(</span>
             <span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">tunes</span><span class="p">),</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">damping_rates</span><span class="p">),</span>
-             <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">get_mode_matrices</span><span class="p">(</span><span class="n">aa</span><span class="p">)),</span> <span class="n">mode_emit</span><span class="p">),</span>
+             <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">get_mode_matrices</span><span class="p">(</span><span class="n">A</span><span class="p">)),</span> <span class="n">mode_emit</span><span class="p">),</span>
             <span class="n">dtype</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;tunes&#39;</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="p">(</span><span class="n">dms</span><span class="p">,)),</span>
                    <span class="p">(</span><span class="s1">&#39;damping_rates&#39;</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="p">(</span><span class="n">dms</span><span class="p">,)),</span>
                    <span class="p">(</span><span class="s1">&#39;mode_matrices&#39;</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="p">(</span><span class="n">dms</span><span class="p">,</span> <span class="n">nv</span><span class="p">,</span> <span class="n">nv</span><span class="p">)),</span>
                    <span class="p">(</span><span class="s1">&#39;mode_emittances&#39;</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="p">(</span><span class="n">dms</span><span class="p">,))]</span>
-        <span class="p">)</span>
+        <span class="p">)</span></div>
 </pre></div>
 
               </article>

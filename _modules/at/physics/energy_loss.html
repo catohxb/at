@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>at.physics.energy_loss &#8212; Accelerator Toolbox 0.1.dev1+g950c303 documentation</title>
+    <title>at.physics.energy_loss &#8212; Accelerator Toolbox 0.1.dev1+gff2d0da documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -169,12 +169,13 @@
 <span></span><span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
 <span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
 <span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">pi</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span>
 <span class="kn">import</span> <span class="nn">numpy</span>
 <span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">least_squares</span>
-<span class="kn">from</span> <span class="nn">at.lattice</span> <span class="kn">import</span> <span class="n">Lattice</span><span class="p">,</span> <span class="n">Dipole</span><span class="p">,</span> <span class="n">Wiggler</span><span class="p">,</span> <span class="n">RFCavity</span>
+<span class="kn">from</span> <span class="nn">at.lattice</span> <span class="kn">import</span> <span class="n">Lattice</span><span class="p">,</span> <span class="n">Dipole</span><span class="p">,</span> <span class="n">Wiggler</span><span class="p">,</span> <span class="n">RFCavity</span><span class="p">,</span> <span class="n">Refpts</span>
 <span class="kn">from</span> <span class="nn">at.lattice</span> <span class="kn">import</span> <span class="n">check_radiation</span><span class="p">,</span> <span class="n">AtError</span>
 <span class="kn">from</span> <span class="nn">at.lattice</span> <span class="kn">import</span> <span class="n">checktype</span><span class="p">,</span> <span class="n">set_value_refpts</span><span class="p">,</span> <span class="n">get_cells</span><span class="p">,</span> <span class="n">refpts_len</span>
-<span class="kn">from</span> <span class="nn">at.lattice.constants</span> <span class="kn">import</span> <span class="n">clight</span><span class="p">,</span> <span class="n">Cgamma</span>
+<span class="kn">from</span> <span class="nn">at.constants</span> <span class="kn">import</span> <span class="n">clight</span><span class="p">,</span> <span class="n">Cgamma</span>
 <span class="kn">from</span> <span class="nn">at.tracking</span> <span class="kn">import</span> <span class="n">lattice_pass</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;get_energy_loss&#39;</span><span class="p">,</span> <span class="s1">&#39;set_cavity_phase&#39;</span><span class="p">,</span> <span class="s1">&#39;ELossMethod&#39;</span><span class="p">,</span>
@@ -182,25 +183,28 @@
 
 
 <div class="viewcode-block" id="ELossMethod"><a class="viewcode-back" href="../../../p/api/at.physics.energy_loss.html#at.physics.energy_loss.ELossMethod">[docs]</a><span class="k">class</span> <span class="nc">ELossMethod</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Enum class for energy loss methods&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;methods for the computation of energy losses&quot;&quot;&quot;</span>
+    <span class="c1">#: The losses are obtained from</span>
+    <span class="c1">#: :math:`E_{loss}=C_\gamma/2\pi . E^4 . I_2`.</span>
+    <span class="c1">#: Takes into account bending magnets and wigglers.</span>
     <span class="n">INTEGRAL</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="c1">#: The losses are obtained by tracking without cavities.</span>
+    <span class="c1">#: Needs radiation ON, takes into account all radiating elements</span>
     <span class="n">TRACKING</span> <span class="o">=</span> <span class="mi">2</span></div>
 
 
-<div class="viewcode-block" id="get_energy_loss"><a class="viewcode-back" href="../../../p/api/at.physics.energy_loss.html#at.physics.energy_loss.get_energy_loss">[docs]</a><span class="k">def</span> <span class="nf">get_energy_loss</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">ELossMethod</span><span class="o">.</span><span class="n">INTEGRAL</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Compute the energy loss per turn [eV]</span>
+<div class="viewcode-block" id="get_energy_loss"><a class="viewcode-back" href="../../../p/api/at.physics.energy_loss.html#at.physics.energy_loss.get_energy_loss">[docs]</a><span class="k">def</span> <span class="nf">get_energy_loss</span><span class="p">(</span><span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span>
+                    <span class="n">method</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ELossMethod</span><span class="p">]</span> <span class="o">=</span> <span class="n">ELossMethod</span><span class="o">.</span><span class="n">INTEGRAL</span>
+                    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Computes the energy loss per turn</span>
 
-<span class="sd">    PARAMETERS</span>
-<span class="sd">        ring                        lattice description</span>
+<span class="sd">    Parameters:</span>
+<span class="sd">        ring:           Lattice description</span>
+<span class="sd">        method:         Method for energy loss computation.</span>
+<span class="sd">          See :py:class:`ELossMethod`.</span>
 
-<span class="sd">    KEYWORDS</span>
-<span class="sd">        method=ELossMethod.INTEGRAL method for energy loss computation</span>
-<span class="sd">            The enum class ELossMethod declares 2 values</span>
-<span class="sd">            INTEGRAL: The losses are obtained from</span>
-<span class="sd">                Losses = Cgamma / 2pi * EGeV^4 * i2</span>
-<span class="sd">                Takes into account bending magnets and wigglers.</span>
-<span class="sd">            TRACKING: The losses are obtained by tracking without cavities.</span>
-<span class="sd">                Needs radiation ON, takes into account all radiating elements.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        eloss (float):  Energy loss per turn [eV]</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># noinspection PyShadowingNames</span>
@@ -208,14 +212,14 @@
         <span class="sd">&quot;&quot;&quot;Losses = Cgamma / 2pi * EGeV^4 * i2</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">def</span> <span class="nf">wiggler_i2</span><span class="p">(</span><span class="n">wiggler</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">wiggler_i2</span><span class="p">(</span><span class="n">wiggler</span><span class="p">:</span> <span class="n">Wiggler</span><span class="p">):</span>
             <span class="n">rhoinv</span> <span class="o">=</span> <span class="n">wiggler</span><span class="o">.</span><span class="n">Bmax</span> <span class="o">/</span> <span class="n">ring</span><span class="o">.</span><span class="n">BRho</span>
             <span class="n">coefh</span> <span class="o">=</span> <span class="n">wiggler</span><span class="o">.</span><span class="n">By</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span>
             <span class="n">coefv</span> <span class="o">=</span> <span class="n">wiggler</span><span class="o">.</span><span class="n">Bx</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span>
             <span class="k">return</span> <span class="n">wiggler</span><span class="o">.</span><span class="n">Length</span> <span class="o">*</span> <span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">coefh</span> <span class="o">*</span> <span class="n">coefh</span><span class="p">)</span> <span class="o">+</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span>
                 <span class="n">coefv</span><span class="o">*</span><span class="n">coefv</span><span class="p">))</span> <span class="o">*</span> <span class="n">rhoinv</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="mi">2</span>
 
-        <span class="k">def</span> <span class="nf">dipole_i2</span><span class="p">(</span><span class="n">dipole</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">dipole_i2</span><span class="p">(</span><span class="n">dipole</span><span class="p">:</span> <span class="n">Dipole</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">dipole</span><span class="o">.</span><span class="n">BendingAngle</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">dipole</span><span class="o">.</span><span class="n">Length</span>
 
         <span class="n">i2</span> <span class="o">=</span> <span class="mf">0.0</span>
@@ -262,24 +266,24 @@
 
 
 <span class="c1"># noinspection PyPep8Naming</span>
-<div class="viewcode-block" id="get_timelag_fromU0"><a class="viewcode-back" href="../../../p/api/at.physics.energy_loss.html#at.physics.energy_loss.get_timelag_fromU0">[docs]</a><span class="k">def</span> <span class="nf">get_timelag_fromU0</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">ELossMethod</span><span class="o">.</span><span class="n">INTEGRAL</span><span class="p">,</span> <span class="n">cavpts</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="get_timelag_fromU0"><a class="viewcode-back" href="../../../p/api/at.physics.energy_loss.html#at.physics.energy_loss.get_timelag_fromU0">[docs]</a><span class="k">def</span> <span class="nf">get_timelag_fromU0</span><span class="p">(</span><span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span>
+                       <span class="n">method</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ELossMethod</span><span class="p">]</span> <span class="o">=</span> <span class="n">ELossMethod</span><span class="o">.</span><span class="n">INTEGRAL</span><span class="p">,</span>
+                       <span class="n">cavpts</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Refpts</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Get the TimeLag attribute of RF cavities based on frequency,</span>
 <span class="sd">    voltage and energy loss per turn, so that the synchronous phase is zero.</span>
 <span class="sd">    An error occurs if all cavities do not have the same frequency.</span>
 <span class="sd">    Used in set_cavity_phase()</span>
 
-<span class="sd">    PARAMETERS</span>
-<span class="sd">        ring        lattice description</span>
-
-<span class="sd">    KEYWORDS</span>
-<span class="sd">        method=ELossMethod.INTEGRAL</span>
-<span class="sd">                    method for energy loss computation. See &quot;get_energy_loss&quot;.</span>
-<span class="sd">        cavpts=None Cavity location. If None, use all cavities.</span>
-<span class="sd">                    This allows to ignore harmonic cavities.</span>
-<span class="sd">    RETURN</span>
-<span class="sd">        timelag     Timelag</span>
-<span class="sd">        ts          Time difference with the present value</span>
+<span class="sd">    Parameters:</span>
+<span class="sd">        ring:               Lattice description</span>
+<span class="sd">        method:             Method for energy loss computation.</span>
+<span class="sd">          See :py:class:`ELossMethod`.</span>
+<span class="sd">        cavpts:             Cavity location. If None, use all cavities.</span>
+<span class="sd">          This allows to ignore harmonic cavities.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        timelag (float):    Timelag</span>
+<span class="sd">        ts (float):         Time difference with the present value</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">singlev</span><span class="p">(</span><span class="n">values</span><span class="p">):</span>
         <span class="n">vals</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
@@ -326,27 +330,28 @@
     <span class="k">return</span> <span class="n">timelag</span><span class="p">,</span> <span class="n">ts</span></div>
 
 
-<div class="viewcode-block" id="set_cavity_phase"><a class="viewcode-back" href="../../../p/api/at.physics.energy_loss.html#at.physics.energy_loss.set_cavity_phase">[docs]</a><span class="k">def</span> <span class="nf">set_cavity_phase</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">ELossMethod</span><span class="o">.</span><span class="n">TRACKING</span><span class="p">,</span>
-                     <span class="n">refpts</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cavpts</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="set_cavity_phase"><a class="viewcode-back" href="../../../p/api/at.physics.energy_loss.html#at.physics.energy_loss.set_cavity_phase">[docs]</a><span class="k">def</span> <span class="nf">set_cavity_phase</span><span class="p">(</span><span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span>
+                     <span class="n">method</span><span class="o">=</span><span class="n">ELossMethod</span><span class="o">.</span><span class="n">TRACKING</span><span class="p">,</span>
+                     <span class="n">refpts</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Refpts</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                     <span class="n">cavpts</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Refpts</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                     <span class="n">copy</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">   Adjust the TimeLag attribute of RF cavities based on frequency,</span>
-<span class="sd">   voltage and energy loss per turn, so that the synchronous phase is zero.</span>
-<span class="sd">   An error occurs if all cavities do not have the same frequency.</span>
+<span class="sd">    Adjust the TimeLag attribute of RF cavities based on frequency,</span>
+<span class="sd">    voltage and energy loss per turn, so that the synchronous phase is zero.</span>
+<span class="sd">    An error occurs if all cavities do not have the same frequency.</span>
 
-<span class="sd">   !!!!WARNING!!!: This function changes the time reference,</span>
-<span class="sd">   this should be avoided</span>
+<span class="sd">    .. Warning::</span>
 
-<span class="sd">    PARAMETERS</span>
-<span class="sd">        ring        lattice description</span>
+<span class="sd">       This function changes the time reference, this should be avoided</span>
 
-<span class="sd">    KEYWORDS</span>
-<span class="sd">        method=ELossMethod.INTEGRAL</span>
-<span class="sd">                            method for energy loss computation.</span>
-<span class="sd">                            See &quot;get_energy_loss&quot;.</span>
-<span class="sd">        cavpts=None         Cavity location. If None, use all cavities.</span>
-<span class="sd">                            This allows to ignore harmonic cavities.</span>
-<span class="sd">        copy=False          If True, returns a shallow copy of ring with new</span>
-<span class="sd">                            cavity elements. Otherwise, modify ring in-place.</span>
+<span class="sd">    Parameters:</span>
+<span class="sd">        ring:       Lattice description</span>
+<span class="sd">        method:     Method for energy loss computation.</span>
+<span class="sd">          See :py:class:`ELossMethod`.</span>
+<span class="sd">        cavpts:     Cavity location. If None, use all cavities.</span>
+<span class="sd">          This allows to ignore harmonic cavities.</span>
+<span class="sd">        copy:       If True, returns a shallow copy of ring with new</span>
+<span class="sd">          cavity elements. Otherwise, modify ring in-place.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># refpts is kept for backward compatibility</span>
     <span class="k">if</span> <span class="n">cavpts</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">refpts</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>

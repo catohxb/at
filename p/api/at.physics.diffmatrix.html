@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>at.physics.diffmatrix &#8212; Accelerator Toolbox 0.1.dev1+g950c303 documentation</title>
+    <title>at.physics.diffmatrix &#8212; Accelerator Toolbox 0.1.dev1+gff2d0da documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -540,28 +540,36 @@
 <p class="rubric">Functions</p>
 <table class="autosummary longtable table autosummary">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#at.physics.diffmatrix.find_mpole_raddiff_matrix" title="at.physics.diffmatrix.find_mpole_raddiff_matrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">find_mpole_raddiff_matrix</span></code></a></p></td>
-<td><p>diffmatrix=find_mpole_raddiff_matrix(element, orbit, energy)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#at.physics.diffmatrix.find_mpole_raddiff_matrix" title="at.physics.diffmatrix.find_mpole_raddiff_matrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">find_mpole_raddiff_matrix</span></code></a>(element, orbit, energy)</p></td>
+<td><p>Computes the radiation diffusion matrix B defined in <a class="footnote-reference brackets" href="#id3" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> for multipole elements</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py function">
 <dt class="sig sig-object py" id="at.physics.diffmatrix.find_mpole_raddiff_matrix">
-<span class="sig-name descname"><span class="pre">find_mpole_raddiff_matrix</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#at.physics.diffmatrix.find_mpole_raddiff_matrix" title="Permalink to this definition">#</a></dt>
-<dd><p>diffmatrix=find_mpole_raddiff_matrix(element, orbit, energy)</p>
-<dl class="simple">
-<dt>element:   element structure with field names consistent with</dt><dd><p>a multipole transverse field model.</p>
+<span class="sig-name descname"><span class="pre">find_mpole_raddiff_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">element</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orbit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">energy</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#at.physics.diffmatrix.find_mpole_raddiff_matrix" title="Permalink to this definition">#</a></dt>
+<dd><p>Computes the radiation diffusion matrix B defined in <a class="footnote-reference brackets" href="#id3" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>
+for multipole elements</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>element</strong> – Lattice element</p></li>
+<li><p><strong>orbit</strong> – (6,) closed orbit at the entrance of <code class="docutils literal notranslate"><span class="pre">element</span></code></p></li>
+<li><p><strong>energy</strong> – particle energy</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>diffmatrix</strong> – The radiation diffusion matrix</p>
 </dd>
 </dl>
-<p>orbit:     (6,) vector of the closed orbit at the entrance
-energy:    ring energy</p>
-<p>calculate radiation diffusion matrix B defined in [2]
-for multipole elements in MATLAB Accelerator Toolbox
-A.Terebilo 8/14/00</p>
-<p>References
-[1] M.Sands ‘The Physics of Electron Storage Rings
-[2] Ohmi, Kirata, Oide ‘From the beam-envelope matrix to synchrotron
-radiation integrals’, Phys.Rev.E  Vol.49 p.751 (1994)</p>
+<p class="rubric">References</p>
+<p><strong>[1]</strong> M.Sands, <em>The Physics of Electron Storage Rings</em></p>
+<aside class="footnote brackets" id="id3" role="note">
+<span class="label"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id2">2</a>)</span>
+<p>Ohmi, Kirata, Oide, <em>From the beam-envelope matrix to synchrotron
+radiation integrals</em>, Phys.Rev.E  Vol.49 p.751 (1994)</p>
+</aside>
 </dd></dl>
 
 </section>

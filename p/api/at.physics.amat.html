@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>at.physics.amat &#8212; Accelerator Toolbox 0.1.dev1+g950c303 documentation</title>
+    <title>at.physics.amat &#8212; Accelerator Toolbox 0.1.dev1+gff2d0da documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -38,6 +38,8 @@
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="at.physics.diffmatrix" href="at.physics.diffmatrix.html" />
@@ -534,18 +536,171 @@
               
               <article class="bd-article" role="main">
                 
-  <section id="at-physics-amat">
-<h1>at.physics.amat<a class="headerlink" href="#at-physics-amat" title="Permalink to this heading">#</a></h1>
+  <section id="module-at.physics.amat">
+<span id="at-physics-amat"></span><h1>at.physics.amat<a class="headerlink" href="#module-at.physics.amat" title="Permalink to this heading">#</a></h1>
+<p>A-matrix construction</p>
+<p class="rubric">Functions</p>
+<table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#at.physics.amat.a_matrix" title="at.physics.amat.a_matrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">a_matrix</span></code></a>(M)</p></td>
+<td><p>Find the <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> matrix from one turn map <span class="math notranslate nohighlight">\(\mathbf{M}\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#at.physics.amat.amat" title="at.physics.amat.amat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">amat</span></code></a>(M)</p></td>
+<td><p>Find the A matrix from one turn map matrix T</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#at.physics.amat.jmat" title="at.physics.amat.jmat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">jmat</span></code></a>(ind)</p></td>
+<td><p>antisymetric block diagonal matrix [[0, 1][-1, 0]]</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#at.physics.amat.jmatswap" title="at.physics.amat.jmatswap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">jmatswap</span></code></a>(ind)</p></td>
+<td><p>Modified antisymetric block diagonal matrix to deal with the swap of the longitudinal coordinates</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#at.physics.amat.get_tunes_damp" title="at.physics.amat.get_tunes_damp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_tunes_damp</span></code></a>(M[, R])</p></td>
+<td><p>Computes the mode emittances, tunes and damping times</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#at.physics.amat.get_mode_matrices" title="at.physics.amat.get_mode_matrices"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_mode_matrices</span></code></a>(A)</p></td>
+<td><p>Derives the R-matrices from the A-matrix</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#at.physics.amat.symplectify" title="at.physics.amat.symplectify"><code class="xref py py-obj docutils literal notranslate"><span class="pre">symplectify</span></code></a>(M)</p></td>
+<td><p>Makes A matrix more symplectic</p></td>
+</tr>
+</tbody>
+</table>
 <dl class="py function">
-<dt class="sig sig-object py" id="at.physics.amat">
-<span class="sig-name descname"><span class="pre">amat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tt</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/physics/amat.html#amat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.physics.amat" title="Permalink to this definition">#</a></dt>
-<dd><p>A = amat(T)
-Find the A matrix from one turn map matrix T
-Provided for backward compatibility, see ” A, eigval = a_matrix(T)”</p>
-<p>INPUT
-T       (m, m)  transfer matrix for 1 turn</p>
-<p>OUTPUT
-A       (m, m)  A-matrix</p>
+<dt class="sig sig-object py" id="at.physics.amat.a_matrix">
+<span class="sig-name descname"><span class="pre">a_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">M</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/physics/amat.html#a_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.physics.amat.a_matrix" title="Permalink to this definition">#</a></dt>
+<dd><p>Find the <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> matrix from one turn map <span class="math notranslate nohighlight">\(\mathbf{M}\)</span></p>
+<p><span class="math notranslate nohighlight">\(\mathbf{A}\)</span> represents A change of referential which converts the
+one-turn transfer matrix <span class="math notranslate nohighlight">\(\mathbf{M}\)</span> into a set of rotations:</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{M} = \mathbf{A} \cdot \mathbf{R} \cdot \mathbf{A}^{-1}\]</div>
+<p>with <span class="math notranslate nohighlight">\(\mathbf{R}\)</span> A block-diagonal matrix:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{R}=\begin{pmatrix}rot_1 &amp; 0 &amp; 0 \\ 0 &amp; rot_2 &amp; 0 \\ 0 &amp; 0 &amp;
+rot_3\end{pmatrix} \text{, and } rot_i = \begin{pmatrix}\cos{\mu_i} &amp;
+\sin{\mu_i} \\ -\sin{\mu_i} &amp; cos{\mu_i}\end{pmatrix}\end{split}\]</div>
+<p>With radiation damping, the diagonal blocks are instead damped rotations:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}rot_i = \begin{pmatrix}\exp{(-\alpha_i}) &amp; 0 \\ 0 &amp; \exp{(-\alpha_i)}
+\end{pmatrix} \cdot \begin{pmatrix}\cos{\mu_i} &amp; \sin{\mu_i} \\
+-\sin{\mu_i} &amp; cos{\mu_i}\end{pmatrix}\end{split}\]</div>
+<p>The order of diagonal blocks it set so that it is close to the order of
+x,y,z.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>M</strong> – (m, m)  transfer matrix for 1 turn</p>
+</dd>
+</dl>
+<p>m, the dimension of <span class="math notranslate nohighlight">\(\mathbf{M}\)</span>, may be 2 (single plane),
+4 (betatron motion) or 6 (full motion)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>A</strong> – (m, m)  A-matrix</p></li>
+<li><p><strong>eigval</strong> – (m/2,)    Vector of Eigen values of T</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<p><strong>[1]</strong> Etienne Forest, Phys. Rev. E 58, 2481 – Published 1 August 1998</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="at.physics.amat.amat">
+<span class="sig-name descname"><span class="pre">amat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">M</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/physics/amat.html#amat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.physics.amat.amat" title="Permalink to this definition">#</a></dt>
+<dd><p>Find the A matrix from one turn map matrix T</p>
+<p>Provided for backward compatibility, see <a class="reference internal" href="#at.physics.amat.a_matrix" title="at.physics.amat.a_matrix"><code class="xref py py-func docutils literal notranslate"><span class="pre">a_matrix()</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>M</strong> – (m, m)  transfer matrix for 1 turn</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>A</strong> – (m, m)  A-matrix</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="at.physics.amat.get_mode_matrices">
+<span class="sig-name descname"><span class="pre">get_mode_matrices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/physics/amat.html#get_mode_matrices"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.physics.amat.get_mode_matrices" title="Permalink to this definition">#</a></dt>
+<dd><p>Derives the R-matrices from the A-matrix</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>A</strong> – A-matrix</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>R</strong></p>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<p><strong>[1]</strong> Andrzej Wolski, Phys. Rev. ST Accel. Beams 9, 024001 –
+Published 3 February 2006</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="at.physics.amat.get_tunes_damp">
+<span class="sig-name descname"><span class="pre">get_tunes_damp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">M</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">R</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/physics/amat.html#get_tunes_damp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.physics.amat.get_tunes_damp" title="Permalink to this definition">#</a></dt>
+<dd><p>Computes the mode emittances, tunes and damping times</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>M</strong> – (m, m) transfer matrix for 1 turn</p></li>
+<li><p><strong>R</strong> – (m, m) beam matrix (optional), allows computing the mode
+emittances</p></li>
+</ul>
+</dd>
+</dl>
+<p>m, the dimension of <span class="math notranslate nohighlight">\(\mathbf{M}\)</span>, may be 2 (single plane),
+4 (betatron motion) or 6 (full motion)</p>
+<dl class="field-list">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>V</strong> – record array with the following fields:</p>
+<p><strong>tunes</strong>             (m/2,) tunes of the m/2 normal modes</p>
+<p><strong>damping_rates</strong>     (m/2,) damping rates of the m/2 normal modes</p>
+<p><strong>mode_matrices</strong>     (m/2, m, m) the R-matrices of the m/2 normal
+modes</p>
+<p><strong>mode_emittances</strong>   Only if R is specified: (m/2,) emittance of each
+of the m/2 normal modes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="at.physics.amat.jmat">
+<span class="sig-name descname"><span class="pre">jmat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ind</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/physics/amat.html#jmat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.physics.amat.jmat" title="Permalink to this definition">#</a></dt>
+<dd><p>antisymetric block diagonal matrix [[0, 1][-1, 0]]</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ind</strong> – Matrix dimension: 1, 2 or 3</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>S</strong> – Block diagonal matrix, (2, 2) or (4, 4) or (6, 6)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="at.physics.amat.jmatswap">
+<span class="sig-name descname"><span class="pre">jmatswap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ind</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/physics/amat.html#jmatswap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.physics.amat.jmatswap" title="Permalink to this definition">#</a></dt>
+<dd><p>Modified antisymetric block diagonal matrix to deal with the swap of the
+longitudinal coordinates</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="at.physics.amat.symplectify">
+<span class="sig-name descname"><span class="pre">symplectify</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">M</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/physics/amat.html#symplectify"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.physics.amat.symplectify" title="Permalink to this definition">#</a></dt>
+<dd><p>Makes A matrix more symplectic</p>
+<p>following the Healy algorithm described by MacKay</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>M</strong> – Almost symplectic matrix</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>MS</strong> – Symplectic matrix</p>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<p><strong>[1]</strong> <a class="reference external" href="https://accelconf.web.cern.ch/e06/PAPERS/WEPCH152.PDF">W.W.MacKay, Comment on Healy’s symplectification algorithm,
+Proceedings of EPAC 2006</a></p>
 </dd></dl>
 
 </section>

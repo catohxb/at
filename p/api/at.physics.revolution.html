@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>at.physics.revolution &#8212; Accelerator Toolbox 0.1.dev1+g950c303 documentation</title>
+    <title>at.physics.revolution &#8212; Accelerator Toolbox 0.1.dev1+gff2d0da documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -38,6 +38,8 @@
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="at.physics.ring_parameters" href="at.physics.ring_parameters.html" />
@@ -543,10 +545,10 @@
 <td><p>Function to be used as decorator for <code class="docutils literal notranslate"><span class="pre">func(ring,</span> <span class="pre">*args,</span> <span class="pre">**kwargs)</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#at.physics.revolution.get_mcf" title="at.physics.revolution.get_mcf"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_mcf</span></code></a>(ring[, dp, keep_lattice])</p></td>
-<td><p>Compute the momentum compaction factor</p></td>
+<td><p>Compute the momentum compaction factor <span class="math notranslate nohighlight">\(\alpha\)</span></p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#at.physics.revolution.get_slip_factor" title="at.physics.revolution.get_slip_factor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_slip_factor</span></code></a>(ring, **kwargs)</p></td>
-<td><p>Compute the slip factor</p></td>
+<td><p>Compute the slip factor <span class="math notranslate nohighlight">\(\eta\)</span></p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#at.physics.revolution.get_revolution_frequency" title="at.physics.revolution.get_revolution_frequency"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_revolution_frequency</span></code></a>(ring[, dp, dct])</p></td>
 <td><p>Compute the revolution frequency of the full ring [Hz]</p></td>
@@ -560,11 +562,12 @@
 <dt class="sig sig-object py" id="at.physics.revolution.frequency_control">
 <span class="sig-name descname"><span class="pre">frequency_control</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/physics/revolution.html#frequency_control"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.physics.revolution.frequency_control" title="Permalink to this definition">#</a></dt>
 <dd><p>Function to be used as decorator for <code class="docutils literal notranslate"><span class="pre">func(ring,</span> <span class="pre">*args,</span> <span class="pre">**kwargs)</span></code></p>
-<p>If <code class="docutils literal notranslate"><span class="pre">ring.radiation</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code> and <code class="docutils literal notranslate"><span class="pre">dp</span></code>, <code class="docutils literal notranslate"><span class="pre">dct</span></code> or <code class="docutils literal notranslate"><span class="pre">df</span></code> is
-specified, make a copy of <code class="docutils literal notranslate"><span class="pre">ring</span></code> with a modified RF frequency, remove
-<code class="docutils literal notranslate"><span class="pre">dp</span></code>, <code class="docutils literal notranslate"><span class="pre">dct</span></code> or <code class="docutils literal notranslate"><span class="pre">df</span></code> from <code class="docutils literal notranslate"><span class="pre">kwargs</span></code> and call <code class="docutils literal notranslate"><span class="pre">func</span></code> with the
-modified <code class="docutils literal notranslate"><span class="pre">ring</span></code>.</p>
-<p>If <code class="docutils literal notranslate"><span class="pre">ring.radiation</span></code> is <code class="docutils literal notranslate"><span class="pre">False</span></code>, <code class="docutils literal notranslate"><span class="pre">func</span></code> is called unchanged.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">ring.radiation</span></code> is <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a> <strong>and</strong> <code class="docutils literal notranslate"><span class="pre">dp</span></code>, <code class="docutils literal notranslate"><span class="pre">dct</span></code> or <code class="docutils literal notranslate"><span class="pre">df</span></code>
+is specified in <code class="docutils literal notranslate"><span class="pre">kwargs</span></code>, make a copy of <code class="docutils literal notranslate"><span class="pre">ring</span></code> with a modified
+RF frequency, remove <code class="docutils literal notranslate"><span class="pre">dp</span></code>, <code class="docutils literal notranslate"><span class="pre">dct</span></code> or <code class="docutils literal notranslate"><span class="pre">df</span></code> from <code class="docutils literal notranslate"><span class="pre">kwargs</span></code> and call
+<code class="docutils literal notranslate"><span class="pre">func</span></code> with the modified <code class="docutils literal notranslate"><span class="pre">ring</span></code>.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">ring.radiation</span></code> is <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a> <strong>or</strong> no <code class="docutils literal notranslate"><span class="pre">dp</span></code>, <code class="docutils literal notranslate"><span class="pre">dct</span></code> or
+<code class="docutils literal notranslate"><span class="pre">df</span></code> is specified in <code class="docutils literal notranslate"><span class="pre">kwargs</span></code>, <code class="docutils literal notranslate"><span class="pre">func</span></code> is called unchanged.</p>
 <p>Examples:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@frequency_control</span>
 <span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">dp</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dct</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -576,16 +579,22 @@ modified <code class="docutils literal notranslate"><span class="pre">ring</span
 <dl class="py function">
 <dt class="sig sig-object py" id="at.physics.revolution.get_mcf">
 <span class="sig-name descname"><span class="pre">get_mcf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_lattice</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/physics/revolution.html#get_mcf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.physics.revolution.get_mcf" title="Permalink to this definition">#</a></dt>
-<dd><p>Compute the momentum compaction factor</p>
-<dl>
-<dt>PARAMETERS</dt><dd><p>ring            lattice description (radiation must be OFF)</p>
+<dd><p>Compute the momentum compaction factor <span class="math notranslate nohighlight">\(\alpha\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ring</strong> (<a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><em>Lattice</em></a>) – Lattice description (radiation must be OFF)</p></li>
+<li><p><strong>dp</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>]</em>) – Momentum deviation. Defaults to <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p></li>
+<li><p><strong>keep_lattice</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>]</em>) – Assume no lattice change since the previous tracking.
+Default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a></p></li>
+</ul>
 </dd>
-<dt>KEYWORDS</dt><dd><p>dp=0.0          momentum deviation.
-keep_lattice    Assume no lattice change since the previous tracking.</p>
-<blockquote>
-<div><p>Defaults to False</p>
-</div></blockquote>
-<p>dp_step=1.0E-6  momentum deviation used for differentiation</p>
+<dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>DPStep</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>]</em>) – Momentum step size.
+Default: <a class="reference internal" href="at.lattice.options.html#at.lattice.options.DConstant" title="at.lattice.options.DConstant"><code class="xref py py-data docutils literal notranslate"><span class="pre">DConstant.DPStep</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>mcf</strong> (<em>float</em>) – Momentum compaction factor <span class="math notranslate nohighlight">\(\alpha\)</span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -594,11 +603,16 @@ keep_lattice    Assume no lattice change since the previous tracking.</p>
 <dt class="sig sig-object py" id="at.physics.revolution.get_revolution_frequency">
 <span class="sig-name descname"><span class="pre">get_revolution_frequency</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dct</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/physics/revolution.html#get_revolution_frequency"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.physics.revolution.get_revolution_frequency" title="Permalink to this definition">#</a></dt>
 <dd><p>Compute the revolution frequency of the full ring [Hz]</p>
-<dl class="simple">
-<dt>PARAMETERS</dt><dd><p>ring            lattice description</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ring</strong> – Lattice description</p></li>
+<li><p><strong>dp</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>]</em>) – Momentum deviation. Defaults to <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p></li>
+<li><p><strong>dct</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>]</em>) – Path lengthening. Defaults to <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p></li>
+</ul>
 </dd>
-<dt>KEYWORDS</dt><dd><p>dp=0.0          momentum deviation.
-dct=0.0         Path length deviation</p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>frev</strong> – Revolution frequency [Hz]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -606,16 +620,20 @@ dct=0.0         Path length deviation</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="at.physics.revolution.get_slip_factor">
 <span class="sig-name descname"><span class="pre">get_slip_factor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/physics/revolution.html#get_slip_factor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.physics.revolution.get_slip_factor" title="Permalink to this definition">#</a></dt>
-<dd><p>Compute the slip factor</p>
-<dl>
-<dt>PARAMETERS</dt><dd><p>ring            lattice description (radiation must be OFF)</p>
+<dd><p>Compute the slip factor <span class="math notranslate nohighlight">\(\eta\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ring</strong> (<a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><em>Lattice</em></a>) – Lattice description (radiation must be OFF)</p>
 </dd>
-<dt>KEYWORDS</dt><dd><p>dp=0.0          momentum deviation.
-keep_lattice    Assume no lattice change since the previous tracking.</p>
-<blockquote>
-<div><p>Defaults to False</p>
-</div></blockquote>
-<p>dp_step=1.0E-6  momentum deviation used for differentiation</p>
+<dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>dp</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>]</em>) – Momentum deviation</p></li>
+<li><p><strong>DPStep</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>]</em>) – Momentum step size.
+Default: <a class="reference internal" href="at.lattice.options.html#at.lattice.options.DConstant" title="at.lattice.options.DConstant"><code class="xref py py-data docutils literal notranslate"><span class="pre">DConstant.DPStep</span></code></a></p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>eta</strong> (<em>float</em>) – Slip factor <span class="math notranslate nohighlight">\(\eta\)</span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -624,26 +642,30 @@ keep_lattice    Assume no lattice change since the previous tracking.</p>
 <dt class="sig sig-object py" id="at.physics.revolution.set_rf_frequency">
 <span class="sig-name descname"><span class="pre">set_rf_frequency</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dct</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/physics/revolution.html#set_rf_frequency"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.physics.revolution.set_rf_frequency" title="Permalink to this definition">#</a></dt>
 <dd><p>Set the RF frequency</p>
-<dl>
-<dt>PARAMETERS</dt><dd><p>ring            lattice description
-frequency       RF frequency [Hz]. Default: nominal frequency.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ring</strong> – Lattice description</p></li>
+<li><p><strong>frequency</strong> – RF frequency [Hz]. Default: nominal frequency.</p></li>
+<li><p><strong>dp</strong> – Momentum deviation. Defaults to <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p></li>
+<li><p><strong>dct</strong> – Path lengthening. Defaults to <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p></li>
+</ul>
 </dd>
-<dt>KEYWORDS</dt><dd><p>dp=0.0          Momentum deviation.
-dct=0.0         Path length deviation
-cavpts=None     If None, look for ring.cavpts, or otherwise take all</p>
-<blockquote>
-<div><p>cavities.</p>
-</div></blockquote>
-<dl class="simple">
-<dt>array=False     If False, frequency is applied to the selected cavities</dt><dd><p>with the lowest frequency. The frequency of all the
-other selected cavities is scaled by the same ratio.
-If True, directly apply frequency to the selected
-cavities. The value must be broadcastable to the number
-of cavities.</p>
-</dd>
-<dt>copy=False      If True, returns a shallow copy of ring with new</dt><dd><p>cavity elements. Otherwise, modify ring in-place</p>
-</dd>
-</dl>
+<dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>cavpts</strong> (<em>Optional</em><em>[</em><em>Refpts</em><em>]</em>) – If <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>, look for ring.cavpts, or
+otherwise take all cavities.</p></li>
+<li><p><strong>array</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>]</em>) – <p>If <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a> (default), <code class="docutils literal notranslate"><span class="pre">frequency</span></code>
+is applied to the selected cavities with the lowest frequency. The
+frequency of all the other selected cavities is scaled by the same
+ratio.</p>
+<p>If <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a>, directly apply <code class="docutils literal notranslate"><span class="pre">frequency</span></code> to the selected
+cavities. The value must be broadcastable to the number of cavities.</p>
+</p></li>
+<li><p><strong>copy</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>]</em>) – If <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a>, returns a shallow copy of
+<code class="docutils literal notranslate"><span class="pre">ring</span></code> with new cavity elements. Otherwise (default), modify
+<code class="docutils literal notranslate"><span class="pre">ring</span></code> in-place</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>

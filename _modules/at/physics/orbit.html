@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>at.physics.orbit &#8212; Accelerator Toolbox 0.1.dev1+g950c303 documentation</title>
+    <title>at.physics.orbit &#8212; Accelerator Toolbox 0.1.dev1+gff2d0da documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -170,14 +170,18 @@
 <span class="sd">Closed orbit related functions</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
 <span class="kn">from</span> <span class="nn">at.constants</span> <span class="kn">import</span> <span class="n">clight</span>
 <span class="kn">from</span> <span class="nn">at.lattice</span> <span class="kn">import</span> <span class="n">AtWarning</span><span class="p">,</span> <span class="n">check_radiation</span><span class="p">,</span> <span class="n">DConstant</span>
-<span class="kn">from</span> <span class="nn">at.lattice</span> <span class="kn">import</span> <span class="n">Lattice</span><span class="p">,</span> <span class="n">get_s_pos</span><span class="p">,</span> <span class="n">uint32_refpts</span>
+<span class="kn">from</span> <span class="nn">at.lattice</span> <span class="kn">import</span> <span class="n">Lattice</span><span class="p">,</span> <span class="n">get_s_pos</span><span class="p">,</span> <span class="n">uint32_refpts</span><span class="p">,</span> <span class="n">Refpts</span>
 <span class="kn">from</span> <span class="nn">at.tracking</span> <span class="kn">import</span> <span class="n">lattice_pass</span>
-<span class="kn">from</span> <span class="nn">at.physics</span> <span class="kn">import</span> <span class="n">ELossMethod</span><span class="p">,</span> <span class="n">get_timelag_fromU0</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">ELossMethod</span><span class="p">,</span> <span class="n">get_timelag_fromU0</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;find_orbit4&#39;</span><span class="p">,</span> <span class="s1">&#39;find_sync_orbit&#39;</span><span class="p">,</span> <span class="s1">&#39;find_orbit6&#39;</span><span class="p">,</span> <span class="s1">&#39;find_orbit&#39;</span><span class="p">]</span>
+<span class="n">Orbit</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Orbit&#39;</span><span class="p">,</span> <span class="s1">&#39;find_orbit4&#39;</span><span class="p">,</span> <span class="s1">&#39;find_sync_orbit&#39;</span><span class="p">,</span> <span class="s1">&#39;find_orbit6&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;find_orbit&#39;</span><span class="p">]</span>
 
 
 <span class="nd">@check_radiation</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
@@ -278,65 +282,68 @@
     <span class="k">return</span> <span class="n">ref_in</span>
 
 
-<div class="viewcode-block" id="find_orbit4"><a class="viewcode-back" href="../../../p/api/at.physics.orbit.html#at.physics.orbit.find_orbit4">[docs]</a><span class="k">def</span> <span class="nf">find_orbit4</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">dp</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">refpts</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dct</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">orbit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                <span class="n">keep_lattice</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;findorbit4 finds the closed orbit in the 4-d transverse phase</span>
-<span class="sd">    space by numerically solving for a fixed point of the one turn</span>
-<span class="sd">    map M calculated with lattice_pass.</span>
+<div class="viewcode-block" id="find_orbit4"><a class="viewcode-back" href="../../../p/api/at.physics.orbit.html#at.physics.orbit.find_orbit4">[docs]</a><span class="k">def</span> <span class="nf">find_orbit4</span><span class="p">(</span><span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span> <span class="n">dp</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+                <span class="n">refpts</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Refpts</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                <span class="n">dct</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                <span class="n">orbit</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Orbit</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                <span class="n">keep_lattice</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Gets the 4D closed orbit for a given dp</span>
 
-<span class="sd">        (X, PX, Y, PY, dP, CT2 ) = M (X, PX, Y, PY, dP, CT1)</span>
+<span class="sd">    Finds the closed orbit in the 4-d transverse phase space by numerically</span>
+<span class="sd">    solving for a fixed point of the one turn map M calculated with</span>
+<span class="sd">    :py:func:`.lattice_pass`.</span>
 
-<span class="sd">    under the CONSTANT MOMENTUM constraint dP and with NO constraint</span>
-<span class="sd">    on the 6-th coordinate CT</span>
+<span class="sd">    .. math:: \begin{pmatrix}x \\ p_x \\ y \\ p_y \\ dp \\ c\tau_2\end{pmatrix}</span>
+<span class="sd">       =\mathbf{M} \cdot</span>
+<span class="sd">       \begin{pmatrix}x \\ p_x \\ y \\ p_y \\ dp \\ c\tau_1\end{pmatrix}</span>
 
-<span class="sd">    IMPORTANT!!! findorbit4 imposes a constraint on dP and relaxes</span>
-<span class="sd">    the constraint on the revolution frequency. A physical storage</span>
-<span class="sd">    ring does exactly the opposite: the momentum deviation of a</span>
-<span class="sd">    particle on the closed orbit settles at the value</span>
-<span class="sd">    such that the revolution is synchronous with the RF cavity</span>
+<span class="sd">    under the **CONSTANT MOMENTUM** constraint **dp** and with **NO**</span>
+<span class="sd">    constraint on the 6-th coordinate :math:`c\tau`</span>
 
-<span class="sd">                HarmNumber*Frev = Frf</span>
+<span class="sd">    Important:</span>
+<span class="sd">        :py:func:`find_orbit4` imposes a constraint on ``dp`` and relaxes the</span>
+<span class="sd">        constraint on the revolution frequency. A physical storage ring does</span>
+<span class="sd">        exactly the opposite: the momentum deviation of a particle on the</span>
+<span class="sd">        closed orbit settles at the value such that the revolution is</span>
+<span class="sd">        synchronous with the RF cavity: :math:`f_{RF} = h*f_{rev}`</span>
 
-<span class="sd">    To impose this artificial constraint in find_orbit4, PassMethod</span>
-<span class="sd">    used for any element SHOULD NOT</span>
-<span class="sd">    1.  change the longitudinal momentum dP (cavities , magnets with radiation)</span>
-<span class="sd">    2.  have any time dependence (localized impedance, fast kickers etc)</span>
+<span class="sd">    To impose this artificial constraint in :py:func:`find_orbit4`,</span>
+<span class="sd">    the ``PassMethod`` used for any element **SHOULD NOT**:</span>
 
-<span class="sd">    PARAMETERS</span>
-<span class="sd">        ring            lattice description (radiation must be OFF)</span>
-<span class="sd">        dp              momentum deviation. Defaults to 0</span>
-<span class="sd">        refpts          elements at which data is returned. It can be:</span>
-<span class="sd">                        1) an integer in the range [-len(ring), len(ring)-1]</span>
-<span class="sd">                           selecting the element according to python indexing</span>
-<span class="sd">                           rules. As a special case, len(ring) is allowed and</span>
-<span class="sd">                           refers to the end of the last element,</span>
-<span class="sd">                        2) an ordered list of such integers without duplicates,</span>
-<span class="sd">                        3) a numpy array of booleans of maximum length</span>
-<span class="sd">                           len(ring)+1, where selected elements are True.</span>
-<span class="sd">                        Defaults to None, if refpts is None an empty array is</span>
-<span class="sd">                        returned for orbit.</span>
+<span class="sd">    1. Change the longitudinal momentum ``dp`` (cavities ,</span>
+<span class="sd">       magnets with radiation)</span>
+<span class="sd">    2. Have any time dependence (localized impedance, fast kickers etc)</span>
 
-<span class="sd">    OUTPUT</span>
-<span class="sd">        orbit0          ((6,) closed orbit vector at the entrance of the</span>
-<span class="sd">                        1-st element (x,px,y,py)</span>
-<span class="sd">        orbit           (6, Nrefs) closed orbit vector at each location</span>
-<span class="sd">                        specified in refpts</span>
+<span class="sd">    Parameters:</span>
+<span class="sd">        ring:           Lattice description (radiation must be OFF)</span>
+<span class="sd">        dp:             Momentum deviation. Defaults to 0</span>
+<span class="sd">        refpts:         Observation points</span>
+<span class="sd">        dct:            Path lengthening. If specified, ``dp`` is ignored and</span>
+<span class="sd">          the off-momentum is deduced from the path lengthening.</span>
+<span class="sd">        orbit:          Avoids looking for initial the closed orbit if it is</span>
+<span class="sd">          already known ((6,) array). :py:func:`find_orbit4` propagates it to</span>
+<span class="sd">          the specified ``refpts``.</span>
+<span class="sd">        keep_lattice:   Assume no lattice change since the previous tracking.</span>
+<span class="sd">          Default: False</span>
 
-<span class="sd">    KEYWORDS</span>
-<span class="sd">        dct=None        path lengthening. If specified, dp is ignored and</span>
-<span class="sd">                        the off-momentum is deduced from the path lengthening.</span>
-<span class="sd">        orbit=None      avoids looking for initial the closed orbit if is</span>
-<span class="sd">                        already known ((6,) array). find_orbit4 propagates it</span>
-<span class="sd">                        to the specified refpts.</span>
-<span class="sd">        guess           (6,) initial value for the closed orbit. It may help</span>
-<span class="sd">                        convergence. Default: (0, 0, 0, 0, 0, 0)</span>
-<span class="sd">        keep_lattice    Assume no lattice change since the previous tracking.</span>
-<span class="sd">                        Default: False</span>
-<span class="sd">        convergence     Convergence criterion. Default: 1.e-12</span>
-<span class="sd">        max_iterations  Maximum number of iterations. Default: 20</span>
-<span class="sd">        XYStep          Step size. Default: DConstant.XYStep</span>
+<span class="sd">    Keyword Args:</span>
+<span class="sd">        guess (Optional[Orbit]):        (6,) initial value for the</span>
+<span class="sd">          closed orbit. It may help convergence. Default: (0, 0, 0, 0, 0, 0)</span>
+<span class="sd">        convergence (Optional[float]):  Convergence criterion.</span>
+<span class="sd">          Default: :py:data:`DConstant.OrbConvergence &lt;.DConstant&gt;`</span>
+<span class="sd">        max_iterations (Optional[int]): Maximum number of iterations.</span>
+<span class="sd">          Default: :py:data:`DConstant.OrbMaxIter &lt;.DConstant&gt;`</span>
+<span class="sd">        XYStep (Optional[float]):       Step size.</span>
+<span class="sd">          Default: :py:data:`DConstant.XYStep &lt;.DConstant&gt;`</span>
 
-<span class="sd">    See also find_sync_orbit, find_orbit6.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        orbit0:         (6,) closed orbit vector at the entrance of the</span>
+<span class="sd">                        1-st element (x,px,y,py,dp,0)</span>
+<span class="sd">        orbit:          (6, Nrefs) closed orbit vector at each location</span>
+<span class="sd">                        specified in ``refpts``</span>
+
+<span class="sd">    See also:</span>
+<span class="sd">        :py:func:`find_sync_orbit`, :py:func:`find_orbit6`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">orbit</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">dct</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -354,62 +361,68 @@
     <span class="k">return</span> <span class="n">orbit</span><span class="p">,</span> <span class="n">all_points</span></div>
 
 
-<div class="viewcode-block" id="find_sync_orbit"><a class="viewcode-back" href="../../../p/api/at.physics.orbit.html#at.physics.orbit.find_sync_orbit">[docs]</a><span class="k">def</span> <span class="nf">find_sync_orbit</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">dct</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">refpts</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dp</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">orbit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                    <span class="n">keep_lattice</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;find_sync_orbit finds the closed orbit, synchronous with the RF cavity</span>
-<span class="sd">    and momentum deviation dP (first 5 components of the phase space vector)</span>
-<span class="sd">    % by numerically solving  for a fixed point</span>
-<span class="sd">    % of the one turn map M calculated with lattice_pass</span>
+<div class="viewcode-block" id="find_sync_orbit"><a class="viewcode-back" href="../../../p/api/at.physics.orbit.html#at.physics.orbit.find_sync_orbit">[docs]</a><span class="k">def</span> <span class="nf">find_sync_orbit</span><span class="p">(</span><span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span> <span class="n">dct</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+                    <span class="n">refpts</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Refpts</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                    <span class="n">dp</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                    <span class="n">orbit</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Orbit</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                    <span class="n">keep_lattice</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Gets the 4D closed orbit for a given dct</span>
 
-<span class="sd">        (X, PX, Y, PY, dP, CT2 ) = M (X, PX, Y, PY, dP, CT1)</span>
+<span class="sd">    Finds the closed orbit, synchronous with the RF cavity (first 5</span>
+<span class="sd">    components of the phase space vector) by numerically solving for a fixed</span>
+<span class="sd">    point of the one turn map M calculated with :py:func:`.lattice_pass`</span>
 
-<span class="sd">    under the constraint dCT = CT2 - CT1 = C/Frev - C/Frev0, where</span>
-<span class="sd">    Frev0 = Frf0/HarmNumber is the design revolution frequency</span>
-<span class="sd">    Frev  = (Frf0 + dFrf)/HarmNumber is the imposed revolution frequency</span>
+<span class="sd">    .. math:: \begin{pmatrix}x \\ p_x \\ y \\ p_y \\ dp \\ c\tau_1+</span>
+<span class="sd">       dc\tau\end{pmatrix} =\mathbf{M} \cdot</span>
+<span class="sd">       \begin{pmatrix}x \\ p_x \\ y \\ p_y \\ dp \\ c\tau_1\end{pmatrix}</span>
 
-<span class="sd">    IMPORTANT!!!  find_sync_orbit imposes a constraint (CT2 - CT1) and</span>
-<span class="sd">    dP2 = dP1 but no constraint on the value of dP1, dP2</span>
-<span class="sd">    The algorithm assumes time-independent fixed-momentum ring</span>
-<span class="sd">    to reduce the dimensionality of the problem.</span>
+<span class="sd">    under the constraint :math:`dc\tau = c\tau_2 - c\tau_1 = c/f_{rev} -</span>
+<span class="sd">    c/f_{rev_0}`, where :math:`f_{rev_0} = f_{RF_0}/h` is the design revolution</span>
+<span class="sd">    frequency and :math:`f_{rev} = (f_{RF_0} + df_{RF})/h` is the imposed</span>
+<span class="sd">    revolution frequency.</span>
 
-<span class="sd">    To impose this artificial constraint in find_sync_orbit</span>
-<span class="sd">    PassMethod used for any element SHOULD NOT</span>
-<span class="sd">    1.  change the longitudinal momentum dP (cavities , magnets with radiation)</span>
-<span class="sd">    2.  have any time dependence (localized impedance, fast kickers etc).</span>
+<span class="sd">    Important:</span>
+<span class="sd">        :py:func:`find_sync_orbit` imposes a constraint :math:`c\tau_2 -</span>
+<span class="sd">        c\tau_1` and :math:`dp_2 = dp_1` but no constraint on the value of</span>
+<span class="sd">        :math:`dp_2` or :math:`dp_1`. The algorithm assumes time-independent</span>
+<span class="sd">        fixed-momentum ring to reduce the dimensionality of the problem.</span>
 
-<span class="sd">    PARAMETERS</span>
-<span class="sd">        ring            lattice description (radiation must be OFF)</span>
-<span class="sd">        dct             Path length deviation. Default: 0</span>
-<span class="sd">        refpts          elements at which data is returned. It can be:</span>
-<span class="sd">                        1) an integer in the range [-len(ring), len(ring)-1]</span>
-<span class="sd">                           selecting the element according to python indexing</span>
-<span class="sd">                           rules. As a special case, len(ring) is allowed and</span>
-<span class="sd">                           refers to the end of the last element,</span>
-<span class="sd">                        2) an ordered list of such integers without duplicates,</span>
-<span class="sd">                        3) a numpy array of booleans of maximum length</span>
-<span class="sd">                           len(ring)+1, where selected elements are True.</span>
-<span class="sd">                        Defaults to None, if refpts is None an empty array is</span>
-<span class="sd">                        returned for orbit.</span>
+<span class="sd">    To impose this artificial constraint in :py:func:`find_sync_orbit`,</span>
+<span class="sd">    the ``PassMethod`` used for any element **SHOULD NOT**:</span>
 
-<span class="sd">    OUTPUT</span>
-<span class="sd">        orbit0          ((6,) closed orbit vector at the entrance of the</span>
-<span class="sd">                        1-st element (x,px,y,py)</span>
-<span class="sd">        orbit           (6, Nrefs) closed orbit vector at each location</span>
-<span class="sd">                        specified in refpts</span>
+<span class="sd">    1. Change the longitudinal momentum ``dp`` (cavities ,</span>
+<span class="sd">       magnets with radiation)</span>
+<span class="sd">    2. Have any time dependence (localized impedance, fast kickers etc)</span>
 
-<span class="sd">    KEYWORDS</span>
-<span class="sd">        orbit=None      avoids looking for initial the closed orbit if is</span>
-<span class="sd">                        already known ((6,) array). find_sync_orbit propagates</span>
-<span class="sd">                        it to the specified refpts.</span>
-<span class="sd">        guess           (6,) initial value for the closed orbit. It may help</span>
-<span class="sd">                        convergence. Default: (0, 0, 0, 0, 0, 0)</span>
-<span class="sd">        keep_lattice    Assume no lattice change since the previous tracking.</span>
-<span class="sd">                        Default: False</span>
-<span class="sd">        convergence     Convergence criterion. Default: 1.e-12</span>
-<span class="sd">        max_iterations  Maximum number of iterations. Default: 20</span>
-<span class="sd">        XYStep          Step size. Default: DConstant.XYStep</span>
+<span class="sd">    Parameters:</span>
+<span class="sd">        ring:           Lattice description (radiation must be OFF)</span>
+<span class="sd">        dct:            Path lengthening.</span>
+<span class="sd">        refpts:         Observation points</span>
+<span class="sd">        dp:             Momentum deviation. Defaults to None</span>
+<span class="sd">        orbit:          Avoids looking for initial the closed orbit if it is</span>
+<span class="sd">          already known ((6,) array). :py:func:`find_sync_orbit` propagates it</span>
+<span class="sd">          to the specified ``refpts``.</span>
+<span class="sd">        keep_lattice:   Assume no lattice change since the previous tracking.</span>
+<span class="sd">          Default: False</span>
 
-<span class="sd">    See also find_orbit4, find_orbit6.</span>
+<span class="sd">    Keyword Args:</span>
+<span class="sd">        guess (Optional[Orbit]):        (6,) initial value for the</span>
+<span class="sd">          closed orbit. It may help convergence. Default: (0, 0, 0, 0, 0, 0)</span>
+<span class="sd">        convergence (Optional[float]):  Convergence criterion.</span>
+<span class="sd">          Default: :py:data:`DConstant.OrbConvergence &lt;.DConstant&gt;`</span>
+<span class="sd">        max_iterations (Optional[int]): Maximum number of iterations.</span>
+<span class="sd">          Default: :py:data:`DConstant.OrbMaxIter &lt;.DConstant&gt;`</span>
+<span class="sd">        XYStep (Optional[float]):       Step size.</span>
+<span class="sd">          Default: :py:data:`DConstant.XYStep &lt;.DConstant&gt;`</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        orbit0:         (6,) closed orbit vector at the entrance of the</span>
+<span class="sd">                        1-st element (x,px,y,py,dp,0)</span>
+<span class="sd">        orbit:          (6, Nrefs) closed orbit vector at each location</span>
+<span class="sd">                        specified in ``refpts``</span>
+
+<span class="sd">    See also:</span>
+<span class="sd">        :py:func:`find_orbit4`, :py:func:`find_orbit6`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">orbit</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">dp</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -427,7 +440,8 @@
     <span class="k">return</span> <span class="n">orbit</span><span class="p">,</span> <span class="n">all_points</span></div>
 
 
-<span class="k">def</span> <span class="nf">_orbit6</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">cavpts</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">guess</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">keep_lattice</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_orbit6</span><span class="p">(</span><span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span> <span class="n">cavpts</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">guess</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">keep_lattice</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Solver for 6D motion&quot;&quot;&quot;</span>
     <span class="n">convergence</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;convergence&#39;</span><span class="p">,</span> <span class="n">DConstant</span><span class="o">.</span><span class="n">OrbConvergence</span><span class="p">)</span>
     <span class="n">max_iterations</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;max_iterations&#39;</span><span class="p">,</span> <span class="n">DConstant</span><span class="o">.</span><span class="n">OrbMaxIter</span><span class="p">)</span>
@@ -486,74 +500,82 @@
     <span class="k">return</span> <span class="n">ref_in</span>
 
 
-<div class="viewcode-block" id="find_orbit6"><a class="viewcode-back" href="../../../p/api/at.physics.orbit.html#at.physics.orbit.find_orbit6">[docs]</a><span class="k">def</span> <span class="nf">find_orbit6</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">refpts</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">orbit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dp</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dct</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                <span class="n">keep_lattice</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;find_orbit6 finds the closed orbit in the full 6-D phase space</span>
+<div class="viewcode-block" id="find_orbit6"><a class="viewcode-back" href="../../../p/api/at.physics.orbit.html#at.physics.orbit.find_orbit6">[docs]</a><span class="k">def</span> <span class="nf">find_orbit6</span><span class="p">(</span><span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span> <span class="n">refpts</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Refpts</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                <span class="n">orbit</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Orbit</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                <span class="n">dp</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                <span class="n">dct</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                <span class="n">keep_lattice</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Gets the closed orbit in the full 6-D phase space</span>
+
+<span class="sd">    Findsinds the closed orbit in the full 6-D phase space</span>
 <span class="sd">    by numerically solving  for a fixed point of the one turn</span>
-<span class="sd">    map M calculated with lattice_pass</span>
+<span class="sd">    map M calculated with :py:func:`.lattice_pass`</span>
 
-<span class="sd">    (X, PX, Y, PY, DP, CT2 ) = M (X, PX, Y, PY, DP, CT1)</span>
+<span class="sd">    .. math:: \begin{pmatrix}x \\ p_x \\ y \\ p_y \\ dp \\ c\tau_2\end{pmatrix}</span>
+<span class="sd">       =\mathbf{M} \cdot</span>
+<span class="sd">       \begin{pmatrix}x \\ p_x \\ y \\ p_y \\ dp \\ c\tau_1\end{pmatrix}</span>
 
-<span class="sd">    with constraint  CT2 - CT1 = C*HarmNumber(1/Frf - 1/Frf0)</span>
+<span class="sd">    with constraint :math:`c\tau_2 - c\tau_1 = c.h (1/f_{RF} - 1/f_{RF_0})`</span>
 
-<span class="sd">    IMPORTANT!!! find_orbit6 is a realistic simulation</span>
-<span class="sd">    1.  The Frf frequency in the RF cavities (may be different from Frf0)</span>
-<span class="sd">        imposes the synchronous condition</span>
-<span class="sd">        CT2 - CT1 = C*HarmNumber(1/Frf - 1/Frf0)</span>
-<span class="sd">    2.  The algorithm numerically calculates</span>
-<span class="sd">        6-by-6 Jacobian matrix J6. In order for (J-E) matrix</span>
-<span class="sd">        to be non-singular it is NECESSARY to use a realistic</span>
-<span class="sd">        PassMethod for cavities with non-zero momentum kick</span>
-<span class="sd">        (such as RFCavityPass).</span>
-<span class="sd">    3.  find_orbit6 can find orbits with radiation.</span>
-<span class="sd">        In order for the solution to exist the cavity must supply</span>
-<span class="sd">        adequate energy compensation.</span>
-<span class="sd">        In the simplest case of a single cavity, it must have</span>
-<span class="sd">        &#39;Voltage&#39; field set so that Voltage &gt; Erad - energy loss per turn</span>
-<span class="sd">    4.  There is a family of solutions that correspond to different RF buckets</span>
-<span class="sd">        They differ in the 6-th coordinate by C*Nb/Frf. Nb = 1 .. HarmNum-1</span>
-<span class="sd">    5.  The value of the 6-th coordinate found at the cavity gives</span>
-<span class="sd">        the equilibrium RF phase. If there is no radiation the phase is 0;</span>
+<span class="sd">    Important:</span>
+<span class="sd">        :py:func:`find_orbit6` is a realistic simulation:</span>
 
-<span class="sd">    PARAMETERS</span>
-<span class="sd">        ring            lattice description (radiation must be ON)</span>
-<span class="sd">        refpts          elements at which data is returned. It can be:</span>
-<span class="sd">                        1) an integer in the range [-len(ring), len(ring)-1]</span>
-<span class="sd">                           selecting the element according to python indexing</span>
-<span class="sd">                           rules. As a special case, len(ring) is allowed and</span>
-<span class="sd">                           refers to the end of the last element,</span>
-<span class="sd">                        2) an ordered list of such integers without duplicates,</span>
-<span class="sd">                        3) a numpy array of booleans of maximum length</span>
-<span class="sd">                           len(ring)+1, where selected elements are True.</span>
-<span class="sd">                        Defaults to None, if refpts is None an empty array is</span>
-<span class="sd">                        returned for orbit.</span>
+<span class="sd">        1.  The requency in the RF cavities :math:`f_{RF}` (may be different</span>
+<span class="sd">            from :math:`f_{RF_0}`) imposes the synchronous condition</span>
+<span class="sd">            :math:`c\tau_2 - c\tau_1 = c.h (1/f_{RF} - 1/f_{RF_0})`,</span>
+<span class="sd">        2.  The algorithm numerically calculates the</span>
+<span class="sd">            6-by-6 Jacobian matrix J6. In order for (J-E) matrix</span>
+<span class="sd">            to be non-singular it is **NECESSARY** to use a realistic</span>
+<span class="sd">            ``PassMethod`` for cavities with non-zero momentum kick</span>
+<span class="sd">            (such as ``RFCavityPass``).</span>
+<span class="sd">        3.  :py:func:`find_orbit6` can find orbits with radiation.</span>
+<span class="sd">            In order for the solution to exist the cavity must supply an</span>
+<span class="sd">            adequate energy compensation.</span>
+<span class="sd">            In the simplest case of a single cavity, it must have</span>
+<span class="sd">            ``Voltage`` set so that :math:`V &gt; E_{loss}`, the energy loss</span>
+<span class="sd">            per turn</span>
+<span class="sd">        4.  There is a family of solutions that correspond to different RF</span>
+<span class="sd">            buckets They differ in the 6-th coordinate by</span>
+<span class="sd">            :math:`c*Nb/f_{RF}`,  Nb = 0:h-1</span>
+<span class="sd">        5.  The value of the 6-th coordinate found at the cavity gives</span>
+<span class="sd">            the equilibrium RF phase. If there is no radiation it is 0.</span>
 
-<span class="sd">    OUTPUT</span>
-<span class="sd">        orbit0          ((6,) closed orbit vector at the entrance of the</span>
-<span class="sd">                        1-st element (x,px,y,py)</span>
-<span class="sd">        orbit           (6, Nrefs) closed orbit vector at each location</span>
-<span class="sd">                        specified in refpts</span>
+<span class="sd">    Parameters:</span>
+<span class="sd">        ring:           Lattice description</span>
+<span class="sd">        refpts:         Observation points</span>
+<span class="sd">        orbit:          Avoids looking for initial the closed orbit if it is</span>
+<span class="sd">          already known ((6,) array). :py:func:`find_sync_orbit` propagates it</span>
+<span class="sd">          to the specified ``refpts``.</span>
+<span class="sd">        dp:             Momentum deviation. Defaults to None</span>
+<span class="sd">        dct:            Path lengthening. Defaults to None</span>
+<span class="sd">        keep_lattice:   Assume no lattice change since the previous tracking.</span>
+<span class="sd">          Default: False</span>
 
-<span class="sd">    KEYWORDS</span>
-<span class="sd">        orbit=None      avoids looking for initial the closed orbit if is</span>
-<span class="sd">                        already known ((6,) array). find_orbit6 propagates it</span>
-<span class="sd">                        to the specified refpts.</span>
-<span class="sd">        guess           Initial value for the closed orbit. It may help</span>
-<span class="sd">                        convergence. The default is computed from the energy</span>
-<span class="sd">                        loss of the ring</span>
-<span class="sd">        keep_lattice    Assume no lattice change since the previous tracking.</span>
-<span class="sd">                        Default: False</span>
-<span class="sd">        method          Method for energy loss computation</span>
-<span class="sd">                        (see get_energy_loss)</span>
-<span class="sd">                        default: ELossMethod.TRACKING</span>
-<span class="sd">        cavpts=None     Cavity location. If None, use all cavities.</span>
-<span class="sd">                        This is used to compute the initial synchronous phase.</span>
-<span class="sd">        convergence     Convergence criterion. Default: 1.e-12</span>
-<span class="sd">        max_iterations  Maximum number of iterations. Default: 20</span>
-<span class="sd">        XYStep          Step size. Default: DConstant.XYStep</span>
-<span class="sd">        DPStep          Step size. Default: DConstant.DPStep</span>
+<span class="sd">    Keyword Args:</span>
+<span class="sd">        guess (Optional[Orbit]):        (6,) initial value for the</span>
+<span class="sd">          closed orbit. It may help convergence. Default: (0, 0, 0, 0, 0, 0)</span>
+<span class="sd">        convergence (Optional[float]):  Convergence criterion.</span>
+<span class="sd">          Default: :py:data:`DConstant.OrbConvergence &lt;.DConstant&gt;`</span>
+<span class="sd">        max_iterations (Optional[int]): Maximum number of iterations.</span>
+<span class="sd">          Default: :py:data:`DConstant.OrbMaxIter &lt;.DConstant&gt;`</span>
+<span class="sd">        XYStep (Optional[float]):       Step size.</span>
+<span class="sd">          Default: :py:data:`DConstant.XYStep &lt;.DConstant&gt;`</span>
+<span class="sd">        DPStep (Optional[float]):       Momentum step size.</span>
+<span class="sd">          Default: :py:data:`DConstant.DPStep &lt;.DConstant&gt;`</span>
+<span class="sd">        method (Optional[ELossMethod]): Method for energy loss computation.</span>
+<span class="sd">          See :py:class:`.ELossMethod`.</span>
+<span class="sd">        cavpts (Optional[Refpts]):      Cavity location. If None, use all</span>
+<span class="sd">          cavities. This is used to compute the initial synchronous phase.</span>
 
-<span class="sd">    See also find_orbit4, find_sync_orbit.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        orbit0:         (6,) closed orbit vector at the entrance of the</span>
+<span class="sd">                        1-st element (x,px,y,py,dp,0)</span>
+<span class="sd">        orbit:          (6, Nrefs) closed orbit vector at each location</span>
+<span class="sd">                        specified in ``refpts``</span>
+
+
+<span class="sd">    See also:</span>
+<span class="sd">        :py:func:`find_orbit4`, :py:func:`find_sync_orbit`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">dp</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">dct</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">AtWarning</span><span class="p">(</span><span class="s1">&#39;In 6D, &quot;dp&quot; and &quot;dct&quot; are ignored&#39;</span><span class="p">))</span>
@@ -571,36 +593,47 @@
 
 
 <div class="viewcode-block" id="find_orbit"><a class="viewcode-back" href="../../../p/api/at.physics.orbit.html#at.physics.orbit.find_orbit">[docs]</a><span class="k">def</span> <span class="nf">find_orbit</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">refpts</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;find_orbit finds the closed orbit by numerically getting the fixed point</span>
-<span class="sd">    of the one turn map M calculated with lattice_pass.</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Gets the closed orbit in the general case</span>
 
-<span class="sd">    Depending on the the lattice, find_orbit will:</span>
-<span class="sd">    - use find_orbit6 if ring.radiation is ON,</span>
-<span class="sd">    - use find_sync_orbit if ring.radiation is OFF and dct is specified,</span>
-<span class="sd">    - use find_orbit4 otherwise</span>
+<span class="sd">    Depending on the the lattice, :py:func:`find_orbit` will:</span>
 
-<span class="sd">    PARAMETERS</span>
-<span class="sd">        ring            Sequence of AT elements</span>
-<span class="sd">        refpts          elements at which data is returned.</span>
+<span class="sd">    * use :py:func:`find_orbit6` if ring.radiation is ON,</span>
+<span class="sd">    * use :py:func:`find_sync_orbit` if ring.radiation is OFF and ``dct``</span>
+<span class="sd">      is specified,</span>
+<span class="sd">    * use :py:func:`find_orbit4` otherwise</span>
 
-<span class="sd">    OUTPUT</span>
-<span class="sd">        orbit0          ((6,) closed orbit vector at the entrance of the</span>
-<span class="sd">                        1-st element</span>
-<span class="sd">        orbit           (6, Nrefs) closed orbit vector at each location</span>
-<span class="sd">                        specified in refpts</span>
+<span class="sd">    Parameters:</span>
+<span class="sd">        ring:           Lattice description</span>
+<span class="sd">        refpts:         Observation points</span>
 
-<span class="sd">    KEYWORDS</span>
-<span class="sd">        dp=0            Momentum deviation, when radiation is OFF</span>
-<span class="sd">        dct=0            Path lengthening, when radiation ids OFF</span>
-<span class="sd">        keep_lattice    Assume no lattice change since the previous tracking.</span>
-<span class="sd">                        Default: False</span>
-<span class="sd">        guess=None      Initial guess for the closed orbit. It may help</span>
-<span class="sd">                        convergence.</span>
-<span class="sd">        orbit=None      Orbit at entrance of the lattice, if known. find_orbit</span>
-<span class="sd">                        will then propagate it to the selected reference points</span>
-<span class="sd">        For other keywords, refer to the underlying methods</span>
+<span class="sd">    Keyword Args:</span>
+<span class="sd">        orbit (Optional[Orbit]):       Avoids looking for initial the closed</span>
+<span class="sd">          orbit if it is already known. :py:func:`find_orbit` propagates it</span>
+<span class="sd">          to the specified ``refpts``.</span>
+<span class="sd">        dp (Optional[float]):           Momentum deviation. Defaults to None</span>
+<span class="sd">        dct (Optional[float]):          Path lengthening. Defaults to None</span>
+<span class="sd">        guess (Optional[Orbit]):        (6,) initial value for the</span>
+<span class="sd">          closed orbit. It may help convergence. Default: (0, 0, 0, 0, 0, 0)</span>
+<span class="sd">        convergence (Optional[float]):  Convergence criterion.</span>
+<span class="sd">          Default: :py:data:`DConstant.OrbConvergence &lt;.DConstant&gt;`</span>
+<span class="sd">        max_iterations (Optional[int]): Maximum number of iterations.</span>
+<span class="sd">          Default: :py:data:`DConstant.OrbMaxIter &lt;.DConstant&gt;`</span>
+<span class="sd">        XYStep (Optional[float]):       Step size.</span>
+<span class="sd">          Default: :py:data:`DConstant.XYStep &lt;.DConstant&gt;`</span>
+<span class="sd">        DPStep (Optional[float]):       Momentum step size.</span>
+<span class="sd">          Default: :py:data:`DConstant.DPStep &lt;.DConstant&gt;`</span>
 
-<span class="sd">    See also find_orbit4, find_sync_orbit, find_orbit6</span>
+<span class="sd">    For other keywords, refer to the underlying methods</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        orbit0:         (6,) closed orbit vector at the entrance of the</span>
+<span class="sd">                        1-st element (x,px,y,py,dp,0)</span>
+<span class="sd">        orbit:          (6, Nrefs) closed orbit vector at each location</span>
+<span class="sd">                        specified in ``refpts``</span>
+
+<span class="sd">    See also:</span>
+<span class="sd">        :py:func:`find_orbit4`, :py:func:`find_sync_orbit`,</span>
+<span class="sd">        :py:func:`find_orbit6`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">ring</span><span class="o">.</span><span class="n">radiation</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">find_orbit6</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">refpts</span><span class="o">=</span><span class="n">refpts</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>

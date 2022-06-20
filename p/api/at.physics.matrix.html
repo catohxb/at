@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>at.physics.matrix &#8212; Accelerator Toolbox 0.1.dev1+g950c303 documentation</title>
+    <title>at.physics.matrix &#8212; Accelerator Toolbox 0.1.dev1+gff2d0da documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -542,33 +542,38 @@
 <table class="autosummary longtable table autosummary">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#at.physics.matrix.find_m44" title="at.physics.matrix.find_m44"><code class="xref py py-obj docutils literal notranslate"><span class="pre">find_m44</span></code></a>(ring[, dp, refpts, dct, orbit, ...])</p></td>
-<td><p>find_m44 numerically finds the 4x4 transfer matrix of an accelerator lattice for a particle with relative momentum deviation DP</p></td>
+<td><p>One turn 4x4 transfer matrix</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#at.physics.matrix.find_m66" title="at.physics.matrix.find_m66"><code class="xref py py-obj docutils literal notranslate"><span class="pre">find_m66</span></code></a>(ring[, refpts, orbit, keep_lattice])</p></td>
-<td><p>find_m66 numerically finds the 6x6 transfer matrix of an accelerator lattice by differentiation of lattice_pass near the closed orbit.</p></td>
+<td><p>One-turn 6x6 transfer matrix</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#at.physics.matrix.find_elem_m66" title="at.physics.matrix.find_elem_m66"><code class="xref py py-obj docutils literal notranslate"><span class="pre">find_elem_m66</span></code></a>(elem[, orbit])</p></td>
-<td><p>Numerically find the 6x6 transfer matrix of a single element</p></td>
+<td><p>Single element 6x6 transfer matrix</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#at.physics.matrix.gen_m66_elem" title="at.physics.matrix.gen_m66_elem"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gen_m66_elem</span></code></a>(ring, o4b, o4e)</p></td>
-<td><p>converts a ring to a linear 6x6 matrix tracking elemtn</p></td>
+<td><p>Converts a ring to a linear 6x6 matrix</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py function">
 <dt class="sig sig-object py" id="at.physics.matrix.find_elem_m66">
 <span class="sig-name descname"><span class="pre">find_elem_m66</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">elem</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orbit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/physics/matrix.html#find_elem_m66"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.physics.matrix.find_elem_m66" title="Permalink to this definition">#</a></dt>
-<dd><p>Numerically find the 6x6 transfer matrix of a single element</p>
-<dl>
-<dt>INPUT</dt><dd><p>elem                AT element</p>
+<dd><p>Single element 6x6 transfer matrix</p>
+<p>Numerically finds the 6x6 transfer matrix of a single element</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>elem</strong> (<a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a>) – AT element</p></li>
+<li><p><strong>orbit</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.22)"><em>ndarray</em></a><em>]</em>) – Closed orbit at the entrance of the element,
+default: 0.0</p></li>
+</ul>
 </dd>
-<dt>KEYWORDS</dt><dd><dl class="simple">
-<dt>orbit=None          closed orbit at the entrance of the element,</dt><dd><p>default: 0.0</p>
+<dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>XYStep</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>]</em>) – Step size.
+Default: <a class="reference internal" href="at.lattice.options.html#at.lattice.options.DConstant" title="at.lattice.options.DConstant"><code class="xref py py-data docutils literal notranslate"><span class="pre">DConstant.XYStep</span></code></a></p>
 </dd>
-</dl>
-<p>XYStep=1.e-8        transverse step for numerical computation</p>
-</dd>
-<dt>OUTPUT</dt><dd><p>m66                 (6, 6) transfer matrix</p>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>m66</strong> – 6x6 transfer matrix</p>
 </dd>
 </dl>
 </dd></dl>
@@ -576,117 +581,117 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="at.physics.matrix.find_m44">
 <span class="sig-name descname"><span class="pre">find_m44</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refpts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dct</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orbit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_lattice</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/physics/matrix.html#find_m44"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.physics.matrix.find_m44" title="Permalink to this definition">#</a></dt>
-<dd><p>find_m44 numerically finds the 4x4 transfer matrix of an accelerator
-lattice for a particle with relative momentum deviation DP</p>
-<p>IMPORTANT!!! find_m44 assumes constant momentum deviation.
-PassMethod used for any element in the lattice SHOULD NOT
-1.  change the longitudinal momentum dP</p>
-<blockquote>
-<div><p>(cavities , magnets with radiation, …)</p>
-</div></blockquote>
-<ol class="arabic simple" start="2">
+<dd><p>One turn 4x4 transfer matrix</p>
+<p><a class="reference internal" href="#at.physics.matrix.find_m44" title="at.physics.matrix.find_m44"><code class="xref py py-func docutils literal notranslate"><span class="pre">find_m44()</span></code></a> finds the 4x4 transfer matrix of an accelerator
+lattice by differentiation of trajectories near the closed orbit.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p><a class="reference internal" href="#at.physics.matrix.find_m44" title="at.physics.matrix.find_m44"><code class="xref py py-func docutils literal notranslate"><span class="pre">find_m44()</span></code></a> assumes constant momentum deviation.
+The <code class="docutils literal notranslate"><span class="pre">PassMethod</span></code> used for any element <strong>SHOULD NOT</strong>:</p>
+<ol class="arabic simple">
+<li><p>change the longitudinal momentum dP
+(cavities , magnets with radiation, …)</p></li>
 <li><p>have any time dependence (localized impedance, fast kickers, …)</p></li>
 </ol>
-<dl>
-<dt>m44, t = find_m44(lattice, dp=0.0, refpts)</dt><dd><p>return 4x4 transfer matrices between the entrance of the first element
-and each element indexed by refpts.</p>
-<blockquote>
-<div><p>m44:    full one-turn matrix at the entrance of the first element
-t:      4x4 transfer matrices between the entrance of the first</p>
-<blockquote>
-<div><p>element and each element indexed by refpts:
-(Nrefs, 4, 4) array</p>
-</div></blockquote>
-</div></blockquote>
+</div>
+<p>Unless an input orbit is introduced, <a class="reference internal" href="#at.physics.matrix.find_m44" title="at.physics.matrix.find_m44"><code class="xref py py-func docutils literal notranslate"><span class="pre">find_m44()</span></code></a> assumes that the
+lattice is a ring and first finds the closed orbit.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ring</strong> (<a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><em>Lattice</em></a>) – Lattice description (radiation must be OFF)</p></li>
+<li><p><strong>dp</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>]</em>) – Momentum deviation. Defaults to 0</p></li>
+<li><p><strong>refpts</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><em>Refpts</em><em>]</em>) – Observation points</p></li>
+<li><p><strong>dct</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>]</em>) – Path lengthening. If specified, <code class="docutils literal notranslate"><span class="pre">dp</span></code> is ignored and
+the off-momentum is deduced from the path lengthening.</p></li>
+<li><p><strong>orbit</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.22)"><em>ndarray</em></a><em>]</em>) – Avoids looking for initial the closed orbit if it is
+already known ((6,) array).</p></li>
+<li><p><strong>keep_lattice</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>]</em>) – Assume no lattice change since the previous tracking.
+Default: False</p></li>
+</ul>
+</dd>
+<dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>full</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>]</em>) – If True, matrices are full 1-turn matrices
+at the entrance of each element indexed by refpts. If False (Default),
+matrices are between the entrance of the first element and the
+entrance of the selected element</p></li>
+<li><p><strong>XYStep</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>]</em>) – Step size.
+Default: <a class="reference internal" href="at.lattice.options.html#at.lattice.options.DConstant" title="at.lattice.options.DConstant"><code class="xref py py-data docutils literal notranslate"><span class="pre">DConstant.XYStep</span></code></a></p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>m44</strong> – full one-turn matrix at the entrance of the first element</p></li>
+<li><p><strong>ms</strong> – 4x4 transfer matrices between the entrance of the first
+element and each element indexed by refpts: (Nrefs, 4, 4) array</p></li>
+</ul>
 </dd>
 </dl>
-<p>Unless an input orbit is introduced, find_m44 assumes that the lattice is
-a ring and first finds the closed orbit.</p>
-<dl>
-<dt>PARAMETERS</dt><dd><p>ring            lattice description
-dp              momentum deviation. Defaults to 0
-refpts          elements at which data is returned. It can be:</p>
-<blockquote>
-<div><ol class="arabic simple">
-<li><p>an integer in the range [-len(ring), len(ring)-1]
-selecting the element according to python indexing
-rules. As a special case, len(ring) is allowed and
-refers to the end of the last element,</p></li>
-<li><p>an ordered list of such integers without duplicates,</p></li>
-<li><p>a numpy array of booleans of maximum length
-len(ring)+1, where selected elements are True.</p></li>
-</ol>
-<p>Defaults to None, if refpts is None an empty array is
-returned for mstack.</p>
-</div></blockquote>
-</dd>
-<dt>KEYWORDS</dt><dd><dl class="simple">
-<dt>dct=None        path lengthening. If specified, dp is ignored and</dt><dd><p>the off-momentum is deduced from the path lengthening.</p>
-</dd>
-<dt>orbit=None      avoids looking for the closed orbit if is already known</dt><dd><p>((6,) array)</p>
-</dd>
-<dt>keep_lattice=False  When True, assume no lattice change since the</dt><dd><p>previous tracking.</p>
-</dd>
-<dt>full=False      When True, matrices are full 1-turn matrices at</dt><dd><p>the entrance of each
-element indexed by refpts.</p>
-</dd>
-<dt>orbit=None      Avoids looking for the closed orbit if is already</dt><dd><p>known (6,) array</p>
-</dd>
-</dl>
-<p>XYStep=1.e-8    transverse step for numerical computation</p>
-</dd>
-</dl>
-<p>See also find_m66, find_orbit4</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#at.physics.matrix.find_m66" title="at.physics.matrix.find_m66"><code class="xref py py-func docutils literal notranslate"><span class="pre">find_m66()</span></code></a>, <a class="reference internal" href="at.physics.orbit.html#at.physics.orbit.find_orbit4" title="at.physics.orbit.find_orbit4"><code class="xref py py-func docutils literal notranslate"><span class="pre">find_orbit4()</span></code></a></p>
+</div>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="at.physics.matrix.find_m66">
 <span class="sig-name descname"><span class="pre">find_m66</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refpts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orbit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_lattice</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/physics/matrix.html#find_m66"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.physics.matrix.find_m66" title="Permalink to this definition">#</a></dt>
-<dd><p>find_m66 numerically finds the 6x6 transfer matrix of an accelerator
-lattice by differentiation of lattice_pass near the closed orbit.
-find_m66 uses find_orbit6 to search for the closed orbit in 6-D
-In order for this to work the ring MUST have a CAVITY element</p>
-<dl>
-<dt>m66, t = find_m66(lattice, refpts)</dt><dd><dl class="simple">
-<dt>m66:    full one-turn 6-by-6 matrix at the entrance of the</dt><dd><p>first element.</p>
+<dd><p>One-turn 6x6 transfer matrix</p>
+<p><a class="reference internal" href="#at.physics.matrix.find_m66" title="at.physics.matrix.find_m66"><code class="xref py py-func docutils literal notranslate"><span class="pre">find_m66()</span></code></a> finds the 6x6 transfer matrix of an accelerator
+lattice by differentiation of trajectories near the closed orbit.</p>
+<p><a class="reference internal" href="#at.physics.matrix.find_m66" title="at.physics.matrix.find_m66"><code class="xref py py-func docutils literal notranslate"><span class="pre">find_m66()</span></code></a> uses <a class="reference internal" href="at.physics.orbit.html#at.physics.orbit.find_orbit6" title="at.physics.orbit.find_orbit6"><code class="xref py py-func docutils literal notranslate"><span class="pre">find_orbit6()</span></code></a> to search for the closed
+orbit in 6-D. In order for this to work the ring <strong>MUST</strong> have a <code class="docutils literal notranslate"><span class="pre">Cavity</span></code>
+element</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ring</strong> (<a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><em>Lattice</em></a>) – Lattice description</p></li>
+<li><p><strong>refpts</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><em>Refpts</em><em>]</em>) – Observation points</p></li>
+<li><p><strong>orbit</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.22)"><em>ndarray</em></a><em>]</em>) – Avoids looking for initial the closed orbit if it is
+already known ((6,) array).</p></li>
+<li><p><strong>keep_lattice</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>]</em>) – Assume no lattice change since the previous tracking.
+Default: False</p></li>
+</ul>
 </dd>
-<dt>t:      6x6 transfer matrices between the entrance of the first</dt><dd><p>element and each element indexed by refpts (nrefs, 6, 6) array.</p>
+<dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>XYStep</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>]</em>) – Step size.
+Default: <a class="reference internal" href="at.lattice.options.html#at.lattice.options.DConstant" title="at.lattice.options.DConstant"><code class="xref py py-data docutils literal notranslate"><span class="pre">DConstant.XYStep</span></code></a></p></li>
+<li><p><strong>DPStep</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>]</em>) – Momentum step size.
+Default: <a class="reference internal" href="at.lattice.options.html#at.lattice.options.DConstant" title="at.lattice.options.DConstant"><code class="xref py py-data docutils literal notranslate"><span class="pre">DConstant.DPStep</span></code></a></p></li>
+</ul>
 </dd>
-</dl>
-</dd>
-<dt>PARAMETERS</dt><dd><p>ring            lattice description
-dp              momentum deviation. Defaults to 0
-refpts          elements at which data is returned. It can be:</p>
-<blockquote>
-<div><ol class="arabic simple">
-<li><p>an integer in the range [-len(ring), len(ring)-1]
-selecting the element according to python indexing
-rules. As a special case, len(ring) is allowed and
-refers to the end of the last element,</p></li>
-<li><p>an ordered list of such integers without duplicates,</p></li>
-<li><p>a numpy array of booleans of maximum length
-len(ring)+1, where selected elements are True.</p></li>
-</ol>
-<p>Defaults to None, if refpts is None an empty array is
-returned for mstack.</p>
-</div></blockquote>
-</dd>
-<dt>KEYWORDS</dt><dd><dl class="simple">
-<dt>keep_lattice=False  When True, assume no lattice change since the</dt><dd><p>previous tracking.</p>
-</dd>
-<dt>orbit=None          Avoids looking for the closed orbit if is already</dt><dd><p>known (6,) array</p>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>m66</strong> – full one-turn matrix at the entrance of the first element</p></li>
+<li><p><strong>ms</strong> – 6x6 transfer matrices between the entrance of the first
+element and each element indexed by refpts: (Nrefs, 6, 6) array</p></li>
+</ul>
 </dd>
 </dl>
-<p>XYStep=1.e-8        transverse step for numerical computation</p>
-</dd>
-</dl>
-<p>See also find_m44, find_orbit6</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#at.physics.matrix.find_m44" title="at.physics.matrix.find_m44"><code class="xref py py-func docutils literal notranslate"><span class="pre">find_m44()</span></code></a>, <a class="reference internal" href="at.physics.orbit.html#at.physics.orbit.find_orbit6" title="at.physics.orbit.find_orbit6"><code class="xref py py-func docutils literal notranslate"><span class="pre">find_orbit6()</span></code></a></p>
+</div>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="at.physics.matrix.gen_m66_elem">
 <span class="sig-name descname"><span class="pre">gen_m66_elem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">o4b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">o4e</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/physics/matrix.html#gen_m66_elem"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.physics.matrix.gen_m66_elem" title="Permalink to this definition">#</a></dt>
-<dd><p>converts a ring to a linear 6x6 matrix tracking elemtn</p>
+<dd><p>Converts a ring to a linear 6x6 matrix</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ring</strong> (<a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><em>Lattice</em></a>) – Lattice description</p></li>
+<li><p><strong>o4b</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.22)"><em>ndarray</em></a>) – </p></li>
+<li><p><strong>o4e</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.22)"><em>ndarray</em></a>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>m66</strong> – 6x6 transfer matrix</p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
