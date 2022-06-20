@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>at.acceptance.boundary &#8212; Accelerator Toolbox 0.1.dev1+g4373b50 documentation</title>
+    <title>at.acceptance.boundary &#8212; Accelerator Toolbox 0.1.dev1+g950c303 documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -172,8 +172,9 @@
 <span class="sd">grid definitions</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">at.lattice</span> <span class="kn">import</span> <span class="n">AtError</span>
+<span class="kn">from</span> <span class="nn">at.lattice</span> <span class="kn">import</span> <span class="n">Lattice</span><span class="p">,</span> <span class="n">AtError</span>
 <span class="kn">from</span> <span class="nn">at.tracking</span> <span class="kn">import</span> <span class="n">lattice_pass</span><span class="p">,</span> <span class="n">patpass</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Sequence</span>
 <span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
 <span class="kn">import</span> <span class="nn">numpy</span>
 <span class="kn">from</span> <span class="nn">scipy.ndimage</span> <span class="kn">import</span> <span class="n">binary_dilation</span><span class="p">,</span> <span class="n">binary_opening</span>
@@ -189,12 +190,11 @@
 
 <div class="viewcode-block" id="GridMode"><a class="viewcode-back" href="../../../p/api/at.acceptance.boundary.html#at.acceptance.boundary.GridMode">[docs]</a><span class="k">class</span> <span class="nc">GridMode</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Class to define the grid mode use when searching</span>
-<span class="sd">    for the boundary</span>
+<span class="sd">    Grid definition for 2D acceptance boundary search</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">RADIAL</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">CARTESIAN</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="n">RECURSIVE</span> <span class="o">=</span> <span class="mi">2</span></div>
+    <span class="n">RADIAL</span> <span class="o">=</span> <span class="mi">0</span>      <span class="c1">#: full [:math:`\:r, \theta\:`] grid</span>
+    <span class="n">CARTESIAN</span> <span class="o">=</span> <span class="mi">1</span>   <span class="c1">#: full [:math:`\:x, y\:`] grid</span>
+    <span class="n">RECURSIVE</span> <span class="o">=</span> <span class="mi">2</span>   <span class="c1">#: radial recursive search</span></div>
 
 
 <span class="k">def</span> <span class="nf">grid_config</span><span class="p">(</span><span class="n">planes</span><span class="p">,</span> <span class="n">amplitudes</span><span class="p">,</span> <span class="n">npoints</span><span class="p">,</span> <span class="n">bounds</span><span class="p">,</span> <span class="n">grid_mode</span><span class="p">,</span>
@@ -571,10 +571,15 @@
     <span class="k">return</span> <span class="n">result</span>
 
 
-<span class="k">def</span> <span class="nf">boundary_search</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">planes</span><span class="p">,</span> <span class="n">npoints</span><span class="p">,</span> <span class="n">amplitudes</span><span class="p">,</span> <span class="n">nturns</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span>
-                    <span class="n">obspt</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dp</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                    <span class="n">grid_mode</span><span class="o">=</span><span class="n">GridMode</span><span class="o">.</span><span class="n">RADIAL</span><span class="p">,</span> <span class="n">use_mp</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                    <span class="n">shift_zero</span><span class="o">=</span><span class="mf">1.0e-9</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">boundary_search</span><span class="p">(</span><span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span> <span class="n">planes</span><span class="p">,</span> <span class="n">npoints</span><span class="p">,</span> <span class="n">amplitudes</span><span class="p">,</span>
+                    <span class="n">nturns</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1024</span><span class="p">,</span>
+                    <span class="n">obspt</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">dp</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                    <span class="n">offset</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                    <span class="n">grid_mode</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">GridMode</span><span class="p">]</span> <span class="o">=</span> <span class="n">GridMode</span><span class="o">.</span><span class="n">RADIAL</span><span class="p">,</span>
+                    <span class="n">use_mp</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+                    <span class="n">verbose</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+                    <span class="n">shift_zero</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0e-9</span><span class="p">,</span>
+                    <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Computes the loss boundary at a single point in the machine</span>
 <span class="sd">    &quot;&quot;&quot;</span>

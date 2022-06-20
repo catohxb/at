@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>at.acceptance.boundary &#8212; Accelerator Toolbox 0.1.dev1+g4373b50 documentation</title>
+    <title>at.acceptance.boundary &#8212; Accelerator Toolbox 0.1.dev1+g950c303 documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -38,6 +38,8 @@
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="at.acceptance.touschek" href="at.acceptance.touschek.html" />
@@ -543,7 +545,7 @@ grid definitions</p>
 <table class="autosummary longtable table autosummary">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#at.acceptance.boundary.GridMode" title="at.acceptance.boundary.GridMode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GridMode</span></code></a>(value)</p></td>
-<td><p>Class to define the grid mode use when searching for the boundary</p></td>
+<td><p>Grid definition for 2D acceptance boundary search</p></td>
 </tr>
 </tbody>
 </table>
@@ -551,22 +553,24 @@ grid definitions</p>
 <dt class="sig sig-object py" id="at.acceptance.boundary.GridMode">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">GridMode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/acceptance/boundary.html#GridMode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.acceptance.boundary.GridMode" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.Enum" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></a></p>
-<p>Class to define the grid mode use when searching
-for the boundary</p>
+<p>Grid definition for 2D acceptance boundary search</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="at.acceptance.boundary.GridMode.CARTESIAN">
 <span class="sig-name descname"><span class="pre">CARTESIAN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#at.acceptance.boundary.GridMode.CARTESIAN" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>full [<span class="math notranslate nohighlight">\(\:x, y\:\)</span>] grid</p>
+</dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="at.acceptance.boundary.GridMode.RADIAL">
 <span class="sig-name descname"><span class="pre">RADIAL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#at.acceptance.boundary.GridMode.RADIAL" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>full [<span class="math notranslate nohighlight">\(\:r, \theta\:\)</span>] grid</p>
+</dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="at.acceptance.boundary.GridMode.RECURSIVE">
 <span class="sig-name descname"><span class="pre">RECURSIVE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#at.acceptance.boundary.GridMode.RECURSIVE" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>radial recursive search</p>
+</dd></dl>
 
 </dd></dl>
 
