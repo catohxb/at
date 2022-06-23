@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>at.physics.orbit &#8212; Accelerator Toolbox 0.1.dev1+gff2d0da documentation</title>
+    <title>at.physics.orbit &#8212; Accelerator Toolbox 0.1.dev1+g1c69cf3 documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -559,7 +559,7 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="at.physics.orbit.Orbit">
 <span class="sig-name descname"><span class="pre">Orbit</span></span><a class="headerlink" href="#at.physics.orbit.Orbit" title="Permalink to this definition">#</a></dt>
-<dd><p>alias of <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.22)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a></p>
+<dd><p>alias of <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a></p>
 </dd></dl>
 
 <dl class="py function">
@@ -654,7 +654,7 @@ magnets with radiation)</p></li>
 <li><p><strong>refpts</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><em>Refpts</em><em>]</em>) – Observation points</p></li>
 <li><p><strong>dct</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>]</em>) – Path lengthening. If specified, <code class="docutils literal notranslate"><span class="pre">dp</span></code> is ignored and
 the off-momentum is deduced from the path lengthening.</p></li>
-<li><p><strong>orbit</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.22)"><em>ndarray</em></a><em>]</em>) – Avoids looking for initial the closed orbit if it is
+<li><p><strong>orbit</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><em>ndarray</em></a><em>]</em>) – Avoids looking for initial the closed orbit if it is
 already known ((6,) array). <a class="reference internal" href="#at.physics.orbit.find_orbit4" title="at.physics.orbit.find_orbit4"><code class="xref py py-func docutils literal notranslate"><span class="pre">find_orbit4()</span></code></a> propagates it to
 the specified <code class="docutils literal notranslate"><span class="pre">refpts</span></code>.</p></li>
 <li><p><strong>keep_lattice</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>]</em>) – Assume no lattice change since the previous tracking.
@@ -730,7 +730,7 @@ the equilibrium RF phase. If there is no radiation it is 0.</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ring</strong> (<a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><em>Lattice</em></a>) – Lattice description</p></li>
 <li><p><strong>refpts</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><em>Refpts</em><em>]</em>) – Observation points</p></li>
-<li><p><strong>orbit</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.22)"><em>ndarray</em></a><em>]</em>) – Avoids looking for initial the closed orbit if it is
+<li><p><strong>orbit</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><em>ndarray</em></a><em>]</em>) – Avoids looking for initial the closed orbit if it is
 already known ((6,) array). <a class="reference internal" href="#at.physics.orbit.find_sync_orbit" title="at.physics.orbit.find_sync_orbit"><code class="xref py py-func docutils literal notranslate"><span class="pre">find_sync_orbit()</span></code></a> propagates it
 to the specified <code class="docutils literal notranslate"><span class="pre">refpts</span></code>.</p></li>
 <li><p><strong>dp</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>]</em>) – Momentum deviation. Defaults to None</p></li>
@@ -808,7 +808,7 @@ magnets with radiation)</p></li>
 <li><p><strong>dct</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>]</em>) – Path lengthening.</p></li>
 <li><p><strong>refpts</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><em>Refpts</em><em>]</em>) – Observation points</p></li>
 <li><p><strong>dp</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>]</em>) – Momentum deviation. Defaults to None</p></li>
-<li><p><strong>orbit</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.22)"><em>ndarray</em></a><em>]</em>) – Avoids looking for initial the closed orbit if it is
+<li><p><strong>orbit</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><em>ndarray</em></a><em>]</em>) – Avoids looking for initial the closed orbit if it is
 already known ((6,) array). <a class="reference internal" href="#at.physics.orbit.find_sync_orbit" title="at.physics.orbit.find_sync_orbit"><code class="xref py py-func docutils literal notranslate"><span class="pre">find_sync_orbit()</span></code></a> propagates it
 to the specified <code class="docutils literal notranslate"><span class="pre">refpts</span></code>.</p></li>
 <li><p><strong>keep_lattice</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>]</em>) – Assume no lattice change since the previous tracking.

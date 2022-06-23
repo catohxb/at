@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>at.physics.ring_parameters &#8212; Accelerator Toolbox 0.1.dev1+gff2d0da documentation</title>
+    <title>at.physics.ring_parameters &#8212; Accelerator Toolbox 0.1.dev1+g1c69cf3 documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -169,8 +169,9 @@
 <span></span><span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">pi</span><span class="p">,</span> <span class="n">sqrt</span><span class="p">,</span> <span class="n">asin</span><span class="p">,</span> <span class="n">cos</span>
 <span class="kn">import</span> <span class="nn">numpy</span>
 <span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">nan</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
 <span class="kn">from</span> <span class="nn">..lattice</span> <span class="kn">import</span> <span class="n">Lattice</span>
-<span class="kn">from</span> <span class="nn">..lattice.constants</span> <span class="kn">import</span> <span class="n">clight</span><span class="p">,</span> <span class="n">Cgamma</span><span class="p">,</span> <span class="n">Cq</span>
+<span class="kn">from</span> <span class="nn">..constants</span> <span class="kn">import</span> <span class="n">clight</span><span class="p">,</span> <span class="n">Cgamma</span><span class="p">,</span> <span class="n">Cq</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;RingParameters&#39;</span><span class="p">,</span> <span class="s1">&#39;radiation_parameters&#39;</span><span class="p">,</span> <span class="s1">&#39;envelope_parameters&#39;</span><span class="p">]</span>
 
@@ -178,7 +179,7 @@
 <div class="viewcode-block" id="RingParameters"><a class="viewcode-back" href="../../../p/api/at.physics.ring_parameters.html#at.physics.ring_parameters.RingParameters">[docs]</a><span class="k">class</span> <span class="nc">RingParameters</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Class for pretty printing the ring properties&quot;&quot;&quot;</span>
 
-    <span class="n">props</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">_props</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s1">&#39;tunes&#39;</span><span class="p">:</span>            <span class="s1">&#39;              Frac. tunes: </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="p">,</span>
         <span class="s1">&#39;tunes6&#39;</span><span class="p">:</span>           <span class="s1">&#39;  Frac. tunes (6D motion): </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="p">,</span>
         <span class="s1">&#39;fulltunes&#39;</span><span class="p">:</span>        <span class="s1">&#39;                    Tunes: </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="p">,</span>
@@ -203,13 +204,12 @@
     <span class="p">}</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Initialisation&quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">vrs</span> <span class="o">=</span> <span class="nb">vars</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-        <span class="n">vals</span> <span class="o">=</span> <span class="p">[(</span><span class="bp">self</span><span class="o">.</span><span class="n">props</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">vrs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">props</span><span class="p">]</span>
+        <span class="n">vals</span> <span class="o">=</span> <span class="p">[(</span><span class="bp">self</span><span class="o">.</span><span class="n">_props</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">vrs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_props</span><span class="p">]</span>
         <span class="c1"># Predefined attributes</span>
         <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">vals</span> <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span>
         <span class="c1"># Other attributes</span>
@@ -218,54 +218,70 @@
 
 
 <span class="c1"># noinspection PyPep8Naming</span>
-<div class="viewcode-block" id="radiation_parameters"><a class="viewcode-back" href="../../../p/api/at.physics.ring_parameters.html#at.physics.ring_parameters.radiation_parameters">[docs]</a><span class="k">def</span> <span class="nf">radiation_parameters</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">dp</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Compute ring parameters from the radiation integrals. Valid for</span>
-<span class="sd">    uncoupled lattices with no RF cavity or radiating element.</span>
+<div class="viewcode-block" id="radiation_parameters"><a class="viewcode-back" href="../../../p/api/at.physics.ring_parameters.html#at.physics.ring_parameters.radiation_parameters">[docs]</a><span class="k">def</span> <span class="nf">radiation_parameters</span><span class="p">(</span><span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span> <span class="n">dp</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                         <span class="n">params</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">RingParameters</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                         <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute ring parameters from the radiation integrals</span>
 
-<span class="sd">    INPUT</span>
-<span class="sd">        ring            Lattice object.</span>
+<span class="sd">    Valid for uncoupled lattices with no RF cavity or radiating element.</span>
 
-<span class="sd">    KEYWORD</span>
-<span class="sd">        params=None     RingParam object to be updated.</span>
-<span class="sd">        dp=0.0          Ignored if radiation is ON. Momentum deviation.</span>
-<span class="sd">        dct=None        Ignored if radiation is ON. Path lengthening.</span>
-<span class="sd">                        If specified, dp is ignored and the off-momentum is</span>
-<span class="sd">                        deduced from the path lengthening.</span>
-<span class="sd">        method=linopt6  Method used for the analysis of the transfer matrix.</span>
-<span class="sd">                        See get_optics.</span>
-<span class="sd">                        linopt6: default</span>
-<span class="sd">                        linopt2: faster if no longitudinal motion and</span>
-<span class="sd">                                 no H/V coupling,</span>
+<span class="sd">    Parameters:</span>
+<span class="sd">        ring:       Lattice description.</span>
+<span class="sd">        dp:         Momentum deviation.</span>
+<span class="sd">        params:     :py:class:`RingParameters` object to be updated.</span>
+<span class="sd">          Default: create a new one</span>
 
-<span class="sd">    OUTPUT</span>
-<span class="sd">        params          RingParam object. The computed attributes are,</span>
+<span class="sd">    Keyword Args:</span>
+<span class="sd">        dct (Optional[float]):  Path lengthening. If specified, ``dp`` is</span>
+<span class="sd">          ignored and the off-momentum is deduced from the path lengthening.</span>
+<span class="sd">        method (Optional[Callable]):  Method used for the analysis of the</span>
+<span class="sd">          transfer matrix. Can be ``at.linopt2`` or ``at.linopt6``</span>
 
-<span class="sd">            tunes           (3,) fractional (H, V, Long.) tunes</span>
-<span class="sd">            fulltunes       (3,) full tunes</span>
-<span class="sd">            chromaticities  (2,) H, V Chromaticities</span>
-<span class="sd">            alphac          Momentum compaction factor</span>
-<span class="sd">            etac            Frequency slip factor</span>
-<span class="sd">            E0              Energy [eV]</span>
-<span class="sd">            U0              nergy loss / turn [eV]</span>
-<span class="sd">            i1              Radiation integrals - I1 [m]</span>
-<span class="sd">            i2                                    I2 [m^-1]</span>
-<span class="sd">            i3                                    I3 [m^-2]</span>
-<span class="sd">            i4                                    I4 [m^-1]</span>
-<span class="sd">            i5                                    I5 [m^-1]</span>
-<span class="sd">            emittances      (3,) Mode emittances</span>
-<span class="sd">            J               (3,) Damping partition numbers</span>
-<span class="sd">            Tau             (3,) Damping times [s]</span>
-<span class="sd">            sigma_e         Energy spread</span>
-<span class="sd">            sigma_l         Bunch length [m]</span>
-<span class="sd">            voltage         Total accelerating voltage [V]</span>
-<span class="sd">            phi_s           Synchrotron phase [rad]</span>
-<span class="sd">            f_s             Synchrotron frequency [Hz]</span>
+<span class="sd">          linopt2</span>
+<span class="sd">            no longitudinal motion, no H/V coupling, faster</span>
+<span class="sd">          linopt6 (default)</span>
+<span class="sd">            with or without longitudinal motion, normal mode analysis</span>
+<span class="sd">        orbit (Optional[Orbit]): Avoids looking for the closed orbit if is</span>
+<span class="sd">          already known ((6,) array)</span>
+<span class="sd">        XYStep (Optional[float]):       Step size.</span>
+<span class="sd">          Default: :py:data:`DConstant.XYStep &lt;.DConstant&gt;`</span>
+<span class="sd">        DPStep (Optional[float]):       Momentum step size.</span>
+<span class="sd">          Default: :py:data:`DConstant.DPStep &lt;.DConstant&gt;`</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        params:             :py:class:`RingParameters` object.</span>
+
+<span class="sd">    **params** is a :py:class:`RingParameters` object with the following</span>
+<span class="sd">    attributes:</span>
+
+<span class="sd">    ==================  ========================================</span>
+<span class="sd">    **tunes**           (3,) fractional (H, V, Long.) tunes</span>
+<span class="sd">    **fulltunes**       (3,) full tunes</span>
+<span class="sd">    **chromaticities**  (2,) H, V Chromaticities</span>
+<span class="sd">    **alphac**          Momentum compaction factor</span>
+<span class="sd">    **etac**            Frequency slip factor</span>
+<span class="sd">    **E0**              Energy [eV]</span>
+<span class="sd">    **U0**              Energy loss / turn [eV]</span>
+<span class="sd">    **i1**              Radiation integrals - :math:`I_1 \quad [m]`</span>
+<span class="sd">    **i2**              :math:`I_2 \quad [m^{-1}]`</span>
+<span class="sd">    **i3**              :math:`I_3 \quad [m^{-2}]`</span>
+<span class="sd">    **i4**              :math:`I_4 \quad [m^{-1}]`</span>
+<span class="sd">    **i5**              :math:`I_5 \quad [m^{-1}]`</span>
+<span class="sd">    **emittances**      (3,) Mode emittances</span>
+<span class="sd">    **J**               (3,) Damping partition numbers</span>
+<span class="sd">    **Tau**             (3,) Damping times [s]</span>
+<span class="sd">    **sigma_e**         Energy spread</span>
+<span class="sd">    **sigma_l**         Bunch length [m]</span>
+<span class="sd">    **voltage**         Total accelerating voltage [V]</span>
+<span class="sd">    **phi_s**           Synchrotron phase [rad]</span>
+<span class="sd">    **f_s**             Synchrotron frequency [Hz]</span>
+<span class="sd">    ==================  ========================================</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">rp</span> <span class="o">=</span> <span class="n">RingParameters</span><span class="p">()</span> <span class="k">if</span> <span class="n">params</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">params</span>
     <span class="n">_</span><span class="p">,</span> <span class="n">ringdata</span><span class="p">,</span> <span class="n">twiss</span> <span class="o">=</span> <span class="n">ring</span><span class="o">.</span><span class="n">get_optics</span><span class="p">(</span><span class="n">refpts</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ring</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">dp</span><span class="o">=</span><span class="n">dp</span><span class="p">,</span>
                                          <span class="n">get_chrom</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="n">rp</span><span class="o">.</span><span class="n">chromaticities</span> <span class="o">=</span> <span class="n">ringdata</span><span class="o">.</span><span class="n">chromaticity</span> <span class="o">*</span> <span class="n">ring</span><span class="o">.</span><span class="n">periodicity</span>
-    <span class="n">integs</span> <span class="o">=</span> <span class="n">ring</span><span class="o">.</span><span class="n">get_radiation_integrals</span><span class="p">(</span><span class="n">dp</span><span class="p">,</span> <span class="n">twiss</span><span class="o">=</span><span class="n">twiss</span><span class="p">)</span>
+    <span class="n">integs</span> <span class="o">=</span> <span class="n">ring</span><span class="o">.</span><span class="n">get_radiation_integrals</span><span class="p">(</span><span class="n">dp</span><span class="o">=</span><span class="n">dp</span><span class="p">,</span> <span class="n">twiss</span><span class="o">=</span><span class="n">twiss</span><span class="p">)</span>
     <span class="n">rp</span><span class="o">.</span><span class="n">i1</span><span class="p">,</span> <span class="n">rp</span><span class="o">.</span><span class="n">i2</span><span class="p">,</span> <span class="n">rp</span><span class="o">.</span><span class="n">i3</span><span class="p">,</span> <span class="n">rp</span><span class="o">.</span><span class="n">i4</span><span class="p">,</span> <span class="n">rp</span><span class="o">.</span><span class="n">i5</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">integs</span><span class="p">)</span> <span class="o">*</span> <span class="n">ring</span><span class="o">.</span><span class="n">periodicity</span>
     <span class="n">circumference</span> <span class="o">=</span> <span class="n">ring</span><span class="o">.</span><span class="n">circumference</span>
     <span class="n">voltage</span> <span class="o">=</span> <span class="n">ring</span><span class="o">.</span><span class="n">rf_voltage</span>
@@ -307,27 +323,33 @@
 
 
 <span class="c1"># noinspection PyPep8Naming</span>
-<div class="viewcode-block" id="envelope_parameters"><a class="viewcode-back" href="../../../p/api/at.physics.ring_parameters.html#at.physics.ring_parameters.envelope_parameters">[docs]</a><span class="k">def</span> <span class="nf">envelope_parameters</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Compute ring parameters from ohmi_envelope</span>
+<div class="viewcode-block" id="envelope_parameters"><a class="viewcode-back" href="../../../p/api/at.physics.ring_parameters.html#at.physics.ring_parameters.envelope_parameters">[docs]</a><span class="k">def</span> <span class="nf">envelope_parameters</span><span class="p">(</span><span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span>
+                        <span class="n">params</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">RingParameters</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span>\
+        <span class="o">-&gt;</span> <span class="n">RingParameters</span><span class="p">:</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute ring parameters from ohmi_envelope</span>
 
-<span class="sd">    INPUT</span>
-<span class="sd">        ring            Lattice object.</span>
+<span class="sd">    Parameters:</span>
+<span class="sd">        ring:       Lattice description.</span>
+<span class="sd">        params:     :py:class:`RingParameters` object to be updated.</span>
+<span class="sd">          Default: create a new one</span>
 
-<span class="sd">    KEYWORD</span>
-<span class="sd">        params=None     RingParam object to be updated.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        params:             :py:class:`RingParameters` object.</span>
 
-<span class="sd">    OUTPUT</span>
-<span class="sd">        params          RingParam object. The computed attributes are,</span>
+<span class="sd">    **params** is a :py:class:`RingParameters` object with the following</span>
+<span class="sd">    attributes:</span>
 
-<span class="sd">            tunes6          (3,) fractional (H, V, Long.) tunes (6D motion)</span>
-<span class="sd">            emittances      (3,) Mode emittances</span>
-<span class="sd">            J               (3,) Damping partition numbers</span>
-<span class="sd">            Tau             (3,) Damping times [s]</span>
-<span class="sd">            sigma_e         Energy spread</span>
-<span class="sd">            sigma_l         Bunch length [m]</span>
-<span class="sd">            voltage         Total accelerating voltage [V]</span>
-<span class="sd">            phi_s           Synchrotron phase [rad]</span>
-<span class="sd">            f_s             Synchrotron frequency [Hz]</span>
+<span class="sd">    ==================  ========================================</span>
+<span class="sd">    **tunes6**          (3,) fractional (H, V, Long.) tunes (6D motion)</span>
+<span class="sd">    **emittances**      (3,) Mode emittances</span>
+<span class="sd">    **J**               (3,) Damping partition numbers</span>
+<span class="sd">    **Tau**             (3,) Damping times [s]</span>
+<span class="sd">    **sigma_e**         Energy spread</span>
+<span class="sd">    **sigma_l**         Bunch length [m]</span>
+<span class="sd">    **voltage**         Total accelerating voltage [V]</span>
+<span class="sd">    **phi_s**           Synchrotron phase [rad]</span>
+<span class="sd">    **f_s**             Synchrotron frequency [Hz]</span>
+<span class="sd">    ==================  ========================================</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">rp</span> <span class="o">=</span> <span class="n">RingParameters</span><span class="p">()</span> <span class="k">if</span> <span class="n">params</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">params</span>
     <span class="n">emit0</span><span class="p">,</span> <span class="n">beamdata</span><span class="p">,</span> <span class="n">emit</span> <span class="o">=</span> <span class="n">ring</span><span class="o">.</span><span class="n">ohmi_envelope</span><span class="p">()</span>

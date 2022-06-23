@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>at.physics.nonlinear &#8212; Accelerator Toolbox 0.1.dev1+gff2d0da documentation</title>
+    <title>at.physics.nonlinear &#8212; Accelerator Toolbox 0.1.dev1+g1c69cf3 documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -167,21 +167,34 @@
                 
   <h1>Source code for at.physics.nonlinear</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Function to compute quantities related to non-linear optics</span>
+<span class="sd">Non-linear optics</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Sequence</span>
 <span class="kn">from</span> <span class="nn">scipy.special</span> <span class="kn">import</span> <span class="n">factorial</span>
-<span class="kn">from</span> <span class="nn">at.lattice</span> <span class="kn">import</span> <span class="n">Element</span>
-<span class="kn">from</span> <span class="nn">at.tracking</span> <span class="kn">import</span> <span class="n">lattice_pass</span>
-<span class="kn">from</span> <span class="nn">at.physics</span> <span class="kn">import</span> <span class="n">get_tune</span><span class="p">,</span> <span class="n">linopt6</span><span class="p">,</span> <span class="n">find_orbit</span>
-<span class="kn">from</span> <span class="nn">at.physics</span> <span class="kn">import</span> <span class="n">get_tunes_harmonic</span><span class="p">,</span> <span class="n">get_chrom</span>
+<span class="kn">from</span> <span class="nn">..lattice</span> <span class="kn">import</span> <span class="n">Element</span><span class="p">,</span> <span class="n">Lattice</span>
+<span class="kn">from</span> <span class="nn">..tracking</span> <span class="kn">import</span> <span class="n">lattice_pass</span>
+<span class="kn">from</span> <span class="nn">.orbit</span> <span class="kn">import</span> <span class="n">Orbit</span><span class="p">,</span> <span class="n">find_orbit</span>
+<span class="kn">from</span> <span class="nn">.linear</span> <span class="kn">import</span> <span class="n">get_tune</span><span class="p">,</span> <span class="n">get_chrom</span><span class="p">,</span> <span class="n">linopt6</span>
+<span class="kn">from</span> <span class="nn">.harmonic_analysis</span> <span class="kn">import</span> <span class="n">get_tunes_harmonic</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;detuning&#39;</span><span class="p">,</span> <span class="s1">&#39;chromaticity&#39;</span><span class="p">,</span> <span class="s1">&#39;gen_detuning_elem&#39;</span><span class="p">]</span>
 
 
-<span class="k">def</span> <span class="nf">tunes_vs_amp</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">amp</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">window</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">nturns</span><span class="o">=</span><span class="mi">512</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Generates a range of tunes for varying x, y, or z amplitudes</span>
+<span class="k">def</span> <span class="nf">tunes_vs_amp</span><span class="p">(</span><span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span> <span class="n">amp</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">dim</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">window</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                 <span class="n">nturns</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">512</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Generates a range of tunes for varying x, y, or z amplitudes</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        ring:               Lattice description</span>
+<span class="sd">        amp:                Oscillation amplitude. Default: tunes from</span>
+<span class="sd">          :py:func:`.linopt6`</span>
+<span class="sd">        dim:                Coordinate index of the oscillation</span>
+<span class="sd">        nturns:             Number of turns</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tunes (ndarray):    Array of tunes</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">_gen_part</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">amp</span><span class="p">,</span> <span class="n">dim</span><span class="p">,</span> <span class="n">orbit</span><span class="p">,</span> <span class="n">ld</span><span class="p">,</span> <span class="n">nturns</span><span class="p">):</span>
@@ -212,19 +225,38 @@
 
     <span class="k">if</span> <span class="n">amp</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">partx</span><span class="p">,</span> <span class="n">party</span> <span class="o">=</span> <span class="n">_gen_part</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">amp</span><span class="p">,</span> <span class="n">dim</span><span class="p">,</span> <span class="n">orbit</span><span class="p">,</span> <span class="n">l0</span><span class="p">,</span> <span class="n">nturns</span><span class="p">)</span>
-        <span class="n">qx</span> <span class="o">=</span> <span class="n">get_tunes_harmonic</span><span class="p">(</span><span class="n">partx</span><span class="p">,</span> <span class="s1">&#39;laskar&#39;</span><span class="p">)</span>
-        <span class="n">qy</span> <span class="o">=</span> <span class="n">get_tunes_harmonic</span><span class="p">(</span><span class="n">party</span><span class="p">,</span> <span class="s1">&#39;laskar&#39;</span><span class="p">)</span>
+        <span class="n">qx</span> <span class="o">=</span> <span class="n">get_tunes_harmonic</span><span class="p">(</span><span class="n">partx</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;laskar&#39;</span><span class="p">)</span>
+        <span class="n">qy</span> <span class="o">=</span> <span class="n">get_tunes_harmonic</span><span class="p">(</span><span class="n">party</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;laskar&#39;</span><span class="p">)</span>
         <span class="n">tunes</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">qx</span><span class="p">,</span> <span class="n">qy</span><span class="p">))</span><span class="o">.</span><span class="n">T</span>
 
     <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">tunes</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="detuning"><a class="viewcode-back" href="../../../p/api/at.physics.nonlinear.html#at.physics.nonlinear.detuning">[docs]</a><span class="k">def</span> <span class="nf">detuning</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">xm</span><span class="o">=</span><span class="mf">0.3e-4</span><span class="p">,</span> <span class="n">ym</span><span class="o">=</span><span class="mf">0.3e-4</span><span class="p">,</span> <span class="n">npoints</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">window</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-             <span class="n">nturns</span><span class="o">=</span><span class="mi">512</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    This function uses tunes_vs_amp to compute the tunes for</span>
+<div class="viewcode-block" id="detuning"><a class="viewcode-back" href="../../../p/api/at.physics.nonlinear.html#at.physics.nonlinear.detuning">[docs]</a><span class="k">def</span> <span class="nf">detuning</span><span class="p">(</span><span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span>
+             <span class="n">xm</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.3e-4</span><span class="p">,</span> <span class="n">ym</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.3e-4</span><span class="p">,</span>
+             <span class="n">npoints</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">window</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+             <span class="n">nturns</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">512</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Computes the tunes for a sequence of amplitudes</span>
+
+<span class="sd">    This function uses :py:func:`tunes_vs_amp` to compute the tunes for</span>
 <span class="sd">    the specified amplitudes. Then it fits this data and returns</span>
 <span class="sd">    result for dQx/dx, dQy/dx, dQx/dy, dQy/dy</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        ring:       Lattice description</span>
+<span class="sd">        xm:         Maximum x amplitude</span>
+<span class="sd">        ym:         Maximum y amplitude</span>
+<span class="sd">        npoints:    Number of points in each plane</span>
+<span class="sd">        window:</span>
+<span class="sd">        nturns:     Number of turns for tracking</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        q0 (ndarray):</span>
+<span class="sd">        q1 (ndarray):</span>
+<span class="sd">        x (ndarray):          x amplitudes</span>
+<span class="sd">        q_dx (ndarray):</span>
+<span class="sd">        y (ndarray):          y amplitudes</span>
+<span class="sd">        q_dy (ndarray):</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">lindata0</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">linopt6</span><span class="p">(</span><span class="n">ring</span><span class="p">)</span>
     <span class="n">gamma</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">lindata0</span><span class="o">.</span><span class="n">alpha</span> <span class="o">*</span> <span class="n">lindata0</span><span class="o">.</span><span class="n">alpha</span><span class="p">)</span> <span class="o">/</span> <span class="n">lindata0</span><span class="o">.</span><span class="n">beta</span>
@@ -234,10 +266,8 @@
     <span class="n">x2</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span>
     <span class="n">y2</span> <span class="o">=</span> <span class="n">y</span> <span class="o">*</span> <span class="n">y</span>
 
-    <span class="n">q_dx</span> <span class="o">=</span> <span class="n">tunes_vs_amp</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">amp</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">window</span><span class="o">=</span><span class="n">window</span><span class="p">,</span>
-                        <span class="n">nturns</span><span class="o">=</span><span class="n">nturns</span><span class="p">)</span>
-    <span class="n">q_dy</span> <span class="o">=</span> <span class="n">tunes_vs_amp</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">amp</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">window</span><span class="o">=</span><span class="n">window</span><span class="p">,</span>
-                        <span class="n">nturns</span><span class="o">=</span><span class="n">nturns</span><span class="p">)</span>
+    <span class="n">q_dx</span> <span class="o">=</span> <span class="n">tunes_vs_amp</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">amp</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">window</span><span class="o">=</span><span class="n">window</span><span class="p">,</span> <span class="n">nturns</span><span class="o">=</span><span class="n">nturns</span><span class="p">)</span>
+    <span class="n">q_dy</span> <span class="o">=</span> <span class="n">tunes_vs_amp</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">amp</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">window</span><span class="o">=</span><span class="n">window</span><span class="p">,</span> <span class="n">nturns</span><span class="o">=</span><span class="n">nturns</span><span class="p">)</span>
 
     <span class="n">fx</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">x2</span><span class="p">,</span> <span class="n">q_dx</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
     <span class="n">fy</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">y2</span><span class="p">,</span> <span class="n">q_dy</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
@@ -250,13 +280,32 @@
     <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">q0</span><span class="p">),</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">q1</span><span class="p">),</span> <span class="n">x</span><span class="p">,</span> <span class="n">q_dx</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">q_dy</span></div>
 
 
-<div class="viewcode-block" id="chromaticity"><a class="viewcode-back" href="../../../p/api/at.physics.nonlinear.html#at.physics.nonlinear.chromaticity">[docs]</a><span class="k">def</span> <span class="nf">chromaticity</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;linopt&#39;</span><span class="p">,</span> <span class="n">dpm</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span> <span class="n">npoints</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">dp</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+<div class="viewcode-block" id="chromaticity"><a class="viewcode-back" href="../../../p/api/at.physics.nonlinear.html#at.physics.nonlinear.chromaticity">[docs]</a><span class="k">def</span> <span class="nf">chromaticity</span><span class="p">(</span><span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span> <span class="n">method</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;linopt&#39;</span><span class="p">,</span>
+                 <span class="n">dpm</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.02</span><span class="p">,</span> <span class="n">npoints</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">11</span><span class="p">,</span>
+                 <span class="n">order</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+                 <span class="n">dp</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
                  <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    This function uses computes the tunes to compute the tune for</span>
-<span class="sd">    the specified momentum offsets. Then it fits this data and returns</span>
-<span class="sd">    the chromaticity up to the given order (npoints&gt;order)</span>
-<span class="sd">    OUTPUT</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Computes the non-linear chromaticities</span>
+
+<span class="sd">    This function computes the tunes for the specified momentum offsets.</span>
+<span class="sd">    Then it fits this data and returns the chromaticity up to the given</span>
+<span class="sd">    order (npoints&gt;order)</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        ring:       Lattice description</span>
+<span class="sd">        method:     ``&#39;linopt&#39;`` (dfault) returns the tunes from the</span>
+<span class="sd">          :py:func:`linopt6` function,</span>
+
+<span class="sd">          ``&#39;fft&#39;`` tracks a single particle and computes the tunes with fft,</span>
+
+<span class="sd">          ``&#39;laskar&#39;`` tracks a single particle and computes the tunes with</span>
+<span class="sd">          NAFF.</span>
+<span class="sd">        dpm:        Maximum momentum deviation</span>
+<span class="sd">        npoints:    Number of momentum deviations</span>
+<span class="sd">        order:      Order of the fit</span>
+<span class="sd">        dp:         Central momentum deviation</span>
+
+<span class="sd">    Returns:</span>
 <span class="sd">        (fitx, fity), dpa, qz</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">order</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
@@ -275,9 +324,17 @@
         <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">fitx</span><span class="p">,</span> <span class="n">fity</span><span class="p">]),</span> <span class="n">dpa</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">qz</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="gen_detuning_elem"><a class="viewcode-back" href="../../../p/api/at.physics.nonlinear.html#at.physics.nonlinear.gen_detuning_elem">[docs]</a><span class="k">def</span> <span class="nf">gen_detuning_elem</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">orbit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Generates an element that for detuning with amplitude</span>
+<div class="viewcode-block" id="gen_detuning_elem"><a class="viewcode-back" href="../../../p/api/at.physics.nonlinear.html#at.physics.nonlinear.gen_detuning_elem">[docs]</a><span class="k">def</span> <span class="nf">gen_detuning_elem</span><span class="p">(</span><span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span> <span class="n">orbit</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Orbit</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Element</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Generates a detuning element</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        ring:           Lattice description</span>
+<span class="sd">        orbit:          Avoids looking for initial the closed orbit if it is</span>
+<span class="sd">          already known ((6,) array).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        detuneElem:     Element reproducing the detuning of the ring with</span>
+<span class="sd">          amplitude and momentum</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">orbit</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">orbit</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">find_orbit</span><span class="p">(</span><span class="n">ring</span><span class="p">)</span>

@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>at.physics.harmonic_analysis &#8212; Accelerator Toolbox 0.1.dev1+gff2d0da documentation</title>
+    <title>at.physics.harmonic_analysis &#8212; Accelerator Toolbox 0.1.dev1+g1c69cf3 documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -178,6 +178,7 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span>
 
 <span class="n">PI2I</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="nb">complex</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
@@ -358,17 +359,22 @@
 <span class="c1">##############################################</span>
 
 
-<div class="viewcode-block" id="get_spectrum_harmonic"><a class="viewcode-back" href="../../../p/api/at.physics.harmonic_analysis.html#at.physics.harmonic_analysis.get_spectrum_harmonic">[docs]</a><span class="k">def</span> <span class="nf">get_spectrum_harmonic</span><span class="p">(</span><span class="n">cent</span><span class="p">,</span> <span class="n">num_harmonics</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;laskar&#39;</span><span class="p">,</span> <span class="n">hann</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    INPUT</span>
-<span class="sd">    cent: centroid motions of the particle</span>
-<span class="sd">    num_harmonics: number of harmonic components to compute (before mask</span>
-<span class="sd">    applied, default=20)</span>
-<span class="sd">    method: laskar or fft [default=laskar]</span>
-<span class="sd">    hann: flag to turn on hanning window [default-&gt; False]</span>
+<div class="viewcode-block" id="get_spectrum_harmonic"><a class="viewcode-back" href="../../../p/api/at.physics.harmonic_analysis.html#at.physics.harmonic_analysis.get_spectrum_harmonic">[docs]</a><span class="k">def</span> <span class="nf">get_spectrum_harmonic</span><span class="p">(</span><span class="n">cent</span><span class="p">,</span> <span class="n">method</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;laskar&#39;</span><span class="p">,</span>
+                          <span class="n">num_harmonics</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span>
+                          <span class="n">hann</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>\
+        <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Frequency analysis of beam motion</span>
 
-<span class="sd">    OUTPUT</span>
-<span class="sd">    freq,amp: numpy arrays for the frequency and amplitude</span>
+<span class="sd">    Parameters:</span>
+<span class="sd">        cent:           Centroid motions of the particle</span>
+<span class="sd">        method:         ``&#39;laskar&#39;`` or ``&#39;fft&#39;``. Default: ``&#39;laskar&#39;``</span>
+<span class="sd">        num_harmonics:  Number of harmonic components to compute (before mask</span>
+<span class="sd">          applied)</span>
+<span class="sd">        hann:           Turn on Hanning window. Default: :py:obj:`False`</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        frequency (ndarray): (num_harmonics,) array of frequencies</span>
+<span class="sd">        amplitude (ndarray): (num_harmonics,) array of amplitudes</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">ha</span> <span class="o">=</span> <span class="n">HarmonicAnalysis</span><span class="p">(</span><span class="n">cent</span><span class="p">,</span> <span class="n">hann</span><span class="o">=</span><span class="n">hann</span><span class="p">)</span>
 
@@ -386,24 +392,25 @@
     <span class="k">return</span> <span class="n">ha_tune</span><span class="p">,</span> <span class="n">ha_amp</span></div>
 
 
-<div class="viewcode-block" id="get_tunes_harmonic"><a class="viewcode-back" href="../../../p/api/at.physics.harmonic_analysis.html#at.physics.harmonic_analysis.get_tunes_harmonic">[docs]</a><span class="k">def</span> <span class="nf">get_tunes_harmonic</span><span class="p">(</span><span class="n">cents</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span>
-                       <span class="n">num_harmonics</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
-                       <span class="n">hann</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                       <span class="n">fmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-                       <span class="n">fmax</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    INPUT</span>
-<span class="sd">    cents: are the centroid motions of the particles</span>
-<span class="sd">    method: laskar or fft</span>
-<span class="sd">    num_harmonics: number of harmonic components to compute (before mask</span>
-<span class="sd">    applied, default=20)</span>
-<span class="sd">    fmin/fmax: determine the boundaries within which the tune is located</span>
-<span class="sd">    [default 0-&gt;1]</span>
-<span class="sd">    hann: flag to turn on hanning window [default-&gt; False]</span>
+<div class="viewcode-block" id="get_tunes_harmonic"><a class="viewcode-back" href="../../../p/api/at.physics.harmonic_analysis.html#at.physics.harmonic_analysis.get_tunes_harmonic">[docs]</a><span class="k">def</span> <span class="nf">get_tunes_harmonic</span><span class="p">(</span><span class="n">cents</span><span class="p">,</span> <span class="n">method</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;laskar&#39;</span><span class="p">,</span>
+                       <span class="n">num_harmonics</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span>
+                       <span class="n">hann</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+                       <span class="n">fmin</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+                       <span class="n">fmax</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Computes tunes from harmonic analysis</span>
 
-<span class="sd">    OUTPUT</span>
-<span class="sd">    tunes: numpy array of length len(cents), max of the spectrum within</span>
-<span class="sd">    fmin:fmax</span>
+<span class="sd">    Parameters:</span>
+<span class="sd">        cents:          Centroid motions of the particle</span>
+<span class="sd">        method:         ``&#39;laskar&#39;`` or ``&#39;fft&#39;``. Default: ``&#39;laskar&#39;``</span>
+<span class="sd">        num_harmonics:  Number of harmonic components to compute (before mask</span>
+<span class="sd">          applied)</span>
+<span class="sd">        fmin:           Lower bound for tune</span>
+<span class="sd">        fmax:           Upper bound for tune</span>
+<span class="sd">        hann:           Turn on Hanning window. Default: :py:obj:`False`</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tunes (ndarray):    numpy array of length len(cents), max of the</span>
+<span class="sd">          spectrum within [fmin fmax]</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">get_max_spectrum</span><span class="p">(</span><span class="n">freq</span><span class="p">,</span> <span class="n">amp</span><span class="p">,</span> <span class="n">fmin</span><span class="p">,</span> <span class="n">fmax</span><span class="p">):</span>
         <span class="n">msk</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span><span class="n">freq</span> <span class="o">&gt;=</span> <span class="n">fmin</span><span class="p">,</span> <span class="n">freq</span> <span class="o">&lt;=</span> <span class="n">fmax</span><span class="p">)</span>

@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>at.physics.nonlinear &#8212; Accelerator Toolbox 0.1.dev1+gff2d0da documentation</title>
+    <title>at.physics.nonlinear &#8212; Accelerator Toolbox 0.1.dev1+g1c69cf3 documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -536,45 +536,98 @@
                 
   <section id="module-at.physics.nonlinear">
 <span id="at-physics-nonlinear"></span><h1>at.physics.nonlinear<a class="headerlink" href="#module-at.physics.nonlinear" title="Permalink to this heading">#</a></h1>
-<p>Function to compute quantities related to non-linear optics</p>
+<p>Non-linear optics</p>
 <p class="rubric">Functions</p>
 <table class="autosummary longtable table autosummary">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#at.physics.nonlinear.detuning" title="at.physics.nonlinear.detuning"><code class="xref py py-obj docutils literal notranslate"><span class="pre">detuning</span></code></a>(ring[, xm, ym, npoints, window, nturns])</p></td>
-<td><p>This function uses tunes_vs_amp to compute the tunes for the specified amplitudes.</p></td>
+<td><p>Computes the tunes for a sequence of amplitudes</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#at.physics.nonlinear.chromaticity" title="at.physics.nonlinear.chromaticity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">chromaticity</span></code></a>(ring[, method, dpm, npoints, ...])</p></td>
-<td><p>This function uses computes the tunes to compute the tune for the specified momentum offsets. Then it fits this data and returns the chromaticity up to the given order (npoints&gt;order) OUTPUT     (fitx, fity), dpa, qz.</p></td>
+<td><p>Computes the non-linear chromaticities</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#at.physics.nonlinear.gen_detuning_elem" title="at.physics.nonlinear.gen_detuning_elem"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gen_detuning_elem</span></code></a>(ring[, orbit])</p></td>
-<td><p>Generates an element that for detuning with amplitude</p></td>
+<td><p>Generates a detuning element</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py function">
 <dt class="sig sig-object py" id="at.physics.nonlinear.chromaticity">
 <span class="sig-name descname"><span class="pre">chromaticity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'linopt'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dpm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.02</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">npoints</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">11</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/physics/nonlinear.html#chromaticity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.physics.nonlinear.chromaticity" title="Permalink to this definition">#</a></dt>
-<dd><p>This function uses computes the tunes to compute the tune for
-the specified momentum offsets. Then it fits this data and returns
-the chromaticity up to the given order (npoints&gt;order)
-OUTPUT</p>
-<blockquote>
-<div><p>(fitx, fity), dpa, qz</p>
-</div></blockquote>
+<dd><p>Computes the non-linear chromaticities</p>
+<p>This function computes the tunes for the specified momentum offsets.
+Then it fits this data and returns the chromaticity up to the given
+order (npoints&gt;order)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ring</strong> (<a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><em>Lattice</em></a>) – Lattice description</p></li>
+<li><p><strong>method</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>]</em>) – <p><code class="docutils literal notranslate"><span class="pre">'linopt'</span></code> (dfault) returns the tunes from the
+<code class="xref py py-func docutils literal notranslate"><span class="pre">linopt6()</span></code> function,</p>
+<p><code class="docutils literal notranslate"><span class="pre">'fft'</span></code> tracks a single particle and computes the tunes with fft,</p>
+<p><code class="docutils literal notranslate"><span class="pre">'laskar'</span></code> tracks a single particle and computes the tunes with
+NAFF.</p>
+</p></li>
+<li><p><strong>dpm</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>]</em>) – Maximum momentum deviation</p></li>
+<li><p><strong>npoints</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>]</em>) – Number of momentum deviations</p></li>
+<li><p><strong>order</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>]</em>) – Order of the fit</p></li>
+<li><p><strong>dp</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>]</em>) – Central momentum deviation</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>(fitx, fity), dpa, qz</strong></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="at.physics.nonlinear.detuning">
 <span class="sig-name descname"><span class="pre">detuning</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ym</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">npoints</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nturns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">512</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/physics/nonlinear.html#detuning"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.physics.nonlinear.detuning" title="Permalink to this definition">#</a></dt>
-<dd><p>This function uses tunes_vs_amp to compute the tunes for
+<dd><p>Computes the tunes for a sequence of amplitudes</p>
+<p>This function uses <code class="xref py py-func docutils literal notranslate"><span class="pre">tunes_vs_amp()</span></code> to compute the tunes for
 the specified amplitudes. Then it fits this data and returns
 result for dQx/dx, dQy/dx, dQx/dy, dQy/dy</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ring</strong> (<a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><em>Lattice</em></a>) – Lattice description</p></li>
+<li><p><strong>xm</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>]</em>) – Maximum x amplitude</p></li>
+<li><p><strong>ym</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>]</em>) – Maximum y amplitude</p></li>
+<li><p><strong>npoints</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>]</em>) – Number of points in each plane</p></li>
+<li><p><strong>window</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>]</em>) – </p></li>
+<li><p><strong>nturns</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>]</em>) – Number of turns for tracking</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>q0</strong> (<em>ndarray</em>)</p></li>
+<li><p><strong>q1</strong> (<em>ndarray</em>)</p></li>
+<li><p><strong>x</strong> (<em>ndarray</em>) – x amplitudes</p></li>
+<li><p><strong>q_dx</strong> (<em>ndarray</em>)</p></li>
+<li><p><strong>y</strong> (<em>ndarray</em>) – y amplitudes</p></li>
+<li><p><strong>q_dy</strong> (<em>ndarray</em>)</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="at.physics.nonlinear.gen_detuning_elem">
 <span class="sig-name descname"><span class="pre">gen_detuning_elem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orbit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/physics/nonlinear.html#gen_detuning_elem"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.physics.nonlinear.gen_detuning_elem" title="Permalink to this definition">#</a></dt>
-<dd><p>Generates an element that for detuning with amplitude</p>
+<dd><p>Generates a detuning element</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ring</strong> (<a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><em>Lattice</em></a>) – Lattice description</p></li>
+<li><p><strong>orbit</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><em>ndarray</em></a><em>]</em>) – Avoids looking for initial the closed orbit if it is
+already known ((6,) array).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>detuneElem</strong> – Element reproducing the detuning of the ring with
+amplitude and momentum</p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
