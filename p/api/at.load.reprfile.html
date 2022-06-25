@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>at.load.reprfile &#8212; Accelerator Toolbox 0.1.dev1+g1c69cf3 documentation</title>
+    <title>at.load.reprfile &#8212; Accelerator Toolbox 0.1.dev1+ge9f2524 documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -537,31 +537,40 @@
   <section id="module-at.load.reprfile">
 <span id="at-load-reprfile"></span><h1>at.load.reprfile<a class="headerlink" href="#module-at.load.reprfile" title="Permalink to this heading">#</a></h1>
 <p>Text representation of a python AT lattice with each element represented by
-its ‘repr’ string</p>
+its <a class="reference external" href="https://docs.python.org/3/library/functions.html#repr" title="(in Python v3.10)"><code class="xref py py-func docutils literal notranslate"><span class="pre">repr()</span></code></a> string</p>
 <p class="rubric">Functions</p>
 <table class="autosummary longtable table autosummary">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#at.load.reprfile.load_repr" title="at.load.reprfile.load_repr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_repr</span></code></a>(filename, **kwargs)</p></td>
-<td><p>Load a Lattice object stored as a repr-file</p></td>
+<td><p>Create a <a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lattice</span></code></a>  from a text repr-file</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#at.load.reprfile.save_repr" title="at.load.reprfile.save_repr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_repr</span></code></a>(ring[, filename])</p></td>
-<td><p>Save a Lattice object as a repr-file</p></td>
+<td><p>Save a <a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lattice</span></code></a> as a repr-file</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py function">
 <dt class="sig sig-object py" id="at.load.reprfile.load_repr">
 <span class="sig-name descname"><span class="pre">load_repr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/load/reprfile.html#load_repr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.load.reprfile.load_repr" title="Permalink to this definition">#</a></dt>
-<dd><p>Load a Lattice object stored as a repr-file</p>
-<dl class="simple">
-<dt>PARAMETERS</dt><dd><p>filename        name of the ‘.repr’ file</p>
+<dd><p>Create a <a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lattice</span></code></a>  from a text repr-file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Name of a ‘.m’ file</p>
 </dd>
-<dt>KEYWORDS</dt><dd><p>name            Name of the lattice (default: taken from the file)
-energy          Energy of the lattice (default: taken from the file)
-periodicity     Number of periods (default: taken from the file)
-*               all other keywords will be set as Lattice attributes</p>
+<dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Name of the lattice. Default: taken from
+the lattice</p></li>
+<li><p><strong>energy</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Energy of the lattice [eV]. Default: taken
+from the lattice elements</p></li>
+<li><p><strong>periodicity</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of periods. Default: taken from the
+elements, or 1</p></li>
+<li><p><strong>*</strong> – All other keywords will be set as Lattice
+attributes</p></li>
+</ul>
 </dd>
-<dt>OUTPUT</dt><dd><p>Lattice object</p>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>lattice</strong> (<em>Lattice</em>) – New <a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lattice</span></code></a> object</p>
 </dd>
 </dl>
 </dd></dl>
@@ -569,10 +578,14 @@ periodicity     Number of periods (default: taken from the file)
 <dl class="py function">
 <dt class="sig sig-object py" id="at.load.reprfile.save_repr">
 <span class="sig-name descname"><span class="pre">save_repr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/load/reprfile.html#save_repr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.load.reprfile.save_repr" title="Permalink to this definition">#</a></dt>
-<dd><p>Save a Lattice object as a repr-file</p>
-<dl class="simple">
-<dt>PARAMETERS</dt><dd><p>ring            Lattice object
-filename=None   name of the ‘.repr’ file. Default: output on sys.stdout</p>
+<dd><p>Save a <a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lattice</span></code></a> as a repr-file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ring</strong> (<a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><em>Lattice</em></a>) – Lattice description</p></li>
+<li><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>]</em>) – Name of the ‘.repr’ file. Default: outputs on
+<a class="reference external" href="https://docs.python.org/3/library/sys.html#sys.stdout" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sys.stdout</span></code></a></p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>

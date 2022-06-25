@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>at.load.utils &#8212; Accelerator Toolbox 0.1.dev1+g1c69cf3 documentation</title>
+    <title>at.load.utils &#8212; Accelerator Toolbox 0.1.dev1+ge9f2524 documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -170,21 +170,22 @@
 <span class="sd">Conversion utilities for creating pyat elements</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">collections</span>
-<span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">numpy</span>
 <span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
 <span class="kn">import</span> <span class="nn">sysconfig</span>
 <span class="kn">from</span> <span class="nn">at</span> <span class="kn">import</span> <span class="n">integrators</span>
 <span class="kn">from</span> <span class="nn">at.lattice</span> <span class="kn">import</span> <span class="n">AtWarning</span>
 <span class="kn">from</span> <span class="nn">at.lattice</span> <span class="kn">import</span> <span class="n">CLASS_MAP</span><span class="p">,</span> <span class="n">elements</span> <span class="k">as</span> <span class="n">elt</span>
-<span class="kn">from</span> <span class="nn">at.lattice</span> <span class="kn">import</span> <span class="n">Particle</span>
+<span class="kn">from</span> <span class="nn">at.lattice</span> <span class="kn">import</span> <span class="n">Particle</span><span class="p">,</span> <span class="n">Element</span>
 <span class="c1"># imports necessary in&#39; globals()&#39; for &#39;eval&#39;</span>
 <span class="c1"># noinspection PyUnresolvedReferences</span>
 <span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">array</span><span class="p">,</span> <span class="n">uint8</span>  <span class="c1"># For global namespace</span>
 
 <span class="n">_ext_suffix</span> <span class="o">=</span> <span class="n">sysconfig</span><span class="o">.</span><span class="n">get_config_var</span><span class="p">(</span><span class="s1">&#39;EXT_SUFFIX&#39;</span><span class="p">)</span>
+
 
 <span class="k">def</span> <span class="nf">_particle</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">Particle</span><span class="p">):</span>
@@ -196,8 +197,11 @@
         <span class="k">return</span> <span class="n">Particle</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">value</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="RingParam"><a class="viewcode-back" href="../../../p/api/at.load.utils.html#at.load.utils.RingParam">[docs]</a><span class="k">class</span> <span class="nc">RingParam</span><span class="p">(</span><span class="n">elt</span><span class="o">.</span><span class="n">Element</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Private class for Matlab RingParam element&quot;&quot;&quot;</span>
+<span class="k">class</span> <span class="nc">RingParam</span><span class="p">(</span><span class="n">elt</span><span class="o">.</span><span class="n">Element</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Private class for Matlab RingParam element</span>
+
+<span class="sd">    :meta private:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">REQUIRED_ATTRIBUTES</span> <span class="o">=</span> <span class="n">elt</span><span class="o">.</span><span class="n">Element</span><span class="o">.</span><span class="n">REQUIRED_ATTRIBUTES</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;Energy&#39;</span><span class="p">,</span>
                                                              <span class="s1">&#39;Periodicity&#39;</span><span class="p">]</span>
     <span class="n">_conversions</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">elt</span><span class="o">.</span><span class="n">Element</span><span class="o">.</span><span class="n">_conversions</span><span class="p">,</span> <span class="n">Energy</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span>
@@ -207,7 +211,7 @@
         <span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;Energy&#39;</span><span class="p">,</span> <span class="n">energy</span><span class="p">)</span>
         <span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;Periodicity&#39;</span><span class="p">,</span> <span class="n">periodicity</span><span class="p">)</span>
         <span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;PassMethod&#39;</span><span class="p">,</span> <span class="s1">&#39;IdentityPass&#39;</span><span class="p">)</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">RingParam</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">family_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+        <span class="nb">super</span><span class="p">(</span><span class="n">RingParam</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">family_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
 
 <span class="n">_alias_map</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;rbend&#39;</span><span class="p">:</span> <span class="n">elt</span><span class="o">.</span><span class="n">Dipole</span><span class="p">,</span>
@@ -254,19 +258,19 @@
     <span class="n">elt</span><span class="o">.</span><span class="n">M66</span><span class="p">:</span> <span class="s1">&#39;atM66&#39;</span><span class="p">}</span>
 
 
-<div class="viewcode-block" id="hasattrs"><a class="viewcode-back" href="../../../p/api/at.load.utils.html#at.load.utils.hasattrs">[docs]</a><span class="k">def</span> <span class="nf">hasattrs</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="o">*</span><span class="n">attributes</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Check if the element would have the specified attribute(s), i.e. if they</span>
-<span class="sd">    are in kwargs; allows checking for multiple attributes in one go.</span>
+<div class="viewcode-block" id="hasattrs"><a class="viewcode-back" href="../../../p/api/at.load.utils.html#at.load.utils.hasattrs">[docs]</a><span class="k">def</span> <span class="nf">hasattrs</span><span class="p">(</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="o">*</span><span class="n">attributes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Checks the presence of keys in a :py:class:`dict`</span>
+
+<span class="sd">    Returns :py:obj:`True` if any of the ``attributes`` is in ``kwargs``</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        kwargs (dict): The dictionary of keyword arguments passed to the</span>
-<span class="sd">                        Element constructor.</span>
-<span class="sd">        attributes (iterable): A list of strings, the attribute names to be</span>
-<span class="sd">                                checked.</span>
+<span class="sd">        kwargs:     The dictionary of keyword arguments passed to the</span>
+<span class="sd">          Element constructor.</span>
+<span class="sd">        attributes: A list of strings, the attribute names to be checked.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        bool: A single boolean, True if the element has any of the specified</span>
-<span class="sd">               attributes.</span>
+<span class="sd">        found (bool):   :py:obj:`True` if the element has any of the specified</span>
+<span class="sd">          attributes.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">attribute</span> <span class="ow">in</span> <span class="n">attributes</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">attribute</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
@@ -274,14 +278,13 @@
     <span class="k">return</span> <span class="kc">False</span></div>
 
 
-<div class="viewcode-block" id="find_class"><a class="viewcode-back" href="../../../p/api/at.load.utils.html#at.load.utils.find_class">[docs]</a><span class="k">def</span> <span class="nf">find_class</span><span class="p">(</span><span class="n">elem_dict</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Attempts to correctly identify the Class of the element from its kwargs.</span>
+<div class="viewcode-block" id="find_class"><a class="viewcode-back" href="../../../p/api/at.load.utils.html#at.load.utils.find_class">[docs]</a><span class="k">def</span> <span class="nf">find_class</span><span class="p">(</span><span class="n">elem_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">quiet</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">type</span><span class="p">(</span><span class="n">Element</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Identify the class of an element from its attributes</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        elem_dict       The dictionary of keyword arguments passed to the</span>
+<span class="sd">        elem_dict:      The dictionary of keyword arguments passed to the</span>
 <span class="sd">                        Element constructor.</span>
-<span class="sd">    Keywords:</span>
-<span class="sd">        quiet=False     If True, suppress the warning for non-standard classes</span>
+<span class="sd">        quiet:          Suppress the warning for non-standard classes</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        element_class:  The guessed Class name</span>
@@ -359,8 +362,18 @@
                     <span class="k">return</span> <span class="n">elt</span><span class="o">.</span><span class="n">Element</span></div>
 
 
-<div class="viewcode-block" id="element_from_dict"><a class="viewcode-back" href="../../../p/api/at.load.utils.html#at.load.utils.element_from_dict">[docs]</a><span class="k">def</span> <span class="nf">element_from_dict</span><span class="p">(</span><span class="n">elem_dict</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;return an AT element from a dictionary of attributes</span>
+<div class="viewcode-block" id="element_from_dict"><a class="viewcode-back" href="../../../p/api/at.load.utils.html#at.load.utils.element_from_dict">[docs]</a><span class="k">def</span> <span class="nf">element_from_dict</span><span class="p">(</span><span class="n">elem_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                      <span class="n">check</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">quiet</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Element</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Builds an :py:class:`.Element` from a dictionary of attributes</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        elem_dict:      Dictionary of element attributes</span>
+<span class="sd">        index:          Element index</span>
+<span class="sd">        check:          Check the compatibility of class and PassMethod</span>
+<span class="sd">        quiet:          Suppress the warning for non-standard classes</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        elem (Element): new :py:class:`.Element`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># noinspection PyShadowingNames</span>
@@ -373,7 +386,7 @@
 <span class="sd">        Args:</span>
 <span class="sd">            index:          element index</span>
 <span class="sd">            cls:            Proposed class</span>
-<span class="sd">            elem_dict:      he dictionary of keyword arguments passed to the</span>
+<span class="sd">            elem_dict:      The dictionary of keyword arguments passed to the</span>
 <span class="sd">                            Element constructor.</span>
 
 <span class="sd">        Raises:</span>
@@ -418,13 +431,27 @@
     <span class="k">return</span> <span class="n">element</span></div>
 
 
-<div class="viewcode-block" id="element_from_string"><a class="viewcode-back" href="../../../p/api/at.load.utils.html#at.load.utils.element_from_string">[docs]</a><span class="k">def</span> <span class="nf">element_from_string</span><span class="p">(</span><span class="n">elem_string</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Generate an AT-element from its repr string&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="element_from_string"><a class="viewcode-back" href="../../../p/api/at.load.utils.html#at.load.utils.element_from_string">[docs]</a><span class="k">def</span> <span class="nf">element_from_string</span><span class="p">(</span><span class="n">elem_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Element</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Builds an :py:class:`.Element` from its python :py:func:`repr` string</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        elem_string:    String representation of an :py:class:`.Element`</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        elem (Element): new :py:class:`.Element`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="nb">eval</span><span class="p">(</span><span class="n">elem_string</span><span class="p">,</span> <span class="nb">globals</span><span class="p">(),</span> <span class="n">CLASS_MAP</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="element_from_m"><a class="viewcode-back" href="../../../p/api/at.load.utils.html#at.load.utils.element_from_m">[docs]</a><span class="k">def</span> <span class="nf">element_from_m</span><span class="p">(</span><span class="n">line</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Generate a AT-element from a line in a m-file&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="element_from_m"><a class="viewcode-back" href="../../../p/api/at.load.utils.html#at.load.utils.element_from_m">[docs]</a><span class="k">def</span> <span class="nf">element_from_m</span><span class="p">(</span><span class="n">line</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Element</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Builds an :py:class:`.Element` from a line in an m-file</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        line:           Matlab string representation of an :py:class:`.Element`</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        elem (Element): new :py:class:`.Element`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">argsplit</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">a</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">split_ignoring_parentheses</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="s1">&#39;,&#39;</span><span class="p">)]</span>
 
@@ -469,8 +496,15 @@
     <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="element_to_dict"><a class="viewcode-back" href="../../../p/api/at.load.utils.html#at.load.utils.element_to_dict">[docs]</a><span class="k">def</span> <span class="nf">element_to_dict</span><span class="p">(</span><span class="n">elem</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Generate the Matlab structure for a AT element&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="element_to_dict"><a class="viewcode-back" href="../../../p/api/at.load.utils.html#at.load.utils.element_to_dict">[docs]</a><span class="k">def</span> <span class="nf">element_to_dict</span><span class="p">(</span><span class="n">elem</span><span class="p">:</span> <span class="n">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Builds the Matlab structure of an :py:class:`.Element`</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        elem:           :py:class:`.Element`</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        dct (dict):     Dictionary of :py:class:`.Element` attributes</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">dct</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">((</span><span class="n">k</span><span class="p">,</span> <span class="n">_mattype_map</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">v</span><span class="p">),</span> <span class="k">lambda</span> <span class="n">attr</span><span class="p">:</span> <span class="n">attr</span><span class="p">)(</span><span class="n">v</span><span class="p">))</span>
                <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">elem</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
     <span class="n">class_name</span> <span class="o">=</span> <span class="n">elem</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
@@ -478,8 +512,16 @@
     <span class="k">return</span> <span class="n">dct</span></div>
 
 
-<div class="viewcode-block" id="element_to_m"><a class="viewcode-back" href="../../../p/api/at.load.utils.html#at.load.utils.element_to_m">[docs]</a><span class="k">def</span> <span class="nf">element_to_m</span><span class="p">(</span><span class="n">elem</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Generate the Matlab-evaluable string for a AT element&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="element_to_m"><a class="viewcode-back" href="../../../p/api/at.load.utils.html#at.load.utils.element_to_m">[docs]</a><span class="k">def</span> <span class="nf">element_to_m</span><span class="p">(</span><span class="n">elem</span><span class="p">:</span> <span class="n">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Builds the Matlab-evaluable string for an :py:class:`.Element`</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        elem:           :py:class:`.Element`</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        mstr (str):     Matlab string representation of the</span>
+<span class="sd">          :py:class:`.Element` attributes</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
         <span class="k">def</span> <span class="nf">convert_dict</span><span class="p">(</span><span class="n">pdir</span><span class="p">):</span>
@@ -533,6 +575,7 @@
 
 
 <div class="viewcode-block" id="find_class_name"><a class="viewcode-back" href="../../../p/api/at.load.utils.html#at.load.utils.find_class_name">[docs]</a><span class="k">def</span> <span class="nf">find_class_name</span><span class="p">(</span><span class="n">elem_dict</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Derive the class name of an Element from its attributes&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">find_class</span><span class="p">(</span><span class="n">elem_dict</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="n">quiet</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span></div>
 
 

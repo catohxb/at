@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>at.load.tracy &#8212; Accelerator Toolbox 0.1.dev1+g1c69cf3 documentation</title>
+    <title>at.load.tracy &#8212; Accelerator Toolbox 0.1.dev1+ge9f2524 documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -176,7 +176,6 @@
 <span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">abspath</span>
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">numpy</span>
-
 <span class="kn">from</span> <span class="nn">at.lattice.elements</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">Drift</span><span class="p">,</span>
     <span class="n">Dipole</span><span class="p">,</span>
@@ -190,32 +189,35 @@
 <span class="kn">from</span> <span class="nn">at.lattice</span> <span class="kn">import</span> <span class="n">Lattice</span>
 <span class="kn">from</span> <span class="nn">at.load</span> <span class="kn">import</span> <span class="n">register_format</span><span class="p">,</span> <span class="n">utils</span>
 
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;load_tracy&#39;</span><span class="p">]</span>
 
-<div class="viewcode-block" id="create_drift"><a class="viewcode-back" href="../../../p/api/at.load.tracy.html#at.load.tracy.create_drift">[docs]</a><span class="k">def</span> <span class="nf">create_drift</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">variables</span><span class="p">):</span>
+
+<span class="k">def</span> <span class="nf">create_drift</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">variables</span><span class="p">):</span>
     <span class="n">length</span> <span class="o">=</span> <span class="n">parse_float</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;l&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">variables</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">Drift</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">Drift</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="create_marker"><a class="viewcode-back" href="../../../p/api/at.load.tracy.html#at.load.tracy.create_marker">[docs]</a><span class="k">def</span> <span class="nf">create_marker</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">variables</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">Marker</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span></div>
+<span class="c1"># noinspection PyUnusedLocal</span>
+<span class="k">def</span> <span class="nf">create_marker</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">variables</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">Marker</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="create_quad"><a class="viewcode-back" href="../../../p/api/at.load.tracy.html#at.load.tracy.create_quad">[docs]</a><span class="k">def</span> <span class="nf">create_quad</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">variables</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">create_quad</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">variables</span><span class="p">):</span>
     <span class="n">length</span> <span class="o">=</span> <span class="n">parse_float</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;l&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">variables</span><span class="p">)</span>
     <span class="n">params</span><span class="p">[</span><span class="s2">&quot;NumIntSteps&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">parse_float</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;n&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">variables</span><span class="p">)</span>
     <span class="n">params</span><span class="p">[</span><span class="s2">&quot;k&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">parse_float</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;k&quot;</span><span class="p">),</span> <span class="n">variables</span><span class="p">)</span>
     <span class="n">params</span><span class="p">[</span><span class="s2">&quot;PassMethod&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;StrMPoleSymplectic4Pass&quot;</span>
-    <span class="k">return</span> <span class="n">Quadrupole</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">Quadrupole</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="create_sext"><a class="viewcode-back" href="../../../p/api/at.load.tracy.html#at.load.tracy.create_sext">[docs]</a><span class="k">def</span> <span class="nf">create_sext</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">variables</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">create_sext</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">variables</span><span class="p">):</span>
     <span class="n">length</span> <span class="o">=</span> <span class="n">parse_float</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;l&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">variables</span><span class="p">)</span>
     <span class="n">params</span><span class="p">[</span><span class="s2">&quot;NumIntSteps&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">parse_float</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;n&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">variables</span><span class="p">)</span>
     <span class="n">k2</span> <span class="o">=</span> <span class="n">parse_float</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">variables</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">Sextupole</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">k2</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">Sextupole</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">k2</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="create_dipole"><a class="viewcode-back" href="../../../p/api/at.load.tracy.html#at.load.tracy.create_dipole">[docs]</a><span class="k">def</span> <span class="nf">create_dipole</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">variables</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">create_dipole</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">variables</span><span class="p">):</span>
     <span class="n">length</span> <span class="o">=</span> <span class="n">parse_float</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;l&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">variables</span><span class="p">)</span>
     <span class="n">params</span><span class="p">[</span><span class="s2">&quot;NumIntSteps&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">parse_float</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;n&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
                                         <span class="n">variables</span><span class="p">)</span>
@@ -238,25 +240,25 @@
         <span class="n">params</span><span class="p">[</span><span class="s2">&quot;PolynomB&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">k</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">params</span><span class="p">[</span><span class="s2">&quot;PolynomB&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
-    <span class="k">return</span> <span class="n">Dipole</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">Dipole</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="create_corrector"><a class="viewcode-back" href="../../../p/api/at.load.tracy.html#at.load.tracy.create_corrector">[docs]</a><span class="k">def</span> <span class="nf">create_corrector</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">variables</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">create_corrector</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">variables</span><span class="p">):</span>
     <span class="n">length</span> <span class="o">=</span> <span class="n">parse_float</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;l&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">variables</span><span class="p">)</span>
     <span class="c1"># Is there a property for this?</span>
     <span class="n">kick_angle</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
-    <span class="k">return</span> <span class="n">Corrector</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">kick_angle</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">Corrector</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">kick_angle</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="create_multipole"><a class="viewcode-back" href="../../../p/api/at.load.tracy.html#at.load.tracy.create_multipole">[docs]</a><span class="k">def</span> <span class="nf">create_multipole</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">variables</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">create_multipole</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">variables</span><span class="p">):</span>
     <span class="n">length</span> <span class="o">=</span> <span class="n">parse_float</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;l&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">variables</span><span class="p">)</span>
     <span class="n">params</span><span class="p">[</span><span class="s2">&quot;NumIntSteps&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">parse_float</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;n&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">variables</span><span class="p">)</span>
     <span class="n">poly_a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
     <span class="n">poly_b</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
-    <span class="k">return</span> <span class="n">Multipole</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">poly_a</span><span class="p">,</span> <span class="n">poly_b</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">Multipole</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">poly_a</span><span class="p">,</span> <span class="n">poly_b</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="create_cavity"><a class="viewcode-back" href="../../../p/api/at.load.tracy.html#at.load.tracy.create_cavity">[docs]</a><span class="k">def</span> <span class="nf">create_cavity</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">variables</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">create_cavity</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">variables</span><span class="p">):</span>
     <span class="n">length</span> <span class="o">=</span> <span class="n">parse_float</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;l&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">variables</span><span class="p">)</span>
     <span class="n">voltage</span> <span class="o">=</span> <span class="n">parse_float</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;voltage&quot;</span><span class="p">),</span> <span class="n">variables</span><span class="p">)</span>
     <span class="n">frequency</span> <span class="o">=</span> <span class="n">parse_float</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;frequency&quot;</span><span class="p">),</span> <span class="n">variables</span><span class="p">)</span>
@@ -264,7 +266,7 @@
     <span class="n">harmonic_number</span> <span class="o">=</span> <span class="n">variables</span><span class="p">[</span><span class="s2">&quot;harmonic_number&quot;</span><span class="p">]</span>
     <span class="n">energy</span> <span class="o">=</span> <span class="n">variables</span><span class="p">[</span><span class="s2">&quot;energy&quot;</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">RFCavity</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">voltage</span><span class="p">,</span> <span class="n">frequency</span><span class="p">,</span>
-                    <span class="n">harmonic_number</span><span class="p">,</span> <span class="n">energy</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span></div>
+                    <span class="n">harmonic_number</span><span class="p">,</span> <span class="n">energy</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
 
 
 <span class="n">ELEMENT_MAP</span> <span class="o">=</span> <span class="p">{</span>
@@ -281,7 +283,7 @@
 <span class="p">}</span>
 
 
-<div class="viewcode-block" id="tokenise_expression"><a class="viewcode-back" href="../../../p/api/at.load.tracy.html#at.load.tracy.tokenise_expression">[docs]</a><span class="k">def</span> <span class="nf">tokenise_expression</span><span class="p">(</span><span class="n">expression</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">tokenise_expression</span><span class="p">(</span><span class="n">expression</span><span class="p">):</span>
     <span class="n">tokens</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">current_token</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
     <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">expression</span><span class="p">:</span>
@@ -312,10 +314,10 @@
 
     <span class="k">if</span> <span class="n">current_token</span><span class="p">:</span>
         <span class="n">tokens</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">current_token</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">tokens</span></div>
+    <span class="k">return</span> <span class="n">tokens</span>
 
 
-<div class="viewcode-block" id="parse_float"><a class="viewcode-back" href="../../../p/api/at.load.tracy.html#at.load.tracy.parse_float">[docs]</a><span class="k">def</span> <span class="nf">parse_float</span><span class="p">(</span><span class="n">expression</span><span class="p">,</span> <span class="n">variables</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">parse_float</span><span class="p">(</span><span class="n">expression</span><span class="p">,</span> <span class="n">variables</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Evaluate the provided arithmetic expression substituting variables.&quot;&quot;&quot;</span>
     <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;parse_float </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">expression</span><span class="p">))</span>
     <span class="k">try</span><span class="p">:</span>
@@ -375,10 +377,10 @@
                     <span class="k">return</span> <span class="n">evaluate</span><span class="p">(</span><span class="n">tokens</span><span class="p">[:</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">tokens</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
                                     <span class="o">-</span> <span class="nb">float</span><span class="p">(</span><span class="n">tokens</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">])]</span> <span class="o">+</span> <span class="n">tokens</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">2</span><span class="p">:])</span>
 
-        <span class="k">return</span> <span class="n">evaluate</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">evaluate</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="parse_lines"><a class="viewcode-back" href="../../../p/api/at.load.tracy.html#at.load.tracy.parse_lines">[docs]</a><span class="k">def</span> <span class="nf">parse_lines</span><span class="p">(</span><span class="n">contents</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">parse_lines</span><span class="p">(</span><span class="n">contents</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Return individual lines.</span>
 
 <span class="sd">    Remove comments and whitespace, convert to lowercase, and split on</span>
@@ -394,10 +396,10 @@
             <span class="n">in_comment</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="k">elif</span> <span class="ow">not</span> <span class="n">in_comment</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">char</span><span class="o">.</span><span class="n">isspace</span><span class="p">():</span>
             <span class="n">stripped_contents</span> <span class="o">+=</span> <span class="n">char</span>
-    <span class="k">return</span> <span class="n">stripped_contents</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;;&quot;</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">stripped_contents</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;;&quot;</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="parse_chunk"><a class="viewcode-back" href="../../../p/api/at.load.tracy.html#at.load.tracy.parse_chunk">[docs]</a><span class="k">def</span> <span class="nf">parse_chunk</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">elements</span><span class="p">,</span> <span class="n">chunks</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">parse_chunk</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">elements</span><span class="p">,</span> <span class="n">chunks</span><span class="p">):</span>
     <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Parse_chunk </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
     <span class="n">chunk</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">parts</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">split_ignoring_parentheses</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="s2">&quot;,&quot;</span><span class="p">)</span>
@@ -431,10 +433,10 @@
             <span class="n">chunk</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">chunks</span><span class="p">[</span><span class="n">part</span><span class="p">])</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;part </span><span class="si">{}</span><span class="s2"> not understood&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">part</span><span class="p">))</span>
-    <span class="k">return</span> <span class="n">chunk</span></div>
+    <span class="k">return</span> <span class="n">chunk</span>
 
 
-<div class="viewcode-block" id="expand_tracy"><a class="viewcode-back" href="../../../p/api/at.load.tracy.html#at.load.tracy.expand_tracy">[docs]</a><span class="k">def</span> <span class="nf">expand_tracy</span><span class="p">(</span><span class="n">contents</span><span class="p">,</span> <span class="n">lattice_key</span><span class="p">,</span> <span class="n">harmonic_number</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">expand_tracy</span><span class="p">(</span><span class="n">contents</span><span class="p">,</span> <span class="n">lattice_key</span><span class="p">,</span> <span class="n">harmonic_number</span><span class="p">):</span>
     <span class="n">lines</span> <span class="o">=</span> <span class="n">parse_lines</span><span class="p">(</span><span class="n">contents</span><span class="p">)</span>
     <span class="k">assert</span> <span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;definelattice&quot;</span>
     <span class="k">assert</span> <span class="n">lines</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;end&quot;</span>
@@ -461,10 +463,10 @@
                 <span class="n">chunk</span> <span class="o">=</span> <span class="n">parse_chunk</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">elements</span><span class="p">,</span> <span class="n">chunks</span><span class="p">)</span>
                 <span class="n">chunks</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">chunk</span>
 
-    <span class="k">return</span> <span class="n">chunks</span><span class="p">[</span><span class="n">lattice_key</span><span class="p">],</span> <span class="n">variables</span><span class="p">[</span><span class="s2">&quot;energy&quot;</span><span class="p">]</span></div>
+    <span class="k">return</span> <span class="n">chunks</span><span class="p">[</span><span class="n">lattice_key</span><span class="p">],</span> <span class="n">variables</span><span class="p">[</span><span class="s2">&quot;energy&quot;</span><span class="p">]</span>
 
 
-<div class="viewcode-block" id="parse_hom"><a class="viewcode-back" href="../../../p/api/at.load.tracy.html#at.load.tracy.parse_hom">[docs]</a><span class="k">def</span> <span class="nf">parse_hom</span><span class="p">(</span><span class="n">hom_string</span><span class="p">,</span> <span class="n">variables</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">parse_hom</span><span class="p">(</span><span class="n">hom_string</span><span class="p">,</span> <span class="n">variables</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Parse &#39;hom&#39; string from lattice file. Note that PolynomB</span>
 <span class="sd">    is before PolynomA.</span>
 
@@ -483,10 +485,10 @@
         <span class="n">polynom_a</span><span class="p">[</span><span class="n">order</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span>
         <span class="n">polynom_b</span><span class="p">[</span><span class="n">order</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">b</span>
 
-    <span class="k">return</span> <span class="n">polynom_a</span><span class="p">,</span> <span class="n">polynom_b</span></div>
+    <span class="k">return</span> <span class="n">polynom_a</span><span class="p">,</span> <span class="n">polynom_b</span>
 
 
-<div class="viewcode-block" id="tracy_element_from_string"><a class="viewcode-back" href="../../../p/api/at.load.tracy.html#at.load.tracy.tracy_element_from_string">[docs]</a><span class="k">def</span> <span class="nf">tracy_element_from_string</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">element_string</span><span class="p">,</span> <span class="n">variables</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">tracy_element_from_string</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">element_string</span><span class="p">,</span> <span class="n">variables</span><span class="p">):</span>
     <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Parsing tracy element </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">element_string</span><span class="p">))</span>
     <span class="n">parts</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">split_ignoring_parentheses</span><span class="p">(</span><span class="n">element_string</span><span class="p">,</span> <span class="s2">&quot;,&quot;</span><span class="p">)</span>
     <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
@@ -507,10 +509,27 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">params</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
 
-    <span class="k">return</span> <span class="n">ELEMENT_MAP</span><span class="p">[</span><span class="n">element_type</span><span class="p">](</span><span class="n">name</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">variables</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">ELEMENT_MAP</span><span class="p">[</span><span class="n">element_type</span><span class="p">](</span><span class="n">name</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">variables</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="load_tracy"><a class="viewcode-back" href="../../../p/api/at.load.tracy.html#at.load.tracy.load_tracy">[docs]</a><span class="k">def</span> <span class="nf">load_tracy</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="load_tracy"><a class="viewcode-back" href="../../../p/api/at.load.tracy.html#at.load.tracy.load_tracy">[docs]</a><span class="k">def</span> <span class="nf">load_tracy</span><span class="p">(</span><span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Lattice</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Create a :py:class:`.Lattice`  from a Tracy file</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        filename:           Name of a Tracy file</span>
+
+<span class="sd">    Keyword Args:</span>
+<span class="sd">        name (str):         Name of the lattice. Default: taken from</span>
+<span class="sd">          the file.</span>
+<span class="sd">        energy (float):     Energy of the lattice [eV]</span>
+<span class="sd">        periodicity(int):   Number of periods. Default: taken from the</span>
+<span class="sd">          elements, or 1</span>
+<span class="sd">        *:                  All other keywords will be set as Lattice</span>
+<span class="sd">          attributes</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        lattice (Lattice):  New :py:class:`.Lattice` object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">harmonic_number</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;harmonic_number&quot;</span><span class="p">)</span>
         <span class="n">lattice_key</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;lattice_key&quot;</span><span class="p">,</span> <span class="s2">&quot;cell&quot;</span><span class="p">)</span>

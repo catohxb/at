@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>at.load.matfile &#8212; Accelerator Toolbox 0.1.dev1+g1c69cf3 documentation</title>
+    <title>at.load.matfile &#8212; Accelerator Toolbox 0.1.dev1+ge9f2524 documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -540,50 +540,47 @@
 <p class="rubric">Functions</p>
 <table class="autosummary longtable table autosummary">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#at.load.matfile.ringparam_filter" title="at.load.matfile.ringparam_filter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ringparam_filter</span></code></a>(params, elem_iterator, *args)</p></td>
-<td><p><p>&quot;</p>
-</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#at.load.matfile.load_mat" title="at.load.matfile.load_mat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_mat</span></code></a>(filename, **kwargs)</p></td>
+<td><p>Create a <a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lattice</span></code></a>  from a Matlab mat-file</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#at.load.matfile.load_mat" title="at.load.matfile.load_mat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_mat</span></code></a>(filename, **kwargs)</p></td>
-<td><p>Create a lattice object from a Matlab mat-file</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#at.load.matfile.save_mat" title="at.load.matfile.save_mat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_mat</span></code></a>(ring, filename[, mat_key])</p></td>
+<td><p>Save a <a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lattice</span></code></a> as a Matlab mat-file</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#at.load.matfile.save_mat" title="at.load.matfile.save_mat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_mat</span></code></a>(ring, filename[, mat_key])</p></td>
-<td><p>Save a Lattice object as a Matlab mat-file</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#at.load.matfile.load_m" title="at.load.matfile.load_m"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_m</span></code></a>(filename, **kwargs)</p></td>
+<td><p>Create a <a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lattice</span></code></a>  from a Matlab m-file</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#at.load.matfile.load_m" title="at.load.matfile.load_m"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_m</span></code></a>(filename, **kwargs)</p></td>
-<td><p>Create a lattice object from a matlab m-file</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#at.load.matfile.save_m" title="at.load.matfile.save_m"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_m</span></code></a>(ring[, filename])</p></td>
+<td><p>Save a <a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lattice</span></code></a> as a Matlab m-file</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#at.load.matfile.save_m" title="at.load.matfile.save_m"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_m</span></code></a>(ring[, filename])</p></td>
-<td><p>Save a lattice as a Matlab m-file</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#at.load.matfile.load_var" title="at.load.matfile.load_var"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_var</span></code></a>(matlat, **kwargs)</p></td>
-<td><p>Create a lattice from a Matlab cell array</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#at.load.matfile.load_var" title="at.load.matfile.load_var"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_var</span></code></a>(matlat, **kwargs)</p></td>
+<td><p>Create a <a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lattice</span></code></a> from a Matlab cell array</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py function">
 <dt class="sig sig-object py" id="at.load.matfile.load_m">
 <span class="sig-name descname"><span class="pre">load_m</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/load/matfile.html#load_m"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.load.matfile.load_m" title="Permalink to this definition">#</a></dt>
-<dd><p>Create a lattice object from a matlab m-file</p>
-<dl>
-<dt>PARAMETERS</dt><dd><p>filename        name of a ‘.m’ file</p>
+<dd><p>Create a <a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lattice</span></code></a>  from a Matlab m-file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Name of a ‘.m’ file</p>
 </dd>
-<dt>KEYWORDS</dt><dd><p>keep_all=False  if True, keep RingParam elements as Markers
-name            Name of the lattice</p>
-<blockquote>
-<div><p>(default: taken from the elements, or ‘’)</p>
-</div></blockquote>
-<dl class="simple">
-<dt>energy          Energy of the lattice</dt><dd><p>(default: taken from the elements)</p>
-</dd>
-<dt>periodicity     Number of periods</dt><dd><p>(default: taken from the elements, or 1)</p>
-</dd>
-</dl>
-<ul class="simple">
-<li><p>all other keywords will be set as Lattice attributes</p></li>
+<dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>keep_all</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Keep RingParam elements as Markers.
+Default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a></p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Name of the lattice. Default: taken from
+the lattice, or <code class="docutils literal notranslate"><span class="pre">''</span></code></p></li>
+<li><p><strong>energy</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Energy of the lattice [eV]. Default: taken
+from the lattice elements</p></li>
+<li><p><strong>periodicity</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of periods. Default: taken from the
+elements, or 1</p></li>
+<li><p><strong>*</strong> – All other keywords will be set as Lattice
+attributes</p></li>
 </ul>
 </dd>
-<dt>OUTPUT</dt><dd><p>Lattice object</p>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>lattice</strong> (<em>Lattice</em>) – New <a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lattice</span></code></a> object</p>
 </dd>
 </dl>
 </dd></dl>
@@ -591,33 +588,34 @@ name            Name of the lattice</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="at.load.matfile.load_mat">
 <span class="sig-name descname"><span class="pre">load_mat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/load/matfile.html#load_mat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.load.matfile.load_mat" title="Permalink to this definition">#</a></dt>
-<dd><p>Create a lattice object from a Matlab mat-file</p>
-<dl>
-<dt>PARAMETERS</dt><dd><p>filename        name of a ‘.mat’ file</p>
+<dd><p>Create a <a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lattice</span></code></a>  from a Matlab mat-file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Name of a ‘.mat’ file</p>
 </dd>
-<dt>KEYWORDS</dt><dd><dl class="simple">
-<dt>mat_key         name of the Matlab variable containing the lattice.</dt><dd><p>Default: Matlab variable name if there is only one,
-otherwise ‘RING’</p>
-</dd>
-</dl>
-<p>check=True      if False, skip the coherence tests
-quiet=False     If True, suppress the warning for non-standard classes
-keep_all=False  if True, keep RingParam elements as Markers
-name            Name of the lattice</p>
-<blockquote>
-<div><p>(default: taken from the lattice, or ‘’)</p>
-</div></blockquote>
-<dl class="simple">
-<dt>energy          Energy of the lattice</dt><dd><p>(default: taken from the elements)</p>
-</dd>
-<dt>periodicity     Number of periods</dt><dd><p>(default: taken from the elements, or 1)</p>
-</dd>
-</dl>
-<ul class="simple">
-<li><p>all other keywords will be set as Lattice attributes</p></li>
+<dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>mat_key</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Name of the Matlab variable containing
+the lattice. Default: Matlab variable name if there is only one,
+otherwise ‘RING’</p></li>
+<li><p><strong>check</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Run the coherence tests. Default:
+<a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a></p></li>
+<li><p><strong>quiet</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Suppress the warning for non-standard
+classes. Default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a></p></li>
+<li><p><strong>keep_all</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Keep RingParam elements as Markers.
+Default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a></p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Name of the lattice. Default: taken from
+the lattice, or <code class="docutils literal notranslate"><span class="pre">''</span></code></p></li>
+<li><p><strong>energy</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Energy of the lattice [eV]. Default: taken
+from the lattice elements</p></li>
+<li><p><strong>periodicity</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of periods. Default: taken from the
+elements, or 1</p></li>
+<li><p><strong>*</strong> – All other keywords will be set as Lattice
+attributes</p></li>
 </ul>
 </dd>
-<dt>OUTPUT</dt><dd><p>Lattice object</p>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>lattice</strong> (<em>Lattice</em>) – New <a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lattice</span></code></a> object</p>
 </dd>
 </dl>
 </dd></dl>
@@ -625,16 +623,27 @@ name            Name of the lattice</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="at.load.matfile.load_var">
 <span class="sig-name descname"><span class="pre">load_var</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">matlat</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/load/matfile.html#load_var"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.load.matfile.load_var" title="Permalink to this definition">#</a></dt>
-<dd><p>Create a lattice from a Matlab cell array</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="at.load.matfile.ringparam_filter">
-<span class="sig-name descname"><span class="pre">ringparam_filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">elem_iterator</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/load/matfile.html#ringparam_filter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.load.matfile.ringparam_filter" title="Permalink to this definition">#</a></dt>
-<dd><p>”
-Run through all elements, process and optionally removes RingParam elements</p>
-<dl class="simple">
-<dt>KEYWORDS</dt><dd><p>keep_all=False  if True, keep RingParam elem_iterator as Markers</p>
+<dd><p>Create a <a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lattice</span></code></a> from a Matlab cell array</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>matlat</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.10)"><em>Sequence</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a><em>]</em>) – Matlab lattice</p>
+</dd>
+<dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>keep_all</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Keep RingParam elements as Markers.
+Default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a></p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Name of the lattice. Default: taken from
+the lattice, or <code class="docutils literal notranslate"><span class="pre">''</span></code></p></li>
+<li><p><strong>energy</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Energy of the lattice [eV]. Default: taken
+from the lattice elements</p></li>
+<li><p><strong>periodicity</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of periods. Default: taken from the
+elements, or 1</p></li>
+<li><p><strong>*</strong> – All other keywords will be set as Lattice
+attributes</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>lattice</strong> (<em>Lattice</em>) – New <a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lattice</span></code></a> object</p>
 </dd>
 </dl>
 </dd></dl>
@@ -642,10 +651,14 @@ Run through all elements, process and optionally removes RingParam elements</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="at.load.matfile.save_m">
 <span class="sig-name descname"><span class="pre">save_m</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/load/matfile.html#save_m"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.load.matfile.save_m" title="Permalink to this definition">#</a></dt>
-<dd><p>Save a lattice as a Matlab m-file</p>
-<dl class="simple">
-<dt>PARAMETERS</dt><dd><p>ring            Lattice object
-filename=None   name of the ‘.m’ file. Default: output on sys.stdout</p>
+<dd><p>Save a <a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lattice</span></code></a> as a Matlab m-file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ring</strong> (<a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><em>Lattice</em></a>) – Lattice description</p></li>
+<li><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>]</em>) – Name of the ‘.m’ file. Default: outputs on
+<a class="reference external" href="https://docs.python.org/3/library/sys.html#sys.stdout" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sys.stdout</span></code></a></p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -653,12 +666,15 @@ filename=None   name of the ‘.m’ file. Default: output on sys.stdout</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="at.load.matfile.save_mat">
 <span class="sig-name descname"><span class="pre">save_mat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mat_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'RING'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/load/matfile.html#save_mat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.load.matfile.save_mat" title="Permalink to this definition">#</a></dt>
-<dd><p>Save a Lattice object as a Matlab mat-file</p>
-<dl class="simple">
-<dt>PARAMETERS</dt><dd><p>ring            Lattice object
-filename        name of the ‘.mat’ file</p>
-</dd>
-<dt>KEYWORDS</dt><dd><p>mat_key=’RING’  Name of the Matlab variable representing the lattice</p>
+<dd><p>Save a <a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lattice</span></code></a> as a Matlab mat-file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ring</strong> (<a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><em>Lattice</em></a>) – Lattice description</p></li>
+<li><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Name of the ‘.mat’ file</p></li>
+<li><p><strong>mat_key</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Name of the Matlab variable containing
+the lattice. Default: <code class="docutils literal notranslate"><span class="pre">'RING'</span></code></p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>

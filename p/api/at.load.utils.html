@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>at.load.utils &#8212; Accelerator Toolbox 0.1.dev1+g1c69cf3 documentation</title>
+    <title>at.load.utils &#8212; Accelerator Toolbox 0.1.dev1+ge9f2524 documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -541,28 +541,28 @@
 <table class="autosummary longtable table autosummary">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#at.load.utils.element_from_dict" title="at.load.utils.element_from_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">element_from_dict</span></code></a>(elem_dict[, index, check, ...])</p></td>
-<td><p>return an AT element from a dictionary of attributes</p></td>
+<td><p>Builds an <a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><code class="xref py py-class docutils literal notranslate"><span class="pre">Element</span></code></a> from a dictionary of attributes</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#at.load.utils.element_from_m" title="at.load.utils.element_from_m"><code class="xref py py-obj docutils literal notranslate"><span class="pre">element_from_m</span></code></a>(line)</p></td>
-<td><p>Generate a AT-element from a line in a m-file</p></td>
+<td><p>Builds an <a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><code class="xref py py-class docutils literal notranslate"><span class="pre">Element</span></code></a> from a line in an m-file</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#at.load.utils.element_from_string" title="at.load.utils.element_from_string"><code class="xref py py-obj docutils literal notranslate"><span class="pre">element_from_string</span></code></a>(elem_string)</p></td>
-<td><p>Generate an AT-element from its repr string</p></td>
+<td><p>Builds an <a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><code class="xref py py-class docutils literal notranslate"><span class="pre">Element</span></code></a> from its python <a class="reference external" href="https://docs.python.org/3/library/functions.html#repr" title="(in Python v3.10)"><code class="xref py py-func docutils literal notranslate"><span class="pre">repr()</span></code></a> string</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#at.load.utils.element_to_dict" title="at.load.utils.element_to_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">element_to_dict</span></code></a>(elem)</p></td>
-<td><p>Generate the Matlab structure for a AT element</p></td>
+<td><p>Builds the Matlab structure of an <a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><code class="xref py py-class docutils literal notranslate"><span class="pre">Element</span></code></a></p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#at.load.utils.element_to_m" title="at.load.utils.element_to_m"><code class="xref py py-obj docutils literal notranslate"><span class="pre">element_to_m</span></code></a>(elem)</p></td>
-<td><p>Generate the Matlab-evaluable string for a AT element</p></td>
+<td><p>Builds the Matlab-evaluable string for an <a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><code class="xref py py-class docutils literal notranslate"><span class="pre">Element</span></code></a></p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#at.load.utils.find_class" title="at.load.utils.find_class"><code class="xref py py-obj docutils literal notranslate"><span class="pre">find_class</span></code></a>(elem_dict[, quiet])</p></td>
-<td><p>Attempts to correctly identify the Class of the element from its kwargs.</p></td>
+<td><p>Identify the class of an element from its attributes</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#at.load.utils.find_class_name" title="at.load.utils.find_class_name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">find_class_name</span></code></a>(elem_dict[, quiet])</p></td>
-<td><p></p></td>
+<td><p>Derive the class name of an Element from its attributes</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#at.load.utils.hasattrs" title="at.load.utils.hasattrs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hasattrs</span></code></a>(kwargs, *attributes)</p></td>
-<td><p>Check if the element would have the specified attribute(s), i.e. if they are in kwargs; allows checking for multiple attributes in one go.</p></td>
+<td><p>Checks the presence of keys in a <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#at.load.utils.split_ignoring_parentheses" title="at.load.utils.split_ignoring_parentheses"><code class="xref py py-obj docutils literal notranslate"><span class="pre">split_ignoring_parentheses</span></code></a>(string, delimiter)</p></td>
 <td><p></p></td>
@@ -572,75 +572,101 @@
 <p class="rubric">Classes</p>
 <table class="autosummary longtable table autosummary">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#at.load.utils.RingParam" title="at.load.utils.RingParam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RingParam</span></code></a>(family_name, energy[, periodicity])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">RingParam</span></code>(family_name, energy[, periodicity])</p></td>
 <td><p>Private class for Matlab RingParam element</p></td>
 </tr>
 </tbody>
 </table>
-<dl class="py class">
-<dt class="sig sig-object py" id="at.load.utils.RingParam">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">RingParam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">family_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">energy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">periodicity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/load/utils.html#RingParam"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.load.utils.RingParam" title="Permalink to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><code class="xref py py-class docutils literal notranslate"><span class="pre">Element</span></code></a></p>
-<p>Private class for Matlab RingParam element</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>family_name</strong> – Name of the element</p>
-</dd>
-</dl>
-<p>All keywords will be set as attributes of the element</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="at.load.utils.RingParam.REQUIRED_ATTRIBUTES">
-<span class="sig-name descname"><span class="pre">REQUIRED_ATTRIBUTES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['FamName',</span> <span class="pre">'Energy',</span> <span class="pre">'Periodicity']</span></em><a class="headerlink" href="#at.load.utils.RingParam.REQUIRED_ATTRIBUTES" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
 <dl class="py function">
 <dt class="sig sig-object py" id="at.load.utils.element_from_dict">
 <span class="sig-name descname"><span class="pre">element_from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">elem_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quiet</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/load/utils.html#element_from_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.load.utils.element_from_dict" title="Permalink to this definition">#</a></dt>
-<dd><p>return an AT element from a dictionary of attributes</p>
+<dd><p>Builds an <a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><code class="xref py py-class docutils literal notranslate"><span class="pre">Element</span></code></a> from a dictionary of attributes</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>elem_dict</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Dictionary of element attributes</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>]</em>) – Element index</p></li>
+<li><p><strong>check</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Check the compatibility of class and PassMethod</p></li>
+<li><p><strong>quiet</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Suppress the warning for non-standard classes</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>elem</strong> (<em>Element</em>) – new <a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><code class="xref py py-class docutils literal notranslate"><span class="pre">Element</span></code></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="at.load.utils.element_from_m">
 <span class="sig-name descname"><span class="pre">element_from_m</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">line</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/load/utils.html#element_from_m"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.load.utils.element_from_m" title="Permalink to this definition">#</a></dt>
-<dd><p>Generate a AT-element from a line in a m-file</p>
+<dd><p>Builds an <a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><code class="xref py py-class docutils literal notranslate"><span class="pre">Element</span></code></a> from a line in an m-file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>line</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Matlab string representation of an <a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><code class="xref py py-class docutils literal notranslate"><span class="pre">Element</span></code></a></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>elem</strong> (<em>Element</em>) – new <a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><code class="xref py py-class docutils literal notranslate"><span class="pre">Element</span></code></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="at.load.utils.element_from_string">
 <span class="sig-name descname"><span class="pre">element_from_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">elem_string</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/load/utils.html#element_from_string"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.load.utils.element_from_string" title="Permalink to this definition">#</a></dt>
-<dd><p>Generate an AT-element from its repr string</p>
+<dd><p>Builds an <a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><code class="xref py py-class docutils literal notranslate"><span class="pre">Element</span></code></a> from its python <a class="reference external" href="https://docs.python.org/3/library/functions.html#repr" title="(in Python v3.10)"><code class="xref py py-func docutils literal notranslate"><span class="pre">repr()</span></code></a> string</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>elem_string</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – String representation of an <a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><code class="xref py py-class docutils literal notranslate"><span class="pre">Element</span></code></a></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>elem</strong> (<em>Element</em>) – new <a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><code class="xref py py-class docutils literal notranslate"><span class="pre">Element</span></code></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="at.load.utils.element_to_dict">
 <span class="sig-name descname"><span class="pre">element_to_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">elem</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/load/utils.html#element_to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.load.utils.element_to_dict" title="Permalink to this definition">#</a></dt>
-<dd><p>Generate the Matlab structure for a AT element</p>
+<dd><p>Builds the Matlab structure of an <a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><code class="xref py py-class docutils literal notranslate"><span class="pre">Element</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>elem</strong> (<a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a>) – <a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><code class="xref py py-class docutils literal notranslate"><span class="pre">Element</span></code></a></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>dct</strong> (<em>dict</em>) – Dictionary of <a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><code class="xref py py-class docutils literal notranslate"><span class="pre">Element</span></code></a> attributes</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="at.load.utils.element_to_m">
 <span class="sig-name descname"><span class="pre">element_to_m</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">elem</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/load/utils.html#element_to_m"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.load.utils.element_to_m" title="Permalink to this definition">#</a></dt>
-<dd><p>Generate the Matlab-evaluable string for a AT element</p>
+<dd><p>Builds the Matlab-evaluable string for an <a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><code class="xref py py-class docutils literal notranslate"><span class="pre">Element</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>elem</strong> (<a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a>) – <a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><code class="xref py py-class docutils literal notranslate"><span class="pre">Element</span></code></a></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>mstr</strong> (<em>str</em>) – Matlab string representation of the
+<a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><code class="xref py py-class docutils literal notranslate"><span class="pre">Element</span></code></a> attributes</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="at.load.utils.find_class">
 <span class="sig-name descname"><span class="pre">find_class</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">elem_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quiet</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/load/utils.html#find_class"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.load.utils.find_class" title="Permalink to this definition">#</a></dt>
-<dd><p>Attempts to correctly identify the Class of the element from its kwargs.</p>
+<dd><p>Identify the class of an element from its attributes</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>the</strong> (<em>elem_dict       The dictionary of keyword arguments passed to</em>) – Element constructor.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>elem_dict</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – The dictionary of keyword arguments passed to the
+Element constructor.</p></li>
+<li><p><strong>quiet</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Suppress the warning for non-standard classes</p></li>
+</ul>
 </dd>
-</dl>
-<dl class="simple">
-<dt>Keywords:</dt><dd><p>quiet=False     If True, suppress the warning for non-standard classes</p>
-</dd>
-</dl>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>element_class</strong> – The guessed Class name</p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>element_class</strong> – The guessed Class name</p>
 </dd>
 </dl>
 </dd></dl>
@@ -648,24 +674,24 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="at.load.utils.find_class_name">
 <span class="sig-name descname"><span class="pre">find_class_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">elem_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quiet</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/load/utils.html#find_class_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.load.utils.find_class_name" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>Derive the class name of an Element from its attributes</p>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="at.load.utils.hasattrs">
 <span class="sig-name descname"><span class="pre">hasattrs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kwargs</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">attributes</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/load/utils.html#hasattrs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.load.utils.hasattrs" title="Permalink to this definition">#</a></dt>
-<dd><p>Check if the element would have the specified attribute(s), i.e. if they
-are in kwargs; allows checking for multiple attributes in one go.</p>
+<dd><p>Checks the presence of keys in a <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></p>
+<p>Returns <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a> if any of the <code class="docutils literal notranslate"><span class="pre">attributes</span></code> is in <code class="docutils literal notranslate"><span class="pre">kwargs</span></code></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – The dictionary of keyword arguments passed to the
 Element constructor.</p></li>
-<li><p><strong>attributes</strong> (<em>iterable</em>) – A list of strings, the attribute names to be
-checked.</p></li>
+<li><p><strong>attributes</strong> – A list of strings, the attribute names to be checked.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>bool</strong> – A single boolean, True if the element has any of the specified
+<dd class="field-even"><p><strong>found</strong> (<em>bool</em>) – <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a> if the element has any of the specified
 attributes.</p>
 </dd>
 </dl>

@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>at.load.elegant &#8212; Accelerator Toolbox 0.1.dev1+g1c69cf3 documentation</title>
+    <title>at.load.elegant &#8212; Accelerator Toolbox 0.1.dev1+ge9f2524 documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -171,11 +171,11 @@
 <span class="sd">This is not complete but can parse the example files that I have.</span>
 <span class="sd">This parser is quite similar to the Tracy parser in tracy.py.</span>
 
-<span class="sd">The Elegant file format is described briefly here:</span>
-<span class="sd">https://ops.aps.anl.gov/manuals/elegant_latest/elegantse9.html#x113-1120009</span>
+<span class="sd">The Elegant file format is described briefly</span>
+<span class="sd">`here &lt;https://ops.aps.anl.gov/manuals/elegant_latest/elegantse9.html#x113-1120009&gt;`_.</span>
 
-<span class="sd">It is similar to the MAD-X format, described briefly here:</span>
-<span class="sd">http://madx.web.cern.ch/madx/</span>
+<span class="sd">It is similar to the MAD-X format, described briefly</span>
+<span class="sd">`here &lt;http://madx.web.cern.ch/madx/&gt;`_.</span>
 
 <span class="sd">Note that Elegant scales magnet polynomials in a different way</span>
 <span class="sd">to AT, so the parsed coefficients need to be divided by n! for</span>
@@ -201,48 +201,57 @@
 <span class="kn">from</span> <span class="nn">at.lattice</span> <span class="kn">import</span> <span class="n">Lattice</span>
 <span class="kn">from</span> <span class="nn">at.load</span> <span class="kn">import</span> <span class="n">register_format</span><span class="p">,</span> <span class="n">utils</span>
 
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;load_elegant&#39;</span><span class="p">]</span>
 
-<div class="viewcode-block" id="create_drift"><a class="viewcode-back" href="../../../p/api/at.load.elegant.html#at.load.elegant.create_drift">[docs]</a><span class="k">def</span> <span class="nf">create_drift</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">energy</span><span class="p">,</span> <span class="n">harmonic_number</span><span class="p">):</span>
+
+<span class="c1"># noinspection PyUnusedLocal</span>
+<span class="k">def</span> <span class="nf">create_drift</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">energy</span><span class="p">,</span> <span class="n">harmonic_number</span><span class="p">):</span>
     <span class="n">length</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;l&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">Drift</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">Drift</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="create_marker"><a class="viewcode-back" href="../../../p/api/at.load.elegant.html#at.load.elegant.create_marker">[docs]</a><span class="k">def</span> <span class="nf">create_marker</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">energy</span><span class="p">,</span> <span class="n">harmonic_number</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">Marker</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span></div>
+<span class="c1"># noinspection PyUnusedLocal</span>
+<span class="k">def</span> <span class="nf">create_marker</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">energy</span><span class="p">,</span> <span class="n">harmonic_number</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">Marker</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="create_aperture"><a class="viewcode-back" href="../../../p/api/at.load.elegant.html#at.load.elegant.create_aperture">[docs]</a><span class="k">def</span> <span class="nf">create_aperture</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">energy</span><span class="p">,</span> <span class="n">harmonic_number</span><span class="p">):</span>
+<span class="c1"># noinspection PyUnusedLocal</span>
+<span class="k">def</span> <span class="nf">create_aperture</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">energy</span><span class="p">,</span> <span class="n">harmonic_number</span><span class="p">):</span>
     <span class="n">x_lim</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;x_max&#39;</span><span class="p">))</span>
     <span class="n">y_lim</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;y_max&#39;</span><span class="p">))</span>
     <span class="n">limits</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="n">x_lim</span><span class="p">,</span> <span class="n">x_lim</span><span class="p">,</span> <span class="o">-</span><span class="n">y_lim</span><span class="p">,</span> <span class="n">y_lim</span><span class="p">]</span>
-    <span class="k">return</span> <span class="n">Aperture</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">limits</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">Aperture</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">limits</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="create_quad"><a class="viewcode-back" href="../../../p/api/at.load.elegant.html#at.load.elegant.create_quad">[docs]</a><span class="k">def</span> <span class="nf">create_quad</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">energy</span><span class="p">,</span> <span class="n">harmonic_number</span><span class="p">):</span>
+<span class="c1"># noinspection PyUnusedLocal</span>
+<span class="k">def</span> <span class="nf">create_quad</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">energy</span><span class="p">,</span> <span class="n">harmonic_number</span><span class="p">):</span>
     <span class="n">length</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;l&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
     <span class="n">params</span><span class="p">[</span><span class="s2">&quot;NumIntSteps&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;n_kicks&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
     <span class="n">params</span><span class="p">[</span><span class="s2">&quot;k&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;k1&quot;</span><span class="p">))</span>
     <span class="n">params</span><span class="p">[</span><span class="s2">&quot;PassMethod&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;StrMPoleSymplectic4Pass&quot;</span>
-    <span class="k">return</span> <span class="n">Quadrupole</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">Quadrupole</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="create_sext"><a class="viewcode-back" href="../../../p/api/at.load.elegant.html#at.load.elegant.create_sext">[docs]</a><span class="k">def</span> <span class="nf">create_sext</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">energy</span><span class="p">,</span> <span class="n">harmonic_number</span><span class="p">):</span>
+<span class="c1"># noinspection PyUnusedLocal</span>
+<span class="k">def</span> <span class="nf">create_sext</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">energy</span><span class="p">,</span> <span class="n">harmonic_number</span><span class="p">):</span>
     <span class="n">length</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;l&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
     <span class="n">params</span><span class="p">[</span><span class="s2">&quot;NumIntSteps&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;n_kicks&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
     <span class="n">k2</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;k2&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
-    <span class="k">return</span> <span class="n">Sextupole</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">k2</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">Sextupole</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">k2</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="create_oct"><a class="viewcode-back" href="../../../p/api/at.load.elegant.html#at.load.elegant.create_oct">[docs]</a><span class="k">def</span> <span class="nf">create_oct</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">energy</span><span class="p">,</span> <span class="n">harmonic_number</span><span class="p">):</span>
+<span class="c1"># noinspection PyUnusedLocal</span>
+<span class="k">def</span> <span class="nf">create_oct</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">energy</span><span class="p">,</span> <span class="n">harmonic_number</span><span class="p">):</span>
     <span class="n">length</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;l&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
     <span class="n">params</span><span class="p">[</span><span class="s2">&quot;NumIntSteps&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;n_kicks&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
     <span class="n">k3</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;k3&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
     <span class="n">PolynomA</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
     <span class="n">PolynomB</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">k3</span> <span class="o">/</span> <span class="mi">6</span><span class="p">]</span>
-    <span class="k">return</span> <span class="n">Octupole</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">PolynomA</span><span class="p">,</span> <span class="n">PolynomB</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">Octupole</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">PolynomA</span><span class="p">,</span> <span class="n">PolynomB</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="create_multipole"><a class="viewcode-back" href="../../../p/api/at.load.elegant.html#at.load.elegant.create_multipole">[docs]</a><span class="k">def</span> <span class="nf">create_multipole</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">energy</span><span class="p">,</span> <span class="n">harmonic_number</span><span class="p">):</span>
+<span class="c1"># noinspection PyUnusedLocal</span>
+<span class="k">def</span> <span class="nf">create_multipole</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">energy</span><span class="p">,</span> <span class="n">harmonic_number</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">factorial</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">acc</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">acc</span>
@@ -259,10 +268,11 @@
         <span class="n">order</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;order&quot;</span><span class="p">)))</span>
         <span class="n">PolynomA</span><span class="p">[</span><span class="n">order</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;ksl&quot;</span><span class="p">))</span> <span class="o">/</span> <span class="n">factorial</span><span class="p">(</span><span class="n">order</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">Multipole</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">PolynomA</span><span class="p">,</span> <span class="n">PolynomB</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">Multipole</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">PolynomA</span><span class="p">,</span> <span class="n">PolynomB</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="create_dipole"><a class="viewcode-back" href="../../../p/api/at.load.elegant.html#at.load.elegant.create_dipole">[docs]</a><span class="k">def</span> <span class="nf">create_dipole</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">energy</span><span class="p">,</span> <span class="n">harmonic_number</span><span class="p">):</span>
+<span class="c1"># noinspection PyUnusedLocal</span>
+<span class="k">def</span> <span class="nf">create_dipole</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">energy</span><span class="p">,</span> <span class="n">harmonic_number</span><span class="p">):</span>
     <span class="n">length</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;l&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
     <span class="n">params</span><span class="p">[</span><span class="s2">&quot;NumIntSteps&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;n_kicks&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
     <span class="n">params</span><span class="p">[</span><span class="s2">&quot;PassMethod&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;BndMPoleSymplectic4Pass&quot;</span>
@@ -280,24 +290,25 @@
     <span class="n">k3</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;k3&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
     <span class="n">k4</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;k4&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
     <span class="n">params</span><span class="p">[</span><span class="s2">&quot;PolynomB&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">k1</span><span class="p">,</span> <span class="n">k2</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">k3</span> <span class="o">/</span> <span class="mi">6</span><span class="p">,</span> <span class="n">k4</span> <span class="o">/</span> <span class="mi">24</span><span class="p">]</span>
-    <span class="k">return</span> <span class="n">Dipole</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">Dipole</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="create_corrector"><a class="viewcode-back" href="../../../p/api/at.load.elegant.html#at.load.elegant.create_corrector">[docs]</a><span class="k">def</span> <span class="nf">create_corrector</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">energy</span><span class="p">,</span> <span class="n">harmonic_number</span><span class="p">):</span>
+<span class="c1"># noinspection PyUnusedLocal</span>
+<span class="k">def</span> <span class="nf">create_corrector</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">energy</span><span class="p">,</span> <span class="n">harmonic_number</span><span class="p">):</span>
     <span class="n">length</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;l&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
     <span class="n">hkick</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;hkick&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
     <span class="n">vkick</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;vkick&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
     <span class="n">kick_angle</span> <span class="o">=</span> <span class="p">[</span><span class="n">hkick</span><span class="p">,</span> <span class="n">vkick</span><span class="p">]</span>
-    <span class="k">return</span> <span class="n">Corrector</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">kick_angle</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">Corrector</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">kick_angle</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="create_cavity"><a class="viewcode-back" href="../../../p/api/at.load.elegant.html#at.load.elegant.create_cavity">[docs]</a><span class="k">def</span> <span class="nf">create_cavity</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">energy</span><span class="p">,</span> <span class="n">harmonic_number</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">create_cavity</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">energy</span><span class="p">,</span> <span class="n">harmonic_number</span><span class="p">):</span>
     <span class="n">length</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;l&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
     <span class="n">voltage</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;volt&quot;</span><span class="p">)</span>
     <span class="n">frequency</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;freq&quot;</span><span class="p">)</span>
     <span class="n">params</span><span class="p">[</span><span class="s2">&quot;Phi&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;phase&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">RFCavity</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">voltage</span><span class="p">,</span>
-                    <span class="n">frequency</span><span class="p">,</span> <span class="n">harmonic_number</span><span class="p">,</span> <span class="n">energy</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span></div>
+                    <span class="n">frequency</span><span class="p">,</span> <span class="n">harmonic_number</span><span class="p">,</span> <span class="n">energy</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
 
 
 <span class="n">ELEMENT_MAP</span> <span class="o">=</span> <span class="p">{</span>
@@ -333,7 +344,7 @@
 <span class="p">}</span>
 
 
-<div class="viewcode-block" id="parse_lines"><a class="viewcode-back" href="../../../p/api/at.load.elegant.html#at.load.elegant.parse_lines">[docs]</a><span class="k">def</span> <span class="nf">parse_lines</span><span class="p">(</span><span class="n">contents</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">parse_lines</span><span class="p">(</span><span class="n">contents</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Return individual lines.</span>
 
 <span class="sd">    Remove comments and whitespace and convert to lowercase.</span>
@@ -351,10 +362,10 @@
                 <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">current_line</span> <span class="o">+</span> <span class="n">line</span><span class="p">)</span>
                 <span class="n">current_line</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 
-    <span class="k">return</span> <span class="n">lines</span></div>
+    <span class="k">return</span> <span class="n">lines</span>
 
 
-<div class="viewcode-block" id="parse_chunk"><a class="viewcode-back" href="../../../p/api/at.load.elegant.html#at.load.elegant.parse_chunk">[docs]</a><span class="k">def</span> <span class="nf">parse_chunk</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">elements</span><span class="p">,</span> <span class="n">chunks</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">parse_chunk</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">elements</span><span class="p">,</span> <span class="n">chunks</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Parse a non-element part of a lattice file.</span>
 
 <span class="sd">    That part can reference already-parsed elements and chunks.</span>
@@ -412,10 +423,10 @@
             <span class="n">chunk</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">chunks</span><span class="p">[</span><span class="n">part</span><span class="p">])</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;part </span><span class="si">{}</span><span class="s2"> not understood&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">part</span><span class="p">))</span>
-    <span class="k">return</span> <span class="n">chunk</span></div>
+    <span class="k">return</span> <span class="n">chunk</span>
 
 
-<div class="viewcode-block" id="expand_elegant"><a class="viewcode-back" href="../../../p/api/at.load.elegant.html#at.load.elegant.expand_elegant">[docs]</a><span class="k">def</span> <span class="nf">expand_elegant</span><span class="p">(</span><span class="n">contents</span><span class="p">,</span> <span class="n">lattice_key</span><span class="p">,</span> <span class="n">energy</span><span class="p">,</span> <span class="n">harmonic_number</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">expand_elegant</span><span class="p">(</span><span class="n">contents</span><span class="p">,</span> <span class="n">lattice_key</span><span class="p">,</span> <span class="n">energy</span><span class="p">,</span> <span class="n">harmonic_number</span><span class="p">):</span>
     <span class="n">lines</span> <span class="o">=</span> <span class="n">parse_lines</span><span class="p">(</span><span class="n">contents</span><span class="p">)</span>
     <span class="n">variables</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;energy&quot;</span><span class="p">:</span> <span class="n">energy</span><span class="p">,</span> <span class="s2">&quot;harmonic_number&quot;</span><span class="p">:</span> <span class="n">harmonic_number</span><span class="p">}</span>
     <span class="n">elements</span> <span class="o">=</span> <span class="p">{}</span>
@@ -436,10 +447,10 @@
                 <span class="n">chunk</span> <span class="o">=</span> <span class="n">parse_chunk</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">elements</span><span class="p">,</span> <span class="n">chunks</span><span class="p">)</span>
                 <span class="n">chunks</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">chunk</span>
 
-    <span class="k">return</span> <span class="n">chunks</span><span class="p">[</span><span class="n">lattice_key</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span></div>
+    <span class="k">return</span> <span class="n">chunks</span><span class="p">[</span><span class="n">lattice_key</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
 
 
-<div class="viewcode-block" id="handle_value"><a class="viewcode-back" href="../../../p/api/at.load.elegant.html#at.load.elegant.handle_value">[docs]</a><span class="k">def</span> <span class="nf">handle_value</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">handle_value</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
     <span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">value</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;&quot;&#39;</span><span class="p">):</span>
         <span class="k">assert</span> <span class="n">value</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;&quot;&#39;</span><span class="p">)</span>
@@ -458,10 +469,10 @@
                 <span class="n">value</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="k">return</span> <span class="n">value</span></div>
+    <span class="k">return</span> <span class="n">value</span>
 
 
-<div class="viewcode-block" id="elegant_element_from_string"><a class="viewcode-back" href="../../../p/api/at.load.elegant.html#at.load.elegant.elegant_element_from_string">[docs]</a><span class="k">def</span> <span class="nf">elegant_element_from_string</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">element_string</span><span class="p">,</span> <span class="n">variables</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">elegant_element_from_string</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">element_string</span><span class="p">,</span> <span class="n">variables</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Create element from Elegant&#39;s string representation.</span>
 
 <span class="sd">    e.g. drift,l=0.045 =&gt; Drift(name, 0.045)</span>
@@ -483,10 +494,27 @@
     <span class="n">energy</span> <span class="o">=</span> <span class="n">variables</span><span class="p">[</span><span class="s2">&quot;energy&quot;</span><span class="p">]</span>
     <span class="n">harmonic_number</span> <span class="o">=</span> <span class="n">variables</span><span class="p">[</span><span class="s2">&quot;harmonic_number&quot;</span><span class="p">]</span>
 
-    <span class="k">return</span> <span class="n">ELEMENT_MAP</span><span class="p">[</span><span class="n">element_type</span><span class="p">](</span><span class="n">name</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">energy</span><span class="p">,</span> <span class="n">harmonic_number</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">ELEMENT_MAP</span><span class="p">[</span><span class="n">element_type</span><span class="p">](</span><span class="n">name</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">energy</span><span class="p">,</span> <span class="n">harmonic_number</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="load_elegant"><a class="viewcode-back" href="../../../p/api/at.load.elegant.html#at.load.elegant.load_elegant">[docs]</a><span class="k">def</span> <span class="nf">load_elegant</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="load_elegant"><a class="viewcode-back" href="../../../p/api/at.load.elegant.html#at.load.elegant.load_elegant">[docs]</a><span class="k">def</span> <span class="nf">load_elegant</span><span class="p">(</span><span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Lattice</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Create a :py:class:`.Lattice`  from an Elegant file</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        filename:           Name of an Elegant file</span>
+
+<span class="sd">    Keyword Args:</span>
+<span class="sd">        name (str):         Name of the lattice. Default: taken from</span>
+<span class="sd">          the file.</span>
+<span class="sd">        energy (float):     Energy of the lattice [eV]</span>
+<span class="sd">        periodicity(int):   Number of periods. Default: taken from the</span>
+<span class="sd">          elements, or 1</span>
+<span class="sd">        *:                  All other keywords will be set as Lattice</span>
+<span class="sd">          attributes</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        lattice (Lattice):  New :py:class:`.Lattice` object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">energy</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;energy&quot;</span><span class="p">)</span>
         <span class="n">lattice_key</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;lattice_key&quot;</span><span class="p">)</span>

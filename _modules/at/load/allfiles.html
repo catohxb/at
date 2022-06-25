@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>at.load.allfiles &#8212; Accelerator Toolbox 0.1.dev1+g1c69cf3 documentation</title>
+    <title>at.load.allfiles &#8212; Accelerator Toolbox 0.1.dev1+ge9f2524 documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -178,32 +178,40 @@
 <span class="n">_save_extension</span> <span class="o">=</span> <span class="p">{}</span>
 
 
-<div class="viewcode-block" id="load_lattice"><a class="viewcode-back" href="../../../p/api/at.load.allfiles.html#at.load.allfiles.load_lattice">[docs]</a><span class="k">def</span> <span class="nf">load_lattice</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="load_lattice"><a class="viewcode-back" href="../../../p/api/at.load.allfiles.html#at.load.allfiles.load_lattice">[docs]</a><span class="k">def</span> <span class="nf">load_lattice</span><span class="p">(</span><span class="n">filepath</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Lattice</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Load a Lattice object from a file</span>
 
-<span class="sd">    The file format is indicated by the filepath extension.</span>
+<span class="sd">The file format is indicated by the filepath extension.</span>
 
-<span class="sd">    PARAMETERS</span>
-<span class="sd">        filepath        name of the file</span>
+<span class="sd">Parameters:</span>
+<span class="sd">    filepath:           Name of the file</span>
 
-<span class="sd">    KEYWORDS</span>
-<span class="sd">        name            Name of the lattice</span>
-<span class="sd">                        (default: taken from the file, or &#39;&#39;)</span>
-<span class="sd">        energy          Energy of the lattice</span>
-<span class="sd">                        (default: taken from the file)</span>
-<span class="sd">        periodicity     Number of periods</span>
-<span class="sd">                        (default: taken from the file, or 1)</span>
-<span class="sd">        *               all other keywords will be set as Lattice attributes</span>
+<span class="sd">Keyword Args:</span>
+<span class="sd">    name (str):         Name of the lattice.</span>
+<span class="sd">      Default: taken from the file, or ``&#39;&#39;``</span>
+<span class="sd">    energy (float):     Energy of the lattice</span>
+<span class="sd">      (default: taken from the file)</span>
+<span class="sd">    periodicity (int]): Number of periods</span>
+<span class="sd">      (default: taken from the file, or 1)</span>
+<span class="sd">    *:                  All other keywords will be set as :py:class:`.Lattice`</span>
+<span class="sd">      attributes</span>
 
-<span class="sd">    MAT-FILE SPECIFIC KEYWORDS</span>
-<span class="sd">        mat_key         name of the Matlab variable containing the lattice.</span>
-<span class="sd">                        Default: Matlab variable name if there is only one,</span>
-<span class="sd">                        otherwise &#39;RING&#39;</span>
-<span class="sd">        check=True      if False, skip the coherence tests</span>
-<span class="sd">        quiet=False     If True, suppress the warning for non-standard classes</span>
-<span class="sd">        keep_all=False  if True, keep RingParam elements as Markers</span>
+<span class="sd">Specific keywords for .mat files</span>
 
-<span class="sd">    Known extensions are:</span>
+<span class="sd">Keyword Args:</span>
+<span class="sd">    mat_key (str):      Name of the Matlab variable containing</span>
+<span class="sd">      the lattice. Default: Matlab variable name if there is only one,</span>
+<span class="sd">      otherwise ``&#39;RING&#39;``</span>
+<span class="sd">    check (bool):       Run coherence tests. Default: :py:obj:`True`</span>
+<span class="sd">    quiet (bool):       Suppress the warning for non-standard classes.</span>
+<span class="sd">      Default: :py:obj:`False`</span>
+<span class="sd">    keep_all (bool):    Keep Matlab RingParam elements as Markers.</span>
+<span class="sd">      Default: :py:obj:`False`</span>
+
+<span class="sd">Returns:</span>
+<span class="sd">    lattice (Lattice):          New :py:class:`.Lattice` object</span>
+
+<span class="sd">.. Admonition:: Known extensions are:</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">_</span><span class="p">,</span> <span class="n">ext</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
     <span class="k">try</span><span class="p">:</span>
@@ -214,19 +222,22 @@
         <span class="k">return</span> <span class="n">load_func</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="save_lattice"><a class="viewcode-back" href="../../../p/api/at.load.allfiles.html#at.load.allfiles.save_lattice">[docs]</a><span class="k">def</span> <span class="nf">save_lattice</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">filepath</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="save_lattice"><a class="viewcode-back" href="../../../p/api/at.load.allfiles.html#at.load.allfiles.save_lattice">[docs]</a><span class="k">def</span> <span class="nf">save_lattice</span><span class="p">(</span><span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span> <span class="n">filepath</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Save a Lattice object</span>
 
-<span class="sd">    The file format is indicated by the filepath extension.</span>
+<span class="sd">The file format is indicated by the filepath extension.</span>
 
-<span class="sd">    PARAMETERS</span>
-<span class="sd">        ring            Lattice object</span>
-<span class="sd">        filepath        name of the file</span>
+<span class="sd">Parameters:</span>
+<span class="sd">    ring:               Lattice description</span>
+<span class="sd">    filepath:           Name of the file</span>
 
-<span class="sd">    MAT-FILE SPECIFIC KEYWORDS</span>
-<span class="sd">        mat_key=&#39;RING&#39;  Name of the Matlab variable</span>
+<span class="sd">Specific keywords for .mat files</span>
 
-<span class="sd">    Known extensions are:</span>
+<span class="sd">Keyword Args:</span>
+<span class="sd">    mat_key (str):      Name of the Matlab variable containing the lattice.</span>
+<span class="sd">      Default: ``&#39;RING&#39;``</span>
+
+<span class="sd">.. Admonition:: Known extensions are:</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">_</span><span class="p">,</span> <span class="n">ext</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
     <span class="k">try</span><span class="p">:</span>
@@ -237,21 +248,24 @@
         <span class="k">return</span> <span class="n">save_func</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">filepath</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="register_format"><a class="viewcode-back" href="../../../p/api/at.load.allfiles.html#at.load.allfiles.register_format">[docs]</a><span class="k">def</span> <span class="nf">register_format</span><span class="p">(</span><span class="n">extension</span><span class="p">,</span> <span class="n">load_func</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">save_func</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">descr</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="register_format"><a class="viewcode-back" href="../../../p/api/at.load.allfiles.html#at.load.allfiles.register_format">[docs]</a><span class="k">def</span> <span class="nf">register_format</span><span class="p">(</span><span class="n">extension</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">load_func</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">save_func</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                    <span class="n">descr</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Register format-specific processing functions</span>
 
-<span class="sd">    PARAMETERS</span>
-<span class="sd">        extension       File extension string</span>
-<span class="sd">        load_func       load function (default: None)</span>
-<span class="sd">        save_func       save_lattice function (default: None)</span>
-<span class="sd">        descr           File type description</span>
+<span class="sd">    Parameters:</span>
+<span class="sd">        extension:      File extension string.</span>
+<span class="sd">        load_func:      load function. Default: :py:obj:`None`</span>
+<span class="sd">        save_func:      save_lattice function Default: :py:obj:`None`</span>
+<span class="sd">        descr:          File type description</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">load_func</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">_load_extension</span><span class="p">[</span><span class="n">extension</span><span class="p">]</span> <span class="o">=</span> <span class="n">load_func</span>
-        <span class="n">load_lattice</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">    </span><span class="si">{0:&lt;10}</span><span class="se">\t</span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">extension</span><span class="p">,</span> <span class="n">descr</span><span class="p">)</span>
+        <span class="n">load_lattice</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">    </span><span class="si">{0:&lt;10}</span><span class="s1">&#39;</span>\
+                                <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">        </span><span class="si">{1}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">extension</span><span class="p">,</span> <span class="n">descr</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">save_func</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">_save_extension</span><span class="p">[</span><span class="n">extension</span><span class="p">]</span> <span class="o">=</span> <span class="n">save_func</span>
-        <span class="n">save_lattice</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">    </span><span class="si">{0:&lt;10}</span><span class="se">\t</span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">extension</span><span class="p">,</span> <span class="n">descr</span><span class="p">)</span></div>
+        <span class="n">save_lattice</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">    </span><span class="si">{0:&lt;10}</span><span class="s1">&#39;</span>\
+                                <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">        </span><span class="si">{1}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">extension</span><span class="p">,</span> <span class="n">descr</span><span class="p">)</span></div>
 
 
 <span class="n">Lattice</span><span class="o">.</span><span class="n">load</span> <span class="o">=</span> <span class="nb">staticmethod</span><span class="p">(</span><span class="n">load_lattice</span><span class="p">)</span>
