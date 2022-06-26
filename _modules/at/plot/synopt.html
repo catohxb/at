@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>at.plot.synopt &#8212; Accelerator Toolbox 0.1.dev1+ge9f2524 documentation</title>
+    <title>at.plot.synopt &#8212; Accelerator Toolbox 0.1.dev1+gc8268ce documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -166,7 +166,8 @@
               <article class="bd-article" role="main">
                 
   <h1>Source code for at.plot.synopt</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Plot a lattice synoptic&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;Lattice synoptics&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">matplotlib.axes</span>
 <span class="kn">import</span> <span class="nn">numpy</span>
 <span class="c1"># noinspection PyPackageRequirements</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -174,7 +175,7 @@
 <span class="kn">from</span> <span class="nn">matplotlib.patches</span> <span class="kn">import</span> <span class="n">Polygon</span>
 <span class="c1"># noinspection PyPackageRequirements</span>
 <span class="kn">from</span> <span class="nn">matplotlib.collections</span> <span class="kn">import</span> <span class="n">PatchCollection</span>
-<span class="kn">from</span> <span class="nn">at.lattice</span> <span class="kn">import</span> <span class="n">elements</span> <span class="k">as</span> <span class="n">elts</span>
+<span class="kn">from</span> <span class="nn">at.lattice</span> <span class="kn">import</span> <span class="n">Lattice</span><span class="p">,</span> <span class="n">elements</span> <span class="k">as</span> <span class="n">elts</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;plot_synopt&#39;</span><span class="p">]</span>
 
@@ -187,27 +188,25 @@
 
 
 <span class="c1"># noinspection PyDefaultArgument</span>
-<div class="viewcode-block" id="plot_synopt"><a class="viewcode-back" href="../../../p/api/at.plot.synopt.html#at.plot.synopt.plot_synopt">[docs]</a><span class="k">def</span> <span class="nf">plot_synopt</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dipole</span><span class="o">=</span><span class="p">{},</span> <span class="n">quadrupole</span><span class="o">=</span><span class="p">{},</span> <span class="n">sextupole</span><span class="o">=</span><span class="p">{},</span>
-                <span class="n">multipole</span><span class="o">=</span><span class="p">{},</span> <span class="n">monitor</span><span class="o">=</span><span class="p">{}):</span>
-    <span class="sd">&quot;&quot;&quot;Plot a synoptic of a lattice</span>
+<div class="viewcode-block" id="plot_synopt"><a class="viewcode-back" href="../../../p/api/at.plot.synopt.html#at.plot.synopt.plot_synopt">[docs]</a><span class="k">def</span> <span class="nf">plot_synopt</span><span class="p">(</span><span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span> <span class="n">axes</span><span class="p">:</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">Axes</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                <span class="n">dipole</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{},</span> <span class="n">quadrupole</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{},</span> <span class="n">sextupole</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{},</span>
+                <span class="n">multipole</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{},</span> <span class="n">monitor</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}):</span>
+    <span class="sd">&quot;&quot;&quot;Plots a synoptic of a lattice</span>
 
-<span class="sd">    PARAMETERS</span>
-<span class="sd">        ring            Lattice object</span>
+<span class="sd">    Parameters:</span>
+<span class="sd">        ring:           Lattice description.</span>
+<span class="sd">        axes:           :py:class:`~matplotlib.axes.Axes` for plotting the</span>
+<span class="sd">          synoptic. If :py:obj:`None`, a new figure will be created. Otherwise,</span>
+<span class="sd">          a new axes object sharing the same x-axis as the given one is created.</span>
+<span class="sd">        dipole:         Dictionary of properties overloading the default</span>
+<span class="sd">          properties. If :py:obj:`None`, dipoles will not be shown.</span>
+<span class="sd">        quadrupole:     Same definition as for dipole</span>
+<span class="sd">        sextupole:      Same definition as for dipole</span>
+<span class="sd">        multipole:      Same definition as for dipole</span>
+<span class="sd">        monitor:        Same definition as for dipole</span>
 
-<span class="sd">    KEYWORDS</span>
-<span class="sd">        s_range=None    plot range, defaults to the full ring</span>
-<span class="sd">        axes=None       axes for plotting the synoptic. If None, a new</span>
-<span class="sd">                        figure will be created. Otherwise, a new axes object</span>
-<span class="sd">                        sharing the same x-axis as the given one is created.</span>
-<span class="sd">        dipole={}       Dictionary of properties overloading the default</span>
-<span class="sd">                        properties. If None, dipoles will not be shown.</span>
-<span class="sd">        quadrupole={}   Same definition as for dipole</span>
-<span class="sd">        sextupole={}    Same definition as for dipole</span>
-<span class="sd">        multipole={}    Same definition as for dipole</span>
-<span class="sd">        monitor={}      Same definition as for dipole</span>
-
-<span class="sd">    RETURN</span>
-<span class="sd">        synopt_axes     Synoptic axes</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        synopt_axes (Axes): Synoptic axes</span>
 <span class="sd">     &quot;&quot;&quot;</span>
 
     <span class="k">class</span> <span class="nc">Dipole</span><span class="p">(</span><span class="n">Polygon</span><span class="p">):</span>

@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>at.plot.generic &#8212; Accelerator Toolbox 0.1.dev1+ge9f2524 documentation</title>
+    <title>at.plot.generic &#8212; Accelerator Toolbox 0.1.dev1+gc8268ce documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -541,64 +541,68 @@
 <table class="autosummary longtable table autosummary">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#at.plot.generic.baseplot" title="at.plot.generic.baseplot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">baseplot</span></code></a>(ring, plot_function, *args, **kwargs)</p></td>
-<td><p>baseplot divides the region of interest of ring into small elements, calls the specified function to get the plot data and calls matplotlib functions to generate the plot.</p></td>
+<td><p>Generic lattice plot</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py function">
 <dt class="sig sig-object py" id="at.plot.generic.baseplot">
 <span class="sig-name descname"><span class="pre">baseplot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_function</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/plot/generic.html#baseplot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.plot.generic.baseplot" title="Permalink to this definition">#</a></dt>
-<dd><p>baseplot divides the region of interest of ring into small elements,
-calls the specified function to get the plot data and calls matplotlib
-functions to generate the plot.
-By default it creates a new figure for the plot, but if provided with
-axes objects it can be used as part of a GUI</p>
-<dl>
-<dt>PARAMETERS</dt><dd><p>ring            Lattice object
-plot_function   specific data generating function to be called</p>
-<p>All other positional parameters are sent to the plotting function</p>
-<p>plot_function is called as:</p>
-<p>title, left, right = plot_function(ring, refpts, <a href="#id1"><span class="problematic" id="id2">*</span></a>args, <a href="#id3"><span class="problematic" id="id4">**</span></a>kwargs)</p>
+<dd><p>Generic lattice plot</p>
+<p><a class="reference internal" href="#at.plot.generic.baseplot" title="at.plot.generic.baseplot"><code class="xref py py-func docutils literal notranslate"><span class="pre">baseplot()</span></code></a> divides the region of interest of ring into small
+elements, calls the specified function to get the plot data and calls
+matplotlib functions to generate the plot.
+By default, it creates a new figure for the plot, but if provided with
+<a class="reference external" href="https://matplotlib.org/stable/api/axes_api.html#matplotlib.axes.Axes" title="(in Matplotlib v3.5.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Axes</span></code></a> objects it can be used as part of a GUI</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ring</strong> (<a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><em>Lattice</em></a>) – Lattice description.</p></li>
+<li><p><strong>plot_function</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.10)"><em>Callable</em></a>) – <p>Specific data generating function to be called
+plotting function. <code class="docutils literal notranslate"><span class="pre">plot_function</span></code> is called as:</p>
+<p><code class="code docutils literal notranslate"><span class="pre">title,</span> <span class="pre">left,</span> <span class="pre">right</span> <span class="pre">=</span> <span class="pre">plot_function(ring,</span> <span class="pre">refpts,</span> <span class="pre">*args,</span>
+<span class="pre">**kwargs)</span></code></p>
 <p>and should return 2 or 3 output:</p>
-<p>title   plot title or None
-left    tuple returning the data for the main (left) axis</p>
+<p><code class="docutils literal notranslate"><span class="pre">title</span></code>: plot title or <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p>
+<p><code class="docutils literal notranslate"><span class="pre">left</span></code>: tuple returning the data for the main (left) axis</p>
 <blockquote>
-<div><p>left[0]   y-axis label
-left[1]   xdata: (N,) array (s coordinate)
-left[2]   ydata: iterable of (N,) or (N,M) arrays. Lines from a</p>
-<blockquote>
-<div><p>(N, M) array share the same style and label</p>
-</div></blockquote>
+<div><p>left[0] - y-axis label</p>
+<p>left[1] - xdata: (N,) array (s coordinate)</p>
+<p>left[2] - ydata: iterable of (N,) or (N,M) arrays. Lines from a
+(N, M) array share the same style and label</p>
 <p>left[3]   labels: (optional) iterable of strings as long as ydata</p>
 </div></blockquote>
-<dl class="simple">
-<dt>right   tuple returning the data for the secondary (right) axis</dt><dd><p>(optional)</p>
+<p><code class="docutils literal notranslate"><span class="pre">right</span></code>: tuple returning the data for the secondary (right) axis</p>
+</p></li>
+<li><p><strong>*args</strong> – All other positional parameters are sent to the</p></li>
+</ul>
 </dd>
-</dl>
+<dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>s_range</strong> – Lattice range of interest, default: unchanged,
+initially set to the full cell.</p></li>
+<li><p><strong>axes</strong> (<em>Axes</em>) – <a class="reference external" href="https://matplotlib.org/stable/api/axes_api.html#matplotlib.axes.Axes" title="(in Matplotlib v3.5.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Axes</span></code></a> for plotting as
+(primary_axes, secondary_axes). Default: create new axes</p></li>
+<li><p><strong>slices</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of slices. Default: 400</p></li>
+<li><p><strong>legend</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Show a legend on the plot</p></li>
+<li><p><strong>block</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – If <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a>, block until the figure is closed.
+Default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a></p></li>
+<li><p><strong>dipole</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Dictionary of properties overloading the default
+properties of dipole representation. See <a class="reference internal" href="at.plot.synopt.html#at.plot.synopt.plot_synopt" title="at.plot.synopt.plot_synopt"><code class="xref py py-func docutils literal notranslate"><span class="pre">plot_synopt()</span></code></a>
+for details</p></li>
+<li><p><strong>quadrupole</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Same definition as for dipole</p></li>
+<li><p><strong>sextupole</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Same definition as for dipole</p></li>
+<li><p><strong>multipole</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Same definition as for dipole</p></li>
+<li><p><strong>monitor</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Same definition as for dipole</p></li>
+<li><p><strong>**kwargs</strong> – All other keywords are sent to the plotting function</p></li>
+</ul>
 </dd>
-<dt>KEYWORDS</dt><dd><dl class="simple">
-<dt>s_range         lattice range of interest, default: unchanged,</dt><dd><p>initially set to the full cell.</p>
-</dd>
-<dt>axes=None       axes for plotting as (primary_axes, secondary_axes)</dt><dd><p>Default: create new axes</p>
-</dd>
-</dl>
-<p>slices=400      Number of slices
-legend=True     Show a legend on the plot
-block=False     if True, block until the figure is closed
-dipole={}       Dictionary of properties overloading the default</p>
-<blockquote>
-<div><p>properties of dipole representation.
-See ‘plot_synopt’ for details</p>
-</div></blockquote>
-<p>quadrupole={}   Same definition as for dipole
-sextupole={}    Same definition as for dipole
-multipole={}    Same definition as for dipole
-monitor={}      Same definition as for dipole</p>
-<p>All other keywords are sent to the plotting function</p>
-</dd>
-<dt>RETURN</dt><dd><p>left_axes       Main (left) axes
-right_axes      Secondary (right) axes or None
-synopt_axes     Synoptic axes</p>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>left_axes</strong> (<em>Axes</em>) – Main (left) axes</p></li>
+<li><p><strong>right_axes</strong> (<em>Axes</em>) – Secondary (right) axes or <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p></li>
+<li><p><strong>synopt_axes</strong> (<em>Axes</em>) – Synoptic axes</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>

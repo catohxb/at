@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>at.plot.standalone &#8212; Accelerator Toolbox 0.1.dev1+ge9f2524 documentation</title>
+    <title>at.plot.standalone &#8212; Accelerator Toolbox 0.1.dev1+gc8268ce documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -167,72 +167,77 @@
                 
   <h1>Source code for at.plot.standalone</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;AT plotting functions&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span>
 <span class="kn">from</span> <span class="nn">at.lattice</span> <span class="kn">import</span> <span class="n">Lattice</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">ndarray</span>
 
 
 <span class="c1"># Function to compute and plot acceptance</span>
-<div class="viewcode-block" id="plot_acceptance"><a class="viewcode-back" href="../../../p/api/at.plot.standalone.html#at.plot.standalone.plot_acceptance">[docs]</a><span class="k">def</span> <span class="nf">plot_acceptance</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Computes the acceptance at repfts observation points</span>
-<span class="sd">    Grid Coordiantes ordering is as follows: CARTESIAN: (x,y), RADIAL/RECURSIVE</span>
-<span class="sd">    (r, theta). Scalar inputs can be used for 1D grid.</span>
-<span class="sd">    The grid can be changed using grid_mode input:</span>
-<span class="sd">    at.GridMode.CARTESIAN: (x,y) grid</span>
-<span class="sd">    at.GridMode.RADIAL: (r,theta) grid</span>
-<span class="sd">    at.GridMode.RECURSIVE: (r,theta) recursive boundary search</span>
+<div class="viewcode-block" id="plot_acceptance"><a class="viewcode-back" href="../../../p/api/at.plot.standalone.html#at.plot.standalone.plot_acceptance">[docs]</a><span class="k">def</span> <span class="nf">plot_acceptance</span><span class="p">(</span><span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="c1"># noinspection PyUnresolvedReferences</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Plots the acceptance</span>
 
-<span class="sd">    Example usage:</span>
-<span class="sd">    ring.plot_acceptance(planes, npoints, amplitudes)</span>
-<span class="sd">    plt.show()</span>
+<span class="sd">    Computes the acceptance at repfts observation points using</span>
+<span class="sd">    :py:func:`.get_acceptance` and plots the tracked</span>
+<span class="sd">    and survived particles, and the acceptance boundary.</span>
 
-<span class="sd">    PARAMETERS</span>
-<span class="sd">    PARAMETERS</span>
-<span class="sd">        ring            ring use for tracking</span>
-<span class="sd">        planes          max. dimension 2, defines the plane where to search</span>
-<span class="sd">                        for the acceptance, allowed values are: x,xp,y,yp,dp,ct</span>
-<span class="sd">        npoints         number of points in each dimension shape (len(planes),)</span>
-<span class="sd">        amplitudes      max. amplitude  or initial step in RECURSIVE in each</span>
-<span class="sd">                        dimension</span>
-<span class="sd">                        shape (len(planes),), for RADIAL/RECURSIVE grid:</span>
-<span class="sd">                        r = sqrt(x**2+y**2)</span>
+<span class="sd">    Parameters:</span>
+<span class="sd">        ring:           Lattice definition</span>
 
+<span class="sd">    Keyword Args:</span>
+<span class="sd">        acceptance(Tuple[ndarray, ndarray, ndarray]): Tuple containing</span>
+<span class="sd">          pre-computed acceptance ``(boundary, survived, grid)``</span>
+<span class="sd">        planes:         max. dimension 2, Plane(s) to scan for the acceptance.</span>
+<span class="sd">          Allowed values are: ``&#39;x&#39;``, ``&#39;xp&#39;``, ``&#39;y&#39;``,</span>
+<span class="sd">          ``&#39;yp&#39;``, ``&#39;dp&#39;``, ``&#39;ct&#39;``</span>
+<span class="sd">        npoints:        (len(planes),) array: number of points in each</span>
+<span class="sd">          dimension</span>
+<span class="sd">        amplitudes:     (len(planes),) array: set the search range:</span>
 
-<span class="sd">    KEYWORDS</span>
-<span class="sd">        acceptance=None tuple containing pre-computed acceptance</span>
-<span class="sd">                        (boundary, survived, grid)</span>
-<span class="sd">        nturns=1024     Number of turns for the tracking</span>
-<span class="sd">        refpts=None     Observation refpts, default start of the machine</span>
-<span class="sd">        dp=None         static momentum offset</span>
-<span class="sd">        offset=None     initial orbit, default closed orbit</span>
-<span class="sd">        bounds=None     Allows to define boundaries for the grid default</span>
-<span class="sd">                        values are:</span>
-<span class="sd">                        GridMode.CARTESIAN: ((-1,1),(0,1))</span>
-<span class="sd">                        GridMode.RADIAL/RECURSIVE: ((0,1),(pi,0))</span>
-<span class="sd">        grid_mode       at.GridMode.CARTESIAN/RADIAL: track full vector</span>
-<span class="sd">                        (default) at.GridMode.RECURSIVE: recursive search</span>
-<span class="sd">        use_mp=False    Use python multiprocessing (patpass, default use</span>
-<span class="sd">                        lattice_pass). In case multi-processing is not</span>
-<span class="sd">                        enabled GridMode is forced to</span>
-<span class="sd">                        RECURSIVE (most efficient in single core)</span>
-<span class="sd">        divider=2       Value of the divider used in RECURSIVE boundary search</span>
-<span class="sd">        verbose=True    Print out some inform</span>
-<span class="sd">        start_method    This parameter allows to change the python</span>
-<span class="sd">                        multiprocessing start method, default=None uses the</span>
-<span class="sd">                        python defaults that is considered safe.</span>
-<span class="sd">                        Available parameters: &#39;fork&#39;, &#39;spawn&#39;, &#39;forkserver&#39;.</span>
-<span class="sd">                        Default for linux is fork, default for MacOS and</span>
-<span class="sd">                        Windows is spawn. fork may used for MacOS to speed-up</span>
-<span class="sd">                        the calculation or to solve Runtime Errors, however</span>
-<span class="sd">                        it is considered unsafe.</span>
+<span class="sd">          * :py:attr:`GridMode.CARTESIAN/RADIAL &lt;.GridMode.RADIAL&gt;`:</span>
+<span class="sd">            max. amplitude</span>
+<span class="sd">          * :py:attr:`.GridMode.RECURSIVE`: initial step</span>
+<span class="sd">        nturns (int):       Number of turns for the tracking</span>
+<span class="sd">        refpts (Refpts):    Observation points. Default: start of the machine</span>
+<span class="sd">        dp (float):         Static momentum offset</span>
+<span class="sd">        offset:             Initial orbit. Default: closed orbit</span>
+<span class="sd">        bounds:             Defines the tracked range: range=bounds*amplitude.</span>
+<span class="sd">          It can be used to select quadrants. For example, default values are:</span>
 
+<span class="sd">          * :py:attr:`.GridMode.CARTESIAN`: ((-1, 1), (0, 1))</span>
+<span class="sd">          * :py:attr:`GridMode.RADIAL/RECURSIVE &lt;.GridMode.RADIAL&gt;`: ((0, 1),</span>
+<span class="sd">            (:math:`\pi`, 0))</span>
+<span class="sd">        grid_mode (GridMode):   Defines the evaluation grid:</span>
 
-<span class="sd">    OUTPUT</span>
-<span class="sd">        Returns 3 lists containing the 2D acceptance, the grid that was</span>
-<span class="sd">        tracked and the particles of the grid that survived. The length</span>
-<span class="sd">        of the lists=refpts. In case len(refpts)=1 the acceptance, grid,</span>
-<span class="sd">        survived arrays are returned directly.</span>
+<span class="sd">          * :py:attr:`.GridMode.CARTESIAN`: full [:math:`\:x, y\:`] grid</span>
+<span class="sd">          * :py:attr:`.GridMode.RADIAL`: full [:math:`\:r, \theta\:`] grid</span>
+<span class="sd">          * :py:attr:`.GridMode.RECURSIVE`: radial recursive search</span>
+<span class="sd">        use_mp (bool):      Use python multiprocessing (:py:func:`.patpass`,</span>
+<span class="sd">          default use :py:func:`.lattice_pass`). In case multiprocessing is not</span>
+<span class="sd">          enabled, ``grid_mode`` is forced to :py:attr:`.GridMode.RECURSIVE`</span>
+<span class="sd">          (most efficient in single core)</span>
+<span class="sd">        verbose (bool):     Print out some information</span>
+<span class="sd">        divider (int):      Value of the divider used in</span>
+<span class="sd">          :py:attr:`.GridMode.RECURSIVE` boundary search</span>
+<span class="sd">        shift_zero:</span>
+<span class="sd">        start_method (str): Python multiprocessing start method. The default</span>
+<span class="sd">          :py:obj:`None` uses the python default that is considered safe.</span>
+<span class="sd">          Available parameters: ``&#39;fork&#39;``, ``&#39;spawn&#39;``, ``&#39;forkserver&#39;``.</span>
+<span class="sd">          The default for linux is ``&#39;fork&#39;``, the default for macOS and</span>
+<span class="sd">          Windows is ``&#39;spawn&#39;``. ``&#39;fork&#39;`` may used for macOS to speed up</span>
+<span class="sd">          the calculation or to solve runtime errors, however  it is</span>
+<span class="sd">          considered unsafe.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        boundary:   (2,n) array: 2D acceptance</span>
+<span class="sd">        tracked:    (2,n) array: Coordinates of tracked particles</span>
+<span class="sd">        survived:   (2,n) array: Coordinates of surviving particles</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; ring.plot_acceptance(planes, npoints, amplitudes)</span>
+<span class="sd">        &gt;&gt;&gt; plt.show()</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">units</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="s1">&#39;[m]&#39;</span><span class="p">,</span> <span class="s1">&#39;xp&#39;</span><span class="p">:</span> <span class="s1">&#39;[rad]&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="s1">&#39;[m]&#39;</span><span class="p">,</span>

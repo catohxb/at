@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>at.plot.specific &#8212; Accelerator Toolbox 0.1.dev1+ge9f2524 documentation</title>
+    <title>at.plot.specific &#8212; Accelerator Toolbox 0.1.dev1+gc8268ce documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -550,10 +550,10 @@
 <td><p>Plot beta functions and dispersion</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#at.plot.specific.plot_linear" title="at.plot.specific.plot_linear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_linear</span></code></a>(ring, *keys, **kwargs)</p></td>
-<td><p>axleft, axright = plot_linear(ring, left[, right], <a href="#id1"><span class="problematic" id="id2">**</span></a>keywords Plot linear optical functions returned by get_optics</p></td>
+<td><p>Plot linear optical functions returned by <a class="reference internal" href="at.physics.linear.html#at.physics.linear.get_optics" title="at.physics.linear.get_optics"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_optics()</span></code></a></p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#at.plot.specific.plot_trajectory" title="at.plot.specific.plot_trajectory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_trajectory</span></code></a>(ring, r_in[, nturns])</p></td>
-<td><p>plot a particle's trajectory</p></td>
+<td><p>Plot a particle's trajectory</p></td>
 </tr>
 </tbody>
 </table>
@@ -561,50 +561,51 @@
 <dt class="sig sig-object py" id="at.plot.specific.pldata_beta_disp">
 <span class="sig-name descname"><span class="pre">pldata_beta_disp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refpts</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/plot/specific.html#pldata_beta_disp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.plot.specific.pldata_beta_disp" title="Permalink to this definition">#</a></dt>
 <dd><p>Generates data for plotting beta functions and dispersion</p>
+<dl class="field-list simple">
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="at.plot.specific.pldata_linear">
 <span class="sig-name descname"><span class="pre">pldata_linear</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refpts</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">keys</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/plot/specific.html#pldata_linear"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.plot.specific.pldata_linear" title="Permalink to this definition">#</a></dt>
 <dd><p>data extraction function for plotting results of get_optics</p>
+<dl class="field-list simple">
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="at.plot.specific.plot_beta">
 <span class="sig-name descname"><span class="pre">plot_beta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/plot/specific.html#plot_beta"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.plot.specific.plot_beta" title="Permalink to this definition">#</a></dt>
 <dd><p>Plot beta functions and dispersion</p>
-<dl>
-<dt>PARAMETERS</dt><dd><p>ring            Lattice object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ring</strong> (<a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><em>Lattice</em></a>) – Lattice description.</p>
 </dd>
-<dt>KEYWORDS</dt><dd><p>dp=0.0          Ignored if radiation is ON. Momentum deviation.
-dct=None        Ignored if radiation is ON. Path lengthening.</p>
-<blockquote>
-<div><p>If specified, dp is ignored and the off-momentum is
-deduced from the path lengthening.</p>
-</div></blockquote>
-<dl>
-<dt>method=linopt6  Method used for the analysis of the transfer matrix.</dt><dd><p>See get_optics.
-linopt6: default
-linopt2: faster if no longitudinal motion and</p>
-<blockquote>
-<div><p>no H/V coupling,</p>
-</div></blockquote>
-</dd>
-<dt>orbit           avoids looking for the closed orbit if is already known</dt><dd><p>((6,) array)</p>
-</dd>
-<dt>keep_lattice    Assume no lattice change since the previous tracking.</dt><dd><p>Defaults to False</p>
-</dd>
-<dt>ddp=1.0E-8      momentum deviation used for computation of</dt><dd><p>chromaticities and dispersion</p>
-</dd>
-<dt>twiss_in=None   Initial conditions for transfer line optics. Record</dt><dd><p>array as output by linopt, or dictionary. Keys:
-‘R’ or ‘alpha’ and ‘beta’   (mandatory)
-‘closed_orbit’,             (default 0)
-‘dispersion’                (default 0)
-If present, the attribute ‘R’ will be used, otherwise
-the attributes ‘alpha’ and ‘beta’ will be used. All
-other attributes are ignored.</p>
-</dd>
-</dl>
+<dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>dp</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Momentum deviation.</p></li>
+<li><p><strong>dct</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Path lengthening. If specified, <code class="docutils literal notranslate"><span class="pre">dp</span></code> is
+ignored and the off-momentum is deduced from the path lengthening.</p></li>
+<li><p><strong>orbit</strong> (<a class="reference internal" href="at.physics.orbit.html#at.physics.orbit.Orbit" title="at.physics.orbit.Orbit"><em>Orbit</em></a>) – Avoids looking for the closed orbit if is
+already known ((6,) array)</p></li>
+<li><p><strong>method</strong> (<em>Callable</em>) – <p>Method for linear optics (see
+<a class="reference internal" href="at.physics.linear.html#at.physics.linear.get_optics" title="at.physics.linear.get_optics"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_optics()</span></code></a>):</p>
+<p><a class="reference internal" href="at.physics.linear.html#at.physics.linear.linopt2" title="at.physics.linear.linopt2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linopt2</span></code></a>: no longitudinal motion, no H/V coupling,</p>
+<p><a class="reference internal" href="at.physics.linear.html#at.physics.linear.linopt4" title="at.physics.linear.linopt4"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linopt4</span></code></a>: no longitudinal motion, Sagan/Rubin
+4D-analysis of coupled motion,</p>
+<p><a class="reference internal" href="at.physics.linear.html#at.physics.linear.linopt6" title="at.physics.linear.linopt6"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linopt6</span></code></a> (default): with or without longitudinal
+motion, normal mode analysis</p>
+</p></li>
+<li><p><strong>keep_lattice</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Assume no lattice change since the
+previous tracking. Defaults to <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a></p></li>
+<li><p><strong>XYStep</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Step size.
+Default: <a class="reference internal" href="at.lattice.options.html#at.lattice.options.DConstant" title="at.lattice.options.DConstant"><code class="xref py py-data docutils literal notranslate"><span class="pre">DConstant.XYStep</span></code></a></p></li>
+<li><p><strong>DPStep</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Momentum step size.
+Default: <a class="reference internal" href="at.lattice.options.html#at.lattice.options.DConstant" title="at.lattice.options.DConstant"><code class="xref py py-data docutils literal notranslate"><span class="pre">DConstant.DPStep</span></code></a></p></li>
+<li><p><strong>twiss_in</strong> – Initial conditions for transfer line optics. Record
+array as output by <a class="reference internal" href="at.physics.linear.html#at.physics.linear.linopt2" title="at.physics.linear.linopt2"><code class="xref py py-func docutils literal notranslate"><span class="pre">linopt2()</span></code></a>, <a class="reference internal" href="at.physics.linear.html#at.physics.linear.linopt6" title="at.physics.linear.linopt6"><code class="xref py py-func docutils literal notranslate"><span class="pre">linopt6()</span></code></a>, or
+dictionary.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -612,68 +613,54 @@ other attributes are ignored.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="at.plot.specific.plot_linear">
 <span class="sig-name descname"><span class="pre">plot_linear</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">keys</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/plot/specific.html#plot_linear"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.plot.specific.plot_linear" title="Permalink to this definition">#</a></dt>
-<dd><p>axleft, axright = plot_linear(ring, left[, right], <a href="#id3"><span class="problematic" id="id4">**</span></a>keywords
-Plot linear optical functions returned by get_optics</p>
-<dl>
-<dt>PARAMETERS</dt><dd><p>ring            Lattice object
-left            Left axis description as a tuple:</p>
-<blockquote>
-<div><blockquote>
-<div><dl class="simple">
-<dt>(key[, indices[, indices]])</dt><dd><p>key:        ‘beta’, ‘closed_orbit’,…
-indices:    integer, sequence of integers, or slice</p>
+<dd><p>Plot linear optical functions returned by <a class="reference internal" href="at.physics.linear.html#at.physics.linear.get_optics" title="at.physics.linear.get_optics"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_optics()</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ring</strong> (<a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><em>Lattice</em></a>) – Lattice description.</p>
 </dd>
-</dl>
+<dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>left</strong> – <p>Left axis description as a tuple:
+(key[, indices[, indices]])</p>
+<p><strong>key</strong>:        ‘beta’, ‘closed_orbit’,… See <a class="reference internal" href="at.physics.linear.html#at.physics.linear.get_optics" title="at.physics.linear.get_optics"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_optics()</span></code></a></p>
+<p><strong>indices</strong>:    integer, sequence of integers, or slice</p>
 <p>The number if sequences of indices is data[key].ndim-1
 The number of indices is the number of curves to plot.
 All sequences must have the same length.</p>
-</div></blockquote>
-<dl>
-<dt>Examples:</dt><dd><p>(‘beta’, [0, 1])              beta_x, beta_z
-(‘dispersion’, 0)             eta_x
-(‘closed_orbit’), [1, 3])     x’, z’
-(‘m44’, 2, 2)                 T33
-(‘m44’, [0, 0], [0, 1])       T11, T12
-(‘m44’, 2, slice(4))          T31, T32, T33, T34</p>
-<blockquote>
-<div><p>as a single block</p>
-</div></blockquote>
-<p>(‘m44’, [2,2,2,2], [0,1,2,3]) T31, T32, T33, T34</p>
-</dd>
-</dl>
-</div></blockquote>
-<p>right           Right axis (optional)</p>
-</dd>
-<dt>KEYWORDS</dt><dd><p>title           Plot title, defaults to “Linear optics”
-dp=0.0          Ignored if radiation is ON. Momentum deviation.
-dct=None        Ignored if radiation is ON. Path lengthening.</p>
-<blockquote>
-<div><p>If specified, dp is ignored and the off-momentum is
-deduced from the path lengthening.</p>
-</div></blockquote>
-<dl>
-<dt>method=linopt6  Method used for the analysis of the transfer matrix.</dt><dd><p>See get_optics.
-linopt6: default
-linopt2: faster if no longitudinal motion and</p>
-<blockquote>
-<div><p>no H/V coupling,</p>
-</div></blockquote>
-</dd>
-<dt>orbit           avoids looking for the closed orbit if is already known</dt><dd><p>((6,) array)</p>
-</dd>
-<dt>keep_lattice    Assume no lattice change since the previous tracking.</dt><dd><p>Defaults to False</p>
-</dd>
-<dt>ddp=1.0E-8      momentum deviation used for computation of</dt><dd><p>chromaticities and dispersion</p>
-</dd>
-<dt>twiss_in=None   Initial conditions for transfer line optics. Record</dt><dd><p>array as output by linopt, or dictionary. Keys:
-‘R’ or ‘alpha’ and ‘beta’   (mandatory)
-‘closed_orbit’,             (default 0)
-‘dispersion’                (default 0)
-If present, the attribute ‘R’ will be used, otherwise
-the attributes ‘alpha’ and ‘beta’ will be used. All
-other attributes are ignored.</p>
-</dd>
-</dl>
+<p>Examples:</p>
+<p><code class="code docutils literal notranslate"><span class="pre">('beta',</span> <span class="pre">[0,</span> <span class="pre">1])</span></code>:         beta_x, beta_z</p>
+<p><code class="code docutils literal notranslate"><span class="pre">('dispersion',</span> <span class="pre">0)</span></code>:        eta_x</p>
+<p><code class="code docutils literal notranslate"><span class="pre">('closed_orbit'),</span> <span class="pre">[1,</span> <span class="pre">3])</span></code>:    x’, z’</p>
+<p><code class="code docutils literal notranslate"><span class="pre">('m44',</span> <span class="pre">2,</span> <span class="pre">2)</span></code>:            T33</p>
+<p><code class="code docutils literal notranslate"><span class="pre">('m44',</span> <span class="pre">[0,</span> <span class="pre">0],</span> <span class="pre">[0,</span> <span class="pre">1])</span></code>:  T11, T12</p>
+<p><code class="code docutils literal notranslate"><span class="pre">('m44',</span> <span class="pre">2,</span> <span class="pre">slice(4))</span></code>:     T31, T32, T33, T34 as a single block</p>
+<p><code class="code docutils literal notranslate"><span class="pre">('m44',</span> <span class="pre">[2,2,2,2],</span> <span class="pre">[0,1,2,3])</span></code>:    T31, T32, T33, T34</p>
+</p></li>
+<li><p><strong>right</strong> – Right axis (optional). See <code class="docutils literal notranslate"><span class="pre">left</span></code></p></li>
+<li><p><strong>title</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Plot title, defaults to “Linear optics”</p></li>
+<li><p><strong>dp</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Momentum deviation.</p></li>
+<li><p><strong>dct</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Path lengthening. If specified, <code class="docutils literal notranslate"><span class="pre">dp</span></code> is
+ignored and the off-momentum is deduced from the path lengthening.</p></li>
+<li><p><strong>orbit</strong> (<a class="reference internal" href="at.physics.orbit.html#at.physics.orbit.Orbit" title="at.physics.orbit.Orbit"><em>Orbit</em></a>) – Avoids looking for the closed orbit if is
+already known ((6,) array)</p></li>
+<li><p><strong>method</strong> (<em>Callable</em>) – <p>Method for linear optics (see
+<a class="reference internal" href="at.physics.linear.html#at.physics.linear.get_optics" title="at.physics.linear.get_optics"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_optics()</span></code></a>):</p>
+<p><a class="reference internal" href="at.physics.linear.html#at.physics.linear.linopt2" title="at.physics.linear.linopt2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linopt2</span></code></a>: no longitudinal motion, no H/V coupling,</p>
+<p><a class="reference internal" href="at.physics.linear.html#at.physics.linear.linopt4" title="at.physics.linear.linopt4"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linopt4</span></code></a>: no longitudinal motion, Sagan/Rubin
+4D-analysis of coupled motion,</p>
+<p><a class="reference internal" href="at.physics.linear.html#at.physics.linear.linopt6" title="at.physics.linear.linopt6"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linopt6</span></code></a> (default): with or without longitudinal
+motion, normal mode analysis</p>
+</p></li>
+<li><p><strong>keep_lattice</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Assume no lattice change since the
+previous tracking. Defaults to <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a></p></li>
+<li><p><strong>XYStep</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Step size.
+Default: <a class="reference internal" href="at.lattice.options.html#at.lattice.options.DConstant" title="at.lattice.options.DConstant"><code class="xref py py-data docutils literal notranslate"><span class="pre">DConstant.XYStep</span></code></a></p></li>
+<li><p><strong>DPStep</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Momentum step size.
+Default: <a class="reference internal" href="at.lattice.options.html#at.lattice.options.DConstant" title="at.lattice.options.DConstant"><code class="xref py py-data docutils literal notranslate"><span class="pre">DConstant.DPStep</span></code></a></p></li>
+<li><p><strong>twiss_in</strong> – Initial conditions for transfer line optics. Record
+array as output by <code class="xref py py-func docutils literal notranslate"><span class="pre">linopt2()</span></code>, <code class="xref py py-func docutils literal notranslate"><span class="pre">linopt6()</span></code>, or
+dictionary. Keys:</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -681,16 +668,18 @@ other attributes are ignored.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="at.plot.specific.plot_trajectory">
 <span class="sig-name descname"><span class="pre">plot_trajectory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r_in</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nturns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/plot/specific.html#plot_trajectory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.plot.specific.plot_trajectory" title="Permalink to this definition">#</a></dt>
-<dd><p>plot a particle’s trajectory</p>
-<dl class="simple">
-<dt>PARAMETERS</dt><dd><p>ring            Lattice object
-r_in            6xN array: input coordinates of N particles
-nturns=1        Number of turns</p>
+<dd><p>Plot a particle’s trajectory</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ring</strong> (<a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><em>Lattice</em></a>) – Lattice object</p></li>
+<li><p><strong>r_in</strong> – (6,n) array: input coordinates of n particles</p></li>
+<li><p><strong>nturns</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of turns</p></li>
+</ul>
 </dd>
-<dt>KEYWORDS</dt><dd><dl class="simple">
-<dt>keep_lattice    Assume no lattice change since the previous tracking.</dt><dd><p>Defaults to False</p>
-</dd>
-</dl>
+<dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>keep_lattice</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Assume no lattice change since the
+previous tracking. Defaults to <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
