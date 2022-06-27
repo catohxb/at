@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>at.matching.matching &#8212; Accelerator Toolbox 0.1.dev1+gc8268ce documentation</title>
+    <title>at.matching.matching &#8212; Accelerator Toolbox 0.1.dev1+g19b9197 documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -549,25 +549,25 @@
 <table class="autosummary longtable table autosummary">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#at.matching.matching.Constraints" title="at.matching.matching.Constraints"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Constraints</span></code></a>(*args, **kwargs)</p></td>
-<td><p>Container for generic constraints: - a constraint is defined by a user-defined evaluation function.</p></td>
+<td><p>Container for generic constraints:</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#at.matching.matching.ElementConstraints" title="at.matching.matching.ElementConstraints"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ElementConstraints</span></code></a>(*args, **kwargs)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#at.matching.matching.ElementConstraints" title="at.matching.matching.ElementConstraints"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ElementConstraints</span></code></a>(ring, *args, **kwargs)</p></td>
 <td><p>Base class for position-related constraints: handle the refpoints of each target</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#at.matching.matching.ElementVariable" title="at.matching.matching.ElementVariable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ElementVariable</span></code></a>(refpts, attname[, index])</p></td>
-<td><p>An ElementVariable is: - a scalar attribute or - an element of an array attribute of one or several elements of a lattice</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#at.matching.matching.ElementVariable" title="at.matching.matching.ElementVariable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ElementVariable</span></code></a>(refpts, attname[, index, ...])</p></td>
+<td><p>An <a class="reference internal" href="#at.matching.matching.ElementVariable" title="at.matching.matching.ElementVariable"><code class="xref py py-class docutils literal notranslate"><span class="pre">ElementVariable</span></code></a> is:</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#at.matching.matching.EnvelopeConstraints" title="at.matching.matching.EnvelopeConstraints"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EnvelopeConstraints</span></code></a>(ring)</p></td>
-<td><p>Container for envelope constraints: - a constraint can be set on any result of at.ohmi_envelope - constraints are added to the container with the EnvelopeConstraints.add   method.</p></td>
+<td><p>Container for envelope constraints:</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#at.matching.matching.LinoptConstraints" title="at.matching.matching.LinoptConstraints"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LinoptConstraints</span></code></a>(ring, **kwargs)</p></td>
-<td><p>Container for linear optics constraints: - a constraint can be set on any result of at.get_optics - constraints are added to the container with the LinoptConstraints.add   method.</p></td>
+<td><p>Container for linear optics constraints:</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#at.matching.matching.OrbitConstraints" title="at.matching.matching.OrbitConstraints"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OrbitConstraints</span></code></a>(ring, *args, **kwargs)</p></td>
-<td><p>Container for orbit constraints: The closed orbit can be handled with LinoptConstraints, but for problems which do not involve parameters other than orbit, like steering or orbit bumps, OrbitConstraints is much faster.</p></td>
+<td><p>Container for orbit constraints: The closed orbit can be handled with :py:class`LinoptConstraints`, but for problems which do not involve parameters other than orbit, like steering or orbit bumps, <a class="reference internal" href="#at.matching.matching.OrbitConstraints" title="at.matching.matching.OrbitConstraints"><code class="xref py py-class docutils literal notranslate"><span class="pre">OrbitConstraints</span></code></a> is much faster.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#at.matching.matching.Variable" title="at.matching.matching.Variable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Variable</span></code></a>(setfun, getfun[, name, bounds])</p></td>
-<td><p>A Variable is a scalar value acting on a lattice through the user-defined functions setfun and getfun</p></td>
+<td><p>A <a class="reference internal" href="#at.matching.matching.Variable" title="at.matching.matching.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a> is a scalar value acting on a lattice through the user-defined functions setfun and getfun</p></td>
 </tr>
 </tbody>
 </table>
@@ -575,54 +575,63 @@
 <dt class="sig sig-object py" id="at.matching.matching.Constraints">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Constraints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/matching/matching.html#Constraints"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.matching.matching.Constraints" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
-<p>Container for generic constraints:
-- a constraint is defined by a user-defined evaluation function.
-- constraints are added to the container with the Constraints.add method</p>
-<p class="rubric">Example</p>
-<p># define an evaluation function for the ring circumference:
-def circ_fun(ring):</p>
-<blockquote>
-<div><p>return ring.get_s_pos(len(ring) + 1)</p>
-</div></blockquote>
-<p># define an evaluation function for the momentum compaction factor:
-def mcf_fun(ring):</p>
-<blockquote>
-<div><p>return ring.get_mcf()</p>
-</div></blockquote>
-<p># Construct the container:
-cnstrs = Constraints()</p>
-<p># Add the two constraints:
-cnstrs.add(circ_fun, 850.0)
-cnstrs.add(mcf_fun, 1.0e-4, weight=0.1)</p>
-<p>build a generic constraints container.</p>
-<p>The positional and keyword parameters are provided to all
-the evaluation functions.</p>
+<p>Container for generic constraints:</p>
+<ul class="simple">
+<li><p>a constraint is defined by a user-defined evaluation function,</p></li>
+<li><p>constraints are added to the container with the <a class="reference internal" href="#at.matching.matching.Constraints.add" title="at.matching.matching.Constraints.add"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add()</span></code></a> method.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>*args</strong> – Positional arguments sent to the evaluation functions
+of all the embedded constraints</p>
+</dd>
+<dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>**kwargs</strong> – Keyword arguments sent to the evaluation functions
+of all the embedded constraints</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Define an evaluation function for the ring circumference:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">circ_fun</span><span class="p">(</span><span class="n">ring</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">ring</span><span class="o">.</span><span class="n">get_s_pos</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ring</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Define an evaluation function for the momentum compaction factor:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">mcf_fun</span><span class="p">(</span><span class="n">ring</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">ring</span><span class="o">.</span><span class="n">get_mcf</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Construct the container:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cnstrs</span> <span class="o">=</span> <span class="n">Constraints</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Add the two constraints:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cnstrs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">circ_fun</span><span class="p">,</span> <span class="mf">850.0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cnstrs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">mcf_fun</span><span class="p">,</span> <span class="mf">1.0e-4</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+</pre></div>
+</div>
 <dl class="py method">
 <dt class="sig sig-object py" id="at.matching.matching.Constraints.add">
 <span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fun</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bounds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0.0,</span> <span class="pre">0.0)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/matching/matching.html#Constraints.add"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.matching.matching.Constraints.add" title="Permalink to this definition">#</a></dt>
-<dd><p>Add a target to the Constraints container</p>
-<dl>
-<dt>PARAMETERS</dt><dd><dl class="simple">
-<dt>fun           evaluation function. Called as:</dt><dd><dl class="simple">
-<dt>value = fun(ring, <a href="#id1"><span class="problematic" id="id2">*</span></a>args, <a href="#id3"><span class="problematic" id="id4">**</span></a>kwargs)</dt><dd><p>value is the constrained parameter value
-value may be a scalar or an array.
-the positional and keyword parameters come from
-the Constraints initialisation</p>
-</dd>
-</dl>
-</dd>
-</dl>
-<p>target        desired value.</p>
-</dd>
-<dt>KEYWORDS</dt><dd><dl class="simple">
-<dt>name=None     name of the constraint. If None, name is generated</dt><dd><p>from the name of the evaluation function</p>
-</dd>
-</dl>
-<p>weight=1.0    weight factor: the residual is (value-target)/weight
-bounds=(0,0)  lower and upper bounds. The parameter is constrained</p>
-<blockquote>
-<div><p>in the interval [target-low_bound target+up_bound]</p>
-</div></blockquote>
+<dd><p>Add a target to the <a class="reference internal" href="#at.matching.matching.Constraints" title="at.matching.matching.Constraints"><code class="xref py py-class docutils literal notranslate"><span class="pre">Constraints</span></code></a> container</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fun</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.10)"><em>Callable</em></a>) – <p>Evaluation function. Called as:</p>
+<p><code class="code docutils literal notranslate"><span class="pre">value</span> <span class="pre">=</span> <span class="pre">fun(ring,</span> <span class="pre">*args,</span> <span class="pre">**kwargs)</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">value</span></code> is the constrained parameter value,</p>
+<p><code class="docutils literal notranslate"><span class="pre">value</span></code> may be a scalar or an array.</p>
+<p>The positional and keyword parameters come from
+the <a class="reference internal" href="#at.matching.matching.Constraints" title="at.matching.matching.Constraints"><code class="xref py py-class docutils literal notranslate"><span class="pre">Constraints</span></code></a> initialisation</p>
+</p></li>
+<li><p><strong>target</strong> – Desired value.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>]</em>) – Name of the constraint. If <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>, a <code class="docutils literal notranslate"><span class="pre">name</span></code>
+is generated from the name of the evaluation function</p></li>
+<li><p><strong>weight</strong> – Weight factor: the residual is
+<code class="code docutils literal notranslate"><span class="pre">(value-target)/weight</span></code></p></li>
+<li><p><strong>bounds</strong> – Lower and upper bounds. The parameter is constrained
+in the interval [target-low_bound target+up_bound]</p></li>
+</ul>
 </dd>
 </dl>
 <p>The “target”, “weight” and “bounds” input must be broadcastable to the
@@ -633,6 +642,8 @@ shape of “value”.</p>
 <dt class="sig sig-object py" id="at.matching.matching.Constraints.evaluate">
 <span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/matching/matching.html#Constraints.evaluate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.matching.matching.Constraints.evaluate" title="Permalink to this definition">#</a></dt>
 <dd><p>Return a flattened array of weighted residuals</p>
+<dl class="field-list simple">
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -645,51 +656,55 @@ shape of “value”.</p>
 <dt class="sig sig-object py" id="at.matching.matching.Constraints.status">
 <span class="sig-name descname"><span class="pre">status</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/matching/matching.html#Constraints.status"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.matching.matching.Constraints.status" title="Permalink to this definition">#</a></dt>
 <dd><p>Return a string giving the actual state of constraints</p>
+<dl class="field-list simple">
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="at.matching.matching.Constraints.values">
 <span class="sig-name descname"><span class="pre">values</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/matching/matching.html#Constraints.values"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.matching.matching.Constraints.values" title="Permalink to this definition">#</a></dt>
 <dd><p>Return the list of actual parameter values</p>
+<dl class="field-list simple">
+</dl>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="at.matching.matching.ElementConstraints">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ElementConstraints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/matching/matching.html#ElementConstraints"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.matching.matching.ElementConstraints" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ElementConstraints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/matching/matching.html#ElementConstraints"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.matching.matching.ElementConstraints" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#at.matching.matching.Constraints" title="at.matching.matching.Constraints"><code class="xref py py-class docutils literal notranslate"><span class="pre">Constraints</span></code></a></p>
 <p>Base class for position-related constraints: handle the refpoints
 of each target</p>
-<p>build a generic constraints container.</p>
-<p>The positional and keyword parameters are provided to all
-the evaluation functions.</p>
+<dl class="field-list simple">
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="at.matching.matching.ElementConstraints.add">
 <span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fun</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refpts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/matching/matching.html#ElementConstraints.add"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.matching.matching.ElementConstraints.add" title="Permalink to this definition">#</a></dt>
-<dd><p>Add a target to the Constraints container</p>
-<dl>
-<dt>PARAMETERS</dt><dd><dl class="simple">
-<dt>fun           evaluation function. Called as:</dt><dd><dl class="simple">
-<dt>value = fun(ring, <a href="#id5"><span class="problematic" id="id6">*</span></a>args, <a href="#id7"><span class="problematic" id="id8">**</span></a>kwargs)</dt><dd><p>value is the constrained parameter value
-value may be a scalar or an array.
-the positional and keyword parameters come from
-the Constraints initialisation</p>
+<dd><p>Add a target to the <a class="reference internal" href="#at.matching.matching.ElementConstraints" title="at.matching.matching.ElementConstraints"><code class="xref py py-class docutils literal notranslate"><span class="pre">ElementConstraints</span></code></a> container</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fun</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.10)"><em>Callable</em></a>) – <p>Evaluation function. Called as:</p>
+<p><code class="code docutils literal notranslate"><span class="pre">value</span> <span class="pre">=</span> <span class="pre">fun(ring,</span> <span class="pre">*args,</span> <span class="pre">**kwargs)</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">value</span></code> is the constrained parameter value</p>
+<p><code class="docutils literal notranslate"><span class="pre">value</span></code> may be a scalar or an array.</p>
+<p>the positional and keyword parameters come from
+the <a class="reference internal" href="#at.matching.matching.ElementConstraints" title="at.matching.matching.ElementConstraints"><code class="xref py py-class docutils literal notranslate"><span class="pre">ElementConstraints</span></code></a> initialisation</p>
+</p></li>
+<li><p><strong>target</strong> – Desired value.</p></li>
+<li><p><strong>refpts</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><em>Refpts</em><em>]</em>) – Location of the constraint</p></li>
+</ul>
 </dd>
-</dl>
-</dd>
-</dl>
-<p>target        desired value.</p>
-</dd>
-<dt>KEYWORDS</dt><dd><dl class="simple">
-<dt>name=None     name of the constraint. If None, name is generated</dt><dd><p>from the name of the evaluation function</p>
-</dd>
-</dl>
-<p>weight=1.0    weight factor: the residual is (value-target)/weight
-bounds=(0,0)  lower and upper bounds. The parameter is constrained</p>
-<blockquote>
-<div><p>in the interval [target-low_bound target+up_bound]</p>
-</div></blockquote>
+<dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>name</strong> – Name of the constraint. If <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>, a <code class="docutils literal notranslate"><span class="pre">name</span></code>
+is generated from the name of the evaluation function</p></li>
+<li><p><strong>weight</strong> – Weight factor: the residual is
+<code class="code docutils literal notranslate"><span class="pre">(value-target)/weight</span></code></p></li>
+<li><p><strong>bounds</strong> – Lower and upper bounds. The parameter is constrained
+in the interval [target-low_bound target+up_bound]</p></li>
+</ul>
 </dd>
 </dl>
 <p>The “target”, “weight” and “bounds” input must be broadcastable to the
@@ -702,78 +717,98 @@ shape of “value”.</p>
 <dd><p>Dummy computation. Compute must return:
 - an iterator over local data for each target
 - a tuple of global data</p>
+<dl class="field-list simple">
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="at.matching.matching.ElementConstraints.values">
 <span class="sig-name descname"><span class="pre">values</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/matching/matching.html#ElementConstraints.values"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.matching.matching.ElementConstraints.values" title="Permalink to this definition">#</a></dt>
 <dd><p>Return the list of actual parameter values</p>
+<dl class="field-list simple">
+</dl>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="at.matching.matching.ElementVariable">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ElementVariable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">refpts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/matching/matching.html#ElementVariable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.matching.matching.ElementVariable" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ElementVariable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">refpts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bounds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(-</span> <span class="pre">inf,</span> <span class="pre">inf)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/matching/matching.html#ElementVariable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.matching.matching.ElementVariable" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#at.matching.matching.Variable" title="at.matching.matching.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a></p>
-<p>An ElementVariable is:
-- a scalar attribute or
-- an element of an array attribute
-of one or several elements of a lattice</p>
+<p>An <a class="reference internal" href="#at.matching.matching.ElementVariable" title="at.matching.matching.ElementVariable"><code class="xref py py-class docutils literal notranslate"><span class="pre">ElementVariable</span></code></a> is:</p>
+<ul class="simple">
+<li><p>a scalar attribute or</p></li>
+<li><p>an element of an array attribute</p></li>
+</ul>
+<p>of one or several <a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><code class="xref py py-class docutils literal notranslate"><span class="pre">Element</span></code></a> (s) of a lattice.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>refpts</strong> (<em>Refpts</em>) – Location of variable <a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><code class="xref py py-class docutils literal notranslate"><span class="pre">Element</span></code></a> (s)</p></li>
+<li><p><strong>attname</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Attribute name</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>]</em>) – Index in the attribute array. Use <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a> for
+scalar attributes</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Name of the Variable; Default: <code class="docutils literal notranslate"><span class="pre">''</span></code></p></li>
+<li><p><strong>bounds</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><em>Tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>]</em>) – Lower and upper bounds of the variable value</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="at.matching.matching.EnvelopeConstraints">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">EnvelopeConstraints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/matching/matching.html#EnvelopeConstraints"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.matching.matching.EnvelopeConstraints" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#at.matching.matching.ElementConstraints" title="at.matching.matching.ElementConstraints"><code class="xref py py-class docutils literal notranslate"><span class="pre">ElementConstraints</span></code></a></p>
-<p>Container for envelope constraints:
-- a constraint can be set on any result of at.ohmi_envelope
-- constraints are added to the container with the EnvelopeConstraints.add</p>
-<blockquote>
-<div><p>method.</p>
-</div></blockquote>
-<p>at.ohmi_envelope is called once before the evaluation of all constraints</p>
-<p class="rubric">Example</p>
-<p>cnstrs = EnvelopeConstraints(ring)</p>
-<p>Build a EnvelopeConstraints container</p>
+<p>Container for envelope constraints:</p>
+<ul class="simple">
+<li><p>a constraint can be set on any result of <a class="reference internal" href="at.physics.radiation.html#at.physics.radiation.ohmi_envelope" title="at.physics.radiation.ohmi_envelope"><code class="xref py py-func docutils literal notranslate"><span class="pre">ohmi_envelope()</span></code></a>,</p></li>
+<li><p>constraints are added to the container with the <a class="reference internal" href="#at.matching.matching.EnvelopeConstraints.add" title="at.matching.matching.EnvelopeConstraints.add"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add()</span></code></a> method.</p></li>
+</ul>
+<p><a class="reference internal" href="at.physics.radiation.html#at.physics.radiation.ohmi_envelope" title="at.physics.radiation.ohmi_envelope"><code class="xref py py-func docutils literal notranslate"><span class="pre">ohmi_envelope()</span></code></a> is called once before the evaluation of all
+constraints.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ring</strong> (<a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><em>Lattice</em></a>) – Lattice description</p>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="at.matching.matching.EnvelopeConstraints.add">
 <span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">param</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refpts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/matching/matching.html#EnvelopeConstraints.add"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.matching.matching.EnvelopeConstraints.add" title="Permalink to this definition">#</a></dt>
-<dd><p>Add a target to the EnvelopeConstraints container</p>
-<dl>
-<dt>PARAMETERS</dt><dd><dl class="simple">
-<dt>param         2 possibilities:</dt><dd><ul class="simple">
-<li><p>parameter name: see at.ohmi_envelope for the
-name of available parameters. In addition to
-local parameters, ‘tunes’, ‘damping_rates’,
-‘mode_matrices’ and ‘mode_emittance’ are allowed.</p></li>
-<li><dl class="simple">
-<dt>user-supplied parameter evaluation function:</dt><dd><p>value = prm(emit_data, beam_data)</p>
-</dd>
-<dt>emit_data contains the emittance data at all the</dt><dd><p>specified refpoints</p>
-</dd>
-<dt>value is the constrained parameter value</dt><dd><p>(scalar or array).</p>
-</dd>
-</dl>
+<dd><p>Add a target to the <a class="reference internal" href="#at.matching.matching.EnvelopeConstraints" title="at.matching.matching.EnvelopeConstraints"><code class="xref py py-class docutils literal notranslate"><span class="pre">EnvelopeConstraints</span></code></a> container</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>param</strong> – <p>2 possibilities:</p>
+<ul>
+<li><p>parameter name: see <a class="reference internal" href="at.physics.radiation.html#at.physics.radiation.ohmi_envelope" title="at.physics.radiation.ohmi_envelope"><code class="xref py py-func docutils literal notranslate"><span class="pre">ohmi_envelope()</span></code></a> for the
+name of available parameters. In addition to local parameters,
+<code class="docutils literal notranslate"><span class="pre">'tunes'</span></code>, <code class="docutils literal notranslate"><span class="pre">'damping_rates'</span></code>, <code class="docutils literal notranslate"><span class="pre">'mode_matrices'</span></code> and
+<code class="docutils literal notranslate"><span class="pre">'mode_emittance'</span></code> are allowed.</p></li>
+<li><p>user-supplied parameter evaluation function:</p>
+<p><code class="code docutils literal notranslate"><span class="pre">value</span> <span class="pre">=</span> <span class="pre">param(emit_data,</span> <span class="pre">beam_data)</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">emit_data</span></code> contains the emittance data at all the
+specified refpoints
+<code class="docutils literal notranslate"><span class="pre">value</span></code> is the constrained parameter value
+(scalar or array).</p>
 </li>
 </ul>
+</p></li>
+<li><p><strong>target</strong> – desired value.</p></li>
+<li><p><strong>refpts</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><em>Refpts</em><em>]</em>) – location of the constraint. Several locations may be
+given to apply the same constraint at several points.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><em>Union</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#slice" title="(in Python v3.10)"><em>slice</em></a><em>]</em><em>]</em>) – index in the parameter array. If <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>,
+the full array is used.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>]</em>) – name of the constraint. If <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>, name is
+generated from <code class="docutils literal notranslate"><span class="pre">param</span></code> and <code class="docutils literal notranslate"><span class="pre">index</span></code>.</p></li>
+</ul>
 </dd>
-</dl>
-<p>target        desired value.</p>
-</dd>
-<dt>KEYWORDS</dt><dd><dl class="simple">
-<dt>refpts=None   location of the constraint. Several locations may be</dt><dd><p>given to apply the same constraint at several points.</p>
-</dd>
-<dt>index=None    index in the parameter array. If None, the full array</dt><dd><p>is used.</p>
-</dd>
-<dt>name=None     name of the constraint. If None, name is generated</dt><dd><p>from param and index.</p>
-</dd>
-</dl>
-<p>weight=1.0    weight factor: the residual is (value-target)/weight.
-bounds=(0,0)  lower and upper bounds. The parameter is constrained</p>
-<blockquote>
-<div><p>in the interval [target-low_bound target+up_bound]</p>
-</div></blockquote>
+<dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>weight</strong> – Weight factor: the residual is
+<code class="code docutils literal notranslate"><span class="pre">(value-target)/weight</span></code></p></li>
+<li><p><strong>bounds</strong> – lower and upper bounds. The parameter is constrained
+in the interval [target-low_bound target+up_bound]</p></li>
+</ul>
 </dd>
 </dl>
 <p>The target, weight and bounds values must be broadcastable to the shape
@@ -784,6 +819,8 @@ of value.</p>
 <dt class="sig sig-object py" id="at.matching.matching.EnvelopeConstraints.compute">
 <span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/matching/matching.html#EnvelopeConstraints.compute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.matching.matching.EnvelopeConstraints.compute" title="Permalink to this definition">#</a></dt>
 <dd><p>Optics computation before evaluation of all constraints</p>
+<dl class="field-list simple">
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -792,93 +829,107 @@ of value.</p>
 <dt class="sig sig-object py" id="at.matching.matching.LinoptConstraints">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">LinoptConstraints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/matching/matching.html#LinoptConstraints"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.matching.matching.LinoptConstraints" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#at.matching.matching.ElementConstraints" title="at.matching.matching.ElementConstraints"><code class="xref py py-class docutils literal notranslate"><span class="pre">ElementConstraints</span></code></a></p>
-<p>Container for linear optics constraints:
-- a constraint can be set on any result of at.get_optics
-- constraints are added to the container with the LinoptConstraints.add</p>
-<blockquote>
-<div><p>method.</p>
-</div></blockquote>
-<p>at.get_optics is called once before the evaluation of all constraints</p>
+<p>Container for linear optics constraints:</p>
+<ul class="simple">
+<li><p>a constraint can be set on any result of at.get_optics</p></li>
+<li><p>constraints are added to the container with the LinoptConstraints.add
+method.</p></li>
+</ul>
+<p><a class="reference internal" href="at.physics.linear.html#at.physics.linear.get_optics" title="at.physics.linear.get_optics"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_optics()</span></code></a> is called once before the evaluation of all
+constraints</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ring</strong> (<a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><em>Lattice</em></a>) – Lattice description</p>
+</dd>
+<dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>dp</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Momentum deviation.</p></li>
+<li><p><strong>dct</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Path lengthening. If specified, <code class="docutils literal notranslate"><span class="pre">dp</span></code> is
+ignored and the off-momentum is deduced from the path lengthening.</p></li>
+<li><p><strong>orbit</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="at.physics.orbit.html#at.physics.orbit.Orbit" title="at.physics.orbit.Orbit"><em>Orbit</em></a><em>]</em>) – Avoids looking for the closed orbit if is
+already known ((6,) array)</p></li>
+<li><p><strong>twiss_in</strong> – Initial twiss parameters for transfer line optics.
+See <a class="reference internal" href="at.physics.linear.html#at.physics.linear.linopt6" title="at.physics.linear.linopt6"><code class="xref py py-func docutils literal notranslate"><span class="pre">linopt6()</span></code></a></p></li>
+<li><p><strong>method</strong> (<em>Callable</em>) – <p>Method used for the analysis of the
+transfer matrix. Can be <a class="reference internal" href="at.physics.linear.html#at.physics.linear.linopt2" title="at.physics.linear.linopt2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linopt2</span></code></a>,
+<a class="reference internal" href="at.physics.linear.html#at.physics.linear.linopt4" title="at.physics.linear.linopt4"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linopt4</span></code></a>, <a class="reference internal" href="at.physics.linear.html#at.physics.linear.linopt6" title="at.physics.linear.linopt6"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linopt6</span></code></a></p>
+<ul>
+<li><p><a class="reference internal" href="at.physics.linear.html#at.physics.linear.linopt2" title="at.physics.linear.linopt2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linopt2</span></code></a>: No longitudinal motion, no H/V coupling,</p></li>
+<li><p><a class="reference internal" href="at.physics.linear.html#at.physics.linear.linopt4" title="at.physics.linear.linopt4"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linopt4</span></code></a>: No longitudinal motion, Sagan/Rubin
+4D-analysis of coupled motion,</p></li>
+<li><p><a class="reference internal" href="at.physics.linear.html#at.physics.linear.linopt6" title="at.physics.linear.linopt6"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linopt6</span></code></a> (default): With or without longitudinal
+motion, normal mode analysis</p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+</dl>
 <p class="rubric">Example</p>
-<p>cnstrs = LinoptConstraints(ring, dp=0.01, coupled=False)</p>
-<p># Add a beta H (beta[0]) constraint at location ref_inj
-cnstrs.add(‘beta_x_inj’, ‘beta’, 18.0, refpts=ref_inj, index=0)</p>
-<p># Add a tune constraint
-cnstrs.add(‘tunes’, 0.44, index=0, weight=0.01)</p>
-<p># Add a chromaticity constraint (both planes)
-cnstrs.add(‘chroms’, [0.0 0.0])</p>
-<p># define a constraint of phase advances between 2 points
-def mu_diff(lindata, tune, chrom):</p>
-<blockquote>
-<div><p>delta_mu = (lindata[1].mu - lindata[0].mu)/(2*np.pi)
-return delta_mu % 1.0</p>
-</div></blockquote>
-<p># Add a H phase advance constraint, giving the desired locations
-cnstrs.add(mu_diff, 0.5, refpts=[sf0 sf1], index=0)</p>
-<p>Build a LinoptConstraints container</p>
-<p>KEYWORDS
-dp=0.0          momentum deviation.
-twiss_in=None   Initial twiss parameters for transfer line optics.</p>
-<blockquote>
-<div><p>“lindata” stucture, where only the beta and alpha are
-required and used.</p>
-</div></blockquote>
-<dl>
-<dt>orbit=None      Initial trajectory for transfer line</dt><dd><p>((6,) array)</p>
-</dd>
-<dt>method=linopt6  Method used for the analysis of the transfer matrix.</dt><dd><p>Can be None, at.linopt2, at.linopt4, at.linopt6
-linopt2:    no longitudinal motion, no H/V coupling,
-linopt4:    no longitudinal motion, Sagan/Rubin</p>
-<blockquote>
-<div><p>4D-analysis of coupled motion,</p>
-</div></blockquote>
-<dl class="simple">
-<dt>linopt6:    with or without longitudinal motion, normal</dt><dd><p>mode analysis</p>
-</dd>
-</dl>
-</dd>
-</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cnstrs</span> <span class="o">=</span> <span class="n">LinoptConstraints</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">dp</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">coupled</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Add a beta x (beta[0]) constraint at location ref_inj:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cnstrs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;beta&#39;</span><span class="p">,</span> <span class="mf">18.0</span><span class="p">,</span> <span class="n">refpts</span><span class="o">=</span><span class="n">ref_inj</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;beta_x_inj&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Add an horizontal tune (tunes[0]) constraint:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cnstrs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;tunes&#39;</span><span class="p">,</span> <span class="mf">0.44</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Add a chromaticity constraint (both planes):</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cnstrs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;chroms&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.0</span> <span class="mf">0.0</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Define a constraint of phase advances between 2 points:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">mu_diff</span><span class="p">(</span><span class="n">lindata</span><span class="p">,</span> <span class="n">tune</span><span class="p">,</span> <span class="n">chrom</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">delta_mu</span> <span class="o">=</span> <span class="p">(</span><span class="n">lindata</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">mu</span> <span class="o">-</span> <span class="n">lindata</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">mu</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">delta_mu</span> <span class="o">%</span> <span class="mf">1.0</span>
+</pre></div>
+</div>
+<p>Add a H phase advance constraint, giving the desired locations:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cnstrs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">mu_diff</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">refpts</span><span class="o">=</span><span class="p">[</span><span class="n">sf0</span> <span class="n">sf1</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
 <dl class="py method">
 <dt class="sig sig-object py" id="at.matching.matching.LinoptConstraints.add">
 <span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">param</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refpts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/matching/matching.html#LinoptConstraints.add"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.matching.matching.LinoptConstraints.add" title="Permalink to this definition">#</a></dt>
 <dd><p>Add a target to the LinoptConstraints container</p>
-<dl>
-<dt>PARAMETERS</dt><dd><dl class="simple">
-<dt>param         2 possibilities:</dt><dd><ul class="simple">
-<li><p>parameter name: see at.linopt for the name of
-available parameters. In addition to local optical
-parameters, ‘tunes’ and ‘chroms’ are allowed.</p></li>
-<li><dl class="simple">
-<dt>user-supplied parameter evaluation function:</dt><dd><p>value = param(lindata, tune, chrom)</p>
-</dd>
-<dt>lindata contains the optics parameters at all the</dt><dd><p>specified refpoints</p>
-</dd>
-<dt>value is the constrained parameter value</dt><dd><p>(scalar or array).</p>
-</dd>
-</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>param</strong> – <p>2 possibilities:</p>
+<ul>
+<li><p>parameter name: see <a class="reference internal" href="at.physics.linear.html#at.physics.linear.linopt6" title="at.physics.linear.linopt6"><code class="xref py py-func docutils literal notranslate"><span class="pre">linopt6()</span></code></a> for the
+name of available parameters. In addition to local
+optical parameters, <code class="docutils literal notranslate"><span class="pre">'tunes'</span></code> and <code class="docutils literal notranslate"><span class="pre">'chroms'</span></code>
+are allowed.</p></li>
+<li><p>user-supplied parameter evaluation function:</p>
+<p><code class="code docutils literal notranslate"><span class="pre">value</span> <span class="pre">=</span> <span class="pre">param(lindata,</span> <span class="pre">tune,</span> <span class="pre">chrom)</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">lindata</span></code> contains the optics parameters at all the
+specified refpoints
+<code class="docutils literal notranslate"><span class="pre">value</span></code> is the constrained parameter value
+(scalar or array).</p>
 </li>
 </ul>
+</p></li>
+<li><p><strong>target</strong> – desired value.</p></li>
+<li><p><strong>refpts</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><em>Refpts</em><em>]</em>) – location of the constraint. Several locations may be
+given to apply the same constraint at several points.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><em>Union</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#slice" title="(in Python v3.10)"><em>slice</em></a><em>]</em><em>]</em>) – index in the parameter array. If <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>,
+the full array is used.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>]</em>) – name of the constraint. If <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>, name is
+generated from <code class="docutils literal notranslate"><span class="pre">param</span></code> and <code class="docutils literal notranslate"><span class="pre">index</span></code>.</p></li>
+</ul>
 </dd>
-</dl>
-<p>target        desired value.</p>
-</dd>
-<dt>KEYWORDS</dt><dd><dl class="simple">
-<dt>refpts=None   location of the constraint. Several locations may be</dt><dd><p>given to apply the same constraint at several points.</p>
-</dd>
-<dt>index=None    index in the parameter array. If None, the full array</dt><dd><p>is used.</p>
-</dd>
-<dt>name=None     name of the constraint. If None, name is generated</dt><dd><p>from param and index.</p>
-</dd>
-</dl>
-<p>weight=1.0    weight factor: the residual is (value-target)/weight.
-bounds=(0,0)  lower and upper bounds. The parameter is constrained</p>
-<blockquote>
-<div><p>in the interval [target-low_bound target+up_bound]</p>
-</div></blockquote>
-<dl class="simple">
-<dt>UseInteger    Match integer part of mu, much slower as the optics</dt><dd><p>calculation is done for all refpts</p>
-</dd>
-</dl>
+<dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>weight</strong> – Weight factor: the residual is
+<code class="code docutils literal notranslate"><span class="pre">(value-target)/weight</span></code></p></li>
+<li><p><strong>bounds</strong> – lower and upper bounds. The parameter is constrained
+in the interval [target-low_bound target+up_bound]</p></li>
+<li><p><strong>UseInteger</strong> – Match integer part of mu, much slower as the optics
+calculation is done for all refpts</p></li>
+</ul>
 </dd>
 </dl>
 <p>The target, weight and bounds values must be broadcastable to the shape
@@ -889,6 +940,8 @@ of value.</p>
 <dt class="sig sig-object py" id="at.matching.matching.LinoptConstraints.compute">
 <span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/matching/matching.html#LinoptConstraints.compute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.matching.matching.LinoptConstraints.compute" title="Permalink to this definition">#</a></dt>
 <dd><p>Optics computation before evaluation of all constraints</p>
+<dl class="field-list simple">
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -898,45 +951,55 @@ of value.</p>
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">OrbitConstraints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/matching/matching.html#OrbitConstraints"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.matching.matching.OrbitConstraints" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#at.matching.matching.ElementConstraints" title="at.matching.matching.ElementConstraints"><code class="xref py py-class docutils literal notranslate"><span class="pre">ElementConstraints</span></code></a></p>
 <p>Container for orbit constraints:
-The closed orbit can be handled with LinoptConstraints, but for problems
-which do not involve parameters other than orbit, like steering or
-orbit bumps, OrbitConstraints is much faster.</p>
-<blockquote>
-<div><p>at.find_orbit is called once before the evaluation of all constraints</p>
-</div></blockquote>
+The closed orbit can be handled with :py:class`LinoptConstraints`, but for
+problems which do not involve parameters other than orbit, like steering or
+orbit bumps, <a class="reference internal" href="#at.matching.matching.OrbitConstraints" title="at.matching.matching.OrbitConstraints"><code class="xref py py-class docutils literal notranslate"><span class="pre">OrbitConstraints</span></code></a> is much faster.</p>
+<p><a class="reference internal" href="at.physics.orbit.html#at.physics.orbit.find_orbit" title="at.physics.orbit.find_orbit"><code class="xref py py-func docutils literal notranslate"><span class="pre">find_orbit()</span></code></a> is called once before the evaluation of all
+constraints</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ring</strong> (<a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><em>Lattice</em></a>) – Lattice description</p>
+</dd>
+<dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>dp</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Momentum deviation.</p></li>
+<li><p><strong>dct</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Path lengthening. If specified, <code class="docutils literal notranslate"><span class="pre">dp</span></code> is
+ignored and the off-momentum is deduced from the path lengthening.</p></li>
+<li><p><strong>orbit</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="at.physics.orbit.html#at.physics.orbit.Orbit" title="at.physics.orbit.Orbit"><em>Orbit</em></a><em>]</em>) – Avoids looking for the closed orbit if is
+already known ((6,) array)</p></li>
+</ul>
+</dd>
+</dl>
 <p class="rubric">Example</p>
-<p>cnstrs = OrbitConstraints(ring, dp=0.01)</p>
-<p># Add a bump (x=-0.004, x’=0) constraint at location ref_inj
-cnstrs.add([-0.004, 0.0], refpts=ref_inj, index=slice(2))</p>
-<p>Build a OrbitConstraints container</p>
-<p>KEYWORDS
-dp=0            Momentum deviation, when radiation is OFF
-dct=0            Path lengthening, when radiation ids OFF
-orbit=None          Initial trajectory for transfer line: (6,) array</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cnstrs</span> <span class="o">=</span> <span class="n">OrbitConstraints</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">dp</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Add a bump (x=-0.004, x’=0) constraint at location ref_inj</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cnstrs</span><span class="o">.</span><span class="n">add</span><span class="p">([</span><span class="o">-</span><span class="mf">0.004</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="n">refpts</span><span class="o">=</span><span class="n">ref_inj</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
 <dl class="py method">
 <dt class="sig sig-object py" id="at.matching.matching.OrbitConstraints.add">
 <span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refpts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/matching/matching.html#OrbitConstraints.add"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.matching.matching.OrbitConstraints.add" title="Permalink to this definition">#</a></dt>
 <dd><p>Add a target to the OrbitConstraints container</p>
-<dl>
-<dt>PARAMETERS</dt><dd><p>target        desired value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target</strong> – desired value.</p></li>
+<li><p><strong>refpts</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><em>Refpts</em><em>]</em>) – location of the constraint. Several locations may be
+given to apply the same constraint at several points.</p></li>
+<li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><em>Union</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#slice" title="(in Python v3.10)"><em>slice</em></a><em>]</em><em>]</em>) – index in the orbit vector. If <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>, the
+full orbit is used.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>]</em>) – name of the constraint. Default: <code class="docutils literal notranslate"><span class="pre">'orbit'</span></code></p></li>
+</ul>
 </dd>
-<dt>KEYWORDS</dt><dd><dl class="simple">
-<dt>refpts=None   location of the constraint. Several locations may be</dt><dd><p>given to apply the same constraint at several points.</p>
-</dd>
-<dt>index=None    index in the orbit vector. If None, the full orbit</dt><dd><dl class="simple">
-<dt>is used. Example:</dt><dd><p>index=0         # x
-index=2         # z
-index=slice(4)  # x, x’, z, z’</p>
-</dd>
-</dl>
-</dd>
-</dl>
-<p>name=’orbit’  name of the constraint.
-weight=1.0    weight factor: the residual is (value-target)/weight.
-bounds=(0,0)  lower and upper bounds. The parameter is constrained</p>
-<blockquote>
-<div><p>in the interval [target-low_bound target+up_bound]</p>
-</div></blockquote>
+<dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>weight</strong> – Weight factor: the residual is
+<code class="code docutils literal notranslate"><span class="pre">(value-target)/weight</span></code></p></li>
+<li><p><strong>bounds</strong> – lower and upper bounds. The parameter is constrained
+in the interval [target-low_bound target+up_bound]</p></li>
+</ul>
 </dd>
 </dl>
 <p>The target, weight and bounds values must be broadcastable to the shape
@@ -947,6 +1010,8 @@ of value.</p>
 <dt class="sig sig-object py" id="at.matching.matching.OrbitConstraints.compute">
 <span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/matching/matching.html#OrbitConstraints.compute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.matching.matching.OrbitConstraints.compute" title="Permalink to this definition">#</a></dt>
 <dd><p>Orbit computation before evaluation of all constraints</p>
+<dl class="field-list simple">
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -955,12 +1020,41 @@ of value.</p>
 <dt class="sig sig-object py" id="at.matching.matching.Variable">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Variable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">setfun</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">getfun</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bounds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(-</span> <span class="pre">inf,</span> <span class="pre">inf)</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/matching/matching.html#Variable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.matching.matching.Variable" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
-<p>A Variable is a scalar value acting on a lattice through the
+<p>A <a class="reference internal" href="#at.matching.matching.Variable" title="at.matching.matching.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a> is a scalar value acting on a lattice through the
 user-defined functions setfun and getfun</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>setfun</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.10)"><em>Callable</em></a>) – <p>User-defined function for setting the Variable. Called as:</p>
+<p><code class="code docutils literal notranslate"><span class="pre">setfun(ring,</span> <span class="pre">value,</span> <span class="pre">*args,</span> <span class="pre">**kwargs)</span></code></p>
+<p>where <code class="code docutils literal notranslate"><span class="pre">value</span></code> is the scalar value to apply</p>
+<p>The positional and keyword parameters come from the
+<a class="reference internal" href="#at.matching.matching.Variable" title="at.matching.matching.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a> initialisation</p>
+</p></li>
+<li><p><strong>getfun</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.10)"><em>Callable</em></a>) – <p>User-defined function for retrieving the actual value of
+the variable: Called as:</p>
+<p><code class="code docutils literal notranslate"><span class="pre">value</span> <span class="pre">=</span> <span class="pre">getfun(ring,</span> <span class="pre">*args,</span> <span class="pre">**kwargs)</span></code></p>
+<p>The positional and keyword parameters come from the
+<a class="reference internal" href="#at.matching.matching.Variable" title="at.matching.matching.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a> initialisation</p>
+</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Name of the Variable; Default: <code class="docutils literal notranslate"><span class="pre">''</span></code></p></li>
+<li><p><strong>bounds</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><em>Tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>]</em>) – Lower and upper bounds of the variable value</p></li>
+<li><p><strong>*args</strong> – Positional arguments transmitted to <code class="docutils literal notranslate"><span class="pre">setfun</span></code> and
+<code class="docutils literal notranslate"><span class="pre">getfun</span></code> functions</p></li>
+</ul>
+</dd>
+<dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>**kwargs</strong> – Keyword arguments transmitted to <code class="docutils literal notranslate"><span class="pre">setfun``and</span>
+<span class="pre">``getfun</span></code> functions</p>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="at.matching.matching.Variable.get">
 <span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/matching/matching.html#Variable.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.matching.matching.Variable.get" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>Get the actual variable value</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="at.matching.matching.Variable.header">
@@ -970,12 +1064,17 @@ user-defined functions setfun and getfun</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="at.matching.matching.Variable.set">
 <span class="sig-name descname"><span class="pre">set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/matching/matching.html#Variable.set"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.matching.matching.Variable.set" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>Set the variable value</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="at.matching.matching.Variable.status">
 <span class="sig-name descname"><span class="pre">status</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vini</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">nan</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/matching/matching.html#Variable.status"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.matching.matching.Variable.status" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><dl class="field-list simple">
+</dl>
+</dd></dl>
 
 </dd></dl>
 
@@ -983,14 +1082,18 @@ user-defined functions setfun and getfun</p>
 <dt class="sig sig-object py" id="at.matching.matching.match">
 <span class="sig-name descname"><span class="pre">match</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variables</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraints</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_nfev</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">diff_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">copy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/matching/matching.html#match"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.matching.matching.match" title="Permalink to this definition">#</a></dt>
 <dd><p>Perform matching of constraints by varying variables</p>
-<dl class="simple">
-<dt>PARAMETERS</dt><dd><p>ring                ring lattice or transfer line
-variables           sequence of Variable objects
-constraints         sequence of Constraints objects</p>
-</dd>
-<dt>KEYWORDS</dt><dd><p>verbose=2           See scipy.optimize.least_squares
-max_nfev=1000           ”
-diff_step=1.0e-10       “</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ring</strong> (<a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><em>Lattice</em></a>) – Lattice description</p></li>
+<li><p><strong>variables</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.10)"><em>Sequence</em></a><em>[</em><a class="reference internal" href="#at.matching.matching.Variable" title="at.matching.matching.Variable"><em>Variable</em></a><em>]</em>) – sequence of Variable objects</p></li>
+<li><p><strong>constraints</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.10)"><em>Sequence</em></a><em>[</em><a class="reference internal" href="#at.matching.matching.Constraints" title="at.matching.matching.Constraints"><em>Constraints</em></a><em>]</em>) – sequence of Constraints objects</p></li>
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Print additional information</p></li>
+<li><p><strong>max_nfev</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Maximum number of evaluations</p></li>
+<li><p><strong>diff_step</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Convergence threshold</p></li>
+<li><p><strong>method</strong> – </p></li>
+<li><p><strong>copy</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – </p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>

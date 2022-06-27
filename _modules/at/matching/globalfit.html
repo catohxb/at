@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>at.matching.globalfit &#8212; Accelerator Toolbox 0.1.dev1+gc8268ce documentation</title>
+    <title>at.matching.globalfit &#8212; Accelerator Toolbox 0.1.dev1+g19b9197 documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -170,77 +170,82 @@
 <span class="sd">Collection of functions to fit various global parameters</span>
 <span class="sd">such as the tune and the chromaticity</span>
 <span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
 <span class="kn">import</span> <span class="nn">numpy</span>
-<span class="kn">from</span> <span class="nn">at.lattice</span> <span class="kn">import</span> <span class="n">set_value_refpts</span>
-<span class="kn">from</span> <span class="nn">at.physics</span> <span class="kn">import</span> <span class="n">get_tune</span><span class="p">,</span> <span class="n">get_chrom</span>
+<span class="kn">from</span> <span class="nn">..lattice</span> <span class="kn">import</span> <span class="n">Lattice</span><span class="p">,</span> <span class="n">Refpts</span><span class="p">,</span> <span class="n">set_value_refpts</span>
+<span class="kn">from</span> <span class="nn">..physics</span> <span class="kn">import</span> <span class="n">get_tune</span><span class="p">,</span> <span class="n">get_chrom</span>
 
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;fit_tune&#39;</span><span class="p">,</span> <span class="s1">&#39;fit_chrom&#39;</span><span class="p">]</span>
 
 
-<span class="k">def</span> <span class="nf">_get_tune</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">dp</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">get_tune</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">dp</span><span class="o">=</span><span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+<span class="k">def</span> <span class="nf">_get_tune</span><span class="p">(</span><span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span> <span class="n">dp</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">get_tune</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">dp</span><span class="o">=</span><span class="n">dp</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
 
 
-<span class="k">def</span> <span class="nf">_get_chrom</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">dp</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">get_chrom</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">dp</span><span class="o">=</span><span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+<span class="k">def</span> <span class="nf">_get_chrom</span><span class="p">(</span><span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span> <span class="n">dp</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">get_chrom</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">dp</span><span class="o">=</span><span class="n">dp</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
 
 
-<span class="k">def</span> <span class="nf">_fit_tune_chrom</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">refpts1</span><span class="p">,</span> <span class="n">refpts2</span><span class="p">,</span> <span class="n">newval</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1.0e-12</span><span class="p">,</span>
-                    <span class="n">dp</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">niter</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_fit_tune_chrom</span><span class="p">(</span><span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span>
+                    <span class="n">refpts1</span><span class="p">:</span> <span class="n">Refpts</span><span class="p">,</span> <span class="n">refpts2</span><span class="p">:</span> <span class="n">Refpts</span><span class="p">,</span> <span class="n">newval</span><span class="p">,</span>
+                    <span class="n">tol</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0e-12</span><span class="p">,</span>
+                    <span class="n">dp</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">niter</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="nf">_get_resp</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">refpts</span><span class="p">,</span> <span class="n">attname</span><span class="p">,</span> <span class="n">delta</span><span class="p">,</span> <span class="n">dp</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_get_resp</span><span class="p">(</span><span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">refpts</span><span class="p">,</span> <span class="n">attname</span><span class="p">,</span> <span class="n">delta</span><span class="p">,</span> <span class="n">dp</span><span class="p">):</span>
         <span class="n">set_value_refpts</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">refpts</span><span class="p">,</span> <span class="n">attname</span><span class="p">,</span> <span class="n">delta</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">index</span><span class="p">,</span>
                          <span class="n">increment</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">datap</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">dp</span><span class="o">=</span><span class="n">dp</span><span class="p">)</span>
+        <span class="n">datap</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">dp</span><span class="p">)</span>
         <span class="n">set_value_refpts</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">refpts</span><span class="p">,</span> <span class="n">attname</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">delta</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">index</span><span class="p">,</span>
                          <span class="n">increment</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">datan</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">dp</span><span class="o">=</span><span class="n">dp</span><span class="p">)</span>
+        <span class="n">datan</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">dp</span><span class="p">)</span>
         <span class="n">set_value_refpts</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">refpts</span><span class="p">,</span> <span class="n">attname</span><span class="p">,</span> <span class="n">delta</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">index</span><span class="p">,</span>
                          <span class="n">increment</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">subtract</span><span class="p">(</span><span class="n">datap</span><span class="p">,</span> <span class="n">datan</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">delta</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">data</span>
 
-    <span class="k">def</span> <span class="nf">_fit</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">refpts1</span><span class="p">,</span> <span class="n">refpts2</span><span class="p">,</span> <span class="n">newval</span><span class="p">,</span> <span class="n">J</span><span class="p">,</span> <span class="n">dp</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
-        <span class="n">val</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">dp</span><span class="o">=</span><span class="n">dp</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_fit</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">refpts1</span><span class="p">,</span> <span class="n">refpts2</span><span class="p">,</span> <span class="n">newval</span><span class="p">,</span> <span class="n">J</span><span class="p">,</span>
+             <span class="n">dp</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="n">val</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">dp</span><span class="p">)</span>
         <span class="n">dk</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">J</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">subtract</span><span class="p">(</span><span class="n">newval</span><span class="p">,</span> <span class="n">val</span><span class="p">))</span>
         <span class="n">set_value_refpts</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">refpts1</span><span class="p">,</span> <span class="s1">&#39;PolynomB&#39;</span><span class="p">,</span> <span class="n">dk</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="n">index</span><span class="p">,</span>
                          <span class="n">increment</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">set_value_refpts</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">refpts2</span><span class="p">,</span> <span class="s1">&#39;PolynomB&#39;</span><span class="p">,</span> <span class="n">dk</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="n">index</span><span class="p">,</span>
                          <span class="n">increment</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">val</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">dp</span><span class="o">=</span><span class="n">dp</span><span class="p">)</span>
+        <span class="n">val</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">dp</span><span class="p">)</span>
         <span class="n">sumsq</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">subtract</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">newval</span><span class="p">)))</span>
         <span class="k">return</span> <span class="n">sumsq</span>
 
-    <span class="n">delta</span> <span class="o">=</span> <span class="mf">1e-6</span><span class="o">*</span><span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
-    <span class="n">dq1</span> <span class="o">=</span> <span class="n">_get_resp</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">refpts1</span><span class="p">,</span> <span class="s1">&#39;PolynomB&#39;</span><span class="p">,</span> <span class="n">delta</span><span class="p">,</span> <span class="n">dp</span><span class="o">=</span><span class="n">dp</span><span class="p">)</span>
-    <span class="n">dq2</span> <span class="o">=</span> <span class="n">_get_resp</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">refpts2</span><span class="p">,</span> <span class="s1">&#39;PolynomB&#39;</span><span class="p">,</span> <span class="n">delta</span><span class="p">,</span> <span class="n">dp</span><span class="o">=</span><span class="n">dp</span><span class="p">)</span>
+    <span class="n">delta</span> <span class="o">=</span> <span class="mf">1e-6</span> <span class="o">*</span> <span class="mi">10</span> <span class="o">**</span> <span class="n">index</span>
+    <span class="n">dq1</span> <span class="o">=</span> <span class="n">_get_resp</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">refpts1</span><span class="p">,</span> <span class="s1">&#39;PolynomB&#39;</span><span class="p">,</span> <span class="n">delta</span><span class="p">,</span> <span class="n">dp</span><span class="p">)</span>
+    <span class="n">dq2</span> <span class="o">=</span> <span class="n">_get_resp</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">refpts2</span><span class="p">,</span> <span class="s1">&#39;PolynomB&#39;</span><span class="p">,</span> <span class="n">delta</span><span class="p">,</span> <span class="n">dp</span><span class="p">)</span>
     <span class="n">J</span> <span class="o">=</span> <span class="p">[[</span><span class="n">dq1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dq2</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="p">[</span><span class="n">dq1</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">dq2</span><span class="p">[</span><span class="mi">1</span><span class="p">]]]</span>
 
     <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">sumsq</span> <span class="o">=</span> <span class="n">tol</span><span class="o">+</span><span class="mi">1</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Initial value&#39;</span><span class="p">,</span> <span class="n">func</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">dp</span><span class="o">=</span><span class="n">dp</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Initial value&#39;</span><span class="p">,</span> <span class="n">func</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">dp</span><span class="p">))</span>
     <span class="k">while</span> <span class="n">sumsq</span> <span class="o">&gt;</span> <span class="n">tol</span> <span class="ow">and</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="n">niter</span><span class="p">:</span>
         <span class="n">sumsq</span> <span class="o">=</span> <span class="n">_fit</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">refpts1</span><span class="p">,</span> <span class="n">refpts2</span><span class="p">,</span> <span class="n">newval</span><span class="p">,</span> <span class="n">J</span><span class="p">,</span> <span class="n">dp</span><span class="o">=</span><span class="n">dp</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;iter#&#39;</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="s1">&#39;Res.&#39;</span><span class="p">,</span> <span class="n">sumsq</span><span class="p">)</span>
         <span class="n">n</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Final value&#39;</span><span class="p">,</span> <span class="n">func</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">dp</span><span class="o">=</span><span class="n">dp</span><span class="p">),</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Final value&#39;</span><span class="p">,</span> <span class="n">func</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">dp</span><span class="p">),</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
     <span class="k">return</span>
 
 
-<div class="viewcode-block" id="fit_tune"><a class="viewcode-back" href="../../../p/api/at.matching.globalfit.html#at.matching.globalfit.fit_tune">[docs]</a><span class="k">def</span> <span class="nf">fit_tune</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">refpts1</span><span class="p">,</span> <span class="n">refpts2</span><span class="p">,</span> <span class="n">newval</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1.0e-12</span><span class="p">,</span> <span class="n">dp</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">niter</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Function to fit the tune of the ring, using 2 families defined by</span>
-<span class="sd">    refpts</span>
+<div class="viewcode-block" id="fit_tune"><a class="viewcode-back" href="../../../p/api/at.matching.globalfit.html#at.matching.globalfit.fit_tune">[docs]</a><span class="k">def</span> <span class="nf">fit_tune</span><span class="p">(</span><span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span> <span class="n">refpts1</span><span class="p">:</span> <span class="n">Refpts</span><span class="p">,</span> <span class="n">refpts2</span><span class="p">:</span> <span class="n">Refpts</span><span class="p">,</span> <span class="n">newval</span><span class="p">,</span>
+             <span class="n">tol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0e-12</span><span class="p">,</span>
+             <span class="n">dp</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">niter</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Fits the tunes using 2 families</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        ring: lattice for which the tune needs to be matched</span>
-<span class="sd">        refpts1/2: refpts for the 2 families</span>
-<span class="sd">        newval: new tunes</span>
-<span class="sd">        tol: tolerance for the matching [default=1.0e-12]</span>
-<span class="sd">        dp: dp/p at which the values need to be matched [default=0]</span>
-<span class="sd">        niter: maximum number of iterations to reach tol [default=3]</span>
-
+<span class="sd">        ring:       Lattice description</span>
+<span class="sd">        refpts1:    Selection of the 1st family</span>
+<span class="sd">        refpts2:    Selection of the 2nd family</span>
+<span class="sd">        newval:     New tunes</span>
+<span class="sd">        tol:        Tolerance for the matching; Default: 1.0e-12</span>
+<span class="sd">        dp:         Momentum deviation. Default: 0</span>
+<span class="sd">        niter:      Maximum number of iterations. Default 3</span>
+<span class="sd">    </span>
 <span class="sd">    Typical usage:</span>
 <span class="sd">    at.matching.fit_tune(ring, refpts1, refpts2, [0.1,0.25])</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -249,19 +254,19 @@
                     <span class="n">dp</span><span class="o">=</span><span class="n">dp</span><span class="p">,</span> <span class="n">niter</span><span class="o">=</span><span class="n">niter</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="fit_chrom"><a class="viewcode-back" href="../../../p/api/at.matching.globalfit.html#at.matching.globalfit.fit_chrom">[docs]</a><span class="k">def</span> <span class="nf">fit_chrom</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">refpts1</span><span class="p">,</span> <span class="n">refpts2</span><span class="p">,</span> <span class="n">newval</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1.0e-12</span><span class="p">,</span> <span class="n">dp</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">niter</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Function to fit the chromaticity of the ring, using 2 families</span>
-<span class="sd">    defined by refpts</span>
+<div class="viewcode-block" id="fit_chrom"><a class="viewcode-back" href="../../../p/api/at.matching.globalfit.html#at.matching.globalfit.fit_chrom">[docs]</a><span class="k">def</span> <span class="nf">fit_chrom</span><span class="p">(</span><span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span> <span class="n">refpts1</span><span class="p">:</span> <span class="n">Refpts</span><span class="p">,</span> <span class="n">refpts2</span><span class="p">:</span> <span class="n">Refpts</span><span class="p">,</span> <span class="n">newval</span><span class="p">,</span>
+              <span class="n">tol</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0e-12</span><span class="p">,</span>
+              <span class="n">dp</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">niter</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Fit the chromaticities using 2 families</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        ring: lattice for which the chromaticity needs to be matched</span>
-<span class="sd">        ring: lattice for which the chromaticity needs to be matched</span>
-<span class="sd">        refpts1/2: refpts for the 2 families</span>
-<span class="sd">        newval: new tunes</span>
-<span class="sd">        tol: tolerance for the matching [default=1.0e-12]</span>
-<span class="sd">        dp: dp/p at which the values need to be matched [default=0]</span>
-<span class="sd">        niter: maximum number of iterations to reach tol [default=3]</span>
+<span class="sd">        ring:       Lattice description</span>
+<span class="sd">        refpts1:    Selection of the 1st family</span>
+<span class="sd">        refpts2:    Selection of the 2nd family</span>
+<span class="sd">        newval:     New tunes</span>
+<span class="sd">        tol:        Tolerance for the matching; Default: 1.0e-12</span>
+<span class="sd">        dp:         Momentum deviation. Default: 0</span>
+<span class="sd">        niter:      Maximum number of iterations. Default 3</span>
 
 <span class="sd">    Typical usage:</span>
 <span class="sd">    at.matching.fit_chrom(ring, refpts1, refpts2, [10,5])</span>
