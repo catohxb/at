@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>at.physics.linear &#8212; Accelerator Toolbox 0.1.dev1+g19b9197 documentation</title>
+    <title>at.physics.linear &#8212; Accelerator Toolbox 0.1.dev1+gcf99b98 documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -611,7 +611,7 @@
 <span class="sd">        ring:   Lattice description.</span>
 
 <span class="sd">    Keyword Args:</span>
-<span class="sd">        refpts (Optional[Refpts]): Elements at which data is returned.</span>
+<span class="sd">        refpts (Refpts):        Elements at which data is returned.</span>
 <span class="sd">          It can be:</span>
 
 <span class="sd">          1. an integer in the range [-len(ring), len(ring)-1]</span>
@@ -624,30 +624,32 @@
 <span class="sd">        dp (Optional[float]):   Momentum deviation.</span>
 <span class="sd">        dct (Optional[float]):  Path lengthening. If specified, ``dp`` is</span>
 <span class="sd">          ignored and the off-momentum is deduced from the path lengthening.</span>
-<span class="sd">        orbit (Optional[Orbit]): Avoids looking for the closed orbit if is</span>
+<span class="sd">        orbit (Orbit): Avoids looking for the closed orbit if is</span>
 <span class="sd">          already known ((6,) array)</span>
-<span class="sd">        get_chrom (Optional[bool]): Compute chromaticities. Needs computing</span>
+<span class="sd">        get_chrom (bool):       Compute chromaticities. Needs computing</span>
 <span class="sd">          the tune at 2 different momentum deviations around the central one.</span>
-<span class="sd">        get_w (Optional[bool]):     Computes chromatic amplitude functions</span>
+<span class="sd">        get_w (bool):           Computes chromatic amplitude functions</span>
 <span class="sd">          (W) [4]_. Needs to compute the optics at 2 different momentum</span>
 <span class="sd">          deviations around the central one.</span>
-<span class="sd">        keep_lattice (Optional[bool]):   Assume no lattice change since the</span>
+<span class="sd">        keep_lattice (bool):    Assume no lattice change since the</span>
 <span class="sd">          previous tracking. Defaults to :py:obj:`False`</span>
-<span class="sd">        XYStep (Optional[float]):       Step size.</span>
+<span class="sd">        XYStep (float):         Step size.</span>
 <span class="sd">          Default: :py:data:`DConstant.XYStep &lt;.DConstant&gt;`</span>
-<span class="sd">        DPStep (Optional[float]):       Momentum step size.</span>
+<span class="sd">        DPStep (float):         Momentum step size.</span>
 <span class="sd">          Default: :py:data:`DConstant.DPStep &lt;.DConstant&gt;`</span>
-<span class="sd">        twiss_in:       Initial conditions for transfer line optics. Record</span>
-<span class="sd">          array as output by :py:func:`linopt2`, or dictionary. Keys:</span>
+<span class="sd">        twiss_in:               Initial conditions for transfer line optics.</span>
+<span class="sd">          Record array as output by :py:func:`.linopt6`, or dictionary. Keys:</span>
 
-<span class="sd">          alpha, beta</span>
+<span class="sd">          R or alpha, beta</span>
 <span class="sd">            mandatory (2,) arrays</span>
 <span class="sd">          closed_orbit</span>
 <span class="sd">            Optional (6,) array, default 0</span>
 <span class="sd">          dispersion</span>
 <span class="sd">            Optional (6,) array, default 0</span>
 
-<span class="sd">          All other attributes are ignored.</span>
+<span class="sd">          If present, the attribute **R** will be used, otherwise the</span>
+<span class="sd">          attributes **alpha** and **beta** will be used. All other attributes</span>
+<span class="sd">          are ignored.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        elemdata0:      Linear optics data at the entrance of the ring</span>
@@ -679,7 +681,7 @@
 
 <span class="sd">    =================   ======</span>
 <span class="sd">    **tune**            Fractional tunes</span>
-<span class="sd">    **chromaticity**    Chromaticities, only computed if get_chrom is</span>
+<span class="sd">    **chromaticity**    Chromaticities, only computed if ``get_chrom`` is</span>
 <span class="sd">                        :py:obj:`True`</span>
 <span class="sd">    =================   ======</span>
 
@@ -707,7 +709,7 @@
 <span class="sd">        ring:   Lattice description.</span>
 
 <span class="sd">    Keyword Args:</span>
-<span class="sd">        refpts (Optional[Refpts]): Elements at which data is returned.</span>
+<span class="sd">        refpts (Refpts):        Elements at which data is returned.</span>
 <span class="sd">          It can be:</span>
 
 <span class="sd">          1. an integer in the range [-len(ring), len(ring)-1]</span>
@@ -720,21 +722,28 @@
 <span class="sd">        dp (Optional[float]):   Momentum deviation.</span>
 <span class="sd">        dct (Optional[float]):  Path lengthening. If specified, ``dp`` is</span>
 <span class="sd">          ignored and the off-momentum is deduced from the path lengthening.</span>
-<span class="sd">        orbit (Optional[Orbit]): Avoids looking for the closed orbit if is</span>
+<span class="sd">        orbit (Orbit): Avoids looking for the closed orbit if is</span>
 <span class="sd">          already known ((6,) array)</span>
-<span class="sd">        get_chrom (Optional[bool]): Compute chromaticities. Needs computing</span>
+<span class="sd">        get_chrom (bool):       Compute chromaticities. Needs computing</span>
 <span class="sd">          the tune at 2 different momentum deviations around the central one.</span>
-<span class="sd">        get_w (Optional[bool]):     Computes chromatic amplitude functions</span>
+<span class="sd">        get_w (bool):           Computes chromatic amplitude functions</span>
 <span class="sd">          (W) [8]_. Needs to compute the optics at 2 different momentum</span>
 <span class="sd">          deviations around the central one.</span>
-<span class="sd">        keep_lattice (Optional[bool]):   Assume no lattice change since the</span>
+<span class="sd">        keep_lattice (bool):    Assume no lattice change since the</span>
 <span class="sd">          previous tracking. Defaults to :py:obj:`False`</span>
-<span class="sd">        XYStep (Optional[float]):       Step size.</span>
+<span class="sd">        XYStep (float):         Step size.</span>
 <span class="sd">          Default: :py:data:`DConstant.XYStep &lt;.DConstant&gt;`</span>
-<span class="sd">        DPStep (Optional[float]):       Momentum step size.</span>
+<span class="sd">        DPStep (float):         Momentum step size.</span>
 <span class="sd">          Default: :py:data:`DConstant.DPStep &lt;.DConstant&gt;`</span>
-<span class="sd">        twiss_in:       Initial conditions for transfer line optics. Record</span>
-<span class="sd">          array as output by :py:func:`linopt2`, or dictionary. Keys:</span>
+<span class="sd">        twiss_in:               Initial conditions for transfer line optics.</span>
+<span class="sd">          Record array as output by :py:func:`.linopt6`, or dictionary. Keys:</span>
+
+<span class="sd">          R or alpha, beta</span>
+<span class="sd">            mandatory (2,) arrays</span>
+<span class="sd">          closed_orbit</span>
+<span class="sd">            Optional (6,) array, default 0</span>
+<span class="sd">          dispersion</span>
+<span class="sd">            Optional (6,) array, default 0</span>
 
 <span class="sd">          alpha, beta</span>
 <span class="sd">            mandatory (2,) arrays</span>
@@ -743,7 +752,9 @@
 <span class="sd">          dispersion</span>
 <span class="sd">            Optional (6,) array, default 0</span>
 
-<span class="sd">          All other attributes are ignored.</span>
+<span class="sd">          If present, the attribute **R** will be used, otherwise the</span>
+<span class="sd">          attributes **alpha** and **beta** will be used. All other attributes</span>
+<span class="sd">          are ignored.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        elemdata0:      Linear optics data at the entrance of the ring</span>
@@ -777,7 +788,7 @@
 
 <span class="sd">    =================   ======</span>
 <span class="sd">    **tune**            Fractional tunes</span>
-<span class="sd">    **chromaticity**    Chromaticities, only computed if get_chrom is</span>
+<span class="sd">    **chromaticity**    Chromaticities, only computed if ``get_chrom`` is</span>
 <span class="sd">                        :py:obj:`True`</span>
 <span class="sd">    =================   ======</span>
 
@@ -812,7 +823,7 @@
 <span class="sd">        ring:   Lattice description.</span>
 
 <span class="sd">    Keyword Args:</span>
-<span class="sd">        refpts (Optional[Refpts]): Elements at which data is returned.</span>
+<span class="sd">        refpts (Refpts):        Elements at which data is returned.</span>
 <span class="sd">          It can be:</span>
 
 <span class="sd">          1. an integer in the range [-len(ring), len(ring)-1]</span>
@@ -825,31 +836,30 @@
 <span class="sd">        dp (Optional[float]):   Momentum deviation.</span>
 <span class="sd">        dct (Optional[float]):  Path lengthening. If specified, ``dp`` is</span>
 <span class="sd">          ignored and the off-momentum is deduced from the path lengthening.</span>
-<span class="sd">        orbit (Optional[Orbit]): Avoids looking for the closed orbit if is</span>
+<span class="sd">        orbit (Orbit): Avoids looking for the closed orbit if is</span>
 <span class="sd">          already known ((6,) array)</span>
-<span class="sd">        get_chrom (Optional[bool]): Compute chromaticities. Needs computing</span>
+<span class="sd">        get_chrom (bool):       Compute chromaticities. Needs computing</span>
 <span class="sd">          the tune at 2 different momentum deviations around the central one.</span>
-<span class="sd">        get_w (Optional[bool]):     Computes chromatic amplitude functions</span>
+<span class="sd">        get_w (bool):           Computes chromatic amplitude functions</span>
 <span class="sd">          (W) [11]_. Needs to compute the optics at 2 different momentum</span>
 <span class="sd">          deviations around the central one.</span>
-<span class="sd">        keep_lattice (Optional[bool]):   Assume no lattice change since the</span>
+<span class="sd">        keep_lattice (bool):    Assume no lattice change since the</span>
 <span class="sd">          previous tracking. Defaults to :py:obj:`False`</span>
-<span class="sd">        XYStep (Optional[float]):       Step size.</span>
+<span class="sd">        XYStep (float):         Step size.</span>
 <span class="sd">          Default: :py:data:`DConstant.XYStep &lt;.DConstant&gt;`</span>
-<span class="sd">        DPStep (Optional[float]):       Momentum step size.</span>
+<span class="sd">        DPStep (float):         Momentum step size.</span>
 <span class="sd">          Default: :py:data:`DConstant.DPStep &lt;.DConstant&gt;`</span>
-<span class="sd">        twiss_in:       Initial conditions for transfer line optics. Record</span>
-<span class="sd">          array as output by :py:func:`linopt2`, :py:func:`linopt6`, or</span>
-<span class="sd">          dictionary. Keys:</span>
+<span class="sd">        twiss_in:               Initial conditions for transfer line optics.</span>
+<span class="sd">          Record array as output by :py:func:`.linopt6`, or dictionary. Keys:</span>
 
 <span class="sd">          R or alpha, beta</span>
-<span class="sd">            mandatory</span>
+<span class="sd">            mandatory (2,) arrays</span>
 <span class="sd">          closed_orbit</span>
 <span class="sd">            Optional (6,) array, default 0</span>
 <span class="sd">          dispersion</span>
 <span class="sd">            Optional (6,) array, default 0</span>
 
-<span class="sd">          If present, the attribute **R**&#39; will be used, otherwise the</span>
+<span class="sd">          If present, the attribute **R** will be used, otherwise the</span>
 <span class="sd">          attributes **alpha** and **beta** will be used. All other attributes</span>
 <span class="sd">          are ignored.</span>
 <span class="sd">        cavpts (Optional[Refpts]):  Cavity location for off-momentum tuning</span>
@@ -886,7 +896,7 @@
 
 <span class="sd">    =================   ======</span>
 <span class="sd">    **tune**            Fractional tunes</span>
-<span class="sd">    **chromaticity**    Chromaticities, only computed if get_chrom is</span>
+<span class="sd">    **chromaticity**    Chromaticities, only computed if ``get_chrom`` is</span>
 <span class="sd">                        :py:obj:`True`</span>
 <span class="sd">    **damping_time**    Damping times [s] (only if radiation is ON)</span>
 <span class="sd">    =================   ======</span>
@@ -909,11 +919,11 @@
 <span class="sd">    ring.radiation=:py:obj:`False`. Otherwise the default :py:func:`linopt6`</span>
 <span class="sd">    is used</span>
 
-<span class="sd">    Parameters: Same as linopt2 or linopt6</span>
+<span class="sd">    Parameters: Same as :py:func:`.linopt2` or :py:func:`.linopt6`</span>
 
 <span class="sd">    Keyword Args;</span>
-<span class="sd">        coupled 5Optional[bool]):   If set to :py:obj:`False`, H/V coupling</span>
-<span class="sd">          will be ingnored to simplify the calculation, needs radiation OFF</span>
+<span class="sd">        coupled (bool):     If set to :py:obj:`False`, H/V coupling</span>
+<span class="sd">          will be ignored to simplify the calculation, needs radiation OFF</span>
 
 
 <span class="sd">    Returns:</span>
@@ -923,8 +933,8 @@
 <span class="sd">          if refpts is :py:obj:`None` an empty lindata structure is returned.</span>
 
 <span class="sd">    Warning:</span>
-<span class="sd">        The output varies depending whether :py:func:`linopt2` or</span>
-<span class="sd">        :py:func:`linopt6` is called. To be used with care!</span>
+<span class="sd">        The output varies depending whether :py:func:`.linopt2` or</span>
+<span class="sd">        :py:func:`.linopt6` is called. To be used with care!</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;coupled&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span> <span class="ow">or</span> <span class="n">ring</span><span class="o">.</span><span class="n">radiation</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">linopt2</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -934,7 +944,7 @@
 
 <div class="viewcode-block" id="get_optics"><a class="viewcode-back" href="../../../p/api/at.physics.linear.html#at.physics.linear.get_optics">[docs]</a><span class="k">def</span> <span class="nf">get_optics</span><span class="p">(</span><span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span> <span class="n">refpts</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Refpts</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                <span class="n">dp</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-               <span class="n">method</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="n">linopt6</span><span class="p">,</span>
+               <span class="n">method</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="n">linopt6</span><span class="p">,</span>
                <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Linear analysis of a fully coupled lattice</span>
 
@@ -951,44 +961,43 @@
 <span class="sd">          3. a numpy array of booleans of maximum length len(ring)+1,</span>
 <span class="sd">             where selected elements are :py:obj:`True`.</span>
 <span class="sd">        dp (Optional[float]):   Momentum deviation.</span>
-<span class="sd">        method (Optional[Callable]):  Method used for the analysis of the</span>
-<span class="sd">          transfer matrix. Can be ``at.linopt2``, ``at.linopt4``, ``at.linopt6``</span>
+<span class="sd">        method (Callable):  Method for linear optics:</span>
 
-<span class="sd">          linopt2</span>
-<span class="sd">            no longitudinal motion, no H/V coupling,</span>
-<span class="sd">          linopt4</span>
-<span class="sd">            no longitudinal motion, Sagan/Rubin 4D-analysis of coupled motion,</span>
-<span class="sd">          linopt6 (default)</span>
-<span class="sd">            with or without longitudinal motion, normal mode analysis</span>
+<span class="sd">          :py:obj:`~.linear.linopt2`: no longitudinal motion, no H/V coupling,</span>
+
+<span class="sd">          :py:obj:`~.linear.linopt4`: no longitudinal motion, Sagan/Rubin</span>
+<span class="sd">          4D-analysis of coupled motion,</span>
+
+<span class="sd">          :py:obj:`~.linear.linopt6` (default): with or without longitudinal</span>
+<span class="sd">          motion, normal mode analysis</span>
 
 <span class="sd">    Keyword Args:</span>
 <span class="sd">        dct (Optional[float]):  Path lengthening. If specified, ``dp`` is</span>
 <span class="sd">          ignored and the off-momentum is deduced from the path lengthening.</span>
-<span class="sd">        orbit (Optional[Orbit]): Avoids looking for the closed orbit if is</span>
+<span class="sd">        orbit (Orbit): Avoids looking for the closed orbit if is</span>
 <span class="sd">          already known ((6,) array)</span>
-<span class="sd">        get_chrom (Optional[bool]): Compute chromaticities. Needs computing</span>
+<span class="sd">        get_chrom (bool):       Compute chromaticities. Needs computing</span>
 <span class="sd">          the tune at 2 different momentum deviations around the central one.</span>
-<span class="sd">        get_w (Optional[bool]):     Computes chromatic amplitude functions</span>
-<span class="sd">          (W) [11]_. Needs to compute the optics at 2 different momentum</span>
+<span class="sd">        get_w (bool):           Computes chromatic amplitude functions</span>
+<span class="sd">          (W) [4]_. Needs to compute the optics at 2 different momentum</span>
 <span class="sd">          deviations around the central one.</span>
-<span class="sd">        keep_lattice (Optional[bool]):   Assume no lattice change since the</span>
+<span class="sd">        keep_lattice (bool):    Assume no lattice change since the</span>
 <span class="sd">          previous tracking. Defaults to :py:obj:`False`</span>
-<span class="sd">        XYStep (Optional[float]):       Step size.</span>
+<span class="sd">        XYStep (float):         Step size.</span>
 <span class="sd">          Default: :py:data:`DConstant.XYStep &lt;.DConstant&gt;`</span>
-<span class="sd">        DPStep (Optional[float]):       Momentum step size.</span>
+<span class="sd">        DPStep (float):         Momentum step size.</span>
 <span class="sd">          Default: :py:data:`DConstant.DPStep &lt;.DConstant&gt;`</span>
-<span class="sd">        twiss_in:       Initial conditions for transfer line optics. Record</span>
-<span class="sd">          array as output by :py:func:`linopt2`, :py:func:`linopt6`, or</span>
-<span class="sd">          dictionary. Keys:</span>
+<span class="sd">        twiss_in:               Initial conditions for transfer line optics.</span>
+<span class="sd">          Record array as output by :py:func:`.linopt6`, or dictionary. Keys:</span>
 
 <span class="sd">          R or alpha, beta</span>
-<span class="sd">            mandatory</span>
+<span class="sd">            mandatory (2,) arrays</span>
 <span class="sd">          closed_orbit</span>
 <span class="sd">            Optional (6,) array, default 0</span>
 <span class="sd">          dispersion</span>
 <span class="sd">            Optional (6,) array, default 0</span>
 
-<span class="sd">          If present, the attribute **R**&#39; will be used, otherwise the</span>
+<span class="sd">          If present, the attribute **R** will be used, otherwise the</span>
 <span class="sd">          attributes **alpha** and **beta** will be used. All other attributes</span>
 <span class="sd">          are ignored.</span>
 
@@ -1009,7 +1018,7 @@
 <span class="nd">@check_radiation</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">linopt</span><span class="p">(</span><span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span> <span class="n">dp</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
            <span class="n">refpts</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Refpts</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-           <span class="n">get_chrom</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+           <span class="n">get_chrom</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Linear analysis of a H/V coupled lattice (deprecated)</span>
 
 <span class="sd">    PARAMETERS</span>
@@ -1117,30 +1126,32 @@
 <span class="sd">    Keyword Args:</span>
 <span class="sd">        dct (Optional[float]):  Path lengthening. If specified, ``dp`` is</span>
 <span class="sd">          ignored and the off-momentum is deduced from the path lengthening.</span>
-<span class="sd">        orbit (Optional[Orbit]): Avoids looking for the closed orbit if is</span>
+<span class="sd">        orbit (Orbit): Avoids looking for the closed orbit if is</span>
 <span class="sd">          already known ((6,) array)</span>
-<span class="sd">        get_chrom (Optional[bool]): Compute chromaticities. Needs computing</span>
+<span class="sd">        get_chrom (bool):       Compute chromaticities. Needs computing</span>
 <span class="sd">          the tune at 2 different momentum deviations around the central one.</span>
-<span class="sd">        get_w (Optional[bool]):     Computes chromatic amplitude functions</span>
-<span class="sd">          (W) [8]_. Needs to compute the optics at 2 different momentum</span>
+<span class="sd">        get_w (bool):           Computes chromatic amplitude functions</span>
+<span class="sd">          (W) [4]_. Needs to compute the optics at 2 different momentum</span>
 <span class="sd">          deviations around the central one.</span>
-<span class="sd">        keep_lattice (Optional[bool]):   Assume no lattice change since the</span>
+<span class="sd">        keep_lattice (bool):    Assume no lattice change since the</span>
 <span class="sd">          previous tracking. Defaults to :py:obj:`False`</span>
-<span class="sd">        XYStep (Optional[float]):       Step size.</span>
+<span class="sd">        XYStep (float):         Step size.</span>
 <span class="sd">          Default: :py:data:`DConstant.XYStep &lt;.DConstant&gt;`</span>
-<span class="sd">        DPStep (Optional[float]):       Momentum step size.</span>
+<span class="sd">        DPStep (float):         Momentum step size.</span>
 <span class="sd">          Default: :py:data:`DConstant.DPStep &lt;.DConstant&gt;`</span>
-<span class="sd">        twiss_in:       Initial conditions for transfer line optics. Record</span>
-<span class="sd">          array as output by :py:func:`linopt2`, or dictionary. Keys:</span>
+<span class="sd">        twiss_in:               Initial conditions for transfer line optics.</span>
+<span class="sd">          Record array as output by :py:func:`.linopt6`, or dictionary. Keys:</span>
 
-<span class="sd">          alpha, beta</span>
+<span class="sd">          R or alpha, beta</span>
 <span class="sd">            mandatory (2,) arrays</span>
 <span class="sd">          closed_orbit</span>
 <span class="sd">            Optional (6,) array, default 0</span>
 <span class="sd">          dispersion</span>
 <span class="sd">            Optional (6,) array, default 0</span>
 
-<span class="sd">          All other attributes are ignored.</span>
+<span class="sd">          If present, the attribute **R** will be used, otherwise the</span>
+<span class="sd">          attributes **alpha** and **beta** will be used. All other attributes</span>
+<span class="sd">          are ignored.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        elemdata:   Linear optics at the points refered to by ``refpts``,</span>
@@ -1225,14 +1236,14 @@
     <span class="k">return</span> <span class="n">lindata</span><span class="p">,</span> <span class="n">avebeta</span><span class="p">,</span> <span class="n">avemu</span><span class="p">,</span> <span class="n">avedisp</span><span class="p">,</span> <span class="n">aves</span><span class="p">,</span> <span class="n">bd</span><span class="o">.</span><span class="n">tune</span><span class="p">,</span> <span class="n">bd</span><span class="o">.</span><span class="n">chromaticity</span></div>
 
 
-<div class="viewcode-block" id="get_tune"><a class="viewcode-back" href="../../../p/api/at.physics.linear.html#at.physics.linear.get_tune">[docs]</a><span class="k">def</span> <span class="nf">get_tune</span><span class="p">(</span><span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span> <span class="n">method</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;linopt&#39;</span><span class="p">,</span>
+<div class="viewcode-block" id="get_tune"><a class="viewcode-back" href="../../../p/api/at.physics.linear.html#at.physics.linear.get_tune">[docs]</a><span class="k">def</span> <span class="nf">get_tune</span><span class="p">(</span><span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span> <span class="n">method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;linopt&#39;</span><span class="p">,</span>
              <span class="n">dp</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">dct</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
              <span class="n">orbit</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Orbit</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Computes the tunes using several available methods</span>
 
 <span class="sd">    Parameters:</span>
 <span class="sd">        ring:       Lattice description</span>
-<span class="sd">        method:     ``&#39;linopt&#39;`` returns the tunes from the :py:func:`linopt6`</span>
+<span class="sd">        method:     ``&#39;linopt&#39;`` returns the tunes from the :py:func:`.linopt6`</span>
 <span class="sd">          function,</span>
 
 <span class="sd">          ``&#39;fft&#39;`` tracks a single particle and computes the tunes with fft,</span>
@@ -1248,20 +1259,20 @@
 <span class="sd">    for the ``&#39;fft&#39;`` and ``&#39;laskar&#39;`` methods only:</span>
 
 <span class="sd">    Keyword Args:</span>
-<span class="sd">        nturns (Optional[int]):         Number of turns. Default: 512</span>
-<span class="sd">        amplitude (Optional[float]):    Amplitude of oscillation.</span>
+<span class="sd">        nturns (int):           Number of turns. Default: 512</span>
+<span class="sd">        amplitude (float):      Amplitude of oscillation.</span>
 <span class="sd">          Default: 1.E-6</span>
-<span class="sd">        remove_dc (Optional[bool]):     Remove the mean of oscillation data.</span>
+<span class="sd">        remove_dc (bool:        Remove the mean of oscillation data.</span>
 <span class="sd">          Default: :py:obj:`True`</span>
-<span class="sd">        num_harmonics (Optional[int]):  Number of harmonic components to</span>
+<span class="sd">        num_harmonics (int):    Number of harmonic components to</span>
 <span class="sd">          compute (before mask applied, default: 20)</span>
-<span class="sd">        fmin (Optional[float]):         Lower tune bound. Default: 0</span>
-<span class="sd">        fmax (Optional[float]):         Upper tune bound. Default: 1</span>
-<span class="sd">        hann (Optional[bool]):          Turn on Hanning window.</span>
+<span class="sd">        fmin (float):           Lower tune bound. Default: 0</span>
+<span class="sd">        fmax (float):           Upper tune bound. Default: 1</span>
+<span class="sd">        hann (bool):            Turn on Hanning window.</span>
 <span class="sd">          Default: :py:obj:`False`</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        tunes (ndarray):                array([:math:`\nu_x,\nu_y`])</span>
+<span class="sd">        tunes (ndarray):        array([:math:`\nu_x,\nu_y`])</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># noinspection PyShadowingNames</span>
     <span class="k">def</span> <span class="nf">gen_centroid</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">ampl</span><span class="p">,</span> <span class="n">nturns</span><span class="p">,</span> <span class="n">remove_dc</span><span class="p">,</span> <span class="n">ld</span><span class="p">):</span>
@@ -1289,7 +1300,7 @@
     <span class="k">return</span> <span class="n">tunes</span></div>
 
 
-<div class="viewcode-block" id="get_chrom"><a class="viewcode-back" href="../../../p/api/at.physics.linear.html#at.physics.linear.get_chrom">[docs]</a><span class="k">def</span> <span class="nf">get_chrom</span><span class="p">(</span><span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span> <span class="n">method</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;linopt&#39;</span><span class="p">,</span>
+<div class="viewcode-block" id="get_chrom"><a class="viewcode-back" href="../../../p/api/at.physics.linear.html#at.physics.linear.get_chrom">[docs]</a><span class="k">def</span> <span class="nf">get_chrom</span><span class="p">(</span><span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span> <span class="n">method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;linopt&#39;</span><span class="p">,</span>
               <span class="n">dp</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">dct</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
               <span class="n">cavpts</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Refpts</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Computes the chromaticities using several available methods</span>
@@ -1311,26 +1322,26 @@
 <span class="sd">          otherwise take all cavities.</span>
 
 <span class="sd">    Keyword Args:</span>
-<span class="sd">        DPStep (Optional[float]):       Momentum step for differentiation</span>
+<span class="sd">        DPStep (float):       Momentum step for differentiation</span>
 <span class="sd">          Default: :py:data:`DConstant.DPStep &lt;.DConstant&gt;`</span>
 
 <span class="sd">    for the ``&#39;fft&#39;`` and ``&#39;laskar&#39;`` methods only:</span>
 
 <span class="sd">    Keyword Args:</span>
-<span class="sd">        nturns (Optional[int]):         Number of turns. Default: 512</span>
-<span class="sd">        amplitude (Optional[float]):    Amplitude of oscillation.</span>
+<span class="sd">        nturns (int):           Number of turns. Default: 512</span>
+<span class="sd">        amplitude (float):      Amplitude of oscillation.</span>
 <span class="sd">          Default: 1.E-6</span>
-<span class="sd">        remove_dc (Optional[bool]):     Remove the mean of oscillation data.</span>
+<span class="sd">        remove_dc (bool):       Remove the mean of oscillation data.</span>
 <span class="sd">          Default: :py:obj:`True`</span>
-<span class="sd">        num_harmonics (Optional[int]):  Number of harmonic components to</span>
+<span class="sd">        num_harmonics (int):    Number of harmonic components to</span>
 <span class="sd">          compute (before mask applied, default: 20)</span>
-<span class="sd">        fmin (Optional[float]):         Lower tune bound. Default: 0</span>
-<span class="sd">        fmax (Optional[float]):         Upper tune bound. Default: 1</span>
-<span class="sd">        hann (Optional[bool]):          Turn on Hanning window.</span>
+<span class="sd">        fmin (float):           Lower tune bound. Default: 0</span>
+<span class="sd">        fmax (float):           Upper tune bound. Default: 1</span>
+<span class="sd">        hann (bool):            Turn on Hanning window.</span>
 <span class="sd">          Default: :py:obj:`False`</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        chromaticities (ndarray):       array([:math:`\xi_x,\xi_y`])</span>
+<span class="sd">        chromaticities (ndarray):   array([:math:`\xi_x,\xi_y`])</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">dp_step</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;DPStep&#39;</span><span class="p">,</span> <span class="n">DConstant</span><span class="o">.</span><span class="n">DPStep</span><span class="p">)</span>

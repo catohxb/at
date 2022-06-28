@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>at.physics.orbit &#8212; Accelerator Toolbox 0.1.dev1+g19b9197 documentation</title>
+    <title>at.physics.orbit &#8212; Accelerator Toolbox 0.1.dev1+gcf99b98 documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -286,7 +286,7 @@
                 <span class="n">refpts</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Refpts</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                 <span class="n">dct</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                 <span class="n">orbit</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Orbit</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-                <span class="n">keep_lattice</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+                <span class="n">keep_lattice</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Gets the 4D closed orbit for a given dp</span>
 
 <span class="sd">    Finds the closed orbit in the 4-d transverse phase space by numerically</span>
@@ -327,13 +327,13 @@
 <span class="sd">          Default: False</span>
 
 <span class="sd">    Keyword Args:</span>
-<span class="sd">        guess (Optional[Orbit]):        (6,) initial value for the</span>
+<span class="sd">        guess (Orbit):          (6,) initial value for the</span>
 <span class="sd">          closed orbit. It may help convergence. Default: (0, 0, 0, 0, 0, 0)</span>
-<span class="sd">        convergence (Optional[float]):  Convergence criterion.</span>
+<span class="sd">        convergence (float):    Convergence criterion.</span>
 <span class="sd">          Default: :py:data:`DConstant.OrbConvergence &lt;.DConstant&gt;`</span>
-<span class="sd">        max_iterations (Optional[int]): Maximum number of iterations.</span>
+<span class="sd">        max_iterations (int):   Maximum number of iterations.</span>
 <span class="sd">          Default: :py:data:`DConstant.OrbMaxIter &lt;.DConstant&gt;`</span>
-<span class="sd">        XYStep (Optional[float]):       Step size.</span>
+<span class="sd">        XYStep (float):          Step size.</span>
 <span class="sd">          Default: :py:data:`DConstant.XYStep &lt;.DConstant&gt;`</span>
 
 <span class="sd">    Returns:</span>
@@ -365,7 +365,7 @@
                     <span class="n">refpts</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Refpts</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                     <span class="n">dp</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                     <span class="n">orbit</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Orbit</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-                    <span class="n">keep_lattice</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+                    <span class="n">keep_lattice</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Gets the 4D closed orbit for a given dct</span>
 
 <span class="sd">    Finds the closed orbit, synchronous with the RF cavity (first 5</span>
@@ -406,13 +406,13 @@
 <span class="sd">          Default: False</span>
 
 <span class="sd">    Keyword Args:</span>
-<span class="sd">        guess (Optional[Orbit]):        (6,) initial value for the</span>
+<span class="sd">        guess (Orbit):          (6,) initial value for the</span>
 <span class="sd">          closed orbit. It may help convergence. Default: (0, 0, 0, 0, 0, 0)</span>
-<span class="sd">        convergence (Optional[float]):  Convergence criterion.</span>
+<span class="sd">        convergence (float):    Convergence criterion.</span>
 <span class="sd">          Default: :py:data:`DConstant.OrbConvergence &lt;.DConstant&gt;`</span>
-<span class="sd">        max_iterations (Optional[int]): Maximum number of iterations.</span>
+<span class="sd">        max_iterations (int):   Maximum number of iterations.</span>
 <span class="sd">          Default: :py:data:`DConstant.OrbMaxIter &lt;.DConstant&gt;`</span>
-<span class="sd">        XYStep (Optional[float]):       Step size.</span>
+<span class="sd">        XYStep (float):         Step size.</span>
 <span class="sd">          Default: :py:data:`DConstant.XYStep &lt;.DConstant&gt;`</span>
 
 <span class="sd">    Returns:</span>
@@ -552,17 +552,17 @@
 <span class="sd">          Default: False</span>
 
 <span class="sd">    Keyword Args:</span>
-<span class="sd">        guess (Optional[Orbit]):        (6,) initial value for the</span>
+<span class="sd">        guess (Orbit):        (6,) initial value for the</span>
 <span class="sd">          closed orbit. It may help convergence. Default: (0, 0, 0, 0, 0, 0)</span>
-<span class="sd">        convergence (Optional[float]):  Convergence criterion.</span>
+<span class="sd">        convergence (float):  Convergence criterion.</span>
 <span class="sd">          Default: :py:data:`DConstant.OrbConvergence &lt;.DConstant&gt;`</span>
-<span class="sd">        max_iterations (Optional[int]): Maximum number of iterations.</span>
+<span class="sd">        max_iterations (int): Maximum number of iterations.</span>
 <span class="sd">          Default: :py:data:`DConstant.OrbMaxIter &lt;.DConstant&gt;`</span>
-<span class="sd">        XYStep (Optional[float]):       Step size.</span>
+<span class="sd">        XYStep (float):       Step size.</span>
 <span class="sd">          Default: :py:data:`DConstant.XYStep &lt;.DConstant&gt;`</span>
-<span class="sd">        DPStep (Optional[float]):       Momentum step size.</span>
+<span class="sd">        DPStep (float):       Momentum step size.</span>
 <span class="sd">          Default: :py:data:`DConstant.DPStep &lt;.DConstant&gt;`</span>
-<span class="sd">        method (Optional[ELossMethod]): Method for energy loss computation.</span>
+<span class="sd">        method (ELossMethod): Method for energy loss computation.</span>
 <span class="sd">          See :py:class:`.ELossMethod`.</span>
 <span class="sd">        cavpts (Optional[Refpts]):      Cavity location. If None, use all</span>
 <span class="sd">          cavities. This is used to compute the initial synchronous phase.</span>

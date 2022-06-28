@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>at.physics.ring_parameters &#8212; Accelerator Toolbox 0.1.dev1+g19b9197 documentation</title>
+    <title>at.physics.ring_parameters &#8212; Accelerator Toolbox 0.1.dev1+gcf99b98 documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -228,30 +228,29 @@
 <span class="sd">    Parameters:</span>
 <span class="sd">        ring:       Lattice description.</span>
 <span class="sd">        dp:         Momentum deviation.</span>
-<span class="sd">        params:     :py:class:`RingParameters` object to be updated.</span>
+<span class="sd">        params:     :py:class:`.RingParameters` object to be updated.</span>
 <span class="sd">          Default: create a new one</span>
 
 <span class="sd">    Keyword Args:</span>
-<span class="sd">        dct (Optional[float]):  Path lengthening. If specified, ``dp`` is</span>
+<span class="sd">        dct (float):        Path lengthening. If specified, ``dp`` is</span>
 <span class="sd">          ignored and the off-momentum is deduced from the path lengthening.</span>
-<span class="sd">        method (Optional[Callable]):  Method used for the analysis of the</span>
-<span class="sd">          transfer matrix. Can be ``at.linopt2`` or ``at.linopt6``</span>
+<span class="sd">        method (Callable):  Method for linear optics:</span>
 
-<span class="sd">          linopt2</span>
-<span class="sd">            no longitudinal motion, no H/V coupling, faster</span>
-<span class="sd">          linopt6 (default)</span>
-<span class="sd">            with or without longitudinal motion, normal mode analysis</span>
-<span class="sd">        orbit (Optional[Orbit]): Avoids looking for the closed orbit if is</span>
+<span class="sd">          :py:obj:`~.linear.linopt2`: no longitudinal motion, no H/V coupling,</span>
+
+<span class="sd">          :py:obj:`~.linear.linopt6` (default): with or without longitudinal</span>
+<span class="sd">          motion, normal mode analysis</span>
+<span class="sd">        orbit (Orbit):      Avoids looking for the closed orbit if is</span>
 <span class="sd">          already known ((6,) array)</span>
-<span class="sd">        XYStep (Optional[float]):       Step size.</span>
+<span class="sd">        XYStep (float):     Step size.</span>
 <span class="sd">          Default: :py:data:`DConstant.XYStep &lt;.DConstant&gt;`</span>
-<span class="sd">        DPStep (Optional[float]):       Momentum step size.</span>
+<span class="sd">        DPStep (float):     Momentum step size.</span>
 <span class="sd">          Default: :py:data:`DConstant.DPStep &lt;.DConstant&gt;`</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        params:             :py:class:`RingParameters` object.</span>
+<span class="sd">        params:             :py:class:`.RingParameters` object.</span>
 
-<span class="sd">    **params** is a :py:class:`RingParameters` object with the following</span>
+<span class="sd">    **params** is a :py:class:`.RingParameters` object with the following</span>
 <span class="sd">    attributes:</span>
 
 <span class="sd">    ==================  ========================================</span>
@@ -330,13 +329,13 @@
 
 <span class="sd">    Parameters:</span>
 <span class="sd">        ring:       Lattice description.</span>
-<span class="sd">        params:     :py:class:`RingParameters` object to be updated.</span>
+<span class="sd">        params:     :py:class:`.RingParameters` object to be updated.</span>
 <span class="sd">          Default: create a new one</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        params:             :py:class:`RingParameters` object.</span>
+<span class="sd">        params:             :py:class:`.RingParameters` object.</span>
 
-<span class="sd">    **params** is a :py:class:`RingParameters` object with the following</span>
+<span class="sd">    **params** is a :py:class:`.RingParameters` object with the following</span>
 <span class="sd">    attributes:</span>
 
 <span class="sd">    ==================  ========================================</span>
