@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>at.collective.wake_object &#8212; Accelerator Toolbox 0.1.dev1+gcf99b98 documentation</title>
+    <title>at.collective.wake_object &#8212; Accelerator Toolbox 0.1.dev1+gf909957 documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -38,6 +38,8 @@
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="at.lattice" href="at.lattice.html" />
@@ -541,7 +543,7 @@
 <table class="autosummary longtable table autosummary">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#at.collective.wake_object.Wake" title="at.collective.wake_object.Wake"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Wake</span></code></a>(srange)</p></td>
-<td><p>Class to generate a wake object The wake object is define by its srange, specified at initialization, and DX, DY, QY, Z corresponding to transverse dipoles and quadrupoles and longitudinal</p></td>
+<td><p>Class to generate a wake object</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#at.collective.wake_object.WakeComponent" title="at.collective.wake_object.WakeComponent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">WakeComponent</span></code></a>(value)</p></td>
 <td><p>Enum class for wake component</p></td>
@@ -555,24 +557,49 @@
 <dt class="sig sig-object py" id="at.collective.wake_object.Wake">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Wake</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">srange</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/collective/wake_object.html#Wake"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.collective.wake_object.Wake" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
-<p>Class to generate a wake object
-The wake object is define by its srange, specified
-at initialization, and DX, DY, QY, Z corresponding
-to transverse dipoles and quadrupoles and longitudinal</p>
-<p>The srange is common to all components and cannot be changed
+<p>Class to generate a wake object</p>
+<p>The wake object is defined by its srange, specified
+at initialization, and one or several components corresponding
+to transverse dipoles or quadrupoles, or longitudinal wakes.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">srange</span></code> is common to all components and cannot be changed
 once initialized, all added component are resampled to the
-srange</p>
-<p>usage:
-wake = Wake(srange)
-wake.add(WakeType,WakeComponent, <a href="#id1"><span class="problematic" id="id2">*</span></a>args, <a href="#id3"><span class="problematic" id="id4">*</span></a>kwargs)</p>
-<p>Component are WakeComponent.FILE (import from file),
-WakeComponent.TABLE (provide vectors), WakeComponent.RESONATOR
-(analytical resonator), WakeComponent.RESWALL (transverse RW)</p>
-<p>Components are retrieved with Wake.DX for example</p>
+<code class="docutils literal notranslate"><span class="pre">srange</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>srange</strong> – vector of s position where to sample the wake</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Build the range</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">srange</span> <span class="o">=</span> <span class="n">Wake</span><span class="o">.</span><span class="n">build_srange</span><span class="p">(</span><span class="o">-</span><span class="mf">0.36</span><span class="p">,</span> <span class="mf">0.36</span><span class="p">,</span> <span class="mf">1.0e-5</span><span class="p">,</span> <span class="mf">1.0e-2</span><span class="p">,</span>
+<span class="gp">... </span><span class="n">ring</span><span class="o">.</span><span class="n">circumference</span><span class="p">,</span> <span class="n">ring</span><span class="o">.</span><span class="n">circumference</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create the Wake object</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wake</span> <span class="o">=</span> <span class="n">Wake</span><span class="p">(</span><span class="n">srange</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Build a resonator and add it to the Wake</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">freq</span> <span class="o">=</span> <span class="mf">10e9</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Q</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Rs</span> <span class="o">=</span> <span class="mf">1e4</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wake</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">WakeType</span><span class="o">.</span><span class="n">RESONATOR</span><span class="p">,</span> <span class="n">WakeComponent</span><span class="o">.</span><span class="n">Z</span><span class="p">,</span> <span class="n">freq</span><span class="p">,</span> <span class="n">Q</span><span class="p">,</span> <span class="n">Rs</span><span class="p">,</span>
+<span class="gp">... </span><span class="n">ring</span><span class="o">.</span><span class="n">beta</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>See <a class="reference internal" href="#at.collective.wake_object.Wake.long_resonator" title="at.collective.wake_object.Wake.long_resonator"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Wake.long_resonator()</span></code></a> for a simple way of creatong the
+same <a class="reference internal" href="#at.collective.wake_object.Wake" title="at.collective.wake_object.Wake"><code class="xref py py-class docutils literal notranslate"><span class="pre">Wake</span></code></a></p>
+<p>Components may be retrieved using <code class="code docutils literal notranslate"><span class="pre">wake.DX</span></code> for example</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="at.collective.wake_object.Wake.add">
 <span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wtype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wcomp</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/collective/wake_object.html#Wake.add"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.collective.wake_object.Wake.add" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>Add a component to a <a class="reference internal" href="#at.collective.wake_object.Wake" title="at.collective.wake_object.Wake"><code class="xref py py-class docutils literal notranslate"><span class="pre">Wake</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wtype</strong> (<a class="reference internal" href="#at.collective.wake_object.WakeType" title="at.collective.wake_object.WakeType"><em>WakeType</em></a>) – Wake type</p></li>
+<li><p><strong>wcomp</strong> (<a class="reference internal" href="#at.collective.wake_object.WakeComponent" title="at.collective.wake_object.WakeComponent"><em>WakeComponent</em></a>) – Wake component</p></li>
+<li><p><strong>*args</strong> – parameters for the selected component</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="at.collective.wake_object.Wake.build_srange">
@@ -581,26 +608,24 @@ WakeComponent.TABLE (provide vectors), WakeComponent.RESONATOR
 This is not the slicing but the look-up table,
 however it generates data where bunches are located
 to avoid using too much memory to store the table.</p>
-<dl>
-<dt>PARAMETERS</dt><dd><dl class="simple">
-<dt>start           starting s-coordinate of the table</dt><dd><p>(can be negative for wake potential)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>start</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – starting s-coordinate of the table
+(can be negative for wake potential)</p></li>
+<li><p><strong>bunch_ext</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – maximum bunch extension, function
+generates data at +/- bunch_ext
+around the bucket center</p></li>
+<li><p><strong>short_step</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – step size for the short range wake table</p></li>
+<li><p><strong>long_step</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – step size for the long range wake table</p></li>
+<li><p><strong>bunch_interval</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – minimum bunch interval. Data will be generated
+for each <code class="docutils literal notranslate"><span class="pre">bunch_interval</span></code> step</p></li>
+<li><p><strong>totallength</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – total length of the wake table, has to contain
+the full bunch extension</p></li>
+</ul>
 </dd>
-<dt>bunch_ext       maximum bunch extension, function</dt><dd><p>generates data at +/- bunch_ext
-around the bucket center</p>
-</dd>
-</dl>
-<p>short_step      step size for the short range wake table
-long_step       step size for the long range wake table
-bunch_interval  minimum bunch interval data will be generate</p>
-<blockquote>
-<div><p>for each bunch_inteval step</p>
-</div></blockquote>
-<dl class="simple">
-<dt>totallength     total length of the wake table, has to contain</dt><dd><p>the full bunch extension</p>
-</dd>
-</dl>
-</dd>
-<dt>OUTPUT</dt><dd><p>srange          vector of s position where to sample the wake</p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>srange</strong> – vector of s position where to sample the wake</p>
 </dd>
 </dl>
 </dd></dl>
@@ -608,45 +633,107 @@ bunch_interval  minimum bunch interval data will be generate</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="at.collective.wake_object.Wake.long_resonator">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">long_resonator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">srange</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qfactor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rshunt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nelems</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/collective/wake_object.html#Wake.long_resonator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.collective.wake_object.Wake.long_resonator" title="Permalink to this definition">#</a></dt>
-<dd><p>Method to build a longitudinal resonator wake object</p>
+<dd><p>Factory method to build a longitudinal resonator wake object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>srange</strong> – vector of s position where to sample the wake</p></li>
+<li><p><strong>frequency</strong> – Resonator frequency [Hz]</p></li>
+<li><p><strong>qfactor</strong> – Q factor</p></li>
+<li><p><strong>rshunt</strong> – Shunt impedance, [<span class="math notranslate nohighlight">\(\Omega\)</span>] for longitudinal,
+[<span class="math notranslate nohighlight">\(\Omega/m\)</span>] for transverse</p></li>
+<li><p><strong>beta</strong> – Relativistic <span class="math notranslate nohighlight">\(\beta\)</span></p></li>
+<li><p><strong>nelems</strong> – Number of resonators</p></li>
+</ul>
+</dd>
+</dl>
+<p>Several resonators can be built in one step by setting <code class="docutils literal notranslate"><span class="pre">nelems</span></code>&gt; 1
+and giving array parameters</p>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Build the range</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">srange</span> <span class="o">=</span> <span class="n">Wake</span><span class="o">.</span><span class="n">build_srange</span><span class="p">(</span><span class="o">-</span><span class="mf">0.36</span><span class="p">,</span> <span class="mf">0.36</span><span class="p">,</span> <span class="mf">1.0e-5</span><span class="p">,</span> <span class="mf">1.0e-2</span><span class="p">,</span>
+<span class="gp">... </span><span class="n">ring</span><span class="o">.</span><span class="n">circumference</span><span class="p">,</span> <span class="n">ring</span><span class="o">.</span><span class="n">circumference</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create the resonator</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">freq</span> <span class="o">=</span> <span class="mf">10e9</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Q</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Rs</span> <span class="o">=</span> <span class="mf">1e4</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wake</span> <span class="o">=</span> <span class="n">Wake</span><span class="o">.</span><span class="n">long_resonator</span><span class="p">(</span><span class="n">srange</span><span class="p">,</span> <span class="n">freq</span><span class="p">,</span> <span class="n">Q</span><span class="p">,</span> <span class="n">Rs</span><span class="p">,</span> <span class="n">ring</span><span class="o">.</span><span class="n">beta</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="at.collective.wake_object.Wake.resistive_wall">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">resistive_wall</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">srange</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wakecomp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rvac</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conduct</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yokoya_factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nelems</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/collective/wake_object.html#Wake.resistive_wall"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.collective.wake_object.Wake.resistive_wall" title="Permalink to this definition">#</a></dt>
-<dd><p>Method to build a resistive wall wake object</p>
+<dd><p>Factory method to build a resistive wall wake object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>srange</strong> – vector of s position where to sample the wake</p></li>
+<li><p><strong>wakecomp</strong> (<a class="reference internal" href="#at.collective.wake_object.WakeComponent" title="at.collective.wake_object.WakeComponent"><em>WakeComponent</em></a>) – Wake component</p></li>
+<li><p><strong>length</strong> – </p></li>
+<li><p><strong>rvac</strong> – </p></li>
+<li><p><strong>conduct</strong> – </p></li>
+<li><p><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Relativistic <span class="math notranslate nohighlight">\(\beta\)</span></p></li>
+<li><p><strong>yokoya_factor</strong> – Yokoya factor</p></li>
+<li><p><strong>nelems</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – </p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="at.collective.wake_object.Wake.resonator">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">resonator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">srange</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wakecomp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qfactor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rshunt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yokoya_factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nelems</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/collective/wake_object.html#Wake.resonator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.collective.wake_object.Wake.resonator" title="Permalink to this definition">#</a></dt>
-<dd><p>Method to build a resonator wake object</p>
+<dd><p>Factory method to build a resonator wake object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>srange</strong> – vector of s position where to sample the wake</p></li>
+<li><p><strong>wakecomp</strong> – Wake component</p></li>
+<li><p><strong>frequency</strong> – Resonator frequency [Hz]</p></li>
+<li><p><strong>qfactor</strong> – Q factor</p></li>
+<li><p><strong>rshunt</strong> – Shunt impedance, [<span class="math notranslate nohighlight">\(\Omega\)</span>] for longitudinal,
+[<span class="math notranslate nohighlight">\(\Omega/m\)</span>] for transverse</p></li>
+<li><p><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Relativistic <span class="math notranslate nohighlight">\(\beta\)</span></p></li>
+<li><p><strong>yokoya_factor</strong> – Yokoya factor</p></li>
+<li><p><strong>nelems</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of resonators</p></li>
+</ul>
+</dd>
+</dl>
+<p>Several resonators can be built in one step by setting <code class="docutils literal notranslate"><span class="pre">nelems</span></code>&gt; 1
+and giving array parameters</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="at.collective.wake_object.Wake.DX">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DX</span></span><a class="headerlink" href="#at.collective.wake_object.Wake.DX" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>Dipole X component</p>
+</dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="at.collective.wake_object.Wake.DY">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DY</span></span><a class="headerlink" href="#at.collective.wake_object.Wake.DY" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>Dipole Y component</p>
+</dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="at.collective.wake_object.Wake.QX">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">QX</span></span><a class="headerlink" href="#at.collective.wake_object.Wake.QX" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>Quadrupole X component</p>
+</dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="at.collective.wake_object.Wake.QY">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">QY</span></span><a class="headerlink" href="#at.collective.wake_object.Wake.QY" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>Quadrupole Y component</p>
+</dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="at.collective.wake_object.Wake.Z">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Z</span></span><a class="headerlink" href="#at.collective.wake_object.Wake.Z" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>Longitudinal component</p>
+</dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="at.collective.wake_object.Wake.srange">
@@ -663,27 +750,32 @@ bunch_interval  minimum bunch interval data will be generate</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="at.collective.wake_object.WakeComponent.DX">
 <span class="sig-name descname"><span class="pre">DX</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#at.collective.wake_object.WakeComponent.DX" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>Dipole X</p>
+</dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="at.collective.wake_object.WakeComponent.DY">
 <span class="sig-name descname"><span class="pre">DY</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#at.collective.wake_object.WakeComponent.DY" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>Dipole Y</p>
+</dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="at.collective.wake_object.WakeComponent.QX">
 <span class="sig-name descname"><span class="pre">QX</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#at.collective.wake_object.WakeComponent.QX" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>Quadrupole X</p>
+</dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="at.collective.wake_object.WakeComponent.QY">
 <span class="sig-name descname"><span class="pre">QY</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></em><a class="headerlink" href="#at.collective.wake_object.WakeComponent.QY" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>Quadrupole Y</p>
+</dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="at.collective.wake_object.WakeComponent.Z">
 <span class="sig-name descname"><span class="pre">Z</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></em><a class="headerlink" href="#at.collective.wake_object.WakeComponent.Z" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>Longitudinal</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -695,22 +787,26 @@ bunch_interval  minimum bunch interval data will be generate</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="at.collective.wake_object.WakeType.FILE">
 <span class="sig-name descname"><span class="pre">FILE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#at.collective.wake_object.WakeType.FILE" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>Import from file</p>
+</dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="at.collective.wake_object.WakeType.RESONATOR">
 <span class="sig-name descname"><span class="pre">RESONATOR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#at.collective.wake_object.WakeType.RESONATOR" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>Analytical resonator</p>
+</dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="at.collective.wake_object.WakeType.RESWALL">
 <span class="sig-name descname"><span class="pre">RESWALL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></em><a class="headerlink" href="#at.collective.wake_object.WakeType.RESWALL" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>Analytical resistive wall</p>
+</dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="at.collective.wake_object.WakeType.TABLE">
 <span class="sig-name descname"><span class="pre">TABLE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#at.collective.wake_object.WakeType.TABLE" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>Provide vectors</p>
+</dd></dl>
 
 </dd></dl>
 
