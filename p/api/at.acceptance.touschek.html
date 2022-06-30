@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>at.acceptance.touschek &#8212; Accelerator Toolbox 0.1.dev1+gf909957 documentation</title>
+    <title>at.acceptance.touschek &#8212; Accelerator Toolbox 0.1.dev1+g225cf12 documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -579,7 +579,7 @@ for the calculation</p>
 <dt class="sig sig-object py" id="at.acceptance.touschek.get_lifetime">
 <span class="sig-name descname"><span class="pre">get_lifetime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">emity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bunch_curr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">emitx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">momap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refpts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/acceptance/touschek.html#get_lifetime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.acceptance.touschek.get_lifetime" title="Permalink to this definition">#</a></dt>
 <dd><p>Touschek lifetime calculation</p>
-<p>Computes the touschek lifetime using the piwinski formula</p>
+<p>Computes the touschek lifetime using the Piwinski formula</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -601,7 +601,7 @@ the default is to compute it for all elements in the
 ring, <code class="docutils literal notranslate"><span class="pre">len(refpts)&gt;2</span></code> is required</p></li>
 <li><p><strong>resolution</strong> – minimum distance between 2 grid points, default=1.0e-3</p></li>
 <li><p><strong>amplitude</strong> – max. amplitude for <code class="docutils literal notranslate"><span class="pre">RADIAL</span></code> and <code class="docutils literal notranslate"><span class="pre">CARTESIAN</span></code> or
-initial step in <a href="#id1"><span class="problematic" id="id2">``</span></a>RECURSIVE`
+initial step in <code class="docutils literal notranslate"><span class="pre">RECURSIVE</span></code>
 default = 0.1</p></li>
 <li><p><strong>nturns=1024</strong> – Number of turns for the tracking</p></li>
 <li><p><strong>dp=None</strong> – static momentum offset</p></li>
