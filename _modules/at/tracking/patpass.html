@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>at.tracking.patpass &#8212; Accelerator Toolbox 0.1.dev1+g225cf12 documentation</title>
+    <title>at.tracking.patpass &#8212; Accelerator Toolbox 0.1.dev1+gb05964e documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -294,6 +294,15 @@
 <span class="sd">          flag for particles lost (True -&gt; particle lost), turn, element and</span>
 <span class="sd">          coordinates at which the particle is lost. Set to zero for particles</span>
 <span class="sd">          that survived</span>
+<span class="sd">          </span>
+<span class="sd">    .. note::</span>
+
+<span class="sd">       * For multiparticle tracking with large number of turn the size of ``r_out``</span>
+<span class="sd">         may increase excessively. To avoid memory issues </span>
+<span class="sd">         ``patpass(lattice, r_in, refpts=[])`` can be used. An empty list</span>
+<span class="sd">         is returned and the tracking results of the last turn are stored in</span>
+<span class="sd">         ``r_in``.</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
         <span class="n">ring</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">ring</span><span class="p">)</span>

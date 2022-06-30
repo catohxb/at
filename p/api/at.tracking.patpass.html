@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>at.tracking.patpass &#8212; Accelerator Toolbox 0.1.dev1+g225cf12 documentation</title>
+    <title>at.tracking.patpass &#8212; Accelerator Toolbox 0.1.dev1+gb05964e documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -619,6 +619,16 @@ coordinates at which the particle is lost. Set to zero for particles
 that survived</p>
 </dd>
 </dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>For multiparticle tracking with large number of turn the size of <code class="docutils literal notranslate"><span class="pre">r_out</span></code>
+may increase excessively. To avoid memory issues
+<code class="docutils literal notranslate"><span class="pre">patpass(lattice,</span> <span class="pre">r_in,</span> <span class="pre">refpts=[])</span></code> can be used. An empty list
+is returned and the tracking results of the last turn are stored in
+<code class="docutils literal notranslate"><span class="pre">r_in</span></code>.</p></li>
+</ul>
+</div>
 </dd></dl>
 
 </section>
