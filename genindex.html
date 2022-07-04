@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Index &#8212; Accelerator Toolbox 0.1.dev1+gc06b2d6 documentation</title>
+    <title>Index &#8212; Accelerator Toolbox 0.1.dev1+gd0af8e4 documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -742,6 +742,8 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="p/api/at.constants.html#at.constants.e_mass">e_mass (in module at.constants)</a>
 </li>
+      <li><a href="p/api/at.lattice.lattice_object.html#at.lattice.lattice_object.elem_generator">elem_generator() (in module at.lattice.lattice_object)</a>
+</li>
       <li><a href="p/api/at.lattice.elements.html#at.lattice.elements.Element">Element (class in at.lattice.elements)</a>
 </li>
       <li><a href="p/api/at.load.utils.html#at.load.utils.element_from_dict">element_from_dict() (in module at.load.utils)</a>
@@ -758,18 +760,14 @@
 </li>
       <li><a href="p/api/at.matching.matching.html#at.matching.matching.ElementConstraints">ElementConstraints (class in at.matching.matching)</a>
 </li>
-      <li><a href="p/api/at.matching.matching.html#at.matching.matching.ElementVariable">ElementVariable (class in at.matching.matching)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="p/api/at.matching.matching.html#at.matching.matching.ElementVariable">ElementVariable (class in at.matching.matching)</a>
+</li>
       <li><a href="p/api/at.physics.energy_loss.html#at.physics.energy_loss.ELossMethod">ELossMethod (class in at.physics.energy_loss)</a>
 </li>
-      <li><a href="p/api/at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice.energy">energy (Lattice attribute)</a>
-
-      <ul>
-        <li><a href="p/api/at.lattice.lattice_object.html#id0">(Lattice property)</a>
+      <li><a href="p/api/at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice.energy">energy (Lattice property)</a>
 </li>
-      </ul></li>
       <li><a href="p/api/at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice.energy_loss">energy_loss (Lattice property)</a>
 </li>
       <li><a href="p/api/at.physics.ring_parameters.html#at.physics.ring_parameters.envelope_parameters">envelope_parameters() (in module at.physics.ring_parameters)</a>
@@ -1030,12 +1028,8 @@
 </li>
       <li><a href="p/api/at.collective.haissinski.html#at.collective.haissinski.Haissinski">Haissinski (class in at.collective.haissinski)</a>
 </li>
-      <li><a href="p/api/at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice.harmonic_number">harmonic_number (Lattice attribute)</a>
-
-      <ul>
-        <li><a href="p/api/at.lattice.lattice_object.html#id17">(Lattice property)</a>
+      <li><a href="p/api/at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice.harmonic_number">harmonic_number (Lattice property)</a>
 </li>
-      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="p/api/at.physics.harmonic_analysis.html#at.physics.harmonic_analysis.HarmonicAnalysis">HarmonicAnalysis (class in at.physics.harmonic_analysis)</a>
@@ -1064,10 +1058,22 @@
         <li><a href="p/api/at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice.insert">(Lattice method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="p/api/at.physics.energy_loss.html#at.physics.energy_loss.ELossMethod.INTEGRAL">INTEGRAL (ELossMethod attribute)</a>
 </li>
+      <li><a href="p/api/at.lattice.elements.html#at.lattice.elements.Dipole.is_compatible">is_compatible() (Dipole method)</a>
+
+      <ul>
+        <li><a href="p/api/at.lattice.elements.html#at.lattice.elements.Element.is_compatible">(Element method)</a>
+</li>
+        <li><a href="p/api/at.lattice.elements.html#at.lattice.elements.LongElement.is_compatible">(LongElement method)</a>
+</li>
+        <li><a href="p/api/at.lattice.elements.html#at.lattice.elements.Multipole.is_compatible">(Multipole method)</a>
+</li>
+        <li><a href="p/api/at.lattice.elements.html#at.lattice.elements.RFCavity.is_compatible">(RFCavity method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="p/api/at.tracking.atpass.html#at.tracking.atpass.ismpi">ismpi() (in module at.tracking.atpass)</a>
 </li>
       <li><a href="p/api/at.tracking.atpass.html#at.tracking.atpass.isopenmp">isopenmp() (in module at.tracking.atpass)</a>
@@ -1170,6 +1176,16 @@
 </li>
       <li><a href="p/api/at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice.mcf">mcf (Lattice property)</a>
 </li>
+      <li><a href="p/api/at.lattice.elements.html#at.lattice.elements.Dipole.merge">merge() (Dipole method)</a>
+
+      <ul>
+        <li><a href="p/api/at.lattice.elements.html#at.lattice.elements.Element.merge">(Element method)</a>
+</li>
+        <li><a href="p/api/at.lattice.elements.html#at.lattice.elements.LongElement.merge">(LongElement method)</a>
+</li>
+        <li><a href="p/api/at.lattice.elements.html#at.lattice.elements.RFCavity.merge">(RFCavity method)</a>
+</li>
+      </ul></li>
       <li><a href="p/api/at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice.modify_elements">modify_elements() (Lattice method)</a>
 </li>
       <li>
@@ -1289,14 +1305,12 @@
 <h2 id="N">N</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="p/api/at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice.name">name (Lattice attribute)</a>
-</li>
       <li><a href="p/api/at.lattice.lattice_object.html#at.lattice.lattice_object.no_filter">no_filter() (in module at.lattice.lattice_object)</a>
+</li>
+      <li><a href="p/api/at.lattice.cavity_access.html#at.lattice.cavity_access.Frf.NOMINAL">NOMINAL (Frf attribute)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="p/api/at.lattice.cavity_access.html#at.lattice.cavity_access.Frf.NOMINAL">NOMINAL (Frf attribute)</a>
-</li>
       <li><a href="p/api/at.collective.wake_elements.html#at.collective.wake_elements.WakeElement.Nslice">Nslice (WakeElement property)</a>
 </li>
       <li><a href="p/api/at.collective.wake_elements.html#at.collective.wake_elements.WakeElement.Nturns">Nturns (WakeElement property)</a>
@@ -1339,28 +1353,22 @@
 </li>
       <li><a href="p/api/at.lattice.particle_object.html#at.lattice.particle_object.Particle">Particle (class in at.lattice.particle_object)</a>
 </li>
-      <li><a href="p/api/at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice.particle">particle (Lattice attribute)</a>
-
-      <ul>
-        <li><a href="p/api/at.lattice.lattice_object.html#id18">(Lattice property)</a>
+      <li><a href="p/api/at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice.particle">particle (Lattice property)</a>
 </li>
-      </ul></li>
       <li><a href="p/api/at.tracking.patpass.html#at.tracking.patpass.patpass">patpass() (in module at.tracking.patpass)</a>
-</li>
-      <li><a href="p/api/at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice.periodicity">periodicity (Lattice attribute)</a>
 </li>
       <li><a href="p/api/at.plot.specific.html#at.plot.specific.pldata_beta_disp">pldata_beta_disp() (in module at.plot.specific)</a>
 </li>
       <li><a href="p/api/at.plot.specific.html#at.plot.specific.pldata_linear">pldata_linear() (in module at.plot.specific)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="p/api/at.plot.standalone.html#at.plot.standalone.plot_acceptance">plot_acceptance() (in module at.plot.standalone)</a>
 
       <ul>
         <li><a href="p/api/at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice.plot_acceptance">(Lattice method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="p/api/at.plot.specific.html#at.plot.specific.plot_beta">plot_beta() (in module at.plot.specific)</a>
 
       <ul>
@@ -1436,6 +1444,8 @@
 </li>
       </ul></li>
       <li><a href="p/api/at.acceptance.boundary.html#at.acceptance.boundary.GridMode.RECURSIVE">RECURSIVE (GridMode attribute)</a>
+</li>
+      <li><a href="p/api/at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice.reduce">reduce() (Lattice method)</a>
 </li>
       <li><a href="p/api/at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice.refcount">refcount() (Lattice method)</a>
 </li>

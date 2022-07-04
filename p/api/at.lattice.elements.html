@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>at.lattice.elements &#8212; Accelerator Toolbox 0.1.dev1+gc06b2d6 documentation</title>
+    <title>at.lattice.elements &#8212; Accelerator Toolbox 0.1.dev1+gd0af8e4 documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -716,6 +716,22 @@ responsibility to ensure that the appropriate attributes are present.</p>
 </dd>
 </dl>
 <p>Default PassMethod: <code class="docutils literal notranslate"><span class="pre">BndMPoleSymplectic4Pass</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="at.lattice.elements.Dipole.is_compatible">
+<span class="sig-name descname"><span class="pre">is_compatible</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/elements.html#Dipole.is_compatible"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.elements.Dipole.is_compatible" title="Permalink to this definition">#</a></dt>
+<dd><p>Checks if another Element can be merged</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="at.lattice.elements.Dipole.merge">
+<span class="sig-name descname"><span class="pre">merge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/elements.html#Dipole.merge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.elements.Dipole.merge" title="Permalink to this definition">#</a></dt>
+<dd><p>Merge another element</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
 <dl class="py attribute">
 <dt class="sig sig-object py" id="at.lattice.elements.Dipole.DefaultOrder">
 <span class="sig-name descname"><span class="pre">DefaultOrder</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#at.lattice.elements.Dipole.DefaultOrder" title="Permalink to this definition">#</a></dt>
@@ -763,12 +779,13 @@ the drift will be divided but no element will be inserted.</p></li>
 </dd>
 </dl>
 <p>Drifts with negative lengths may be generated if necessary.</p>
-<p>Examples:</p>
+<p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Drift</span><span class="p">(</span><span class="s1">&#39;dr&#39;</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">)</span><span class="o">.</span><span class="n">insert</span><span class="p">(((</span><span class="mf">0.25</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="p">(</span><span class="mf">0.75</span><span class="p">,</span> <span class="kc">None</span><span class="p">)))</span>
 <span class="go">[Drift(&#39;dr&#39;, 0.5), Drift(&#39;dr&#39;, 1.0), Drift(&#39;dr&#39;, 0.5)]</span>
 </pre></div>
 </div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Drift</span><span class="p">(</span><span class="s1">&#39;dr&#39;</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">)</span><span class="o">.</span><span class="n">insert</span><span class="p">(((</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">Marker</span><span class="p">(</span><span class="s1">&#39;m1&#39;</span><span class="p">)),</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">Marker</span><span class="p">(</span><span class="s1">&#39;m2&#39;</span><span class="p">))))</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Drift</span><span class="p">(</span><span class="s1">&#39;dr&#39;</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">)</span><span class="o">.</span><span class="n">insert</span><span class="p">(((</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">Marker</span><span class="p">(</span><span class="s1">&#39;m1&#39;</span><span class="p">)),</span>
+<span class="gp">... </span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">Marker</span><span class="p">(</span><span class="s1">&#39;m2&#39;</span><span class="p">))))</span>
 <span class="go">[Marker(&#39;m1&#39;), Drift(&#39;dr&#39;, 1.0), Marker(&#39;m2&#39;), Drift(&#39;dr&#39;, 1.0)]</span>
 </pre></div>
 </div>
@@ -821,7 +838,7 @@ initial length. <code class="docutils literal notranslate"><span class="pre">sum
 <dd class="field-even"><p><strong>elem_list</strong> – a list of elements equivalent to the original.</p>
 </dd>
 </dl>
-<p>Examples:</p>
+<p class="rubric">Example</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Drift</span><span class="p">(</span><span class="s1">&#39;dr&#39;</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">divide</span><span class="p">([</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">])</span>
 <span class="go">[Drift(&#39;dr&#39;, 0.1), Drift(&#39;dr&#39;, 0.3), Drift(&#39;dr&#39;, 0.1)]</span>
 </pre></div>
@@ -839,9 +856,25 @@ __eq__ method when comparing lattices.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="at.lattice.elements.Element.is_compatible">
+<span class="sig-name descname"><span class="pre">is_compatible</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/elements.html#Element.is_compatible"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.elements.Element.is_compatible" title="Permalink to this definition">#</a></dt>
+<dd><p>Checks if another Element can be merged</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="at.lattice.elements.Element.items">
 <span class="sig-name descname"><span class="pre">items</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/elements.html#Element.items"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.elements.Element.items" title="Permalink to this definition">#</a></dt>
 <dd><p>Iterates through the data members including slots and properties</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="at.lattice.elements.Element.merge">
+<span class="sig-name descname"><span class="pre">merge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/elements.html#Element.merge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.elements.Element.merge" title="Permalink to this definition">#</a></dt>
+<dd><p>Merge another element</p>
 <dl class="field-list simple">
 </dl>
 </dd></dl>
@@ -892,11 +925,27 @@ initial length. <code class="docutils literal notranslate"><span class="pre">sum
 <dd class="field-even"><p><strong>elem_list</strong> – a list of elements equivalent to the original.</p>
 </dd>
 </dl>
-<p>Examples:</p>
+<p class="rubric">Example</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Drift</span><span class="p">(</span><span class="s1">&#39;dr&#39;</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">divide</span><span class="p">([</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">])</span>
 <span class="go">[Drift(&#39;dr&#39;, 0.1), Drift(&#39;dr&#39;, 0.3), Drift(&#39;dr&#39;, 0.1)]</span>
 </pre></div>
 </div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="at.lattice.elements.LongElement.is_compatible">
+<span class="sig-name descname"><span class="pre">is_compatible</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/elements.html#LongElement.is_compatible"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.elements.LongElement.is_compatible" title="Permalink to this definition">#</a></dt>
+<dd><p>Checks if another Element can be merged</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="at.lattice.elements.LongElement.merge">
+<span class="sig-name descname"><span class="pre">merge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/elements.html#LongElement.merge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.elements.LongElement.merge" title="Permalink to this definition">#</a></dt>
+<dd><p>Merge another element</p>
+<dl class="field-list simple">
+</dl>
 </dd></dl>
 
 <dl class="py attribute">
@@ -977,6 +1026,14 @@ non-zero polynomial coefficients</p></li>
 </dd>
 </dl>
 <p>Default PassMethod: <code class="docutils literal notranslate"><span class="pre">StrMPoleSymplectic4Pass</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="at.lattice.elements.Multipole.is_compatible">
+<span class="sig-name descname"><span class="pre">is_compatible</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/elements.html#Multipole.is_compatible"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.elements.Multipole.is_compatible" title="Permalink to this definition">#</a></dt>
+<dd><p>Checks if another Element can be merged</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
 <dl class="py property">
 <dt class="sig sig-object py" id="at.lattice.elements.Multipole.K">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">K</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#at.lattice.elements.Multipole.K" title="Permalink to this definition">#</a></dt>
@@ -1090,6 +1147,22 @@ non-zero polynomial coefficients</p></li>
 </dd>
 </dl>
 <p>Default PassMethod: <code class="docutils literal notranslate"><span class="pre">RFCavityPass</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="at.lattice.elements.RFCavity.is_compatible">
+<span class="sig-name descname"><span class="pre">is_compatible</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/elements.html#RFCavity.is_compatible"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.elements.RFCavity.is_compatible" title="Permalink to this definition">#</a></dt>
+<dd><p>Checks if another Element can be merged</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="at.lattice.elements.RFCavity.merge">
+<span class="sig-name descname"><span class="pre">merge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/elements.html#RFCavity.merge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.elements.RFCavity.merge" title="Permalink to this definition">#</a></dt>
+<dd><p>Merge another element</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
 <dl class="py attribute">
 <dt class="sig sig-object py" id="at.lattice.elements.RFCavity.REQUIRED_ATTRIBUTES">
 <span class="sig-name descname"><span class="pre">REQUIRED_ATTRIBUTES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['FamName',</span> <span class="pre">'Length',</span> <span class="pre">'Voltage',</span> <span class="pre">'Frequency',</span> <span class="pre">'HarmNumber',</span> <span class="pre">'Energy']</span></em><a class="headerlink" href="#at.lattice.elements.RFCavity.REQUIRED_ATTRIBUTES" title="Permalink to this definition">#</a></dt>
@@ -1128,8 +1201,9 @@ non-zero polynomial coefficients</p></li>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="at.lattice.elements.Sextupole.H">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">H</span></span><a class="headerlink" href="#at.lattice.elements.Sextupole.H" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">H</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#at.lattice.elements.Sextupole.H" title="Permalink to this definition">#</a></dt>
+<dd><p>Sextupolar strength</p>
+</dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="at.lattice.elements.Sextupole.REQUIRED_ATTRIBUTES">

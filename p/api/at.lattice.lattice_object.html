@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>at.lattice.lattice_object &#8212; Accelerator Toolbox 0.1.dev1+gc06b2d6 documentation</title>
+    <title>at.lattice.lattice_object &#8212; Accelerator Toolbox 0.1.dev1+gd0af8e4 documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -558,7 +558,10 @@ automatically imported.</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#at.lattice.lattice_object.lattice_filter" title="at.lattice.lattice_object.lattice_filter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lattice_filter</span></code></a>(params, lattice)</p></td>
 <td><p>Copy lattice parameters and run through all lattice elements</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#at.lattice.lattice_object.no_filter" title="at.lattice.lattice_object.no_filter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">no_filter</span></code></a>(params, elems)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#at.lattice.lattice_object.elem_generator" title="at.lattice.lattice_object.elem_generator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">elem_generator</span></code></a>(params, elems)</p></td>
+<td><p>Run through all elements without any check</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#at.lattice.lattice_object.no_filter" title="at.lattice.lattice_object.no_filter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">no_filter</span></code></a>(params, elems)</p></td>
 <td><p>Run through all elements without any check</p></td>
 </tr>
 </tbody>
@@ -567,7 +570,7 @@ automatically imported.</p>
 <table class="autosummary longtable table autosummary">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Lattice</span></code></a>()</p></td>
-<td><p>Lattice object</p></td>
+<td><p>Lattice object.</p></td>
 </tr>
 </tbody>
 </table>
@@ -577,39 +580,10 @@ automatically imported.</p>
 <dt class="sig sig-object py">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Lattice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filter</span></span></em>, <span class="optional">[</span><em class="sig-param"><span class="n"><span class="pre">filter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">...</span></span></em>, <span class="optional">]</span><em class="sig-param"><span class="n"><span class="pre">iterator=iter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**params</span></span></em><span class="sig-paren">)</span></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a></p>
-<p>Lattice object</p>
-<p>An AT lattice is a sequence of AT elements which accepts extended indexing
-(as a numpy ndarray). It has the following attributes:</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="at.lattice.lattice_object.Lattice.name">
-<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#at.lattice.lattice_object.Lattice.name" title="Permalink to this definition">#</a></dt>
-<dd><p>Name of the lattice</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="at.lattice.lattice_object.Lattice.energy">
-<span class="sig-name descname"><span class="pre">energy</span></span><a class="headerlink" href="#at.lattice.lattice_object.Lattice.energy" title="Permalink to this definition">#</a></dt>
-<dd><p>Particle energy</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="at.lattice.lattice_object.Lattice.periodicity">
-<span class="sig-name descname"><span class="pre">periodicity</span></span><a class="headerlink" href="#at.lattice.lattice_object.Lattice.periodicity" title="Permalink to this definition">#</a></dt>
-<dd><p>Number of super-periods to describe the full ring</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="at.lattice.lattice_object.Lattice.particle">
-<span class="sig-name descname"><span class="pre">particle</span></span><a class="headerlink" href="#at.lattice.lattice_object.Lattice.particle" title="Permalink to this definition">#</a></dt>
-<dd><p>Circulating particle</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="at.lattice.lattice_object.Lattice.harmonic_number">
-<span class="sig-name descname"><span class="pre">harmonic_number</span></span><a class="headerlink" href="#at.lattice.lattice_object.Lattice.harmonic_number" title="Permalink to this definition">#</a></dt>
-<dd><p>Harmonic number of the full ring (periodicity x cells)</p>
-</dd></dl>
-
+<p>Lattice object.</p>
+<p>An AT lattice is a sequence of AT elements. In addition to <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>
+methods, <a class="reference internal" href="#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lattice</span></code></a> supports
+<a class="reference external" href="https://numpy.org/doc/stable/user/basics.indexing.html#advanced-indexing">extended indexing</a> as a numpy <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -684,17 +658,15 @@ energy and periodicity if not yet defined.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="at.lattice.lattice_object.Lattice.attrs_filter">
-<span class="sig-name descname"><span class="pre">attrs_filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">elems</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/lattice_object.html#Lattice.attrs_filter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.lattice_object.Lattice.attrs_filter" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">attrs_filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">elem_filter</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/lattice_object.html#Lattice.attrs_filter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.lattice_object.Lattice.attrs_filter" title="Permalink to this definition">#</a></dt>
 <dd><p>Filter function which duplicates the lattice attributes</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Dictionary of Lattice attributes</p></li>
-<li><p><strong>elems</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.10)"><em>Iterable</em></a><em>[</em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>]</em>) – iterable of lattice <code class="docutils literal notranslate"><span class="pre">Elements</span></code></p></li>
+<li><p><strong>elem_filter</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.10)"><em>Callable</em></a><em>[</em><em>[</em><em>...</em><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.10)"><em>Iterable</em></a><em>[</em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>]</em><em>]</em>) – Element filter</p></li>
+<li><p><strong>*args</strong> – Arguments provided to <code class="docutils literal notranslate"><span class="pre">elem_filter</span></code></p></li>
 </ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>elems</strong> – <strong>elems</strong> unchanged</p>
 </dd>
 </dl>
 </dd></dl>
@@ -2973,6 +2945,25 @@ attributes:</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="at.lattice.lattice_object.Lattice.reduce">
+<span class="sig-name descname"><span class="pre">reduce</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/lattice_object.html#Lattice.reduce"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.lattice_object.Lattice.reduce" title="Permalink to this definition">#</a></dt>
+<dd><p>Removes all elements with an <code class="docutils literal notranslate"><span class="pre">IdentityPass</span></code> PassMethod and merges
+compatible consecutive elements.</p>
+<p>The “reduced” lattice has the same optics as the original one, but
+fewer elements. Compatible elements must have the same <code class="docutils literal notranslate"><span class="pre">PolynomA</span></code>,
+<code class="docutils literal notranslate"><span class="pre">PolynomB</span></code> and bending radius, so that the optics is preserved. But
+magnet misalignments are not preserved, so this method should be
+applied to lattices without errors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>keep</strong> (<em>Refpts</em>) – Keep the selected elements, even with
+<code class="docutils literal notranslate"><span class="pre">IdentityPass</span></code> PassMethod. Default: keep <a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Monitor" title="at.lattice.elements.Monitor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Monitor</span></code></a>
+and <a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.RFCavity" title="at.lattice.elements.RFCavity"><code class="xref py py-class docutils literal notranslate"><span class="pre">RFCavity</span></code></a> elements</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="at.lattice.lattice_object.Lattice.refcount">
 <span class="sig-name descname"><span class="pre">refcount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">refpts</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#at.lattice.lattice_object.Lattice.refcount" title="Permalink to this definition">#</a></dt>
 <dd><p>Returns the number of reference points</p>
@@ -3415,12 +3406,12 @@ selected elements</p></li>
 <dl class="py property">
 <dt class="sig sig-object py" id="at.lattice.lattice_object.Lattice.circumference">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">circumference</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#at.lattice.lattice_object.Lattice.circumference" title="Permalink to this definition">#</a></dt>
-<dd><p>Ring circumference (full ring) [m]</p>
+<dd><p>Ring circumference (full self) [m]</p>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="id0">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">energy</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#id0" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="at.lattice.lattice_object.Lattice.energy">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">energy</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#at.lattice.lattice_object.Lattice.energy" title="Permalink to this definition">#</a></dt>
 <dd><p>Lattice energy</p>
 </dd></dl>
 
@@ -3449,9 +3440,9 @@ See <code class="xref py py-class docutils literal notranslate"><span class="pre
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="id17">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">harmonic_number</span></span><a class="headerlink" href="#id17" title="Permalink to this definition">#</a></dt>
-<dd><p>Ring harmonic number (full ring)</p>
+<dt class="sig sig-object py" id="at.lattice.lattice_object.Lattice.harmonic_number">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">harmonic_number</span></span><a class="headerlink" href="#at.lattice.lattice_object.Lattice.harmonic_number" title="Permalink to this definition">#</a></dt>
+<dd><p>Ring harmonic number (full self)</p>
 </dd></dl>
 
 <dl class="py property">
@@ -3467,8 +3458,8 @@ See <code class="xref py py-class docutils literal notranslate"><span class="pre
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="id18">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">particle</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="at.lattice.particle_object.html#at.lattice.particle_object.Particle" title="at.lattice.particle_object.Particle"><span class="pre">Particle</span></a></em><a class="headerlink" href="#id18" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="at.lattice.lattice_object.Lattice.particle">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">particle</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="at.lattice.particle_object.html#at.lattice.particle_object.Particle" title="at.lattice.particle_object.Particle"><span class="pre">Particle</span></a></em><a class="headerlink" href="#at.lattice.lattice_object.Lattice.particle" title="Permalink to this definition">#</a></dt>
 <dd><p>Circulating particle</p>
 </dd></dl>
 
@@ -3522,6 +3513,23 @@ See <code class="xref py py-class docutils literal notranslate"><span class="pre
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="at.lattice.lattice_object.elem_generator">
+<span class="sig-name descname"><span class="pre">elem_generator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">elems</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/lattice_object.html#elem_generator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.lattice_object.elem_generator" title="Permalink to this definition">#</a></dt>
+<dd><p>Run through all elements without any check</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>params</strong> – Dictionary of Lattice attributes</p></li>
+<li><p><strong>elems</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.10)"><em>Iterable</em></a><em>[</em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>]</em>) – Iterable of lattice <code class="docutils literal notranslate"><span class="pre">Elements</span></code></p></li>
+</ul>
+</dd>
+<dt class="field-even">Yields<span class="colon">:</span></dt>
+<dd class="field-even"><p>lattice <code class="docutils literal notranslate"><span class="pre">Elements</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="at.lattice.lattice_object.lattice_filter">
 <span class="sig-name descname"><span class="pre">lattice_filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lattice</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/lattice_object.html#lattice_filter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.lattice_object.lattice_filter" title="Permalink to this definition">#</a></dt>
 <dd><p>Copy lattice parameters and run through all lattice elements</p>
@@ -3540,7 +3548,7 @@ See <code class="xref py py-class docutils literal notranslate"><span class="pre
 
 <dl class="py function">
 <dt class="sig sig-object py" id="at.lattice.lattice_object.no_filter">
-<span class="sig-name descname"><span class="pre">no_filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">elems</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/lattice_object.html#no_filter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.lattice_object.no_filter" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">no_filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">elems</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#at.lattice.lattice_object.no_filter" title="Permalink to this definition">#</a></dt>
 <dd><p>Run through all elements without any check</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
