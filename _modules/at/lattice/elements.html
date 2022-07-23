@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>at.lattice.elements &#8212; Accelerator Toolbox 0.1.dev1+g7cd5126 documentation</title>
+    <title>at.lattice.elements &#8212; Accelerator Toolbox 0.1.dev1+gf9e2e73 documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -519,12 +519,12 @@
         <span class="n">poly_b</span><span class="p">,</span> <span class="n">len_b</span><span class="p">,</span> <span class="n">ord_b</span> <span class="o">=</span> <span class="n">getpol</span><span class="p">(</span><span class="n">_array</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;PolynomB&#39;</span><span class="p">,</span> <span class="n">poly_b</span><span class="p">)))</span>
         <span class="n">deforder</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;DefaultOrder&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">ord_a</span><span class="p">,</span> <span class="n">ord_b</span><span class="p">)</span>
         <span class="n">maxorder</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;MaxOrder&#39;</span><span class="p">,</span> <span class="n">deforder</span><span class="p">)</span>
-        <span class="n">len_ab</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">maxorder</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">len_a</span><span class="p">,</span> <span class="n">len_b</span><span class="p">)</span>
         <span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;PassMethod&#39;</span><span class="p">,</span> <span class="s1">&#39;ThinMPolePass&#39;</span><span class="p">)</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">ThinMultipole</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">family_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="c1"># Set MaxOrder while PolynomA and PolynomB are not set yet</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">ThinMultipole</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="s1">&#39;MaxOrder&#39;</span><span class="p">,</span> <span class="n">maxorder</span><span class="p">)</span>
         <span class="c1"># Adjust polynom lengths and set them</span>
+        <span class="n">len_ab</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MaxOrder</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">len_a</span><span class="p">,</span> <span class="n">len_b</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">PolynomA</span> <span class="o">=</span> <span class="n">lengthen</span><span class="p">(</span><span class="n">poly_a</span><span class="p">,</span> <span class="n">len_ab</span> <span class="o">-</span> <span class="n">len_a</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">PolynomB</span> <span class="o">=</span> <span class="n">lengthen</span><span class="p">(</span><span class="n">poly_b</span><span class="p">,</span> <span class="n">len_ab</span> <span class="o">-</span> <span class="n">len_b</span><span class="p">)</span>
 

@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>at.lattice.lattice_object &#8212; Accelerator Toolbox 0.1.dev1+g7cd5126 documentation</title>
+    <title>at.lattice.lattice_object &#8212; Accelerator Toolbox 0.1.dev1+gf9e2e73 documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -314,14 +314,10 @@
         <span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;_particle&#39;</span><span class="p">,</span> <span class="n">Particle</span><span class="p">())</span>
         <span class="c1"># Remove temporary keywords</span>
         <span class="n">frequency</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;_frequency&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-        <span class="n">cell_h</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;_harmnumber&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="n">cell_length</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;_length&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">cell_h</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;_harmnumber&#39;</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+        <span class="n">ring_h</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;harmonic_number&#39;</span><span class="p">,</span> <span class="n">periodicity</span><span class="o">*</span><span class="n">cell_h</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="s1">&#39;harmonic_number&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
-            <span class="n">cell_h</span><span class="p">,</span> <span class="n">rem</span> <span class="o">=</span> <span class="nb">divmod</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;harmonic_number&#39;</span><span class="p">),</span> <span class="n">periodicity</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">rem</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="n">AtError</span><span class="p">(</span><span class="s1">&#39;harmonic number must be a multiple of </span><span class="si">{}</span><span class="s1">&#39;</span>
-                              <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">periodicity</span><span class="p">))</span>
         <span class="k">if</span> <span class="s1">&#39;energy&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
             <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;_energy&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="k">elif</span> <span class="s1">&#39;_energy&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
@@ -332,11 +328,11 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
 
         <span class="c1"># Setting the harmonic number is delayed to have self.beta available</span>
-        <span class="k">if</span> <span class="n">cell_h</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_cell_harmnumber</span> <span class="o">=</span> <span class="n">cell_h</span>
-        <span class="k">elif</span> <span class="n">frequency</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">frequency</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">frequency</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">):</span>
             <span class="n">rev</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta</span> <span class="o">*</span> <span class="n">clight</span> <span class="o">/</span> <span class="n">cell_length</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_cell_harmnumber</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">frequency</span> <span class="o">/</span> <span class="n">rev</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="n">math</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">ring_h</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">harmonic_number</span> <span class="o">=</span> <span class="n">ring_h</span>
 
     <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>                                <span class="c1"># Integer</span>
@@ -612,20 +608,22 @@
     <span class="k">def</span> <span class="nf">harmonic_number</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Ring harmonic number (full self)&quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">periodicity</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cell_harmnumber</span>
+            <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">periodicity</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cell_harmnumber</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s1">&#39;harmonic_number undefined: &#39;</span>
                                  <span class="s1">&#39;No cavity found in the lattice&#39;</span><span class="p">)</span> <span class="kn">from</span> <span class="bp">None</span>
 
     <span class="nd">@harmonic_number</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">harmonic_number</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="n">periods</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">periodicity</span><span class="p">)</span>
-        <span class="n">cell_h</span><span class="p">,</span> <span class="n">rem</span> <span class="o">=</span> <span class="nb">divmod</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">),</span> <span class="n">periods</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">rem</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_cell_harmnumber</span> <span class="o">=</span> <span class="n">cell_h</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">AtError</span><span class="p">(</span><span class="s1">&#39;harmonic number must be a multiple of </span><span class="si">{}</span><span class="s1">&#39;</span>
-                          <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">periods</span><span class="p">))</span>
+        <span class="n">cell_h</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">periodicity</span>
+        <span class="c1"># check on ring</span>
+        <span class="k">if</span> <span class="n">value</span><span class="o">-</span><span class="nb">round</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">AtError</span><span class="p">(</span><span class="s1">&#39;harmonic number (</span><span class="si">{}</span><span class="s1">) must be integer&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+        <span class="c1"># check on cell</span>
+        <span class="c1"># if cell_h-round(cell_h) != 0:</span>
+        <span class="c1">#     raise AtError(&#39;harmonic number ({}) must be a multiple of {}&#39;</span>
+        <span class="c1">#                   .format(value, int(self.periodicity)))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cell_harmnumber</span> <span class="o">=</span> <span class="n">cell_h</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">gamma</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
@@ -1066,6 +1064,14 @@
 <span class="sd">    Yields:</span>
 <span class="sd">        lattice ``Elements``</span>
 
+<span class="sd">    The following keys in ``params`` are set:</span>
+
+<span class="sd">    * ``_length``</span>
+<span class="sd">    * ``periodicity``</span>
+<span class="sd">    * ``energy`` (optional)</span>
+<span class="sd">    * ``_frequency`` (optional)</span>
+<span class="sd">    * ``harmonic_number`` (optional)</span>
+
 <span class="sd">    energy is taken from:</span>
 <span class="sd">        1) The params dictionary</span>
 <span class="sd">        2) Cavity elements</span>
@@ -1096,7 +1102,9 @@
     <span class="k">if</span> <span class="n">cavities</span><span class="p">:</span>
         <span class="n">cavities</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">el</span><span class="p">:</span> <span class="n">el</span><span class="o">.</span><span class="n">Frequency</span><span class="p">)</span>
         <span class="n">c0</span> <span class="o">=</span> <span class="n">cavities</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">params</span><span class="p">[</span><span class="s1">&#39;_harmnumber&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">c0</span><span class="p">,</span> <span class="s1">&#39;HarmNumber&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">params</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;harmonic_number&#39;</span><span class="p">,</span>
+                          <span class="nb">getattr</span><span class="p">(</span><span class="n">c0</span><span class="p">,</span> <span class="s1">&#39;HarmNumber&#39;</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">nan</span><span class="p">))</span>
+        <span class="c1"># params[&#39;_harmnumber&#39;] = getattr(c0, &#39;HarmNumber&#39;, math.nan)</span>
         <span class="n">params</span><span class="p">[</span><span class="s1">&#39;_frequency&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">c0</span><span class="p">,</span> <span class="s1">&#39;Frequency&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="s1">&#39;energy&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">params</span><span class="p">:</span>

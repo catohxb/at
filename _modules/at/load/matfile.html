@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>at.load.matfile &#8212; Accelerator Toolbox 0.1.dev1+g7cd5126 documentation</title>
+    <title>at.load.matfile &#8212; Accelerator Toolbox 0.1.dev1+gf9e2e73 documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -187,8 +187,9 @@
 
 <span class="n">_param_to_lattice</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Energy&#39;</span><span class="p">:</span> <span class="s1">&#39;energy&#39;</span><span class="p">,</span> <span class="s1">&#39;Periodicity&#39;</span><span class="p">:</span> <span class="s1">&#39;periodicity&#39;</span><span class="p">,</span>
                      <span class="s1">&#39;FamName&#39;</span><span class="p">:</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;Particle&#39;</span><span class="p">:</span> <span class="s1">&#39;_particle&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;cell_harmnumber&#39;</span><span class="p">:</span> <span class="s1">&#39;_harmcell&#39;</span><span class="p">,</span>
                      <span class="s1">&#39;HarmNumber&#39;</span><span class="p">:</span> <span class="s1">&#39;harmonic_number&#39;</span><span class="p">}</span>
-<span class="n">_param_ignore</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;PassMethod&#39;</span><span class="p">,</span> <span class="s1">&#39;Length&#39;</span><span class="p">}</span>
+<span class="n">_param_ignore</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;PassMethod&#39;</span><span class="p">,</span> <span class="s1">&#39;Length&#39;</span><span class="p">,</span> <span class="s1">&#39;cavpts&#39;</span><span class="p">}</span>
 
 <span class="c1"># Python to Matlab attribute translation</span>
 <span class="n">_matattr_map</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(((</span><span class="n">v</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">_param_to_lattice</span><span class="o">.</span><span class="n">items</span><span class="p">()))</span>
@@ -257,6 +258,8 @@
 <span class="sd">        params:         Lattice building parameters (see :py:class:`.Lattice`)</span>
 <span class="sd">        elem_iterator:  Iterator over the lattice Elements</span>
 
+<span class="sd">    Yields:</span>
+<span class="sd">        elem (Element): new Elements</span>
 
 <span class="sd">    The following keys in ``params`` are used:</span>
 
@@ -264,8 +267,15 @@
 <span class="sd">    **keep_all**    keep RingParam elem_iterator as Markers</span>
 <span class="sd">    ============    ===================</span>
 
-<span class="sd">    Yields:</span>
-<span class="sd">        elem (Element): new Elements</span>
+<span class="sd">    The following keys in ``params`` are set:</span>
+
+<span class="sd">    * ``name``</span>
+<span class="sd">    * ``energy``</span>
+<span class="sd">    * ``periodicity``</span>
+<span class="sd">    * ``_harmnumber`` or</span>
+<span class="sd">    * ``harmonic_number``</span>
+<span class="sd">    * ``_particle``</span>
+<span class="sd">    * ``_radiation``</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">keep_all</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;keep_all&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
     <span class="n">ringparams</span> <span class="o">=</span> <span class="p">[]</span>
