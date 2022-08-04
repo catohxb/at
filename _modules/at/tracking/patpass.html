@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>at.tracking.patpass &#8212; Accelerator Toolbox 0.1.dev1+g551ed7e documentation</title>
+    <title>at.tracking.patpass &#8212; Accelerator Toolbox 0.1.dev1+g6e8de80 documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -294,11 +294,11 @@
 <span class="sd">          flag for particles lost (True -&gt; particle lost), turn, element and</span>
 <span class="sd">          coordinates at which the particle is lost. Set to zero for particles</span>
 <span class="sd">          that survived</span>
-<span class="sd">          </span>
+
 <span class="sd">    .. note::</span>
 
-<span class="sd">       * For multiparticle tracking with large number of turn the size of ``r_out``</span>
-<span class="sd">         may increase excessively. To avoid memory issues </span>
+<span class="sd">       * For multiparticle tracking with large number of turn the size of</span>
+<span class="sd">         ``r_out`` may increase excessively. To avoid memory issues</span>
 <span class="sd">         ``patpass(lattice, r_in, refpts=[])`` can be used. An empty list</span>
 <span class="sd">         is returned and the tracking results of the last turn are stored in</span>
 <span class="sd">         ``r_in``.</span>
@@ -311,6 +311,9 @@
     <span class="n">refpts</span> <span class="o">=</span> <span class="n">uint32_refpts</span><span class="p">(</span><span class="n">refpts</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">ring</span><span class="p">))</span>
     <span class="c1"># noinspection PyProtectedMember</span>
     <span class="n">pm_ok</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span><span class="o">.</span><span class="n">PassMethod</span> <span class="ow">in</span> <span class="n">elements</span><span class="o">.</span><span class="n">_collective</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">ring</span><span class="p">]</span>
+    <span class="n">bunch_currents</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="s1">&#39;bunch_currents&#39;</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+    <span class="n">bunch_spos</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="s1">&#39;bunch_spos&#39;</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+    <span class="n">kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;bunch_currents&#39;</span><span class="p">:</span> <span class="n">bunch_currents</span><span class="p">,</span> <span class="s1">&#39;bunch_spos&#39;</span><span class="p">:</span> <span class="n">bunch_spos</span><span class="p">})</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">r_in</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">pm_ok</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">pool_size</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">pool_size</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">r_in</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">multiprocessing</span><span class="o">.</span><span class="n">cpu_count</span><span class="p">())</span>
