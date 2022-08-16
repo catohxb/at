@@ -57,7 +57,7 @@ classdef pytests < matlab.unittest.TestCase
             pout=double(py.at.lattice_pass(lattice.p,pin.copy()));
             % Matlab
             mout=linepass(lattice.m,rin);
-            testCase.verifyEqual(mout,pout,AbsTol=1.E-30);
+            testCase.verifyEqual(mout,pout,AbsTol=0);
         end
 
         function orbit4(testCase,lat,dp)
@@ -93,15 +93,15 @@ classdef pytests < matlab.unittest.TestCase
             testCase.verifyEqual(morbit6,porbit6,AbsTol=1.E-15 );
         end
 
-        function m44(testCase,lat2,dp)
-            lattice=testCase.ring4.(lat2);
+        function m44(testCase,lat,dp)
+            lattice=testCase.ring4.(lat);
             % Matlab
             mm44=findm44(lattice.m,dp);
             % python
             a2=cell(lattice.p.find_m44(dp));
             [pm44,~]=deal(a2{:});
             pm44=double(pm44);
-            testCase.verifyEqual(mm44,pm44,AbsTol=2.e-10);
+            testCase.verifyEqual(mm44,pm44,AbsTol=2.0e-8);
         end
 
         function m66(testCase,lat2)
@@ -172,12 +172,11 @@ classdef pytests < matlab.unittest.TestCase
             testCase.verifyEqual(mintegrals,pintegrals,RelTol=1.E-12);
         end
 
-        function ringparameters(testCase,lat2)
-            lattice=testCase.ring4.(lat2);
-            [menergy,mharm,mperiodicity,mgamma,mmcf]=atGetRingProperties(lattice.m,...
-                'Energy','HarmNumber','Periodicity','gamma','mcf');
+        function ringparameters(testCase,lat)
+            lattice=testCase.ring4.(lat);
+            [menergy,mperiodicity,mgamma,mmcf]=atGetRingProperties(lattice.m,...
+                'Energy','Periodicity','gamma','mcf');
             testCase.verifyEqual(menergy,lattice.p.energy);
-            testCase.verifyEqual(mharm,double(lattice.p.harmonic_number));
             testCase.verifyEqual(mperiodicity,double(lattice.p.periodicity));
             testCase.verifyEqual(mgamma,lattice.p.gamma);
             testCase.verifyEqual(mmcf,lattice.p.mcf,RelTol=1.E-8);
