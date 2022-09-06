@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>at.physics.orbit &#8212; Accelerator Toolbox 0.1.dev1+g8ace206 documentation</title>
+    <title>at.physics.orbit &#8212; Accelerator Toolbox 0.1.dev1+g0502e36 documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -339,7 +339,7 @@
 <span class="sd">    Returns:</span>
 <span class="sd">        orbit0:         (6,) closed orbit vector at the entrance of the</span>
 <span class="sd">                        1-st element (x,px,y,py,dp,0)</span>
-<span class="sd">        orbit:          (6, Nrefs) closed orbit vector at each location</span>
+<span class="sd">        orbit:          (Nrefs, 6) closed orbit vector at each location</span>
 <span class="sd">                        specified in ``refpts``</span>
 
 <span class="sd">    See also:</span>
@@ -418,7 +418,7 @@
 <span class="sd">    Returns:</span>
 <span class="sd">        orbit0:         (6,) closed orbit vector at the entrance of the</span>
 <span class="sd">                        1-st element (x,px,y,py,dp,0)</span>
-<span class="sd">        orbit:          (6, Nrefs) closed orbit vector at each location</span>
+<span class="sd">        orbit:          (Nrefs, 6) closed orbit vector at each location</span>
 <span class="sd">                        specified in ``refpts``</span>
 
 <span class="sd">    See also:</span>
@@ -570,7 +570,7 @@
 <span class="sd">    Returns:</span>
 <span class="sd">        orbit0:         (6,) closed orbit vector at the entrance of the</span>
 <span class="sd">                        1-st element (x,px,y,py,dp,0)</span>
-<span class="sd">        orbit:          (6, Nrefs) closed orbit vector at each location</span>
+<span class="sd">        orbit:          (Nrefs, 6) closed orbit vector at each location</span>
 <span class="sd">                        specified in ``refpts``</span>
 
 
@@ -595,7 +595,7 @@
 <div class="viewcode-block" id="find_orbit"><a class="viewcode-back" href="../../../p/api/at.physics.orbit.html#at.physics.orbit.find_orbit">[docs]</a><span class="k">def</span> <span class="nf">find_orbit</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">refpts</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Gets the closed orbit in the general case</span>
 
-<span class="sd">    Depending on the the lattice, :py:func:`find_orbit` will:</span>
+<span class="sd">    Depending on the lattice, :py:func:`find_orbit` will:</span>
 
 <span class="sd">    * use :py:func:`find_orbit6` if ring.radiation is ON,</span>
 <span class="sd">    * use :py:func:`find_sync_orbit` if ring.radiation is OFF and ``dct``</span>
@@ -628,7 +628,7 @@
 <span class="sd">    Returns:</span>
 <span class="sd">        orbit0:         (6,) closed orbit vector at the entrance of the</span>
 <span class="sd">                        1-st element (x,px,y,py,dp,0)</span>
-<span class="sd">        orbit:          (6, Nrefs) closed orbit vector at each location</span>
+<span class="sd">        orbit:          (Nrefs, 6) closed orbit vector at each location</span>
 <span class="sd">                        specified in ``refpts``</span>
 
 <span class="sd">    See also:</span>

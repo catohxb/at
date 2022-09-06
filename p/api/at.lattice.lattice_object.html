@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>at.lattice.lattice_object &#8212; Accelerator Toolbox 0.1.dev1+g8ace206 documentation</title>
+    <title>at.lattice.lattice_object &#8212; Accelerator Toolbox 0.1.dev1+g0502e36 documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -966,7 +966,7 @@ element and each element indexed by refpts: (Nrefs, 6, 6) array</p></li>
 <dt class="sig sig-object py" id="at.lattice.lattice_object.Lattice.find_orbit">
 <span class="sig-name descname"><span class="pre">find_orbit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">refpts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#at.lattice.lattice_object.Lattice.find_orbit" title="Permalink to this definition">#</a></dt>
 <dd><p>Gets the closed orbit in the general case</p>
-<p>Depending on the the lattice, <a class="reference internal" href="#at.lattice.lattice_object.Lattice.find_orbit" title="at.lattice.lattice_object.Lattice.find_orbit"><code class="xref py py-func docutils literal notranslate"><span class="pre">find_orbit()</span></code></a> will:</p>
+<p>Depending on the lattice, <a class="reference internal" href="#at.lattice.lattice_object.Lattice.find_orbit" title="at.lattice.lattice_object.Lattice.find_orbit"><code class="xref py py-func docutils literal notranslate"><span class="pre">find_orbit()</span></code></a> will:</p>
 <ul class="simple">
 <li><p>use <a class="reference internal" href="#at.lattice.lattice_object.Lattice.find_orbit6" title="at.lattice.lattice_object.Lattice.find_orbit6"><code class="xref py py-func docutils literal notranslate"><span class="pre">find_orbit6()</span></code></a> if ring.radiation is ON,</p></li>
 <li><p>use <a class="reference internal" href="#at.lattice.lattice_object.Lattice.find_sync_orbit" title="at.lattice.lattice_object.Lattice.find_sync_orbit"><code class="xref py py-func docutils literal notranslate"><span class="pre">find_sync_orbit()</span></code></a> if ring.radiation is OFF and <code class="docutils literal notranslate"><span class="pre">dct</span></code>
@@ -1006,7 +1006,7 @@ Default: <a class="reference internal" href="at.lattice.options.html#at.lattice.
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>orbit0</strong> – (6,) closed orbit vector at the entrance of the
 1-st element (x,px,y,py,dp,0)</p></li>
-<li><p><strong>orbit</strong> – (6, Nrefs) closed orbit vector at each location
+<li><p><strong>orbit</strong> – (Nrefs, 6) closed orbit vector at each location
 specified in <code class="docutils literal notranslate"><span class="pre">refpts</span></code></p></li>
 </ul>
 </dd>
@@ -1077,7 +1077,7 @@ Default: <a class="reference internal" href="at.lattice.options.html#at.lattice.
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>orbit0</strong> – (6,) closed orbit vector at the entrance of the
 1-st element (x,px,y,py,dp,0)</p></li>
-<li><p><strong>orbit</strong> – (6, Nrefs) closed orbit vector at each location
+<li><p><strong>orbit</strong> – (Nrefs, 6) closed orbit vector at each location
 specified in <code class="docutils literal notranslate"><span class="pre">refpts</span></code></p></li>
 </ul>
 </dd>
@@ -1161,7 +1161,7 @@ cavities. This is used to compute the initial synchronous phase.</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>orbit0</strong> – (6,) closed orbit vector at the entrance of the
 1-st element (x,px,y,py,dp,0)</p></li>
-<li><p><strong>orbit</strong> – (6, Nrefs) closed orbit vector at each location
+<li><p><strong>orbit</strong> – (Nrefs, 6) closed orbit vector at each location
 specified in <code class="docutils literal notranslate"><span class="pre">refpts</span></code></p></li>
 </ul>
 </dd>
@@ -1231,7 +1231,7 @@ Default: <a class="reference internal" href="at.lattice.options.html#at.lattice.
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>orbit0</strong> – (6,) closed orbit vector at the entrance of the
 1-st element (x,px,y,py,dp,0)</p></li>
-<li><p><strong>orbit</strong> – (6, Nrefs) closed orbit vector at each location
+<li><p><strong>orbit</strong> – (Nrefs, 6) closed orbit vector at each location
 specified in <code class="docutils literal notranslate"><span class="pre">refpts</span></code></p></li>
 </ul>
 </dd>
@@ -2605,6 +2605,11 @@ Default: <a class="reference external" href="https://docs.python.org/3/library/c
 <dd class="field-even"><p><strong>lattice</strong> (<em>Lattice</em>) – New <a class="reference internal" href="#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lattice</span></code></a> object</p>
 </dd>
 </dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="at.load.matfile.html#at.load.matfile.load_mat" title="at.load.matfile.load_mat"><code class="xref py py-func docutils literal notranslate"><span class="pre">load_mat()</span></code></a>, <a class="reference internal" href="at.load.matfile.html#at.load.matfile.load_m" title="at.load.matfile.load_m"><code class="xref py py-func docutils literal notranslate"><span class="pre">load_m()</span></code></a>, <a class="reference internal" href="at.load.reprfile.html#at.load.reprfile.load_repr" title="at.load.reprfile.load_repr"><code class="xref py py-func docutils literal notranslate"><span class="pre">load_repr()</span></code></a>,
+<a class="reference internal" href="at.load.elegant.html#at.load.elegant.load_elegant" title="at.load.elegant.load_elegant"><code class="xref py py-func docutils literal notranslate"><span class="pre">load_elegant()</span></code></a>, <a class="reference internal" href="at.load.tracy.html#at.load.tracy.load_tracy" title="at.load.tracy.load_tracy"><code class="xref py py-func docutils literal notranslate"><span class="pre">load_tracy()</span></code></a></p>
+</div>
 <div class="admonition-known-extensions-are admonition">
 <p class="admonition-title">Known extensions are:</p>
 <dl class="simple">
@@ -3138,6 +3143,10 @@ elements by a deep copy</p>
 Default: <code class="docutils literal notranslate"><span class="pre">'RING'</span></code></p>
 </dd>
 </dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="at.load.matfile.html#at.load.matfile.save_mat" title="at.load.matfile.save_mat"><code class="xref py py-func docutils literal notranslate"><span class="pre">save_mat()</span></code></a>, <a class="reference internal" href="at.load.matfile.html#at.load.matfile.save_m" title="at.load.matfile.save_m"><code class="xref py py-func docutils literal notranslate"><span class="pre">save_m()</span></code></a>, <a class="reference internal" href="at.load.reprfile.html#at.load.reprfile.save_repr" title="at.load.reprfile.save_repr"><code class="xref py py-func docutils literal notranslate"><span class="pre">save_repr()</span></code></a></p>
+</div>
 <div class="admonition-known-extensions-are admonition">
 <p class="admonition-title">Known extensions are:</p>
 <dl class="simple">
