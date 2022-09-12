@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>at.collective.wake_elements &#8212; Accelerator Toolbox 0.1.dev1+g0502e36 documentation</title>
+    <title>at.collective.wake_elements &#8212; Accelerator Toolbox 0.1.dev1+gc5e22a9 documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -167,19 +167,19 @@
                 
   <h1>Source code for at.collective.wake_elements</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">numpy</span>
-<span class="c1"># noinspection PyProtectedMember</span>
 <span class="kn">from</span> <span class="nn">..lattice</span> <span class="kn">import</span> <span class="n">Lattice</span>
-<span class="kn">from</span> <span class="nn">..lattice.elements</span> <span class="kn">import</span> <span class="n">Element</span><span class="p">,</span> <span class="n">_array</span>
+<span class="c1"># noinspection PyProtectedMember</span>
+<span class="kn">from</span> <span class="nn">..lattice.elements</span> <span class="kn">import</span> <span class="n">Element</span><span class="p">,</span> <span class="n">Collective</span><span class="p">,</span> <span class="n">_array</span>
 <span class="kn">from</span> <span class="nn">..constants</span> <span class="kn">import</span> <span class="n">clight</span><span class="p">,</span> <span class="n">qe</span>
 <span class="kn">from</span> <span class="nn">.wake_object</span> <span class="kn">import</span> <span class="n">Wake</span><span class="p">,</span> <span class="n">WakeComponent</span>
 
 
 <span class="c1"># noinspection PyPep8Naming</span>
-<div class="viewcode-block" id="WakeElement"><a class="viewcode-back" href="../../../p/api/at.collective.wake_elements.html#at.collective.wake_elements.WakeElement">[docs]</a><span class="k">class</span> <span class="nc">WakeElement</span><span class="p">(</span><span class="n">Element</span><span class="p">):</span>
+<div class="viewcode-block" id="WakeElement"><a class="viewcode-back" href="../../../p/api/at.collective.wake_elements.html#at.collective.wake_elements.WakeElement">[docs]</a><span class="k">class</span> <span class="nc">WakeElement</span><span class="p">(</span><span class="n">Collective</span><span class="p">,</span> <span class="n">Element</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Class to generate an AT wake element using the passmethod WakeFieldPass</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">REQUIRED_ATTRIBUTES</span> <span class="o">=</span> <span class="n">Element</span><span class="o">.</span><span class="n">REQUIRED_ATTRIBUTES</span>
-
+    <span class="n">_BUILD_ATTRIBUTES</span> <span class="o">=</span> <span class="n">Element</span><span class="o">.</span><span class="n">_BUILD_ATTRIBUTES</span>
+    <span class="n">default_pass</span> <span class="o">=</span> <span class="p">{</span><span class="kc">False</span><span class="p">:</span> <span class="s1">&#39;IdentityPass&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">:</span> <span class="s1">&#39;WakeFieldPass&#39;</span><span class="p">}</span>
     <span class="n">_conversions</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">Element</span><span class="o">.</span><span class="n">_conversions</span><span class="p">,</span> <span class="n">_nslice</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">_nturns</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span>
                         <span class="n">_nelem</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">NumParticles</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">Circumference</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span>
                         <span class="n">NormFact</span><span class="o">=</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="n">_array</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,)),</span>
@@ -207,7 +207,7 @@
 <span class="sd">              to account for beta function at the observation point for</span>
 <span class="sd">              example. Default: (1,1,1)</span>
 <span class="sd">&quot;&quot;&quot;</span>
-        <span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;PassMethod&#39;</span><span class="p">,</span> <span class="s1">&#39;WakeFieldPass&#39;</span><span class="p">)</span>
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;PassMethod&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_pass</span><span class="p">[</span><span class="kc">True</span><span class="p">])</span>
         <span class="n">zcuts</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;ZCuts&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="n">betrel</span> <span class="o">=</span> <span class="n">ring</span><span class="o">.</span><span class="n">beta</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_charge2current</span> <span class="o">=</span> <span class="n">clight</span><span class="o">*</span><span class="n">betrel</span><span class="o">*</span><span class="n">qe</span><span class="o">/</span><span class="n">ring</span><span class="o">.</span><span class="n">circumference</span>

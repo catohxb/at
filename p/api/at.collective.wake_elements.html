@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>at.collective.wake_elements &#8212; Accelerator Toolbox 0.1.dev1+g0502e36 documentation</title>
+    <title>at.collective.wake_elements &#8212; Accelerator Toolbox 0.1.dev1+gc5e22a9 documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -718,7 +718,7 @@ example. Default: (1,1,1)</p></li>
 <dl class="py class">
 <dt class="sig sig-object py" id="at.collective.wake_elements.WakeElement">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">WakeElement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">family_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wake</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/collective/wake_elements.html#WakeElement"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.collective.wake_elements.WakeElement" title="Permalink to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><code class="xref py py-class docutils literal notranslate"><span class="pre">Element</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Collective" title="at.lattice.elements.Collective"><code class="xref py py-class docutils literal notranslate"><span class="pre">Collective</span></code></a>, <a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><code class="xref py py-class docutils literal notranslate"><span class="pre">Element</span></code></a></p>
 <p>Class to generate an AT wake element using the passmethod WakeFieldPass</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -773,11 +773,6 @@ example. Default: (1,1,1)</p></li>
 <dd><p>Number of turn for the wake field</p>
 </dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="at.collective.wake_elements.WakeElement.REQUIRED_ATTRIBUTES">
-<span class="sig-name descname"><span class="pre">REQUIRED_ATTRIBUTES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['FamName']</span></em><a class="headerlink" href="#at.collective.wake_elements.WakeElement.REQUIRED_ATTRIBUTES" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
 <dl class="py property">
 <dt class="sig sig-object py" id="at.collective.wake_elements.WakeElement.WakeDX">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">WakeDX</span></span><a class="headerlink" href="#at.collective.wake_elements.WakeElement.WakeDX" title="Permalink to this definition">#</a></dt>
@@ -812,6 +807,11 @@ example. Default: (1,1,1)</p></li>
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">WakeZ</span></span><a class="headerlink" href="#at.collective.wake_elements.WakeElement.WakeZ" title="Permalink to this definition">#</a></dt>
 <dd><p>Longitudinal component</p>
 </dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="at.collective.wake_elements.WakeElement.default_pass">
+<span class="sig-name descname"><span class="pre">default_pass</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{False:</span> <span class="pre">'IdentityPass',</span> <span class="pre">True:</span> <span class="pre">'WakeFieldPass'}</span></em><a class="headerlink" href="#at.collective.wake_elements.WakeElement.default_pass" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 

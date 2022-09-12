@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>at.lattice.lattice_object &#8212; Accelerator Toolbox 0.1.dev1+g0502e36 documentation</title>
+    <title>at.lattice.lattice_object &#8212; Accelerator Toolbox 0.1.dev1+gc5e22a9 documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -804,6 +804,206 @@ selected elements</p></li>
 <dd><p>Returns a deep copy of the lattice</p>
 <dl class="field-list simple">
 </dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="at.lattice.lattice_object.Lattice.disable_6d">
+<span class="sig-name descname"><span class="pre">disable_6d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">elem_class[,</span> <span class="pre">elem_class]...</span> <span class="pre">,</span> <span class="pre">copy=False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/lattice_object.html#Lattice.disable_6d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.lattice_object.Lattice.disable_6d" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">disable_6d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">cavity_pass='auto'[,</span> <span class="pre">dipole_pass='auto']...,</span> <span class="pre">copy=False</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></span></dt>
+<dd><p>Turn longitudinal motion off. By default, remove all longitudinal
+motion.</p>
+<p>Modify the lattice in-place or creates a new lattice, depending on the
+<code class="docutils literal notranslate"><span class="pre">copy</span></code> keyword argument.</p>
+<p><strong>Syntax using positional arguments:</strong></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>elem_class</strong> – <p><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.LongtMotion" title="at.lattice.elements.LongtMotion"><code class="xref py py-class docutils literal notranslate"><span class="pre">LongtMotion</span></code></a> subclass.
+Longitudinal motion is turned off for elements which are
+instances of any given <code class="docutils literal notranslate"><span class="pre">elem_class</span></code>.</p>
+<p>In adition to single element classes, a few grouping classes are
+available:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.LongtMotion" title="at.lattice.elements.LongtMotion"><code class="xref py py-class docutils literal notranslate"><span class="pre">LongtMotion</span></code></a>: all elements possibly acting on
+momentum,</p></li>
+<li><p><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Radiative" title="at.lattice.elements.Radiative"><code class="xref py py-class docutils literal notranslate"><span class="pre">Radiative</span></code></a>: default radiative elements:
+<a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Dipole" title="at.lattice.elements.Dipole"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dipole</span></code></a>, <a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Quadrupole" title="at.lattice.elements.Quadrupole"><code class="xref py py-class docutils literal notranslate"><span class="pre">Quadrupole</span></code></a>,
+<a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Wiggler" title="at.lattice.elements.Wiggler"><code class="xref py py-class docutils literal notranslate"><span class="pre">Wiggler</span></code></a>,</p></li>
+<li><p><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Collective" title="at.lattice.elements.Collective"><code class="xref py py-class docutils literal notranslate"><span class="pre">Collective</span></code></a>: all elements dealing with collective
+effects.</p></li>
+</ul>
+<p>The default PassMethod conversion is used, as with the <code class="docutils literal notranslate"><span class="pre">'auto'</span></code>
+keyword value.</p>
+<p><strong>No keyword except</strong> <code class="docutils literal notranslate"><span class="pre">copy</span></code> <strong>is allowed in this syntax.</strong></p>
+</p>
+</dd>
+</dl>
+<p><strong>Syntax using keyword arguments:</strong></p>
+<dl class="field-list simple">
+<dt class="field-odd">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>all_pass</strong> – PassMethod overloading the default
+values for all elements (<code class="docutils literal notranslate"><span class="pre">None</span></code> or ‘auto’)</p></li>
+<li><p><strong>cavity_pass='auto'</strong> – PassMethod set on cavities</p></li>
+<li><p><strong>dipole_pass='auto'</strong> – PassMethod set on dipoles</p></li>
+<li><p><strong>quadrupole_pass=auto</strong> – PassMethod set on quadrupoles</p></li>
+<li><p><strong>wiggler_pass='auto'</strong> – PassMethod set on wigglers</p></li>
+<li><p><strong>sextupole_pass='auto'</strong> – PassMethod set on sextupoles</p></li>
+<li><p><strong>octupole_pass='auto'</strong> – PassMethod set on octupoles</p></li>
+<li><p><strong>multipole_pass='auto'</strong> – PassMethod set on higher order
+multipoles</p></li>
+<li><p><strong>collective_pass='auto'</strong> – PassMethod set on collective effect
+elements (<a class="reference internal" href="at.collective.wake_elements.html#at.collective.wake_elements.WakeElement" title="at.collective.wake_elements.WakeElement"><code class="xref py py-class docutils literal notranslate"><span class="pre">WakeElement</span></code></a>,…)</p></li>
+<li><p><strong>diffusion_pass='auto'</strong> – PassMethod set on
+<a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.QuantumDiffusion" title="at.lattice.elements.QuantumDiffusion"><code class="xref py py-class docutils literal notranslate"><span class="pre">QuantumDiffusion</span></code></a></p></li>
+<li><p><strong>copy=False</strong> – <p>If <code class="docutils literal notranslate"><span class="pre">False</span></code>, the modification is done in-place,
+If <code class="docutils literal notranslate"><span class="pre">True</span></code>, return a shallow copy of the lattice. Only the
+radiating elements are copied with PassMethod modified.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>a shallow copy means that all non-modified elements are shared
+with the original lattice. Any further modification will
+affect both lattices.</p>
+</div>
+</p></li>
+</ul>
+</dd>
+</dl>
+<p>For PassMethod names, the convention is:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">None</span></code>:        no change</p></li>
+<li><p>‘auto’:          Use the default conversion (replace *RadPass by
+*Pass)</p></li>
+<li><p>anything else:   set as the new PassMethod</p></li>
+</ul>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ring</span><span class="o">.</span><span class="n">disable_6d</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Modify <cite>ring</cite> in-place, turn OFF everything affecting the
+longitudinal momentum.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ring</span><span class="o">.</span><span class="n">disable_6d</span><span class="p">(</span><span class="n">at</span><span class="o">.</span><span class="n">RFCavity</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Turn cavities OFF (nothing else modified).</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ring</span><span class="o">.</span><span class="n">disable_6d</span><span class="p">(</span><span class="n">all_pass</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cavity_pass</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Same as the previous example, but using the keyword syntax.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">newring</span> <span class="o">=</span> <span class="n">ring</span><span class="o">.</span><span class="n">disable_6d</span><span class="p">(</span><span class="n">cavity_pass</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Return a new Lattice (shallow copy of <cite>ring</cite>) with everything
+turned OFF except RF cavities.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">newring</span> <span class="o">=</span> <span class="n">ring</span><span class="o">.</span><span class="n">disable_6d</span><span class="p">(</span><span class="n">all_pass</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="gp">... </span><span class="n">sextupole_pass</span><span class="o">=</span><span class="s1">&#39;DriftPass&#39;</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Return a new Lattice (shallow copy of <cite>ring</cite>) with sextupoles
+turned into Drifts (turned off) and everything else unchangedd.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#at.lattice.lattice_object.Lattice.enable_6d" title="at.lattice.lattice_object.Lattice.enable_6d"><code class="xref py py-meth docutils literal notranslate"><span class="pre">enable_6d()</span></code></a>, <a class="reference internal" href="#at.lattice.lattice_object.Lattice.is_6d" title="at.lattice.lattice_object.Lattice.is_6d"><code class="xref py py-attr docutils literal notranslate"><span class="pre">is_6d</span></code></a>.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="at.lattice.lattice_object.Lattice.enable_6d">
+<span class="sig-name descname"><span class="pre">enable_6d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">elem_class[,</span> <span class="pre">elem_class]...,</span> <span class="pre">copy=False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/lattice_object.html#Lattice.enable_6d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.lattice_object.Lattice.enable_6d" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">enable_6d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">cavity_pass='auto'[,</span> <span class="pre">dipole_pass='auto']...,</span> <span class="pre">copy=False</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></span></dt>
+<dd><p>Turn longitudinal motion on. By default, turn on
+radiation in dipoles and quadrupoles, turn on RF cavities, activates
+collective effects and other elements acting on momentum.</p>
+<p>Modify the lattice in-place or creates a new lattice, depending on the
+<code class="docutils literal notranslate"><span class="pre">copy</span></code> keyword argument.</p>
+<p><strong>Syntax using positional arguments:</strong></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>elem_class</strong> – <p><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.LongtMotion" title="at.lattice.elements.LongtMotion"><code class="xref py py-class docutils literal notranslate"><span class="pre">LongtMotion</span></code></a> subclass.
+Longitudinal motion is turned on for elements which are
+instances of any given <code class="docutils literal notranslate"><span class="pre">elem_class</span></code>.</p>
+<p>In adition to single element classes, a few grouping classes are
+available:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.LongtMotion" title="at.lattice.elements.LongtMotion"><code class="xref py py-class docutils literal notranslate"><span class="pre">LongtMotion</span></code></a>: all elements possibly acting on
+momentum,</p></li>
+<li><p><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Radiative" title="at.lattice.elements.Radiative"><code class="xref py py-class docutils literal notranslate"><span class="pre">Radiative</span></code></a>: default radiative elements:
+<a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Dipole" title="at.lattice.elements.Dipole"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dipole</span></code></a>, <a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Quadrupole" title="at.lattice.elements.Quadrupole"><code class="xref py py-class docutils literal notranslate"><span class="pre">Quadrupole</span></code></a>,
+<a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Wiggler" title="at.lattice.elements.Wiggler"><code class="xref py py-class docutils literal notranslate"><span class="pre">Wiggler</span></code></a>,</p></li>
+<li><p><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Collective" title="at.lattice.elements.Collective"><code class="xref py py-class docutils literal notranslate"><span class="pre">Collective</span></code></a>: all elements dealing with collective
+effects.</p></li>
+</ul>
+<p>The default PassMethod conversion is used, as with the <code class="docutils literal notranslate"><span class="pre">'auto'</span></code>
+keyword value..</p>
+<p><strong>No keyword except</strong> <code class="docutils literal notranslate"><span class="pre">copy</span></code> <strong>is allowed in this syntax.</strong></p>
+</p>
+</dd>
+</dl>
+<p><strong>Syntax using keyword arguments:</strong></p>
+<dl class="field-list simple">
+<dt class="field-odd">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>all_pass</strong> – PassMethod overloading the default
+values for all elements (<code class="docutils literal notranslate"><span class="pre">None</span></code> or ‘auto’)</p></li>
+<li><p><strong>cavity_pass='auto'</strong> – PassMethod set on cavities</p></li>
+<li><p><strong>dipole_pass='auto'</strong> – PassMethod set on dipoles</p></li>
+<li><p><strong>quadrupole_pass='auto'</strong> – PassMethod set on quadrupoles</p></li>
+<li><p><strong>wiggler_pass='auto'</strong> – PassMethod set on wigglers</p></li>
+<li><p><strong>sextupole_pass=None</strong> – PassMethod set on sextupoles</p></li>
+<li><p><strong>octupole_pass=None</strong> – PassMethod set on octupoles</p></li>
+<li><p><strong>multipole_pass=None</strong> – PassMethod set on higher order
+multipoles</p></li>
+<li><p><strong>collective_pass='auto'</strong> – PassMethod set on collective effect
+elements (<a class="reference internal" href="at.collective.wake_elements.html#at.collective.wake_elements.WakeElement" title="at.collective.wake_elements.WakeElement"><code class="xref py py-class docutils literal notranslate"><span class="pre">WakeElement</span></code></a>,…)</p></li>
+<li><p><strong>diffusion_pass='auto'</strong> – PassMethod set on
+<a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.QuantumDiffusion" title="at.lattice.elements.QuantumDiffusion"><code class="xref py py-class docutils literal notranslate"><span class="pre">QuantumDiffusion</span></code></a></p></li>
+<li><p><strong>copy=False</strong> – <p>If <code class="docutils literal notranslate"><span class="pre">False</span></code>, the modification is done in-place,
+If <code class="docutils literal notranslate"><span class="pre">True</span></code>, return a shallow copy of the lattice. Only the
+radiating elements are copied with PassMethod modified.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>a shallow copy means that all non-modified elements are shared
+with the original lattice. Any further modification will
+affect both lattices.</p>
+</div>
+</p></li>
+</ul>
+</dd>
+</dl>
+<p>For PassMethod names, the convention is:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">None</span></code>:        No change</p></li>
+<li><p>‘auto’:          Use the default conversion (replace *Pass by
+*RadPass)</p></li>
+<li><p>anything else:   set as the new PassMethod</p></li>
+</ul>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ring</span><span class="o">.</span><span class="n">enable_6d</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Modify <cite>ring</cite> in-place, turn cavities ON, turn synchrotron
+radiation ON in Dipoles and Quadrupoles, turn collective effects
+ON.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ring</span><span class="o">.</span><span class="n">enable_6d</span><span class="p">(</span><span class="n">at</span><span class="o">.</span><span class="n">RFCavity</span><span class="p">,</span> <span class="n">at</span><span class="o">.</span><span class="n">Radiative</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Modify <cite>ring</cite> in-place, turn cavities ON, turn synchrotron
+radiation ON in dipoles and quadupoles.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">newring</span> <span class="o">=</span> <span class="n">ring</span><span class="o">.</span><span class="n">enable_6d</span><span class="p">(</span><span class="n">at</span><span class="o">.</span><span class="n">Collective</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Returns a new lattice with collective effects turned ON and nothing
+else changed</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">newring</span> <span class="o">=</span> <span class="n">ring</span><span class="o">.</span><span class="n">enable_6d</span><span class="p">(</span><span class="n">all_pass</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">collective_pass</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span>
+<span class="gp">... </span><span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Same as the previous example, using the keyword syntax.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#at.lattice.lattice_object.Lattice.disable_6d" title="at.lattice.lattice_object.Lattice.disable_6d"><code class="xref py py-meth docutils literal notranslate"><span class="pre">disable_6d()</span></code></a>, <a class="reference internal" href="#at.lattice.lattice_object.Lattice.is_6d" title="at.lattice.lattice_object.Lattice.is_6d"><code class="xref py py-attr docutils literal notranslate"><span class="pre">is_6d</span></code></a>.</p>
+</div>
 </dd></dl>
 
 <dl class="py method">
@@ -1804,8 +2004,8 @@ See <a class="reference internal" href="#at.lattice.lattice_object.Lattice.linop
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ring</strong> – Lattice description</p></li>
 <li><p><strong>dp</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>]</em>) – Momentum deviation. Ignored if radiation is ON</p></li>
-<li><p><strong>twiss</strong> – Linear optics at all points (from <a class="reference internal" href="#at.lattice.lattice_object.Lattice.linopt6" title="at.lattice.lattice_object.Lattice.linopt6"><code class="xref py py-func docutils literal notranslate"><span class="pre">linopt6()</span></code></a>).
-If None, it will be computed.</p></li>
+<li><p><strong>twiss</strong> – Linear optics at all points (from <a class="reference internal" href="at.physics.linear.html#at.physics.linear.linopt6" title="at.physics.linear.linopt6"><code class="xref py py-func docutils literal notranslate"><span class="pre">linopt6()</span></code></a>).
+If <code class="docutils literal notranslate"><span class="pre">None</span></code>, it will be computed.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
@@ -2659,8 +2859,8 @@ If False, the modification is done in-place</p></li>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ring</strong> (<a class="reference internal" href="#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><em>Lattice</em></a>) – Lattice description. Radiation must be ON</p></li>
-<li><p><strong>refpts</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><em>Refpts</em><em>]</em>) – Observation points</p></li>
-<li><p><strong>orbit</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><em>ndarray</em></a><em>]</em>) – Avoids looking for initial the closed orbit if it is
+<li><p><strong>refpts</strong> (<em>Refpts</em>) – Observation points</p></li>
+<li><p><strong>orbit</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><em>ndarray</em></a>) – Avoids looking for initial the closed orbit if it is
 already known ((6,) array).</p></li>
 <li><p><strong>keep_lattice</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Assume no lattice change since the previous tracking.
 Default: False</p></li>
@@ -2894,66 +3094,34 @@ previous tracking. Defaults to <a class="reference external" href="https://docs.
 
 <dl class="py method">
 <dt class="sig sig-object py" id="at.lattice.lattice_object.Lattice.radiation_off">
-<span class="sig-name descname"><span class="pre">radiation_off</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cavity_pass</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dipole_pass</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quadrupole_pass</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wiggler_pass</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sextupole_pass</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">octupole_pass</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multipole_pass</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">copy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/lattice_object.html#Lattice.radiation_off"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.lattice_object.Lattice.radiation_off" title="Permalink to this definition">#</a></dt>
-<dd><p>Turn acceleration and radiation off and return the lattice</p>
-<dl class="field-list simple">
-<dt class="field-odd">Keyword Arguments<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>cavity_pass='IdentityPass'</strong> – PassMethod set on cavities</p></li>
-<li><p><strong>dipole_pass='auto'</strong> – PassMethod set on dipoles</p></li>
-<li><p><strong>quadrupole_pass=None</strong> – PassMethod set on quadrupoles</p></li>
-<li><p><strong>wiggler_pass='auto'</strong> – PassMethod set on wigglers</p></li>
-<li><p><strong>copy=False</strong> – <p>If <code class="docutils literal notranslate"><span class="pre">False</span></code>, the modification is done in-place,
-If <code class="docutils literal notranslate"><span class="pre">True</span></code>, return a shallow copy of the lattice. Only the
-radiating elements are copied with PassMethod modified.</p>
-<div class="admonition caution">
-<p class="admonition-title">Caution</p>
-<p>a shallow copy means that all non-radiating
-elements are shared with the original lattice.
-Any further modification will affect in both lattices.</p>
+<span class="sig-name descname"><span class="pre">radiation_off</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/lattice_object.html#Lattice.radiation_off"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.lattice_object.Lattice.radiation_off" title="Permalink to this definition">#</a></dt>
+<dd><p>Obsolete. Turn longitudinal motion off</p>
+<p>The function name is misleading, since the function deals with
+longitudinal motion in general.</p>
+<p>For this reason <strong>the method is obsolete</strong> and replaced by
+<a class="reference internal" href="#at.lattice.lattice_object.Lattice.disable_6d" title="at.lattice.lattice_object.Lattice.disable_6d"><code class="xref py py-meth docutils literal notranslate"><span class="pre">disable_6d()</span></code></a></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#at.lattice.lattice_object.Lattice.disable_6d" title="at.lattice.lattice_object.Lattice.disable_6d"><code class="xref py py-meth docutils literal notranslate"><span class="pre">disable_6d()</span></code></a></p>
 </div>
-</p></li>
-</ul>
-</dd>
+<dl class="field-list simple">
 </dl>
-<p>For PassMethod names, the convention is:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">None</span></code>:        no change</p></li>
-<li><p>‘auto’:          replace *RadPass by *Pass</p></li>
-<li><p>anything else:   set as the new PassMethod</p></li>
-</ul>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="at.lattice.lattice_object.Lattice.radiation_on">
-<span class="sig-name descname"><span class="pre">radiation_on</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cavity_pass</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'RFCavityPass'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dipole_pass</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quadrupole_pass</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wiggler_pass</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sextupole_pass</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">octupole_pass</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multipole_pass</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">copy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/lattice_object.html#Lattice.radiation_on"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.lattice_object.Lattice.radiation_on" title="Permalink to this definition">#</a></dt>
-<dd><p>Turn acceleration and radiation on and return the lattice</p>
-<dl class="field-list simple">
-<dt class="field-odd">Keyword Arguments<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>cavity_pass='RFCavityPass'</strong> – PassMethod set on cavities</p></li>
-<li><p><strong>dipole_pass='auto'</strong> – PassMethod set on dipoles</p></li>
-<li><p><strong>quadrupole_pass='auto'</strong> – PassMethod set on quadrupoles</p></li>
-<li><p><strong>wiggler_pass='auto'</strong> – PassMethod set on wigglers</p></li>
-<li><p><strong>copy=False</strong> – <p>If <code class="docutils literal notranslate"><span class="pre">False</span></code>, the modification is done in-place,
-If <code class="docutils literal notranslate"><span class="pre">True</span></code>, return a shallow copy of the lattice. Only the
-radiating elements are copied with PassMethod modified.</p>
-<div class="admonition caution">
-<p class="admonition-title">Caution</p>
-<p>a shallow copy means that all non-radiating
-elements are shared with the original lattice.
-Any further modification will affect in both lattices.</p>
+<span class="sig-name descname"><span class="pre">radiation_on</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/lattice_object.html#Lattice.radiation_on"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.lattice_object.Lattice.radiation_on" title="Permalink to this definition">#</a></dt>
+<dd><p>Obsolete. Turn longitudinal motion on</p>
+<p>The function name is misleading, since the function deals with
+longitudinal motion in general.</p>
+<p>For this reason <strong>the method is obsolete</strong> and replaced by
+<a class="reference internal" href="#at.lattice.lattice_object.Lattice.enable_6d" title="at.lattice.lattice_object.Lattice.enable_6d"><code class="xref py py-meth docutils literal notranslate"><span class="pre">enable_6d()</span></code></a></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#at.lattice.lattice_object.Lattice.enable_6d" title="at.lattice.lattice_object.Lattice.enable_6d"><code class="xref py py-meth docutils literal notranslate"><span class="pre">enable_6d()</span></code></a></p>
 </div>
-</p></li>
-</ul>
-</dd>
+<dl class="field-list simple">
 </dl>
-<p>For PassMethod names, the convention is:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">None</span></code>:        no change</p></li>
-<li><p>‘auto’:          replace *Pass by *RadPass</p></li>
-<li><p>anything else:   set as the new PassMethod</p></li>
-</ul>
 </dd></dl>
 
 <dl class="py method">
@@ -3618,6 +3786,22 @@ amplitudes such that <code class="docutils literal notranslate"><span class="pre
 </dd></dl>
 
 <dl class="py property">
+<dt class="sig sig-object py" id="at.lattice.lattice_object.Lattice.is_6d">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_6d</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></em><a class="headerlink" href="#at.lattice.lattice_object.Lattice.is_6d" title="Permalink to this definition">#</a></dt>
+<dd><p>True if at least one element modifies the beam momentum</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#at.lattice.lattice_object.Lattice.enable_6d" title="at.lattice.lattice_object.Lattice.enable_6d"><code class="xref py py-meth docutils literal notranslate"><span class="pre">enable_6d()</span></code></a>, <a class="reference internal" href="#at.lattice.lattice_object.Lattice.disable_6d" title="at.lattice.lattice_object.Lattice.disable_6d"><code class="xref py py-meth docutils literal notranslate"><span class="pre">disable_6d()</span></code></a>.</p>
+</div>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="at.lattice.lattice_object.Lattice.is_collective">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_collective</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></em><a class="headerlink" href="#at.lattice.lattice_object.Lattice.is_collective" title="Permalink to this definition">#</a></dt>
+<dd><p>True if any element involves collective effects</p>
+</dd></dl>
+
+<dl class="py property">
 <dt class="sig sig-object py" id="at.lattice.lattice_object.Lattice.mcf">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mcf</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#at.lattice.lattice_object.Lattice.mcf" title="Permalink to this definition">#</a></dt>
 <dd><p>Momentum compaction factor</p>
@@ -3638,7 +3822,8 @@ amplitudes such that <code class="docutils literal notranslate"><span class="pre
 <dl class="py property">
 <dt class="sig sig-object py" id="at.lattice.lattice_object.Lattice.radiation">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">radiation</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></em><a class="headerlink" href="#at.lattice.lattice_object.Lattice.radiation" title="Permalink to this definition">#</a></dt>
-<dd><p>If True, at least one element modifies the beam energy</p>
+<dd><p>Obsolete. True if at least one element modifies the beam energy
+Use <a class="reference internal" href="#at.lattice.lattice_object.Lattice.is_6d" title="at.lattice.lattice_object.Lattice.is_6d"><code class="xref py py-attr docutils literal notranslate"><span class="pre">is_6d</span></code></a> instead</p>
 </dd></dl>
 
 <dl class="py property">
