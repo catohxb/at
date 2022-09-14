@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>at.acceptance.touschek &#8212; Accelerator Toolbox 0.1.dev1+gc5e22a9 documentation</title>
+    <title>at.acceptance.touschek &#8212; Accelerator Toolbox 0.1.dev1+g452f78e documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -292,12 +292,13 @@
 <span class="sd">                         ``lattice_pass``). In case multi-processing is not</span>
 <span class="sd">                         enabled ``GridMode`` is forced to</span>
 <span class="sd">                         ``RECURSIVE`` (most efficient in single core)</span>
-<span class="sd">        verbose=True:    Print out some inform</span>
+<span class="sd">        verbose=False:   Print out some inform</span>
 <span class="sd">        epsabs, epsrel:  integral absolute and relative tolerances</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        Returns the touschek lifetime in seconds, the momentum aperture</span>
-<span class="sd">        and the refpts at which the aperture was computed</span>
+<span class="sd">        tl: touschek lifetime, double expressed in seconds </span>
+<span class="sd">        ma: momentum aperture (len(refpts), 2) array</span>
+<span class="sd">        refpts: refpts used for ma calcualtion (len(refpts), ) array</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">epsabs</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;epsabs&#39;</span><span class="p">,</span> <span class="mf">1.0e-16</span><span class="p">)</span>

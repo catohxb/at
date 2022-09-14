@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>at.acceptance.boundary &#8212; Accelerator Toolbox 0.1.dev1+gc5e22a9 documentation</title>
+    <title>at.acceptance.boundary &#8212; Accelerator Toolbox 0.1.dev1+g452f78e documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -530,7 +530,7 @@
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">survived</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="ow">and</span> <span class="n">fact</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">ftol</span><span class="p">:</span>
                     <span class="n">deltas</span> <span class="o">=</span> <span class="n">cs</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">rsteps</span><span class="p">[:]</span><span class="o">*</span><span class="nb">min</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">fact</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
                     <span class="k">if</span> <span class="n">numpy</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">deltas</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">abs</span><span class="p">(</span><span class="n">part</span><span class="p">[</span><span class="n">planesi</span><span class="p">,</span> <span class="n">i</span><span class="p">])):</span>
-                        <span class="n">part</span><span class="p">[</span><span class="n">planesi</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+                        <span class="n">part</span><span class="p">[</span><span class="n">planesi</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">planesi</span><span class="p">))</span>
                     <span class="k">else</span><span class="p">:</span>
                         <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">pi</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">planesi</span><span class="p">):</span>
                             <span class="n">part</span><span class="p">[</span><span class="n">pi</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">-=</span> <span class="n">deltas</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
