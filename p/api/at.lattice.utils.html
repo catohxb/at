@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>at.lattice.utils &#8212; Accelerator Toolbox 0.1.dev1+g4bc050d documentation</title>
+    <title>at.lattice.utils &#8212; Accelerator Toolbox 0.1.dev1+g77a1f52 documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -560,14 +560,20 @@ elements are True.</p></li>
 <p class="rubric">Functions</p>
 <table class="autosummary longtable table autosummary">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#at.lattice.utils.check_radiation" title="at.lattice.utils.check_radiation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_radiation</span></code></a>(rad)</p></td>
-<td><p>Function to be used as a decorator for optics functions</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_radiation</span></code>(rad)</p></td>
+<td><p>Deprecated decorator for optics functions (see <a class="reference internal" href="#at.lattice.utils.check_6d" title="at.lattice.utils.check_6d"><code class="xref py py-func docutils literal notranslate"><span class="pre">check_6d()</span></code></a>).</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#at.lattice.utils.set_radiation" title="at.lattice.utils.set_radiation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_radiation</span></code></a>(rad)</p></td>
-<td><p>Function to be used as a decorator for optics functions</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#at.lattice.utils.check_6d" title="at.lattice.utils.check_6d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_6d</span></code></a>(is_6d)</p></td>
+<td><p>Decorator for optics functions</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_radiation</span></code>(rad)</p></td>
+<td><p>Deprecated decorator for optics functions (see <a class="reference internal" href="#at.lattice.utils.set_6d" title="at.lattice.utils.set_6d"><code class="xref py py-func docutils literal notranslate"><span class="pre">set_6d()</span></code></a>).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#at.lattice.utils.set_6d" title="at.lattice.utils.set_6d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_6d</span></code></a>(is_6d)</p></td>
+<td><p>Decorator for optics functions</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#at.lattice.utils.make_copy" title="at.lattice.utils.make_copy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_copy</span></code></a>(copy)</p></td>
-<td><p>Function to be used as a decorator for optics functions</p></td>
+<td><p>Decorator for optics functions</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#at.lattice.utils.uint32_refpts" title="at.lattice.utils.uint32_refpts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">uint32_refpts</span></code></a>(refpts, n_elements)</p></td>
 <td><p>Returns an integer array of element indices, selecting ring elements.</p></td>
@@ -676,19 +682,32 @@ elements are True.</p></li>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="at.lattice.utils.check_radiation">
-<span class="sig-name descname"><span class="pre">check_radiation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rad</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/utils.html#check_radiation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.utils.check_radiation" title="Permalink to this definition">#</a></dt>
-<dd><p>Function to be used as a decorator for optics functions</p>
-<p>Wraps a function like <code class="docutils literal notranslate"><span class="pre">func(ring,</span> <span class="pre">*Args,</span> <span class="pre">**kwargs)</span></code> where ring is a
-<cite>Lattice`</cite> object.</p>
+<dt class="sig sig-object py" id="at.lattice.utils.check_6d">
+<span class="sig-name descname"><span class="pre">check_6d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">is_6d</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/utils.html#check_6d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.utils.check_6d" title="Permalink to this definition">#</a></dt>
+<dd><p>Decorator for optics functions</p>
+<p>Wraps a function like <code class="docutils literal notranslate"><span class="pre">func(ring,</span> <span class="pre">*args,</span> <span class="pre">**kwargs)</span></code> where ring is a
+<a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lattice</span></code></a> object. Raise <a class="reference internal" href="#at.lattice.utils.AtError" title="at.lattice.utils.AtError"><code class="xref py py-class docutils literal notranslate"><span class="pre">AtError</span></code></a> if <code class="docutils literal notranslate"><span class="pre">ring.is_6d</span></code>
+is not the desired <code class="docutils literal notranslate"><span class="pre">is_6d</span></code> state. No test is performed if ring is not a
+<a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lattice</span></code></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>rad</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Desired radiation state</p>
+<dd class="field-odd"><p><strong>is_6d</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Desired 6D state</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#at.lattice.utils.AtError" title="at.lattice.utils.AtError"><strong>AtError</strong></a> – if <code class="docutils literal notranslate"><span class="pre">ring.is_6d</span></code> is not <code class="docutils literal notranslate"><span class="pre">is_6d</span></code></p>
 </dd>
 </dl>
-<p>If ring is a Lattice object, raises an exception if ring.radiation
-is not the specified rad bool</p>
-<p>If ring is any other sequence, no test is performed</p>
+<p class="rubric">Example</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@check_6d</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">find_orbit4</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">dct</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">guess</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>Raises <a class="reference internal" href="#at.lattice.utils.AtError" title="at.lattice.utils.AtError"><code class="xref py py-class docutils literal notranslate"><span class="pre">AtError</span></code></a> if <code class="docutils literal notranslate"><span class="pre">ring.is_6d</span></code> is <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#at.lattice.utils.set_6d" title="at.lattice.utils.set_6d"><code class="xref py py-func docutils literal notranslate"><span class="pre">set_6d()</span></code></a></p>
+</div>
 </dd></dl>
 
 <dl class="py function">
@@ -842,16 +861,12 @@ matches.</p></li>
 <dt class="sig sig-object py" id="at.lattice.utils.get_geometry">
 <span class="sig-name descname"><span class="pre">get_geometry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_coordinates</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">centered</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/utils.html#get_geometry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.utils.get_geometry" title="Permalink to this definition">#</a></dt>
 <dd><p>Compute the 2D ring geometry in cartesian coordinates</p>
-<p>Usage:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ring</span><span class="o">.</span><span class="n">get_geometry</span><span class="p">()</span>
-</pre></div>
-</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ring</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.10)"><em>List</em></a><em>[</em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>]</em>) – Lattice description</p></li>
-<li><p><strong>start_coordinates</strong> – x,y,angle at starting point</p></li>
-<li><p><strong>centered</strong> – it True the coordinates origin is the center of the ring</p></li>
+<li><p><strong>start_coordinates</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><em>Tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>]</em>) – x,y,angle at starting point</p></li>
+<li><p><strong>centered</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – it True the coordinates origin is the center of the ring</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -861,6 +876,10 @@ matches.</p></li>
 </ul>
 </dd>
 </dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">geomdata</span><span class="p">,</span> <span class="n">radius</span> <span class="o">=</span> <span class="n">get_geometry</span><span class="p">(</span><span class="n">ring</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py function">
@@ -954,14 +973,18 @@ an array.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="at.lattice.utils.make_copy">
 <span class="sig-name descname"><span class="pre">make_copy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">copy</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/utils.html#make_copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.utils.make_copy" title="Permalink to this definition">#</a></dt>
-<dd><p>Function to be used as a decorator for optics functions</p>
-<p>Wraps a function like <code class="docutils literal notranslate"><span class="pre">func(ring,</span> <span class="pre">refpts,</span> <span class="pre">*Args,</span> <span class="pre">**kwargs)</span></code> where ring
-is a <code class="docutils literal notranslate"><span class="pre">Lattice</span></code> object.</p>
-<p>If <code class="docutils literal notranslate"><span class="pre">copy</span></code> is False, the function is not modified,
-If <code class="docutils literal notranslate"><span class="pre">copy</span></code> is True, a shallow copy of ring is done, then the elements
-selected by refpts are deep-copied, then func is applied to the copy,
-and the new ring is returned.</p>
+<dd><p>Decorator for optics functions</p>
+<p>Wraps a function like <code class="docutils literal notranslate"><span class="pre">func(ring,</span> <span class="pre">refpts,</span> <span class="pre">*args,</span> <span class="pre">**kwargs)</span></code> where
+<code class="docutils literal notranslate"><span class="pre">ring</span></code> is a <a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lattice</span></code></a> object.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">copy</span></code> is <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a>, the function is not modified,</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">copy</span></code> is <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a>, a shallow copy of <code class="docutils literal notranslate"><span class="pre">ring</span></code> is done, then the
+elements selected by <code class="docutils literal notranslate"><span class="pre">refpts</span></code> are deep-copied, then <code class="docutils literal notranslate"><span class="pre">func</span></code> is applied
+to the copy, and the new ring is returned.</p>
 <dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>copy</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – If <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a>, apply the decorated function to a copy of
+<code class="docutils literal notranslate"><span class="pre">ring</span></code></p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -1040,18 +1063,36 @@ selected elements</p></li>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="at.lattice.utils.set_radiation">
-<span class="sig-name descname"><span class="pre">set_radiation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rad</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/utils.html#set_radiation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.utils.set_radiation" title="Permalink to this definition">#</a></dt>
-<dd><p>Function to be used as a decorator for optics functions</p>
-<p>Wraps a function like <code class="docutils literal notranslate"><span class="pre">func(ring,</span> <span class="pre">*Args,</span> <span class="pre">**kwargs)</span></code> where ring is a
-<code class="docutils literal notranslate"><span class="pre">Lattice</span></code> object.</p>
+<dt class="sig sig-object py" id="at.lattice.utils.set_6d">
+<span class="sig-name descname"><span class="pre">set_6d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">is_6d</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/utils.html#set_6d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.utils.set_6d" title="Permalink to this definition">#</a></dt>
+<dd><p>Decorator for optics functions</p>
+<p>Wraps a function like <code class="docutils literal notranslate"><span class="pre">func(ring,</span> <span class="pre">*args,</span> <span class="pre">**kwargs)</span></code> where <code class="docutils literal notranslate"><span class="pre">ring</span></code> is a
+<a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lattice</span></code></a> object. If <code class="docutils literal notranslate"><span class="pre">ring.is_6d</span></code> is not the desired <code class="docutils literal notranslate"><span class="pre">is_6d</span></code>
+state, <code class="docutils literal notranslate"><span class="pre">func</span></code> will be called with a modified copy of <code class="docutils literal notranslate"><span class="pre">ring</span></code> satisfying
+the <code class="docutils literal notranslate"><span class="pre">is_6d</span></code> state.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>rad</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Desired radiation state</p>
+<dd class="field-odd"><p><strong>is_6d</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Desired 6D state</p>
 </dd>
 </dl>
-<p><code class="docutils literal notranslate"><span class="pre">func</span></code> will be called with a copy of the ring such that its radiation
-state is set to rad (no copy is done if it’s already the case).</p>
+<p class="rubric">Example</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@set_6d</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">compute</span><span class="p">(</span><span class="n">ring</span><span class="p">)</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>is roughly equivalent to:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">ring</span><span class="o">.</span><span class="n">is_6d</span><span class="p">:</span>
+    <span class="n">compute</span><span class="p">(</span><span class="n">ring</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">compute</span><span class="p">(</span><span class="n">ring</span><span class="o">.</span><span class="n">enable_6d</span><span class="p">(</span><span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#at.lattice.utils.check_6d" title="at.lattice.utils.check_6d"><code class="xref py py-func docutils literal notranslate"><span class="pre">check_6d()</span></code></a>, <a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice.enable_6d" title="at.lattice.lattice_object.Lattice.enable_6d"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Lattice.enable_6d()</span></code></a>,
+<a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice.disable_6d" title="at.lattice.lattice_object.Lattice.disable_6d"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Lattice.disable_6d()</span></code></a></p>
+</div>
 </dd></dl>
 
 <dl class="py function">

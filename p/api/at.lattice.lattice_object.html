@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>at.lattice.lattice_object &#8212; Accelerator Toolbox 0.1.dev1+g4bc050d documentation</title>
+    <title>at.lattice.lattice_object &#8212; Accelerator Toolbox 0.1.dev1+g77a1f52 documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -1692,16 +1692,12 @@ See <code class="xref py py-class docutils literal notranslate"><span class="pre
 <dt class="sig sig-object py" id="at.lattice.lattice_object.Lattice.get_geometry">
 <span class="sig-name descname"><span class="pre">get_geometry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start_coordinates</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">centered</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#at.lattice.lattice_object.Lattice.get_geometry" title="Permalink to this definition">#</a></dt>
 <dd><p>Compute the 2D ring geometry in cartesian coordinates</p>
-<p>Usage:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ring</span><span class="o">.</span><span class="n">get_geometry</span><span class="p">()</span>
-</pre></div>
-</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ring</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.10)"><em>List</em></a><em>[</em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>]</em>) – Lattice description</p></li>
-<li><p><strong>start_coordinates</strong> – x,y,angle at starting point</p></li>
-<li><p><strong>centered</strong> – it True the coordinates origin is the center of the ring</p></li>
+<li><p><strong>start_coordinates</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><em>Tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>]</em>) – x,y,angle at starting point</p></li>
+<li><p><strong>centered</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – it True the coordinates origin is the center of the ring</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -1711,6 +1707,10 @@ See <code class="xref py py-class docutils literal notranslate"><span class="pre
 </ul>
 </dd>
 </dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">geomdata</span><span class="p">,</span> <span class="n">radius</span> <span class="o">=</span> <span class="n">get_geometry</span><span class="p">(</span><span class="n">ring</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py method">
@@ -3720,19 +3720,19 @@ selected elements</p></li>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="at.lattice.lattice_object.Lattice.bunch_currents">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">bunch_currents</span></span><a class="headerlink" href="#at.lattice.lattice_object.Lattice.bunch_currents" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">bunch_currents</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><span class="pre">ndarray</span></a></em><a class="headerlink" href="#at.lattice.lattice_object.Lattice.bunch_currents" title="Permalink to this definition">#</a></dt>
 <dd><p>Bunch currents [A]</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="at.lattice.lattice_object.Lattice.bunch_list">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">bunch_list</span></span><a class="headerlink" href="#at.lattice.lattice_object.Lattice.bunch_list" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">bunch_list</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><span class="pre">ndarray</span></a></em><a class="headerlink" href="#at.lattice.lattice_object.Lattice.bunch_list" title="Permalink to this definition">#</a></dt>
 <dd><p>Indices of filled bunches</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="at.lattice.lattice_object.Lattice.bunch_spos">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">bunch_spos</span></span><a class="headerlink" href="#at.lattice.lattice_object.Lattice.bunch_spos" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">bunch_spos</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><span class="pre">ndarray</span></a></em><a class="headerlink" href="#at.lattice.lattice_object.Lattice.bunch_spos" title="Permalink to this definition">#</a></dt>
 <dd><p>Bunch position around the ring [m]</p>
 </dd></dl>
 
@@ -3768,7 +3768,7 @@ See <code class="xref py py-class docutils literal notranslate"><span class="pre
 
 <dl class="py property">
 <dt class="sig sig-object py" id="at.lattice.lattice_object.Lattice.fillpattern">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fillpattern</span></span><a class="headerlink" href="#at.lattice.lattice_object.Lattice.fillpattern" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fillpattern</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><span class="pre">ndarray</span></a></em><a class="headerlink" href="#at.lattice.lattice_object.Lattice.fillpattern" title="Permalink to this definition">#</a></dt>
 <dd><p>Filling pattern describing the bunch relative
 amplitudes such that <code class="docutils literal notranslate"><span class="pre">sum(fillpattern)=1</span></code></p>
 </dd></dl>
@@ -3781,8 +3781,15 @@ amplitudes such that <code class="docutils literal notranslate"><span class="pre
 
 <dl class="py property">
 <dt class="sig sig-object py" id="at.lattice.lattice_object.Lattice.harmonic_number">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">harmonic_number</span></span><a class="headerlink" href="#at.lattice.lattice_object.Lattice.harmonic_number" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">harmonic_number</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></em><a class="headerlink" href="#at.lattice.lattice_object.Lattice.harmonic_number" title="Permalink to this definition">#</a></dt>
 <dd><p>Ring harmonic number (full self)</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="at.lattice.lattice_object.Lattice.has_cavity">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">has_cavity</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></em><a class="headerlink" href="#at.lattice.lattice_object.Lattice.has_cavity" title="Permalink to this definition">#</a></dt>
+<dd><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a> if the lattice contains an active
+<code class="xref py py-class docutils literal notranslate"><span class="pre">RFCavity</span></code></p>
 </dd></dl>
 
 <dl class="py property">
@@ -3804,7 +3811,7 @@ amplitudes such that <code class="docutils literal notranslate"><span class="pre
 <dl class="py property">
 <dt class="sig sig-object py" id="at.lattice.lattice_object.Lattice.is_collective">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_collective</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></em><a class="headerlink" href="#at.lattice.lattice_object.Lattice.is_collective" title="Permalink to this definition">#</a></dt>
-<dd><p>True if any element involves collective effects</p>
+<dd><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a> if any element involves collective effects</p>
 </dd></dl>
 
 <dl class="py property">
@@ -3815,7 +3822,7 @@ amplitudes such that <code class="docutils literal notranslate"><span class="pre
 
 <dl class="py property">
 <dt class="sig sig-object py" id="at.lattice.lattice_object.Lattice.nbunch">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nbunch</span></span><a class="headerlink" href="#at.lattice.lattice_object.Lattice.nbunch" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nbunch</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></em><a class="headerlink" href="#at.lattice.lattice_object.Lattice.nbunch" title="Permalink to this definition">#</a></dt>
 <dd><p>Number of bunches</p>
 </dd></dl>
 
@@ -3823,13 +3830,6 @@ amplitudes such that <code class="docutils literal notranslate"><span class="pre
 <dt class="sig sig-object py" id="at.lattice.lattice_object.Lattice.particle">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">particle</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="at.lattice.particle_object.html#at.lattice.particle_object.Particle" title="at.lattice.particle_object.Particle"><span class="pre">Particle</span></a></em><a class="headerlink" href="#at.lattice.lattice_object.Lattice.particle" title="Permalink to this definition">#</a></dt>
 <dd><p>Circulating particle</p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="at.lattice.lattice_object.Lattice.radiation">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">radiation</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></em><a class="headerlink" href="#at.lattice.lattice_object.Lattice.radiation" title="Permalink to this definition">#</a></dt>
-<dd><p>Obsolete. True if at least one element modifies the beam energy
-Use <a class="reference internal" href="#at.lattice.lattice_object.Lattice.is_6d" title="at.lattice.lattice_object.Lattice.is_6d"><code class="xref py py-attr docutils literal notranslate"><span class="pre">is_6d</span></code></a> instead</p>
 </dd></dl>
 
 <dl class="py property">
@@ -3858,8 +3858,8 @@ Use <a class="reference internal" href="#at.lattice.lattice_object.Lattice.is_6d
 
 <dl class="py property">
 <dt class="sig sig-object py" id="at.lattice.lattice_object.Lattice.s_range">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">s_range</span></span><a class="headerlink" href="#at.lattice.lattice_object.Lattice.s_range" title="Permalink to this definition">#</a></dt>
-<dd><p>[s_min, s_max]. <code class="docutils literal notranslate"><span class="pre">None</span></code> means the full cell.</p>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">s_range</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#at.lattice.lattice_object.Lattice.s_range" title="Permalink to this definition">#</a></dt>
+<dd><p>(s_min, s_max). <code class="docutils literal notranslate"><span class="pre">None</span></code> means the full cell.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Range of interest</p>
