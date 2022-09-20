@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Collective &#8212; Accelerator Toolbox 0.1.dev1+g4bc050d documentation</title>
+    <title>Parallel processing &#8212; Accelerator Toolbox 0.1.dev1+g4bc050d documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -40,8 +40,8 @@
     <script src="../../_static/copybutton.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="at.acceptance" href="../api/at.acceptance.html" />
-    <link rel="prev" title="Cavity Control" href="CavityControl.html" />
+    <link rel="next" title="PyAT Primer" href="Primer.html" />
+    <link rel="prev" title="Installation" href="Installation.html" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="docsearch:language" content="en">
   </head>
@@ -168,8 +168,8 @@
    Installation
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="multiprocessing.html">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
    Parallel processing
   </a>
  </li>
@@ -183,8 +183,8 @@
    Cavity Control
   </a>
  </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+ <li class="toctree-l1">
+  <a class="reference internal" href="Collective.html">
    Collective
   </a>
  </li>
@@ -519,9 +519,54 @@
     
     <div class="toc-item">
       
+<div class="tocsection onthispage mt-5 pt-1 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
 
 <nav id="bd-toc-nav">
-    
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#python-multiprocessing-package">
+   Python
+   <code class="xref py py-obj docutils literal notranslate">
+    <span class="pre">
+     multiprocessing
+    </span>
+   </code>
+   package
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   OpenMP
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#installation">
+     Installation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#configuration">
+     Configuration
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id8">
+   MPI
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id10">
+     Installation
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
 </nav>
     </div>
     
@@ -539,10 +584,117 @@
               
               <article class="bd-article" role="main">
                 
-  <section id="collective">
-<h1>Collective<a class="headerlink" href="#collective" title="Permalink to this heading">#</a></h1>
-<p>A collective effects element can be added to any lattice to model
-impedance driven collective effects and perform multi-particle tracking</p>
+  <section id="parallel-processing">
+<span id="parallel"></span><h1>Parallel processing<a class="headerlink" href="#parallel-processing" title="Permalink to this heading">#</a></h1>
+<p>In most passmethods, particles are independent. So multi-particle tracking is
+well adapted for parallel processing. But a few elements, like impedance elements,
+need the knowledge of the whole particle distribution. These are subclasses of
+the <a class="reference internal" href="../api/at.lattice.elements.html#at.lattice.elements.Collective" title="at.lattice.elements.Collective"><code class="xref py py-class docutils literal notranslate"><span class="pre">Collective</span></code></a> class. Depending on the multiprocessing option
+chosen, they must be excluded from parallel tracking or be protected by a fence.</p>
+<p>PyAT has several options for parallel computing. Though nothing wrong should
+happen when simultaneously activating several options, it is usually advised
+not to do so.</p>
+<section id="python-multiprocessing-package">
+<h2>Python <a class="reference external" href="https://docs.python.org/3/library/multiprocessing.html#module-multiprocessing" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">multiprocessing</span></code></a> package<a class="headerlink" href="#python-multiprocessing-package" title="Permalink to this heading">#</a></h2>
+<p>Some PyAT functions are based on the standard Python <a class="reference external" href="https://docs.python.org/3/library/multiprocessing.html#module-multiprocessing" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">multiprocessing</span></code></a>
+package.</p>
+<ul class="simple">
+<li><p>Always available, on all platforms, with the default installation,</p></li>
+<li><p>Must be explicitly called, either by calling <a class="reference internal" href="../api/at.tracking.patpass.html#at.tracking.patpass.patpass" title="at.tracking.patpass.patpass"><code class="xref py py-func docutils literal notranslate"><span class="pre">patpass()</span></code></a> instead
+of <a class="reference internal" href="../api/at.tracking.track.html#at.tracking.track.lattice_pass" title="at.tracking.track.lattice_pass"><code class="xref py py-func docutils literal notranslate"><span class="pre">lattice_pass()</span></code></a> for tracking, or by specifying a <code class="docutils literal notranslate"><span class="pre">use_mp</span></code>
+boolean keyword argument in some functions (see <a class="reference internal" href="../api/at.acceptance.acceptance.html#at.acceptance.acceptance.get_acceptance" title="at.acceptance.acceptance.get_acceptance"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_acceptance()</span></code></a> for
+example).</p></li>
+<li><p><a class="reference internal" href="../api/at.lattice.elements.html#at.lattice.elements.Collective" title="at.lattice.elements.Collective"><code class="xref py py-class docutils literal notranslate"><span class="pre">Collective</span></code></a> element classes are not allowed.</p></li>
+</ul>
+</section>
+<section id="id1">
+<h2><a class="reference external" href="https://www.openmp.org">OpenMP</a><a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+<p>PyAT C integrators can be compiled with <a class="reference external" href="https://www.openmp.org">OpenMP</a>.
+Parallelism is activated inside each integrator, when possible.</p>
+<ul class="simple">
+<li><p>Available on all platforms with a special installation procedure,</p></li>
+<li><p>Fully transparent once installed: <a class="reference external" href="https://www.openmp.org">OpenMP</a> is
+automatically activated when tracking more than <code class="docutils literal notranslate"><span class="pre">OMP_PARTICLE_THRESHOLD</span></code>
+particles (10 by default). As a consequence, many internal PyAT functions
+(closed orbit, transfer matrices…) benefit from parallelism,</p></li>
+<li><p>No restriction on element classes,</p></li>
+<li><p>Uses shared-memory multiprocessing: small overhead, but limited to
+single-node multicore machines,</p></li>
+</ul>
+<section id="installation">
+<h3>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">#</a></h3>
+<p><a class="reference external" href="https://www.openmp.org">OpenMP</a> is integrated in most modern compilers and
+does not require any preliminary installation, except for macOS:</p>
+<div class="admonition-macos-preliminary-openmp-installation admonition">
+<p class="admonition-title">macOS preliminary OpenMP installation</p>
+<p>While the <code class="docutils literal notranslate"><span class="pre">clang</span></code> compiler integrates <a class="reference external" href="https://www.openmp.org">OpenMP</a>,
+<code class="docutils literal notranslate"><span class="pre">libomp.dylib</span></code> must be installed with your favorite package manager,
+<a class="reference external" href="https://brew.sh">Homebrew</a> or <a class="reference external" href="https://www.macports.org">MacPorts</a>:</p>
+<div class="line-block">
+<div class="line">Use <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">brew</span> <span class="pre">install</span> <span class="pre">libomp</span></code></div>
+<div class="line">or  <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">sudo</span> <span class="pre">port</span> <span class="pre">install</span> <span class="pre">libomp</span></code></div>
+</div>
+</div>
+<p>From the PyPI repository, you must install from source (disable the binary
+distribution):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">binary</span> <span class="n">accelerator</span><span class="o">-</span><span class="n">toolbox</span> <span class="o">--</span><span class="n">config</span><span class="o">-</span><span class="n">settings</span> <span class="n">openmp</span><span class="o">=</span><span class="mi">1</span> <span class="n">accelerator</span><span class="o">-</span><span class="n">toolbox</span>
+</pre></div>
+</div>
+<p>From a local clone: when switching from a standard install
+to an <a class="reference external" href="https://www.openmp.org">OpenMP</a> one or vice-versa, remove the
+<code class="docutils literal notranslate"><span class="pre">build</span></code> directory to force a re-compilation:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">&lt;</span><span class="n">at</span><span class="o">&gt;</span>
+<span class="n">rm</span> <span class="o">-</span><span class="n">rf</span> <span class="n">build</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">config</span><span class="o">-</span><span class="n">settings</span> <span class="n">openmp</span><span class="o">=</span><span class="mi">1</span> <span class="o">.</span>
+</pre></div>
+</div>
+</section>
+<section id="configuration">
+<h3>Configuration<a class="headerlink" href="#configuration" title="Permalink to this heading">#</a></h3>
+<p>The minimum number of particles triggering parallelism can be configured at
+compile time either by setting a <code class="docutils literal notranslate"><span class="pre">OMP_PARTICLE_THRESHOLD</span></code> environment variable
+or by specifying the <code class="docutils literal notranslate"><span class="pre">omp_particle_threshold</span></code> configuration option:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">OPENMP</span><span class="o">=</span><span class="mi">1</span> <span class="n">OMP_PARTICLE_THRESHOLD</span><span class="o">=</span><span class="mi">4</span> <span class="n">pip</span> <span class="n">install</span> <span class="o">.</span> <span class="c1"># or</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">config</span><span class="o">-</span><span class="n">settings</span> <span class="n">openmp</span><span class="o">=</span><span class="mi">1</span> <span class="o">--</span><span class="n">config</span><span class="o">-</span><span class="n">settings</span> <span class="n">omp_particle_threshold</span><span class="o">=</span><span class="mi">4</span> <span class="o">.</span>
+</pre></div>
+</div>
+<p>The number of threads is by default automatically selected by
+<a class="reference external" href="https://www.openmp.org">OpenMP</a>. It can be forced to any value with the
+<code class="docutils literal notranslate"><span class="pre">omp_num_threads</span></code> keyword argument of <a class="reference internal" href="../api/at.tracking.track.html#at.tracking.track.lattice_pass" title="at.tracking.track.lattice_pass"><code class="xref py py-func docutils literal notranslate"><span class="pre">lattice_pass()</span></code></a></p>
+</section>
+</section>
+<section id="id8">
+<h2><a class="reference external" href="https://www.mpi-forum.org/docs/">MPI</a><a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h2>
+<p>PyAT can be installed with <a class="reference external" href="https://www.mpi-forum.org/docs/">MPI</a>
+compatibility.</p>
+<ul class="simple">
+<li><p>Available on all platforms with a special installation procedure, but mostly
+interesting on computer clusters,</p></li>
+<li><p>Message-passing interface implies a significant overhead for data transfer,
+but allows large scale and heterogeneous computer infrastructures,</p></li>
+<li><p>No restriction on element classes,</p></li>
+<li><p>The whole python session needs to be started with <code class="docutils literal notranslate"><span class="pre">mpirun</span></code>: better suited
+for massive multi-particle batch jobs than for interactive sessions,</p></li>
+</ul>
+<section id="id10">
+<h3>Installation<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h3>
+<p><a class="reference external" href="https://www.mpi-forum.org/docs/">MPI</a> must be preliminary installed on the
+computer.</p>
+<p>From the PyPI repository, you must install from source (disable the binary
+distribution):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">binary</span> <span class="n">accelerator</span><span class="o">-</span><span class="n">toolbox</span> <span class="o">--</span><span class="n">config</span><span class="o">-</span><span class="n">settings</span> <span class="n">mpi</span><span class="o">=</span><span class="mi">1</span> <span class="s2">&quot;accelerator-toolbox[mpi]&quot;</span>
+</pre></div>
+</div>
+<p>Installing PyAT from a local clone: when switching from a standard install
+to a <a class="reference external" href="https://www.mpi-forum.org/docs/">MPI</a> one or vice-versa, remove the
+<code class="docutils literal notranslate"><span class="pre">build</span></code> directory to force a re-compilation:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">&lt;</span><span class="n">at</span><span class="o">&gt;</span>
+<span class="n">rm</span> <span class="o">-</span><span class="n">rf</span> <span class="n">build</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">config</span><span class="o">-</span><span class="n">settings</span> <span class="n">mpi</span><span class="o">=</span><span class="mi">1</span> <span class="s2">&quot;.[mpi]&quot;</span>
+</pre></div>
+</div>
+</section>
+</section>
 </section>
 
 
@@ -553,17 +705,17 @@ impedance driven collective effects and perform multi-particle tracking</p>
               <footer class="bd-footer-article">
                   <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-  <a class='left-prev' id="prev-link" href="CavityControl.html" title="previous page">
+  <a class='left-prev' id="prev-link" href="Installation.html" title="previous page">
       <i class="fas fa-angle-left"></i>
       <div class="prev-next-info">
           <p class="prev-next-subtitle">previous</p>
-          <p class="prev-next-title">Cavity Control</p>
+          <p class="prev-next-title">Installation</p>
       </div>
   </a>
-  <a class='right-next' id="next-link" href="../api/at.acceptance.html" title="next page">
+  <a class='right-next' id="next-link" href="Primer.html" title="next page">
   <div class="prev-next-info">
       <p class="prev-next-subtitle">next</p>
-      <p class="prev-next-title">at.acceptance</p>
+      <p class="prev-next-title">PyAT Primer</p>
   </div>
   <i class="fas fa-angle-right"></i>
   </a>

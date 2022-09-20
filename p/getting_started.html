@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>pyAT &#8212; Accelerator Toolbox 0.1.dev1+g452f78e documentation</title>
+    <title>pyAT &#8212; Accelerator Toolbox 0.1.dev1+g4bc050d documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -166,6 +166,11 @@
  <li class="toctree-l1">
   <a class="reference internal" href="howto/Installation.html">
    Installation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="howto/multiprocessing.html">
+   Parallel processing
   </a>
  </li>
  <li class="toctree-l1">
@@ -652,9 +657,9 @@ particularly for synchrotron light sources. It is hosted on <a class="reference 
 defined in Accelerator Toolbox, implemented by compiling the C code used in the
 AT ‘integrators’ into a Python extension. These pass methods are used by
 higher-level functions to provide physics results.</p>
-<p>See the <a class="reference external" href="https://at.readthedocs.io/en/latest/">pyAT website</a> for a
+<p>See the <a class="reference external" href="https://atcollab.github.io/at/p/index.html">pyAT website</a> for a
 more detailed introduction.</p>
-<p>pyAT supports Python 3.6 to 3.10.</p>
+<p>pyAT supports Python 3.7 to 3.10.</p>
 </section>
 <section id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">#</a></h2>
@@ -741,8 +746,8 @@ more detailed introduction.</p>
 </pre></div>
 </div>
 </li>
-<li><p>Go to the pyat root directory:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">&lt;</span><span class="n">atroot</span><span class="o">&gt;/</span><span class="n">pyat</span>
+<li><p>Go to the AT root directory:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">&lt;</span><span class="n">atroot</span><span class="o">&gt;</span>
 </pre></div>
 </div>
 </li>
@@ -759,7 +764,7 @@ more detailed introduction.</p>
 </li>
 </ul>
 <p>Finally, you should be able to run the tests:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python -m pytest test
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python -m pytest pyat/test
 </pre></div>
 </div>
 </section>
@@ -856,15 +861,16 @@ platforms and architectures.</p>
 </section>
 <section id="pyat-examples">
 <h1>pyAT Examples<a class="headerlink" href="#pyat-examples" title="Permalink to this heading">#</a></h1>
-<p>Please follow <code class="docutils literal notranslate"><span class="pre">at/pyat/README.rst</span></code> for installation instructions.
-In these examples, we use the ring from <cite>hmba.mat</cite> found in <code class="docutils literal notranslate"><span class="pre">test_matlab</span></code>;
+<p>Please follow <code class="docutils literal notranslate"><span class="pre">&lt;at&gt;/pyat/README.rst</span></code> for installation instructions.
+In these examples, we use the ring from <cite>hmba.mat</cite> found in <code class="docutils literal notranslate"><span class="pre">&lt;at&gt;/pyat/machine_data</span></code>;
 however, they will also work on the <code class="docutils literal notranslate"><span class="pre">err.mat</span></code> ring if you want to be more
 representative of a real accelerator.</p>
 <section id="initialisation">
 <h2>Initialisation:<a class="headerlink" href="#initialisation" title="Permalink to this heading">#</a></h2>
 <ul>
-<li><p>Start Python inside the <code class="docutils literal notranslate"><span class="pre">pyat</span></code> directory:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd pyat
+<li><p>Start Python within the virtual environment where PyAT in installed and
+import <code class="docutils literal notranslate"><span class="pre">at</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd &lt;at&gt;
 $ source venv/bin/activate
 $ python
 Python 2.7.3 (default, Nov  9 2013, 21:59:00)
@@ -876,8 +882,7 @@ Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;licen
 </div>
 </li>
 <li><p>Load a pyAT ring from a .mat file:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">at</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ring</span> <span class="o">=</span> <span class="n">at</span><span class="o">.</span><span class="n">load_lattice</span><span class="p">(</span><span class="s1">&#39;machine_data/hmba.mat&#39;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ring</span> <span class="o">=</span> <span class="n">at</span><span class="o">.</span><span class="n">load_lattice</span><span class="p">(</span><span class="s1">&#39;pyat/machine_data/hmba.mat&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </li>
