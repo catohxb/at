@@ -4,9 +4,9 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>at.collective.wake_elements &#8212; Accelerator Toolbox 0.1.dev1+g555c2af documentation</title>
+    <title>at.collective.wake_elements &#8212; Accelerator Toolbox 0.1.dev1+gd6b2ccc documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -36,6 +36,7 @@
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
@@ -496,6 +497,11 @@
      at.tracking.track
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="at.tracking.utils.html">
+     at.tracking.utils
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toctree-l1">
@@ -521,9 +527,283 @@
     
     <div class="toc-item">
       
+<div class="tocsection onthispage mt-5 pt-1 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
 
 <nav id="bd-toc-nav">
-    
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#at.collective.wake_elements.LongResonatorElement">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     LongResonatorElement
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.collective.wake_elements.LongResonatorElement.rebuild_wake">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       LongResonatorElement.rebuild_wake()
+      </span>
+     </code>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#at.collective.wake_elements.ResWallElement">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     ResWallElement
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.collective.wake_elements.ResWallElement.rebuild_wake">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ResWallElement.rebuild_wake()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.collective.wake_elements.ResWallElement.Conductivity">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ResWallElement.Conductivity
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.collective.wake_elements.ResWallElement.RWLength">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ResWallElement.RWLength
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.collective.wake_elements.ResWallElement.Rvac">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ResWallElement.Rvac
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.collective.wake_elements.ResWallElement.Yokoya">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ResWallElement.Yokoya
+      </span>
+     </code>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#at.collective.wake_elements.ResonatorElement">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     ResonatorElement
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.collective.wake_elements.ResonatorElement.rebuild_wake">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ResonatorElement.rebuild_wake()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.collective.wake_elements.ResonatorElement.Qfactor">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ResonatorElement.Qfactor
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.collective.wake_elements.ResonatorElement.ResFrequency">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ResonatorElement.ResFrequency
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.collective.wake_elements.ResonatorElement.Rshunt">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ResonatorElement.Rshunt
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.collective.wake_elements.ResonatorElement.Yokoya">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ResonatorElement.Yokoya
+      </span>
+     </code>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#at.collective.wake_elements.WakeElement">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     WakeElement
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.collective.wake_elements.WakeElement.clear_history">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       WakeElement.clear_history()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.collective.wake_elements.WakeElement.rebuild_wake">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       WakeElement.rebuild_wake()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.collective.wake_elements.WakeElement.set_normfactxy">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       WakeElement.set_normfactxy()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.collective.wake_elements.WakeElement.Nslice">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       WakeElement.Nslice
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.collective.wake_elements.WakeElement.Nturns">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       WakeElement.Nturns
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.collective.wake_elements.WakeElement.TurnHistory">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       WakeElement.TurnHistory
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.collective.wake_elements.WakeElement.WakeDX">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       WakeElement.WakeDX
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.collective.wake_elements.WakeElement.WakeDY">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       WakeElement.WakeDY
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.collective.wake_elements.WakeElement.WakeQX">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       WakeElement.WakeQX
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.collective.wake_elements.WakeElement.WakeQY">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       WakeElement.WakeQY
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.collective.wake_elements.WakeElement.WakeT">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       WakeElement.WakeT
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.collective.wake_elements.WakeElement.WakeZ">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       WakeElement.WakeZ
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.collective.wake_elements.WakeElement.default_pass">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       WakeElement.default_pass
+      </span>
+     </code>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#at.collective.wake_elements.set_wake_turnhistory">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     set_wake_turnhistory()
+    </span>
+   </code>
+  </a>
+ </li>
+</ul>
+
 </nav>
     </div>
     
@@ -543,6 +823,14 @@
                 
   <section id="module-at.collective.wake_elements">
 <span id="at-collective-wake-elements"></span><h1>at.collective.wake_elements<a class="headerlink" href="#module-at.collective.wake_elements" title="Permalink to this heading">#</a></h1>
+<p class="rubric">Functions</p>
+<table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#at.collective.wake_elements.set_wake_turnhistory" title="at.collective.wake_elements.set_wake_turnhistory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_wake_turnhistory</span></code></a>(ring)</p></td>
+<td><p>Function to set the shape of the turn history based on the number of slices, turns and bunches</p></td>
+</tr>
+</tbody>
+</table>
 <p class="rubric">Classes</p>
 <table class="autosummary longtable table autosummary">
 <tbody>
@@ -581,7 +869,6 @@ additional argument are frequency, qfactor, rshunt</p>
 <dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
 <li><p><strong>yokoya_factor</strong> – Yokoya factor</p></li>
-<li><p><strong>Current</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Bunch current [A]</p></li>
 <li><p><strong>Nslice</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of slices per bunch. Default: 101</p></li>
 <li><p><strong>Nturns</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of turn for the wake field. Default: 1</p></li>
 <li><p><strong>ZCuts</strong> – Limits for fixed slicing, default is adaptive</p></li>
@@ -619,7 +906,6 @@ additional argument are yokoya_factor, length, pipe radius, conductivity</p>
 </dd>
 <dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>Current</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Bunch current [A]</p></li>
 <li><p><strong>Nslice</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of slices per bunch. Default: 101</p></li>
 <li><p><strong>Nturns</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of turn for the wake field. Default: 1</p></li>
 <li><p><strong>ZCuts</strong> – Limits for fixed slicing, default is adaptive</p></li>
@@ -637,22 +923,26 @@ example. Default: (1,1,1)</p></li>
 <dl class="py property">
 <dt class="sig sig-object py" id="at.collective.wake_elements.ResWallElement.Conductivity">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Conductivity</span></span><a class="headerlink" href="#at.collective.wake_elements.ResWallElement.Conductivity" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>Conductivity of the beam pipe [S/m]</p>
+</dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="at.collective.wake_elements.ResWallElement.RWLength">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">RWLength</span></span><a class="headerlink" href="#at.collective.wake_elements.ResWallElement.RWLength" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>Length of the resistive wall</p>
+</dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="at.collective.wake_elements.ResWallElement.Rvac">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Rvac</span></span><a class="headerlink" href="#at.collective.wake_elements.ResWallElement.Rvac" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>Radius of the beam pipe [m]</p>
+</dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="at.collective.wake_elements.ResWallElement.Yokoya">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Yokoya</span></span><a class="headerlink" href="#at.collective.wake_elements.ResWallElement.Yokoya" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>Yokoya factor for the reistive wall</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -678,7 +968,6 @@ additonal argument are frequency, qfactor, rshunt</p>
 </dd>
 <dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>Current</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Bunch current [A]</p></li>
 <li><p><strong>Nslice</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of slices per bunch. Default: 101</p></li>
 <li><p><strong>Nturns</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of turn for the wake field. Default: 1</p></li>
 <li><p><strong>ZCuts</strong> – Limits for fixed slicing, default is adaptive</p></li>
@@ -735,7 +1024,6 @@ example. Default: (1,1,1)</p></li>
 </dd>
 <dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>Current</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Bunch current [A]</p></li>
 <li><p><strong>Nslice</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of slices per bunch. Default: 101</p></li>
 <li><p><strong>Nturns</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of turn for the wake field. Default: 1</p></li>
 <li><p><strong>ZCuts</strong> – Limits for fixed slicing, default is adaptive</p></li>
@@ -747,7 +1035,7 @@ example. Default: (1,1,1)</p></li>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="at.collective.wake_elements.WakeElement.clear_history">
-<span class="sig-name descname"><span class="pre">clear_history</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/collective/wake_elements.html#WakeElement.clear_history"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.collective.wake_elements.WakeElement.clear_history" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">clear_history</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/collective/wake_elements.html#WakeElement.clear_history"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.collective.wake_elements.WakeElement.clear_history" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -761,12 +1049,6 @@ example. Default: (1,1,1)</p></li>
 <dd></dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="at.collective.wake_elements.WakeElement.Current">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Current</span></span><a class="headerlink" href="#at.collective.wake_elements.WakeElement.Current" title="Permalink to this definition">#</a></dt>
-<dd><p>Bunch current [A]</p>
-</dd></dl>
-
-<dl class="py property">
 <dt class="sig sig-object py" id="at.collective.wake_elements.WakeElement.Nslice">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Nslice</span></span><a class="headerlink" href="#at.collective.wake_elements.WakeElement.Nslice" title="Permalink to this definition">#</a></dt>
 <dd><p>Number of slices per bunch</p>
@@ -776,6 +1058,12 @@ example. Default: (1,1,1)</p></li>
 <dt class="sig sig-object py" id="at.collective.wake_elements.WakeElement.Nturns">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Nturns</span></span><a class="headerlink" href="#at.collective.wake_elements.WakeElement.Nturns" title="Permalink to this definition">#</a></dt>
 <dd><p>Number of turn for the wake field</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="at.collective.wake_elements.WakeElement.TurnHistory">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">TurnHistory</span></span><a class="headerlink" href="#at.collective.wake_elements.WakeElement.TurnHistory" title="Permalink to this definition">#</a></dt>
+<dd><p>Turn histroy of the slices center of mass</p>
 </dd></dl>
 
 <dl class="py property">
@@ -818,6 +1106,13 @@ example. Default: (1,1,1)</p></li>
 <span class="sig-name descname"><span class="pre">default_pass</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{False:</span> <span class="pre">'IdentityPass',</span> <span class="pre">True:</span> <span class="pre">'WakeFieldPass'}</span></em><a class="headerlink" href="#at.collective.wake_elements.WakeElement.default_pass" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="at.collective.wake_elements.set_wake_turnhistory">
+<span class="sig-name descname"><span class="pre">set_wake_turnhistory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/collective/wake_elements.html#set_wake_turnhistory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.collective.wake_elements.set_wake_turnhistory" title="Permalink to this definition">#</a></dt>
+<dd><p>Function to set the shape of the turn history
+based on the number of slices, turns and bunches</p>
 </dd></dl>
 
 </section>
@@ -867,7 +1162,7 @@ example. Default: (1,1,1)</p></li>
   
   <div class="footer-item">
     <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.1.1.<br>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.2.2.<br>
 </p>
   </div>
   

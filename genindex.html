@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Index &#8212; Accelerator Toolbox 0.1.dev1+g555c2af documentation</title>
+    <title>Index &#8212; Accelerator Toolbox 0.1.dev1+gd6b2ccc documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -35,6 +35,7 @@
     <script src="_static/underscore.js"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
     <link rel="index" title="Index" href="#" />
@@ -390,8 +391,6 @@
         <li><a href="p/api/at.load.utils.html#module-at.load.utils">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     at.matching
 
@@ -399,6 +398,8 @@
         <li><a href="p/api/at.matching.html#module-at.matching">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     at.matching.globalfit
 
@@ -574,6 +575,13 @@
         <li><a href="p/api/at.tracking.track.html#module-at.tracking.track">module</a>
 </li>
       </ul></li>
+      <li>
+    at.tracking.utils
+
+      <ul>
+        <li><a href="p/api/at.tracking.utils.html#module-at.tracking.utils">module</a>
+</li>
+      </ul></li>
       <li><a href="p/api/at.lattice.utils.html#at.lattice.utils.AtError">AtError</a>
 </li>
       <li><a href="p/api/at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice.attrs">attrs (Lattice property)</a>
@@ -685,8 +693,6 @@
       <li><a href="p/api/at.lattice.elements.html#at.lattice.elements.Corrector">Corrector (class in at.lattice.elements)</a>
 </li>
       <li><a href="p/api/at.constants.html#at.constants.Cq">Cq (in module at.constants)</a>
-</li>
-      <li><a href="p/api/at.collective.wake_elements.html#at.collective.wake_elements.WakeElement.Current">Current (WakeElement property)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -904,6 +910,10 @@
         <li><a href="p/api/at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice.get_bunch_length_espread">(Lattice method)</a>
 </li>
       </ul></li>
+      <li><a href="p/api/at.tracking.utils.html#at.tracking.utils.get_bunches">get_bunches() (in module at.tracking.utils)</a>
+</li>
+      <li><a href="p/api/at.tracking.utils.html#at.tracking.utils.get_bunches_std_mean">get_bunches_std_mean() (in module at.tracking.utils)</a>
+</li>
       <li><a href="p/api/at.lattice.utils.html#at.lattice.utils.get_cells">get_cells() (in module at.lattice.utils)</a>
 
       <ul>
@@ -958,14 +968,14 @@
       </ul></li>
       <li><a href="p/api/at.physics.amat.html#at.physics.amat.get_mode_matrices">get_mode_matrices() (in module at.physics.amat)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="p/api/at.acceptance.acceptance.html#at.acceptance.acceptance.get_momentum_acceptance">get_momentum_acceptance() (in module at.acceptance.acceptance)</a>
 
       <ul>
         <li><a href="p/api/at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice.get_momentum_acceptance">(Lattice method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="p/api/at.physics.linear.html#at.physics.linear.get_optics">get_optics() (in module at.physics.linear)</a>
 
       <ul>
@@ -1346,6 +1356,8 @@
 </li>
         <li><a href="p/api/at.tracking.track.html#module-at.tracking.track">at.tracking.track</a>
 </li>
+        <li><a href="p/api/at.tracking.utils.html#module-at.tracking.utils">at.tracking.utils</a>
+</li>
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -1619,14 +1631,14 @@
         <li><a href="p/api/at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice.set_rf_frequency">(Lattice method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="p/api/at.lattice.cavity_access.html#at.lattice.cavity_access.set_rf_timelag">set_rf_timelag() (in module at.lattice.cavity_access)</a>
 
       <ul>
         <li><a href="p/api/at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice.set_rf_timelag">(Lattice method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="p/api/at.lattice.cavity_access.html#at.lattice.cavity_access.set_rf_voltage">set_rf_voltage() (in module at.lattice.cavity_access)</a>
 
       <ul>
@@ -1649,6 +1661,12 @@
 
       <ul>
         <li><a href="p/api/at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice.set_value_refpts">(Lattice method)</a>
+</li>
+      </ul></li>
+      <li><a href="p/api/at.collective.wake_elements.html#at.collective.wake_elements.set_wake_turnhistory">set_wake_turnhistory() (in module at.collective.wake_elements)</a>
+
+      <ul>
+        <li><a href="p/api/at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice.set_wake_turnhistory">(Lattice method)</a>
 </li>
       </ul></li>
       <li><a href="p/api/at.collective.haissinski.html#at.collective.haissinski.Haissinski.set_weights">set_weights() (Haissinski method)</a>
@@ -1706,6 +1724,8 @@
       <li><a href="p/api/at.collective.wake_functions.html#at.collective.wake_functions.transverse_resonator_wf">transverse_resonator_wf() (in module at.collective.wake_functions)</a>
 </li>
       <li><a href="p/api/at.collective.wake_functions.html#at.collective.wake_functions.transverse_reswall_wf">transverse_reswall_wf() (in module at.collective.wake_functions)</a>
+</li>
+      <li><a href="p/api/at.collective.wake_elements.html#at.collective.wake_elements.WakeElement.TurnHistory">TurnHistory (WakeElement property)</a>
 </li>
       <li><a href="p/api/at.lattice.lattice_object.html#at.lattice.lattice_object.type_filter">type_filter() (in module at.lattice.lattice_object)</a>
 </li>
@@ -1844,7 +1864,7 @@
   
   <div class="footer-item">
     <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.1.1.<br>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.2.2.<br>
 </p>
   </div>
   

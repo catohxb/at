@@ -4,9 +4,9 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>at.collective.wake_object &#8212; Accelerator Toolbox 0.1.dev1+g555c2af documentation</title>
+    <title>at.collective.wake_object &#8212; Accelerator Toolbox 0.1.dev1+gd6b2ccc documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -36,6 +36,7 @@
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
@@ -496,6 +497,11 @@
      at.tracking.track
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="at.tracking.utils.html">
+     at.tracking.utils
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toctree-l1">
@@ -521,9 +527,227 @@
     
     <div class="toc-item">
       
+<div class="tocsection onthispage mt-5 pt-1 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
 
 <nav id="bd-toc-nav">
-    
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#at.collective.wake_object.Wake">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     Wake
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.collective.wake_object.Wake.add">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Wake.add()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.collective.wake_object.Wake.build_srange">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Wake.build_srange()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.collective.wake_object.Wake.long_resonator">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Wake.long_resonator()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.collective.wake_object.Wake.resistive_wall">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Wake.resistive_wall()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.collective.wake_object.Wake.resonator">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Wake.resonator()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.collective.wake_object.Wake.DX">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Wake.DX
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.collective.wake_object.Wake.DY">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Wake.DY
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.collective.wake_object.Wake.QX">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Wake.QX
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.collective.wake_object.Wake.QY">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Wake.QY
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.collective.wake_object.Wake.Z">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Wake.Z
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.collective.wake_object.Wake.srange">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Wake.srange
+      </span>
+     </code>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#at.collective.wake_object.WakeComponent">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     WakeComponent
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.collective.wake_object.WakeComponent.DX">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       WakeComponent.DX
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.collective.wake_object.WakeComponent.DY">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       WakeComponent.DY
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.collective.wake_object.WakeComponent.QX">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       WakeComponent.QX
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.collective.wake_object.WakeComponent.QY">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       WakeComponent.QY
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.collective.wake_object.WakeComponent.Z">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       WakeComponent.Z
+      </span>
+     </code>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#at.collective.wake_object.WakeType">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     WakeType
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.collective.wake_object.WakeType.FILE">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       WakeType.FILE
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.collective.wake_object.WakeType.RESONATOR">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       WakeType.RESONATOR
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.collective.wake_object.WakeType.RESWALL">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       WakeType.RESWALL
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.collective.wake_object.WakeType.TABLE">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       WakeType.TABLE
+      </span>
+     </code>
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
 </nav>
     </div>
     
@@ -862,7 +1086,7 @@ and giving array parameters</p>
   
   <div class="footer-item">
     <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.1.1.<br>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.2.2.<br>
 </p>
   </div>
   

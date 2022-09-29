@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>at.physics.fastring &#8212; Accelerator Toolbox 0.1.dev1+gd6b2ccc documentation</title>
+    <title>at.tracking.utils &#8212; Accelerator Toolbox 0.1.dev1+gd6b2ccc documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -41,8 +41,8 @@
     <script src="../../_static/copybutton.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="at.physics.harmonic_analysis" href="at.physics.harmonic_analysis.html" />
-    <link rel="prev" title="at.physics.energy_loss" href="at.physics.energy_loss.html" />
+    <link rel="next" title="at.constants" href="at.constants.html" />
+    <link rel="prev" title="at.tracking.track" href="at.tracking.track.html" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="docsearch:language" content="en">
   </head>
@@ -361,16 +361,16 @@
    </li>
   </ul>
  </li>
- <li class="toctree-l1 current active has-children">
+ <li class="toctree-l1 has-children">
   <a class="reference internal" href="at.physics.html">
    at.physics
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
   <label for="toctree-checkbox-6">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul class="current">
+  <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="at.physics.amat.html">
      at.physics.amat
@@ -386,8 +386,8 @@
      at.physics.energy_loss
     </a>
    </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
+   <li class="toctree-l2">
+    <a class="reference internal" href="at.physics.fastring.html">
      at.physics.fastring
     </a>
    </li>
@@ -465,16 +465,16 @@
    </li>
   </ul>
  </li>
- <li class="toctree-l1 has-children">
+ <li class="toctree-l1 current active has-children">
   <a class="reference internal" href="at.tracking.html">
    at.tracking
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
   <label for="toctree-checkbox-8">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul>
+  <ul class="current">
    <li class="toctree-l2">
     <a class="reference internal" href="at.tracking.atpass.html">
      at.tracking.atpass
@@ -495,8 +495,8 @@
      at.tracking.track
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="at.tracking.utils.html">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      at.tracking.utils
     </a>
    </li>
@@ -532,10 +532,19 @@
 <nav id="bd-toc-nav">
     <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#at.physics.fastring.fast_ring">
+  <a class="reference internal nav-link" href="#at.tracking.utils.get_bunches">
    <code class="docutils literal notranslate">
     <span class="pre">
-     fast_ring()
+     get_bunches()
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#at.tracking.utils.get_bunches_std_mean">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     get_bunches_std_mean()
     </span>
    </code>
   </a>
@@ -559,42 +568,60 @@
               
               <article class="bd-article" role="main">
                 
-  <section id="module-at.physics.fastring">
-<span id="at-physics-fastring"></span><h1>at.physics.fastring<a class="headerlink" href="#module-at.physics.fastring" title="Permalink to this heading">#</a></h1>
-<p>Functions relating to fast_ring</p>
+  <section id="module-at.tracking.utils">
+<span id="at-tracking-utils"></span><h1>at.tracking.utils<a class="headerlink" href="#module-at.tracking.utils" title="Permalink to this heading">#</a></h1>
+<p>Utility functions for tracking simulations</p>
 <p class="rubric">Functions</p>
 <table class="autosummary longtable table autosummary">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#at.physics.fastring.fast_ring" title="at.physics.fastring.fast_ring"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fast_ring</span></code></a>(ring[, split_inds])</p></td>
-<td><p>Generates a &quot;fast ring&quot;</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#at.tracking.utils.get_bunches" title="at.tracking.utils.get_bunches"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_bunches</span></code></a>(r_in, nbunch[, selected_bunches])</p></td>
+<td><p>Function to get the bunches particles 6D coordinates</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#at.tracking.utils.get_bunches_std_mean" title="at.tracking.utils.get_bunches_std_mean"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_bunches_std_mean</span></code></a>(r_in, nbunch[, ...])</p></td>
+<td><p>Function to get the bunches standard deviation and center of mass</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py function">
-<dt class="sig sig-object py" id="at.physics.fastring.fast_ring">
-<span class="sig-name descname"><span class="pre">fast_ring</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split_inds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/physics/fastring.html#fast_ring"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.physics.fastring.fast_ring" title="Permalink to this definition">#</a></dt>
-<dd><p>Generates a “fast ring”</p>
-<p>A fast ring consisting in:</p>
-<ul class="simple">
-<li><p>a RF cavity per distinct frequency,</p></li>
-<li><p>a 6x6 linear transfer map,</p></li>
-<li><p>a detuning and chromaticity element,</p></li>
-<li><p>a quantum diffusion element (for radiation ring).</p></li>
-</ul>
-<p>2 new lattices are returned, one with radiation and one without
-It is possible to split the original ring in multiple “fastrings”
-using the <code class="docutils literal notranslate"><span class="pre">split_inds</span></code> argument</p>
+<dt class="sig sig-object py" id="at.tracking.utils.get_bunches">
+<span class="sig-name descname"><span class="pre">get_bunches</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r_in</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nbunch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selected_bunches</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/tracking/utils.html#get_bunches"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.tracking.utils.get_bunches" title="Permalink to this definition">#</a></dt>
+<dd><p>Function to get the bunches particles 6D coordinates</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>ring</strong> (<a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><em>Lattice</em></a>) – Lattice description</p></li>
-<li><p><strong>split_inds</strong> – List of indexes where to split the ring</p></li>
+<li><p><strong>r_in</strong> – 6 x n_particles Fortran-ordered numpy array.</p></li>
+<li><p><strong>nbunch</strong> – integer, total number of bunches</p></li>
+<li><p><strong>selected_bunches</strong> – integer or array of integers, index</p></li>
+<li><p><strong>bunches</strong> (<em>of the selected</em>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>fring</strong> (<em>Lattice</em>) – Fast ring without radiation</p></li>
-<li><p><strong>fringrad</strong> (<em>Lattice</em>) – Fast ring with radiation</p></li>
+<li><p><strong>List of ndarray containing the 6 x n particles coordinates</strong></p></li>
+<li><p><strong>of the selected bunches</strong></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="at.tracking.utils.get_bunches_std_mean">
+<span class="sig-name descname"><span class="pre">get_bunches_std_mean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r_in</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nbunch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selected_bunches</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/tracking/utils.html#get_bunches_std_mean"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.tracking.utils.get_bunches_std_mean" title="Permalink to this definition">#</a></dt>
+<dd><p>Function to get the bunches standard deviation and center
+of mass</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>r_in</strong> – 6 x n_particles Fortran-ordered numpy array.</p></li>
+<li><p><strong>nbunch</strong> – integer, total number of bunches</p></li>
+<li><p><strong>selected_bunches</strong> – integer or array of integers, index</p></li>
+<li><p><strong>bunches</strong> (<em>of the selected</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>Lists of ndarray containing the 6D standard deviation</strong></p></li>
+<li><p><strong>and center of mass</strong> (<em>std, mean</em>)</p></li>
 </ul>
 </dd>
 </dl>
@@ -610,17 +637,17 @@ using the <code class="docutils literal notranslate"><span class="pre">split_ind
               <footer class="bd-footer-article">
                   <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-  <a class='left-prev' id="prev-link" href="at.physics.energy_loss.html" title="previous page">
+  <a class='left-prev' id="prev-link" href="at.tracking.track.html" title="previous page">
       <i class="fas fa-angle-left"></i>
       <div class="prev-next-info">
           <p class="prev-next-subtitle">previous</p>
-          <p class="prev-next-title">at.physics.energy_loss</p>
+          <p class="prev-next-title">at.tracking.track</p>
       </div>
   </a>
-  <a class='right-next' id="next-link" href="at.physics.harmonic_analysis.html" title="next page">
+  <a class='right-next' id="next-link" href="at.constants.html" title="next page">
   <div class="prev-next-info">
       <p class="prev-next-subtitle">next</p>
-      <p class="prev-next-title">at.physics.harmonic_analysis</p>
+      <p class="prev-next-title">at.constants</p>
   </div>
   <i class="fas fa-angle-right"></i>
   </a>

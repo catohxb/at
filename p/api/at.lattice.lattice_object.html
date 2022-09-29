@@ -4,9 +4,9 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>at.lattice.lattice_object &#8212; Accelerator Toolbox 0.1.dev1+g555c2af documentation</title>
+    <title>at.lattice.lattice_object &#8212; Accelerator Toolbox 0.1.dev1+gd6b2ccc documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -36,6 +36,7 @@
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
@@ -496,6 +497,11 @@
      at.tracking.track
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="at.tracking.utils.html">
+     at.tracking.utils
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toctree-l1">
@@ -521,9 +527,961 @@
     
     <div class="toc-item">
       
+<div class="tocsection onthispage mt-5 pt-1 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
 
 <nav id="bd-toc-nav">
-    
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     Lattice
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.append">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.append()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.attrs_filter">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.attrs_filter()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.avlinopt">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.avlinopt()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.bool_refpts">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.bool_refpts()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.copy">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.copy()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.deepcopy">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.deepcopy()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.disable_6d">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.disable_6d()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.enable_6d">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.enable_6d()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.envelope_parameters">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.envelope_parameters()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.extend">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.extend()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.find_m44">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.find_m44()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.find_m66">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.find_m66()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.find_orbit">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.find_orbit()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.find_orbit4">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.find_orbit4()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.find_orbit6">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.find_orbit6()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.find_sync_orbit">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.find_sync_orbit()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.get_acceptance">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.get_acceptance()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.get_bunch_length_espread">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.get_bunch_length_espread()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.get_cells">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.get_cells()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.get_chrom">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.get_chrom()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.get_elements">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.get_elements()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.get_energy_loss">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.get_energy_loss()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.get_geometry">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.get_geometry()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.get_horizontal_acceptance">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.get_horizontal_acceptance()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.get_lifetime">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.get_lifetime()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.get_mcf">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.get_mcf()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.get_momentum_acceptance">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.get_momentum_acceptance()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.get_optics">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.get_optics()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.get_radiation_integrals">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.get_radiation_integrals()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.get_refpts">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.get_refpts()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.get_revolution_frequency">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.get_revolution_frequency()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.get_rf_frequency">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.get_rf_frequency()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.get_rf_timelag">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.get_rf_timelag()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.get_rf_voltage">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.get_rf_voltage()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.get_s_pos">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.get_s_pos()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.get_slip_factor">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.get_slip_factor()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.get_tune">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.get_tune()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.get_value_refpts">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.get_value_refpts()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.get_vertical_acceptance">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.get_vertical_acceptance()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.insert">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.insert()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.linopt2">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.linopt2()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.linopt4">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.linopt4()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.linopt6">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.linopt6()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.load">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.load()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.modify_elements">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.modify_elements()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.ohmi_envelope">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.ohmi_envelope()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.plot_acceptance">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.plot_acceptance()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.plot_beta">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.plot_beta()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.plot_geometry">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.plot_geometry()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.plot_trajectory">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.plot_trajectory()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.radiation_off">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.radiation_off()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.radiation_on">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.radiation_on()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.radiation_parameters">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.radiation_parameters()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.reduce">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.reduce()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.refcount">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.refcount()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.replace">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.replace()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.rotate">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.rotate()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.save">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.save()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.sbreak">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.sbreak()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.select">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.select()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.set_cavity">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.set_cavity()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.set_cavity_phase">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.set_cavity_phase()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.set_fillpattern">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.set_fillpattern()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.set_rf_frequency">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.set_rf_frequency()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.set_rf_timelag">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.set_rf_timelag()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.set_rf_voltage">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.set_rf_voltage()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.set_shift">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.set_shift()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.set_tilt">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.set_tilt()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.set_value_refpts">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.set_value_refpts()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.set_wake_turnhistory">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.set_wake_turnhistory()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.slice">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.slice()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.tapering">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.tapering()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.uint32_refpts">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.uint32_refpts()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.update">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.update()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.BRho">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.BRho
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.attrs">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.attrs
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.beta">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.beta
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.bunch_currents">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.bunch_currents
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.bunch_list">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.bunch_list
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.bunch_spos">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.bunch_spos
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.circumference">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.circumference
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.energy">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.energy
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.energy_loss">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.energy_loss
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.fillpattern">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.fillpattern
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.gamma">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.gamma
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.harmonic_number">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.harmonic_number
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.has_cavity">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.has_cavity
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.i_range">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.i_range
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.is_6d">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.is_6d
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.is_collective">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.is_collective
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.mcf">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.mcf
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.nbunch">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.nbunch
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.particle">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.particle
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.revolution_frequency">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.revolution_frequency
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.rf_frequency">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.rf_frequency
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.rf_timelag">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.rf_timelag
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.rf_voltage">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.rf_voltage
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.s_range">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.s_range
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.slip_factor">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.slip_factor
+      </span>
+     </code>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#at.lattice.lattice_object.elem_generator">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     elem_generator()
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#at.lattice.lattice_object.lattice_filter">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     lattice_filter()
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#at.lattice.lattice_object.no_filter">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     no_filter()
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#at.lattice.lattice_object.params_filter">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     params_filter()
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#at.lattice.lattice_object.type_filter">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     type_filter()
+    </span>
+   </code>
+  </a>
+ </li>
+</ul>
+
 </nav>
     </div>
     
@@ -3610,6 +4568,13 @@ Any further modification will affect in both lattices.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="at.lattice.lattice_object.Lattice.set_wake_turnhistory">
+<span class="sig-name descname"><span class="pre">set_wake_turnhistory</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#at.lattice.lattice_object.Lattice.set_wake_turnhistory" title="Permalink to this definition">#</a></dt>
+<dd><p>Function to set the shape of the turn history
+based on the number of slices, turns and bunches</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="at.lattice.lattice_object.Lattice.slice">
 <span class="sig-name descname"><span class="pre">slice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/lattice_object.html#Lattice.slice"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.lattice_object.Lattice.slice" title="Permalink to this definition">#</a></dt>
 <dd><p>Create a new lattice by slicing the range of interest into small
@@ -4031,7 +4996,7 @@ Analyse elements for radiation state</p>
   
   <div class="footer-item">
     <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.1.1.<br>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.2.2.<br>
 </p>
   </div>
   

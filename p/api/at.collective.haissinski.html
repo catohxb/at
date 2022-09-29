@@ -4,9 +4,9 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>at.collective.haissinski &#8212; Accelerator Toolbox 0.1.dev1+g555c2af documentation</title>
+    <title>at.collective.haissinski &#8212; Accelerator Toolbox 0.1.dev1+gd6b2ccc documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -36,6 +36,7 @@
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -494,6 +495,11 @@
      at.tracking.track
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="at.tracking.utils.html">
+     at.tracking.utils
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toctree-l1">
@@ -519,9 +525,151 @@
     
     <div class="toc-item">
       
+<div class="tocsection onthispage mt-5 pt-1 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
 
 <nav id="bd-toc-nav">
-    
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#at.collective.haissinski.Haissinski">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     Haissinski
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.collective.haissinski.Haissinski.Fi">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Haissinski.Fi()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.collective.haissinski.Haissinski.compute_Smat">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Haissinski.compute_Smat()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.collective.haissinski.Haissinski.compute_new_phi">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Haissinski.compute_new_phi()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.collective.haissinski.Haissinski.convergence">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Haissinski.convergence()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.collective.haissinski.Haissinski.dFi_dphij">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Haissinski.dFi_dphij()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.collective.haissinski.Haissinski.dFi_ij">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Haissinski.dFi_ij()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.collective.haissinski.Haissinski.initial_phi">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Haissinski.initial_phi()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.collective.haissinski.Haissinski.precompute_S">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Haissinski.precompute_S()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.collective.haissinski.Haissinski.set_I">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Haissinski.set_I()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.collective.haissinski.Haissinski.set_output">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Haissinski.set_output()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.collective.haissinski.Haissinski.set_weights">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Haissinski.set_weights()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.collective.haissinski.Haissinski.solve">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Haissinski.solve()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.collective.haissinski.Haissinski.solve_steps">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Haissinski.solve_steps()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.collective.haissinski.Haissinski.update">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Haissinski.update()
+      </span>
+     </code>
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
 </nav>
     </div>
     
@@ -715,7 +863,7 @@ Page 5 top right, in the text.</p>
   
   <div class="footer-item">
     <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.1.1.<br>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.2.2.<br>
 </p>
   </div>
   

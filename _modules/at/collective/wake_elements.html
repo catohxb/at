@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>at.collective.wake_elements &#8212; Accelerator Toolbox 0.1.dev1+g555c2af documentation</title>
+    <title>at.collective.wake_elements &#8212; Accelerator Toolbox 0.1.dev1+gd6b2ccc documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -35,6 +35,7 @@
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
     <script src="../../../_static/clipboard.min.js"></script>
     <script src="../../../_static/copybutton.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -199,7 +200,6 @@
 <span class="sd">            wake:           :py:class:`.Wake` object</span>
 
 <span class="sd">        Keyword Arguments:</span>
-<span class="sd">            Current (float):    Bunch current [A]</span>
 <span class="sd">            Nslice (int):       Number of slices per bunch. Default: 101</span>
 <span class="sd">            Nturns (int):       Number of turn for the wake field. Default: 1</span>
 <span class="sd">            ZCuts:              Limits for fixed slicing, default is adaptive</span>
@@ -209,10 +209,8 @@
 <span class="sd">&quot;&quot;&quot;</span>
         <span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;PassMethod&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_pass</span><span class="p">[</span><span class="kc">True</span><span class="p">])</span>
         <span class="n">zcuts</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;ZCuts&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-        <span class="n">betrel</span> <span class="o">=</span> <span class="n">ring</span><span class="o">.</span><span class="n">beta</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_charge2current</span> <span class="o">=</span> <span class="n">clight</span><span class="o">*</span><span class="n">betrel</span><span class="o">*</span><span class="n">qe</span><span class="o">/</span><span class="n">ring</span><span class="o">.</span><span class="n">circumference</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_wakefact</span> <span class="o">=</span> <span class="o">-</span><span class="n">qe</span><span class="o">/</span><span class="p">(</span><span class="n">ring</span><span class="o">.</span><span class="n">energy</span><span class="o">*</span><span class="n">betrel</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">NumParticles</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;NumParticles&#39;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_wakefact</span> <span class="o">=</span> <span class="o">-</span> <span class="n">ring</span><span class="o">.</span><span class="n">circumference</span><span class="o">/</span><span class="p">(</span><span class="n">clight</span> <span class="o">*</span>
+                                               <span class="n">ring</span><span class="o">.</span><span class="n">energy</span><span class="o">*</span><span class="n">ring</span><span class="o">.</span><span class="n">beta</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_nslice</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;Nslice&#39;</span><span class="p">,</span> <span class="mi">101</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_nturns</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;Nturns&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_turnhistory</span> <span class="o">=</span> <span class="kc">None</span>    <span class="c1"># Defined here to avoid warning</span>
@@ -240,9 +238,12 @@
 <div class="viewcode-block" id="WakeElement.rebuild_wake"><a class="viewcode-back" href="../../../p/api/at.collective.wake_elements.html#at.collective.wake_elements.WakeElement.rebuild_wake">[docs]</a>    <span class="k">def</span> <span class="nf">rebuild_wake</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">wake</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_build</span><span class="p">(</span><span class="n">wake</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="WakeElement.clear_history"><a class="viewcode-back" href="../../../p/api/at.collective.wake_elements.html#at.collective.wake_elements.WakeElement.clear_history">[docs]</a>    <span class="k">def</span> <span class="nf">clear_history</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_turnhistory</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">_nturns</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_nslice</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
-                                        <span class="n">order</span><span class="o">=</span><span class="s1">&#39;F&#39;</span><span class="p">)</span></div>
+<div class="viewcode-block" id="WakeElement.clear_history"><a class="viewcode-back" href="../../../p/api/at.collective.wake_elements.html#at.collective.wake_elements.WakeElement.clear_history">[docs]</a>    <span class="k">def</span> <span class="nf">clear_history</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ring</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">ring</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">tl</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nturns</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_nslice</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">tl</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nturns</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_nslice</span><span class="o">*</span><span class="n">ring</span><span class="o">.</span><span class="n">nbunch</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_turnhistory</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">tl</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">order</span><span class="o">=</span><span class="s1">&#39;F&#39;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="WakeElement.set_normfactxy"><a class="viewcode-back" href="../../../p/api/at.collective.wake_elements.html#at.collective.wake_elements.WakeElement.set_normfactxy">[docs]</a>    <span class="k">def</span> <span class="nf">set_normfactxy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ring</span><span class="p">):</span>
         <span class="n">l0</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">ring</span><span class="o">.</span><span class="n">get_optics</span><span class="p">(</span><span class="n">ring</span><span class="p">)</span>
@@ -299,13 +300,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">clear_history</span><span class="p">()</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">Current</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Bunch current [A]&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">NumParticles</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_charge2current</span>
-
-    <span class="nd">@Current</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">Current</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">current</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">NumParticles</span> <span class="o">=</span> <span class="n">current</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">_charge2current</span>
+    <span class="k">def</span> <span class="nf">TurnHistory</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Turn histroy of the slices center of mass&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_turnhistory</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Simplified __repr__ to avoid errors due to arguments</span>
@@ -337,7 +334,6 @@
 <span class="sd">            yokoya_factor:  Yokoya factor</span>
 
 <span class="sd">        Keyword Arguments:</span>
-<span class="sd">            Current (float):    Bunch current [A]</span>
 <span class="sd">            Nslice (int):       Number of slices per bunch. Default: 101</span>
 <span class="sd">            Nturns (int):       Number of turn for the wake field. Default: 1</span>
 <span class="sd">            ZCuts:              Limits for fixed slicing, default is adaptive</span>
@@ -423,7 +419,6 @@
 
 <span class="sd">        Keyword Arguments:</span>
 <span class="sd">            yokoya_factor:  Yokoya factor</span>
-<span class="sd">            Current (float):    Bunch current [A]</span>
 <span class="sd">            Nslice (int):       Number of slices per bunch. Default: 101</span>
 <span class="sd">            Nturns (int):       Number of turn for the wake field. Default: 1</span>
 <span class="sd">            ZCuts:              Limits for fixed slicing, default is adaptive</span>
@@ -460,7 +455,6 @@
 <span class="sd">            yokoya_factor:  Yokoya factor</span>
 
 <span class="sd">        Keyword Arguments:</span>
-<span class="sd">            Current (float):    Bunch current [A]</span>
 <span class="sd">            Nslice (int):       Number of slices per bunch. Default: 101</span>
 <span class="sd">            Nturns (int):       Number of turn for the wake field. Default: 1</span>
 <span class="sd">            ZCuts:              Limits for fixed slicing, default is adaptive</span>
@@ -487,6 +481,7 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">RWLength</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Length of the resistive wall&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rwlength</span>
 
     <span class="nd">@RWLength</span><span class="o">.</span><span class="n">setter</span>
@@ -496,6 +491,7 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">Conductivity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Conductivity of the beam pipe [S/m]&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_conductivity</span>
 
     <span class="nd">@Conductivity</span><span class="o">.</span><span class="n">setter</span>
@@ -505,6 +501,7 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">Rvac</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Radius of the beam pipe [m]&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rvac</span>
 
     <span class="nd">@Rvac</span><span class="o">.</span><span class="n">setter</span>
@@ -514,12 +511,25 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">Yokoya</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Yokoya factor for the reistive wall&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_yokoya</span>
 
     <span class="nd">@Yokoya</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">Yokoya</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">yokoya</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_yokoya</span> <span class="o">=</span> <span class="n">yokoya</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rebuild_wake</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="set_wake_turnhistory"><a class="viewcode-back" href="../../../p/api/at.collective.wake_elements.html#at.collective.wake_elements.set_wake_turnhistory">[docs]</a><span class="k">def</span> <span class="nf">set_wake_turnhistory</span><span class="p">(</span><span class="n">ring</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Function to set the shape of the turn history</span>
+<span class="sd">    based on the number of slices, turns and bunches</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">welems</span> <span class="o">=</span> <span class="n">ring</span><span class="o">.</span><span class="n">get_elements</span><span class="p">(</span><span class="n">WakeElement</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">welems</span><span class="p">:</span>
+        <span class="n">w</span><span class="o">.</span><span class="n">clear_history</span><span class="p">(</span><span class="n">ring</span><span class="o">=</span><span class="n">ring</span><span class="p">)</span></div>
+
+
+<span class="n">Lattice</span><span class="o">.</span><span class="n">set_wake_turnhistory</span> <span class="o">=</span> <span class="n">set_wake_turnhistory</span>
 </pre></div>
 
               </article>
@@ -552,7 +562,7 @@
   
   <div class="footer-item">
     <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.1.1.<br>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.2.2.<br>
 </p>
   </div>
   
