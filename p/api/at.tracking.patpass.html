@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>at.tracking.patpass &#8212; Accelerator Toolbox 0.1.dev1+g8e08f2a documentation</title>
+    <title>at.tracking.patpass &#8212; Accelerator Toolbox 0.1.dev1+g63bf0a1 documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -589,7 +589,7 @@ calling the element-specific tracking function specified in the Element’s
 <li><p><strong>lattice</strong> (<em>Iterable</em><em>[</em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>]</em>) – list of elements</p></li>
 <li><p><strong>r_in</strong> – 6 x n_particles Fortran-ordered numpy array.
 On return, rin contains the final coordinates of the particles</p></li>
-<li><p><strong>nturns</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – number of turns to be tracked</p></li>
+<li><p><strong>nturns</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – number of turns to be tracked</p></li>
 <li><p><strong>refpts</strong> (<em>Uint32_refs</em>) – <p>numpy array of indices of elements where
 output is desired:</p>
 <ul>
@@ -601,25 +601,25 @@ output is desired:</p>
 </dd>
 <dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>keep_lattice</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>]</em>) – use elements persisted from a previous
+<li><p><strong>keep_lattice</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>]</em>) – use elements persisted from a previous
 call. If True, assume that the lattice has not changed since
 the previous call.</p></li>
-<li><p><strong>keep_counter</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>]</em>) – Keep the turn number from the previous
+<li><p><strong>keep_counter</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>]</em>) – Keep the turn number from the previous
 call.</p></li>
-<li><p><strong>turn</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>]</em>) – Starting turn number. Ignored if
+<li><p><strong>turn</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>]</em>) – Starting turn number. Ignored if
 keep_counter is True. The turn number is necessary to compute the
 absolute path length used in RFCavityPass.</p></li>
-<li><p><strong>losses</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em>]</em>) – Boolean to activate loss maps output</p></li>
-<li><p><strong>pool_size</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>]</em>) – number of processes. If None,
+<li><p><strong>losses</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>]</em>) – Boolean to activate loss maps output</p></li>
+<li><p><strong>pool_size</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>]</em>) – number of processes. If None,
 <code class="docutils literal notranslate"><span class="pre">min(npart,nproc)</span></code> is used</p></li>
-<li><p><strong>start_method</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>]</em>) – This parameter allows to change the
+<li><p><strong>start_method</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>]</em>) – This parameter allows to change the
 python multiprocessing start method, default=None uses the python
 defaults that is considered safe. Available parameters:
 ‘<code class="docutils literal notranslate"><span class="pre">fork'</span></code>, <code class="docutils literal notranslate"><span class="pre">'spawn'</span></code>, <code class="docutils literal notranslate"><span class="pre">'forkserver'</span></code>. Default for linux is
 <code class="docutils literal notranslate"><span class="pre">'fork'</span></code>, default for macOS and  Windows is <code class="docutils literal notranslate"><span class="pre">'spawn'</span></code>. <code class="docutils literal notranslate"><span class="pre">'fork'</span></code>
 may used for macOS to speed up the calculation or to solve
 Runtime Errors, however it is considered unsafe.</p></li>
-<li><p><strong>omp_num_threads</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>]</em>) – number of OpenMP threads
+<li><p><strong>omp_num_threads</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>]</em>) – number of OpenMP threads
 (default: automatic)</p></li>
 </ul>
 </dd>
@@ -631,7 +631,7 @@ Runtime Errors, however it is considered unsafe.</p></li>
 <li><p><strong>particle</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="at.lattice.particle_object.html#at.lattice.particle_object.Particle" title="at.lattice.particle_object.Particle"><em>Particle</em></a><em>]</em>) – circulating particle.
 Default: <code class="docutils literal notranslate"><span class="pre">lattice.particle</span></code> if existing,
 otherwise <code class="docutils literal notranslate"><span class="pre">Particle('relativistic')</span></code></p></li>
-<li><p><strong>energy</strong> (<em>Optiona</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>]</em>) – lattice energy. Default 0.</p></li>
+<li><p><strong>energy</strong> (<em>Optiona</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>]</em>) – lattice energy. Default 0.</p></li>
 </ul>
 </dd>
 </dl>
