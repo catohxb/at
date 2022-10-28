@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>at.physics.revolution &#8212; Accelerator Toolbox 0.1.dev1+g63bf0a1 documentation</title>
+    <title>at.physics.revolution &#8212; Accelerator Toolbox 0.1.dev1+g0eebb34 documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -167,7 +167,7 @@
               <article class="bd-article" role="main">
                 
   <h1>Source code for at.physics.revolution</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">..lattice</span> <span class="kn">import</span> <span class="n">Lattice</span><span class="p">,</span> <span class="n">get_rf_frequency</span><span class="p">,</span> <span class="n">check_radiation</span><span class="p">,</span> <span class="n">get_s_pos</span>
+<span></span><span class="kn">from</span> <span class="nn">..lattice</span> <span class="kn">import</span> <span class="n">Lattice</span><span class="p">,</span> <span class="n">get_rf_frequency</span><span class="p">,</span> <span class="n">check_6d</span><span class="p">,</span> <span class="n">get_s_pos</span>
 <span class="kn">from</span> <span class="nn">..lattice</span> <span class="kn">import</span> <span class="n">DConstant</span>
 <span class="kn">from</span> <span class="nn">..constants</span> <span class="kn">import</span> <span class="n">clight</span>
 <span class="kn">from</span> <span class="nn">..tracking</span> <span class="kn">import</span> <span class="n">lattice_pass</span>
@@ -181,25 +181,27 @@
 
 
 <div class="viewcode-block" id="frequency_control"><a class="viewcode-back" href="../../../p/api/at.physics.revolution.html#at.physics.revolution.frequency_control">[docs]</a><span class="k">def</span> <span class="nf">frequency_control</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Function to be used as decorator for ``func(ring, *args, **kwargs)``</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot; Function to be used as decorator for :pycode:`func(ring, *args, **kwargs)`</span>
 
-<span class="sd">    If ``ring.radiation`` is :py:obj:`True` **and** ``dp``, ``dct`` or ``df``</span>
-<span class="sd">    is specified in ``kwargs``, make a copy of ``ring`` with a modified</span>
-<span class="sd">    RF frequency, remove ``dp``, ``dct`` or ``df`` from ``kwargs`` and call</span>
-<span class="sd">    ``func`` with the modified ``ring``.</span>
+<span class="sd">    If :pycode:`ring.is_6d` is :py:obj:`True` **and** *dp*, *dct* or *df*</span>
+<span class="sd">    is specified in *kwargs*, make a copy of *ring* with a modified</span>
+<span class="sd">    RF frequency, remove *dp*, *dct* or *df* from *kwargs* and call</span>
+<span class="sd">    *func* with the modified *ring*.</span>
 
-<span class="sd">    If ``ring.radiation`` is :py:obj:`False` **or** no ``dp``, ``dct`` or</span>
-<span class="sd">    ``df`` is specified in ``kwargs``, ``func`` is called unchanged.</span>
+<span class="sd">    If :pycode:`ring.is_6d` is :py:obj:`False` **or** no *dp*, *dct* or</span>
+<span class="sd">    *df* is specified in *kwargs*, *func* is called unchanged.</span>
 
-<span class="sd">    Examples::</span>
+<span class="sd">    Examples:</span>
 
-<span class="sd">        @frequency_control</span>
-<span class="sd">        def func(ring, *args, dp=None, dct=None, **kwargs):</span>
-<span class="sd">            pass</span>
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            @frequency_control</span>
+<span class="sd">            def func(ring, *args, dp=None, dct=None, **kwargs):</span>
+<span class="sd">                pass</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="nd">@functools</span><span class="o">.</span><span class="n">wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">ring</span><span class="o">.</span><span class="n">radiation</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">ring</span><span class="o">.</span><span class="n">is_6d</span><span class="p">:</span>
             <span class="n">momargs</span> <span class="o">=</span> <span class="p">{}</span>
             <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;dp&#39;</span><span class="p">,</span> <span class="s1">&#39;dct&#39;</span><span class="p">,</span> <span class="s1">&#39;df&#39;</span><span class="p">]:</span>
                 <span class="n">v</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
@@ -211,13 +213,14 @@
     <span class="k">return</span> <span class="n">wrapper</span></div>
 
 
-<div class="viewcode-block" id="get_mcf"><a class="viewcode-back" href="../../../p/api/at.physics.revolution.html#at.physics.revolution.get_mcf">[docs]</a><span class="nd">@check_radiation</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+<div class="viewcode-block" id="get_mcf"><a class="viewcode-back" href="../../../p/api/at.physics.revolution.html#at.physics.revolution.get_mcf">[docs]</a><span class="nd">@check_6d</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">get_mcf</span><span class="p">(</span><span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span> <span class="n">dp</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
             <span class="n">keep_lattice</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute the momentum compaction factor :math:`\alpha`</span>
 
 <span class="sd">    Parameters:</span>
-<span class="sd">        ring:           Lattice description (radiation must be OFF)</span>
+<span class="sd">        ring:           Lattice description (:pycode:`ring.is_6d` must be</span>
+<span class="sd">          :py:obj:`False`)</span>
 <span class="sd">        dp:             Momentum deviation. Defaults to :py:obj:`None`</span>
 <span class="sd">        keep_lattice:   Assume no lattice change since the previous tracking.</span>
 <span class="sd">          Default: :py:obj:`False`</span>
@@ -244,11 +247,12 @@
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute the slip factor :math:`\eta`</span>
 
 <span class="sd">    Parameters:</span>
-<span class="sd">        ring:           Lattice description (radiation must be OFF)</span>
+<span class="sd">        ring:           Lattice description (:pycode:`ring.is_6d` must be</span>
+<span class="sd">          :py:obj:`False`)</span>
 
 <span class="sd">    Keyword Args:</span>
-<span class="sd">        dp (Optional[float]):       Momentum deviation</span>
-<span class="sd">        DPStep (Optional[float]):       Momentum step size.</span>
+<span class="sd">        dp (float):     Momentum deviation</span>
+<span class="sd">        DPStep (float): Momentum step size.</span>
 <span class="sd">          Default: :py:data:`DConstant.DPStep &lt;.DConstant&gt;`</span>
 
 <span class="sd">    Returns:</span>
@@ -259,33 +263,39 @@
     <span class="k">return</span> <span class="n">etac</span></div>
 
 
-<div class="viewcode-block" id="get_revolution_frequency"><a class="viewcode-back" href="../../../p/api/at.physics.revolution.html#at.physics.revolution.get_revolution_frequency">[docs]</a><span class="k">def</span> <span class="nf">get_revolution_frequency</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span>
-                             <span class="n">dp</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-                             <span class="n">dct</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="get_revolution_frequency"><a class="viewcode-back" href="../../../p/api/at.physics.revolution.html#at.physics.revolution.get_revolution_frequency">[docs]</a><span class="k">def</span> <span class="nf">get_revolution_frequency</span><span class="p">(</span><span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span>
+                             <span class="n">dp</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                             <span class="n">dct</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                             <span class="n">df</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Compute the revolution frequency of the full ring [Hz]</span>
 
 <span class="sd">    Parameters:</span>
 <span class="sd">        ring:       Lattice description</span>
-<span class="sd">        dp:             Momentum deviation. Defaults to :py:obj:`None`</span>
-<span class="sd">        dct:            Path lengthening. Defaults to :py:obj:`None`</span>
+<span class="sd">        dp:         Momentum deviation. Defaults to :py:obj:`None`</span>
+<span class="sd">        dct:        Path lengthening. Defaults to :py:obj:`None`</span>
+<span class="sd">        df:         Deviation of RF frequency. Defaults to :py:obj:`None`</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        frev:       Revolution frequency [Hz]</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">lcell</span> <span class="o">=</span> <span class="n">ring</span><span class="o">.</span><span class="n">get_s_pos</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ring</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">frev</span> <span class="o">=</span> <span class="n">ring</span><span class="o">.</span><span class="n">beta</span> <span class="o">*</span> <span class="n">clight</span> <span class="o">/</span> <span class="n">lcell</span> <span class="o">/</span> <span class="n">ring</span><span class="o">.</span><span class="n">periodicity</span>
+    <span class="n">lcell</span> <span class="o">=</span> <span class="n">ring</span><span class="o">.</span><span class="n">cell_length</span>
+    <span class="n">cell_frev</span> <span class="o">=</span> <span class="n">ring</span><span class="o">.</span><span class="n">beta</span> <span class="o">*</span> <span class="n">clight</span> <span class="o">/</span> <span class="n">lcell</span>
     <span class="k">if</span> <span class="n">dct</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">frev</span> <span class="o">*=</span> <span class="n">lcell</span> <span class="o">/</span> <span class="p">(</span><span class="n">lcell</span> <span class="o">+</span> <span class="n">dct</span><span class="p">)</span>
+        <span class="n">cell_frev</span> <span class="o">*=</span> <span class="n">lcell</span> <span class="o">/</span> <span class="p">(</span><span class="n">lcell</span> <span class="o">+</span> <span class="n">dct</span><span class="p">)</span>
     <span class="k">elif</span> <span class="n">dp</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="c1"># Find the path lengthening for dp</span>
-        <span class="n">rnorad</span> <span class="o">=</span> <span class="n">ring</span><span class="o">.</span><span class="n">radiation_off</span><span class="p">(</span><span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">if</span> <span class="n">ring</span><span class="o">.</span><span class="n">radiation</span> <span class="k">else</span> <span class="n">ring</span>
+        <span class="n">rnorad</span> <span class="o">=</span> <span class="n">ring</span><span class="o">.</span><span class="n">disable_6d</span><span class="p">(</span><span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">if</span> <span class="n">ring</span><span class="o">.</span><span class="n">is_6d</span> <span class="k">else</span> <span class="n">ring</span>
         <span class="n">orbit</span> <span class="o">=</span> <span class="n">lattice_pass</span><span class="p">(</span><span class="n">rnorad</span><span class="p">,</span> <span class="n">rnorad</span><span class="o">.</span><span class="n">find_orbit4</span><span class="p">(</span><span class="n">dp</span><span class="o">=</span><span class="n">dp</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
         <span class="n">dct</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">orbit</span><span class="p">)[</span><span class="mi">5</span><span class="p">]</span>
-        <span class="n">frev</span> <span class="o">*=</span> <span class="n">lcell</span> <span class="o">/</span> <span class="p">(</span><span class="n">lcell</span> <span class="o">+</span> <span class="n">dct</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">frev</span></div>
+        <span class="n">cell_frev</span> <span class="o">*=</span> <span class="n">lcell</span> <span class="o">/</span> <span class="p">(</span><span class="n">lcell</span> <span class="o">+</span> <span class="n">dct</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">df</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">cell_frev</span> <span class="o">+=</span> <span class="n">df</span> <span class="o">/</span> <span class="n">ring</span><span class="o">.</span><span class="n">cell_harmnumber</span>
+    <span class="k">return</span> <span class="n">cell_frev</span> <span class="o">/</span> <span class="n">ring</span><span class="o">.</span><span class="n">periodicity</span></div>
 
 
-<div class="viewcode-block" id="set_rf_frequency"><a class="viewcode-back" href="../../../p/api/at.physics.revolution.html#at.physics.revolution.set_rf_frequency">[docs]</a><span class="k">def</span> <span class="nf">set_rf_frequency</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">frequency</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dp</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dct</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="set_rf_frequency"><a class="viewcode-back" href="../../../p/api/at.physics.revolution.html#at.physics.revolution.set_rf_frequency">[docs]</a><span class="k">def</span> <span class="nf">set_rf_frequency</span><span class="p">(</span><span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span> <span class="n">frequency</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                     <span class="n">dp</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">dct</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">df</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                     <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Set the RF frequency</span>
 
 <span class="sd">    Parameters:</span>
@@ -293,23 +303,24 @@
 <span class="sd">        frequency:      RF frequency [Hz]. Default: nominal frequency.</span>
 <span class="sd">        dp:             Momentum deviation. Defaults to :py:obj:`None`</span>
 <span class="sd">        dct:            Path lengthening. Defaults to :py:obj:`None`</span>
+<span class="sd">        df:             Deviation of RF frequency. Defaults to :py:obj:`None`</span>
 
 <span class="sd">    Keyword Args:</span>
 <span class="sd">        cavpts (Optional[Refpts]):  If :py:obj:`None`, look for ring.cavpts, or</span>
 <span class="sd">          otherwise take all cavities.</span>
-<span class="sd">        array (Optional[bool]):     If :py:obj:`False` (default), ``frequency``</span>
+<span class="sd">        array (Optional[bool]):     If :py:obj:`False` (default), *frequency*</span>
 <span class="sd">          is applied to the selected cavities with the lowest frequency. The</span>
 <span class="sd">          frequency of all the other selected cavities is scaled by the same</span>
 <span class="sd">          ratio.</span>
 
-<span class="sd">          If :py:obj:`True`, directly apply ``frequency`` to the selected</span>
+<span class="sd">          If :py:obj:`True`, directly apply *frequency* to the selected</span>
 <span class="sd">          cavities. The value must be broadcastable to the number of cavities.</span>
 <span class="sd">        copy (Optional[bool]):     If :py:obj:`True`, returns a shallow copy of</span>
-<span class="sd">          ``ring`` with new cavity elements. Otherwise (default), modify</span>
-<span class="sd">          ``ring`` in-place</span>
+<span class="sd">          *ring* with new cavity elements. Otherwise (default), modify</span>
+<span class="sd">          *ring* in-place</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">frequency</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">frequency</span> <span class="o">=</span> <span class="n">ring</span><span class="o">.</span><span class="n">get_revolution_frequency</span><span class="p">(</span><span class="n">dp</span><span class="o">=</span><span class="n">dp</span><span class="p">,</span> <span class="n">dct</span><span class="o">=</span><span class="n">dct</span><span class="p">)</span> \
+        <span class="n">frequency</span> <span class="o">=</span> <span class="n">ring</span><span class="o">.</span><span class="n">get_revolution_frequency</span><span class="p">(</span><span class="n">dp</span><span class="o">=</span><span class="n">dp</span><span class="p">,</span> <span class="n">dct</span><span class="o">=</span><span class="n">dct</span><span class="p">,</span> <span class="n">df</span><span class="o">=</span><span class="n">df</span><span class="p">)</span> \
                     <span class="o">*</span> <span class="n">ring</span><span class="o">.</span><span class="n">harmonic_number</span>
     <span class="k">return</span> <span class="n">ring</span><span class="o">.</span><span class="n">set_cavity</span><span class="p">(</span><span class="n">Frequency</span><span class="o">=</span><span class="n">frequency</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 

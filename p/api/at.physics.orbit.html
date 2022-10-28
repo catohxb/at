@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>at.physics.orbit &#8212; Accelerator Toolbox 0.1.dev1+g63bf0a1 documentation</title>
+    <title>at.physics.orbit &#8212; Accelerator Toolbox 0.1.dev1+g0eebb34 documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -603,13 +603,13 @@
 <p class="rubric">Functions</p>
 <table class="autosummary longtable table autosummary">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#at.physics.orbit.find_orbit4" title="at.physics.orbit.find_orbit4"><code class="xref py py-obj docutils literal notranslate"><span class="pre">find_orbit4</span></code></a>(ring[, dp, refpts, dct, orbit, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#at.physics.orbit.find_orbit4" title="at.physics.orbit.find_orbit4"><code class="xref py py-obj docutils literal notranslate"><span class="pre">find_orbit4</span></code></a>(ring[, dp, refpts, dct, df, ...])</p></td>
 <td><p>Gets the 4D closed orbit for a given dp</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#at.physics.orbit.find_sync_orbit" title="at.physics.orbit.find_sync_orbit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">find_sync_orbit</span></code></a>(ring[, dct, refpts, dp, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#at.physics.orbit.find_sync_orbit" title="at.physics.orbit.find_sync_orbit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">find_sync_orbit</span></code></a>(ring[, dct, refpts, dp, df, ...])</p></td>
 <td><p>Gets the 4D closed orbit for a given dct</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#at.physics.orbit.find_orbit6" title="at.physics.orbit.find_orbit6"><code class="xref py py-obj docutils literal notranslate"><span class="pre">find_orbit6</span></code></a>(ring[, refpts, orbit, dp, dct, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#at.physics.orbit.find_orbit6" title="at.physics.orbit.find_orbit6"><code class="xref py py-obj docutils literal notranslate"><span class="pre">find_orbit6</span></code></a>(ring[, refpts, dp, dct, df, ...])</p></td>
 <td><p>Gets the closed orbit in the full 6-D phase space</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#at.physics.orbit.find_orbit" title="at.physics.orbit.find_orbit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">find_orbit</span></code></a>(ring[, refpts])</p></td>
@@ -629,10 +629,10 @@
 <dd><p>Gets the closed orbit in the general case</p>
 <p>Depending on the lattice, <a class="reference internal" href="#at.physics.orbit.find_orbit" title="at.physics.orbit.find_orbit"><code class="xref py py-func docutils literal notranslate"><span class="pre">find_orbit()</span></code></a> will:</p>
 <ul class="simple">
-<li><p>use <a class="reference internal" href="#at.physics.orbit.find_orbit6" title="at.physics.orbit.find_orbit6"><code class="xref py py-func docutils literal notranslate"><span class="pre">find_orbit6()</span></code></a> if ring.radiation is ON,</p></li>
-<li><p>use <a class="reference internal" href="#at.physics.orbit.find_sync_orbit" title="at.physics.orbit.find_sync_orbit"><code class="xref py py-func docutils literal notranslate"><span class="pre">find_sync_orbit()</span></code></a> if ring.radiation is OFF and <code class="docutils literal notranslate"><span class="pre">dct</span></code>
-is specified,</p></li>
-<li><p>use <a class="reference internal" href="#at.physics.orbit.find_orbit4" title="at.physics.orbit.find_orbit4"><code class="xref py py-func docutils literal notranslate"><span class="pre">find_orbit4()</span></code></a> otherwise</p></li>
+<li><p>use <a class="reference internal" href="#at.physics.orbit.find_orbit6" title="at.physics.orbit.find_orbit6"><code class="xref py py-func docutils literal notranslate"><span class="pre">find_orbit6()</span></code></a> if <code class="docutils literal notranslate"><span class="pre">ring.is_6d</span></code> is <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a>,</p></li>
+<li><p>use <a class="reference internal" href="#at.physics.orbit.find_sync_orbit" title="at.physics.orbit.find_sync_orbit"><code class="xref py py-func docutils literal notranslate"><span class="pre">find_sync_orbit()</span></code></a> if <code class="docutils literal notranslate"><span class="pre">ring.is_6d</span></code> is <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a> and
+<em>dct</em> or <em>df</em> is specified,</p></li>
+<li><p>use <a class="reference internal" href="#at.physics.orbit.find_orbit4" title="at.physics.orbit.find_orbit4"><code class="xref py py-func docutils literal notranslate"><span class="pre">find_orbit4()</span></code></a> otherwise.</p></li>
 </ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -643,20 +643,22 @@ is specified,</p></li>
 </dd>
 <dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>orbit</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="#at.physics.orbit.Orbit" title="at.physics.orbit.Orbit"><em>Orbit</em></a><em>]</em>) – Avoids looking for initial the closed
+<li><p><strong>orbit</strong> (<a class="reference internal" href="#at.physics.orbit.Orbit" title="at.physics.orbit.Orbit"><em>Orbit</em></a>) – Avoids looking for initial the closed
 orbit if it is already known. <a class="reference internal" href="#at.physics.orbit.find_orbit" title="at.physics.orbit.find_orbit"><code class="xref py py-func docutils literal notranslate"><span class="pre">find_orbit()</span></code></a> propagates it
-to the specified <code class="docutils literal notranslate"><span class="pre">refpts</span></code>.</p></li>
-<li><p><strong>dp</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>]</em>) – Momentum deviation. Defaults to None</p></li>
-<li><p><strong>dct</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>]</em>) – Path lengthening. Defaults to None</p></li>
-<li><p><strong>guess</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="#at.physics.orbit.Orbit" title="at.physics.orbit.Orbit"><em>Orbit</em></a><em>]</em>) – (6,) initial value for the
-closed orbit. It may help convergence. Default: (0, 0, 0, 0, 0, 0)</p></li>
-<li><p><strong>convergence</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>]</em>) – Convergence criterion.
+to the specified <em>refpts</em>.</p></li>
+<li><p><strong>dp</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Momentum deviation. Defaults to <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p></li>
+<li><p><strong>dct</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Path lengthening. Defaults to <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p></li>
+<li><p><strong>df</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Deviation from the nominal RF frequency.
+Defaults to <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p></li>
+<li><p><strong>guess</strong> (<a class="reference internal" href="#at.physics.orbit.Orbit" title="at.physics.orbit.Orbit"><em>Orbit</em></a>) – (6,) initial value for the closed orbit.
+It may help convergence. Default: (0, 0, 0, 0, 0, 0)</p></li>
+<li><p><strong>convergence</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Convergence criterion.
 Default: <a class="reference internal" href="at.lattice.options.html#at.lattice.options.DConstant" title="at.lattice.options.DConstant"><code class="xref py py-data docutils literal notranslate"><span class="pre">DConstant.OrbConvergence</span></code></a></p></li>
-<li><p><strong>max_iterations</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>]</em>) – Maximum number of iterations.
+<li><p><strong>max_iterations</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Maximum number of iterations.
 Default: <a class="reference internal" href="at.lattice.options.html#at.lattice.options.DConstant" title="at.lattice.options.DConstant"><code class="xref py py-data docutils literal notranslate"><span class="pre">DConstant.OrbMaxIter</span></code></a></p></li>
-<li><p><strong>XYStep</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>]</em>) – Step size.
+<li><p><strong>XYStep</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Step size.
 Default: <a class="reference internal" href="at.lattice.options.html#at.lattice.options.DConstant" title="at.lattice.options.DConstant"><code class="xref py py-data docutils literal notranslate"><span class="pre">DConstant.XYStep</span></code></a></p></li>
-<li><p><strong>DPStep</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>]</em>) – Momentum step size.
+<li><p><strong>DPStep</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Momentum step size.
 Default: <a class="reference internal" href="at.lattice.options.html#at.lattice.options.DConstant" title="at.lattice.options.DConstant"><code class="xref py py-data docutils literal notranslate"><span class="pre">DConstant.DPStep</span></code></a></p></li>
 </ul>
 </dd>
@@ -668,7 +670,7 @@ Default: <a class="reference internal" href="at.lattice.options.html#at.lattice.
 <li><p><strong>orbit0</strong> – (6,) closed orbit vector at the entrance of the
 1-st element (x,px,y,py,dp,0)</p></li>
 <li><p><strong>orbit</strong> – (Nrefs, 6) closed orbit vector at each location
-specified in <code class="docutils literal notranslate"><span class="pre">refpts</span></code></p></li>
+specified in <em>refpts</em></p></li>
 </ul>
 </dd>
 </dl>
@@ -681,7 +683,7 @@ specified in <code class="docutils literal notranslate"><span class="pre">refpts
 
 <dl class="py function">
 <dt class="sig sig-object py" id="at.physics.orbit.find_orbit4">
-<span class="sig-name descname"><span class="pre">find_orbit4</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refpts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dct</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orbit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_lattice</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/physics/orbit.html#find_orbit4"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.physics.orbit.find_orbit4" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">find_orbit4</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refpts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dct</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orbit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_lattice</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/physics/orbit.html#find_orbit4"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.physics.orbit.find_orbit4" title="Permalink to this definition">#</a></dt>
 <dd><p>Gets the 4D closed orbit for a given dp</p>
 <p>Finds the closed orbit in the 4-d transverse phase space by numerically
 solving for a fixed point of the one turn map M calculated with
@@ -694,7 +696,7 @@ solving for a fixed point of the one turn map M calculated with
 constraint on the 6-th coordinate <span class="math notranslate nohighlight">\(c\tau\)</span></p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p><a class="reference internal" href="#at.physics.orbit.find_orbit4" title="at.physics.orbit.find_orbit4"><code class="xref py py-func docutils literal notranslate"><span class="pre">find_orbit4()</span></code></a> imposes a constraint on <code class="docutils literal notranslate"><span class="pre">dp</span></code> and relaxes the
+<p><a class="reference internal" href="#at.physics.orbit.find_orbit4" title="at.physics.orbit.find_orbit4"><code class="xref py py-func docutils literal notranslate"><span class="pre">find_orbit4()</span></code></a> imposes a constraint on <em>dp</em> and relaxes the
 constraint on the revolution frequency. A physical storage ring does
 exactly the opposite: the momentum deviation of a particle on the
 closed orbit settles at the value such that the revolution is
@@ -703,21 +705,24 @@ synchronous with the RF cavity: <span class="math notranslate nohighlight">\(f_{
 <p>To impose this artificial constraint in <a class="reference internal" href="#at.physics.orbit.find_orbit4" title="at.physics.orbit.find_orbit4"><code class="xref py py-func docutils literal notranslate"><span class="pre">find_orbit4()</span></code></a>,
 the <code class="docutils literal notranslate"><span class="pre">PassMethod</span></code> used for any element <strong>SHOULD NOT</strong>:</p>
 <ol class="arabic simple">
-<li><p>Change the longitudinal momentum <code class="docutils literal notranslate"><span class="pre">dp</span></code> (cavities ,
+<li><p>Change the longitudinal momentum <em>dp</em> (cavities ,
 magnets with radiation)</p></li>
 <li><p>Have any time dependence (localized impedance, fast kickers etc)</p></li>
 </ol>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>ring</strong> (<a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><em>Lattice</em></a>) – Lattice description (radiation must be OFF)</p></li>
+<li><p><strong>ring</strong> (<a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><em>Lattice</em></a>) – Lattice description (<code class="docutils literal notranslate"><span class="pre">is_6d</span></code> must be <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a>)</p></li>
 <li><p><strong>dp</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>]</em>) – Momentum deviation. Defaults to 0</p></li>
 <li><p><strong>refpts</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><em>Optional</em></a><em>[</em><em>Refpts</em><em>]</em>) – Observation points</p></li>
-<li><p><strong>dct</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>]</em>) – Path lengthening. If specified, <code class="docutils literal notranslate"><span class="pre">dp</span></code> is ignored and
+<li><p><strong>dct</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>]</em>) – Path lengthening. If specified, <em>dp</em> is ignored and
 the off-momentum is deduced from the path lengthening.</p></li>
+<li><p><strong>df</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>]</em>) – Deviation from the nominal RF frequency. If specified,
+<em>dp</em> is ignored and the off-momentum is deduced from the frequency
+deviation.</p></li>
 <li><p><strong>orbit</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><em>ndarray</em></a><em>]</em>) – Avoids looking for initial the closed orbit if it is
 already known ((6,) array). <a class="reference internal" href="#at.physics.orbit.find_orbit4" title="at.physics.orbit.find_orbit4"><code class="xref py py-func docutils literal notranslate"><span class="pre">find_orbit4()</span></code></a> propagates it to
-the specified <code class="docutils literal notranslate"><span class="pre">refpts</span></code>.</p></li>
+the specified <em>refpts</em>.</p></li>
 <li><p><strong>keep_lattice</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Assume no lattice change since the previous tracking.
 Default: False</p></li>
 </ul>
@@ -739,7 +744,7 @@ Default: <a class="reference internal" href="at.lattice.options.html#at.lattice.
 <li><p><strong>orbit0</strong> – (6,) closed orbit vector at the entrance of the
 1-st element (x,px,y,py,dp,0)</p></li>
 <li><p><strong>orbit</strong> – (Nrefs, 6) closed orbit vector at each location
-specified in <code class="docutils literal notranslate"><span class="pre">refpts</span></code></p></li>
+specified in <em>refpts</em></p></li>
 </ul>
 </dd>
 </dl>
@@ -751,9 +756,9 @@ specified in <code class="docutils literal notranslate"><span class="pre">refpts
 
 <dl class="py function">
 <dt class="sig sig-object py" id="at.physics.orbit.find_orbit6">
-<span class="sig-name descname"><span class="pre">find_orbit6</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refpts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orbit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dct</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_lattice</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/physics/orbit.html#find_orbit6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.physics.orbit.find_orbit6" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">find_orbit6</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refpts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dct</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orbit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_lattice</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/physics/orbit.html#find_orbit6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.physics.orbit.find_orbit6" title="Permalink to this definition">#</a></dt>
 <dd><p>Gets the closed orbit in the full 6-D phase space</p>
-<p>Findsinds the closed orbit in the full 6-D phase space
+<p>Finds the closed orbit in the full 6-D phase space
 by numerically solving  for a fixed point of the one turn
 map M calculated with <a class="reference internal" href="at.tracking.track.html#at.tracking.track.lattice_pass" title="at.tracking.track.lattice_pass"><code class="xref py py-func docutils literal notranslate"><span class="pre">lattice_pass()</span></code></a></p>
 <div class="math notranslate nohighlight">
@@ -793,10 +798,8 @@ the equilibrium RF phase. If there is no radiation it is 0.</p></li>
 <li><p><strong>refpts</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><em>Optional</em></a><em>[</em><em>Refpts</em><em>]</em>) – Observation points</p></li>
 <li><p><strong>orbit</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><em>ndarray</em></a><em>]</em>) – Avoids looking for initial the closed orbit if it is
 already known ((6,) array). <a class="reference internal" href="#at.physics.orbit.find_sync_orbit" title="at.physics.orbit.find_sync_orbit"><code class="xref py py-func docutils literal notranslate"><span class="pre">find_sync_orbit()</span></code></a> propagates it
-to the specified <code class="docutils literal notranslate"><span class="pre">refpts</span></code>.</p></li>
-<li><p><strong>dp</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>]</em>) – Momentum deviation. Defaults to None</p></li>
-<li><p><strong>dct</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>]</em>) – Path lengthening. Defaults to None</p></li>
-<li><p><strong>keep_lattice</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>]</em>) – Assume no lattice change since the previous tracking.
+to the specified <em>refpts</em>.</p></li>
+<li><p><strong>keep_lattice</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Assume no lattice change since the previous tracking.
 Default: False</p></li>
 </ul>
 </dd>
@@ -814,7 +817,7 @@ Default: <a class="reference internal" href="at.lattice.options.html#at.lattice.
 Default: <a class="reference internal" href="at.lattice.options.html#at.lattice.options.DConstant" title="at.lattice.options.DConstant"><code class="xref py py-data docutils literal notranslate"><span class="pre">DConstant.DPStep</span></code></a></p></li>
 <li><p><strong>method</strong> (<a class="reference internal" href="at.physics.energy_loss.html#at.physics.energy_loss.ELossMethod" title="at.physics.energy_loss.ELossMethod"><em>ELossMethod</em></a>) – Method for energy loss computation.
 See <a class="reference internal" href="at.physics.energy_loss.html#at.physics.energy_loss.ELossMethod" title="at.physics.energy_loss.ELossMethod"><code class="xref py py-class docutils literal notranslate"><span class="pre">ELossMethod</span></code></a>.</p></li>
-<li><p><strong>cavpts</strong> (<em>Optional</em><em>[</em><em>Refpts</em><em>]</em>) – Cavity location. If None, use all
+<li><p><strong>cavpts</strong> (<em>Refpts</em>) – Cavity location. If <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>, use all
 cavities. This is used to compute the initial synchronous phase.</p></li>
 </ul>
 </dd>
@@ -823,7 +826,7 @@ cavities. This is used to compute the initial synchronous phase.</p></li>
 <li><p><strong>orbit0</strong> – (6,) closed orbit vector at the entrance of the
 1-st element (x,px,y,py,dp,0)</p></li>
 <li><p><strong>orbit</strong> – (Nrefs, 6) closed orbit vector at each location
-specified in <code class="docutils literal notranslate"><span class="pre">refpts</span></code></p></li>
+specified in <em>refpts</em></p></li>
 </ul>
 </dd>
 </dl>
@@ -835,7 +838,7 @@ specified in <code class="docutils literal notranslate"><span class="pre">refpts
 
 <dl class="py function">
 <dt class="sig sig-object py" id="at.physics.orbit.find_sync_orbit">
-<span class="sig-name descname"><span class="pre">find_sync_orbit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dct</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refpts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orbit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_lattice</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/physics/orbit.html#find_sync_orbit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.physics.orbit.find_sync_orbit" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">find_sync_orbit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dct</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refpts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orbit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_lattice</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/physics/orbit.html#find_sync_orbit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.physics.orbit.find_sync_orbit" title="Permalink to this definition">#</a></dt>
 <dd><p>Gets the 4D closed orbit for a given dct</p>
 <p>Finds the closed orbit, synchronous with the RF cavity (first 5
 components of the phase space vector) by numerically solving for a fixed
@@ -858,20 +861,23 @@ fixed-momentum ring to reduce the dimensionality of the problem.</p>
 <p>To impose this artificial constraint in <a class="reference internal" href="#at.physics.orbit.find_sync_orbit" title="at.physics.orbit.find_sync_orbit"><code class="xref py py-func docutils literal notranslate"><span class="pre">find_sync_orbit()</span></code></a>,
 the <code class="docutils literal notranslate"><span class="pre">PassMethod</span></code> used for any element <strong>SHOULD NOT</strong>:</p>
 <ol class="arabic simple">
-<li><p>Change the longitudinal momentum <code class="docutils literal notranslate"><span class="pre">dp</span></code> (cavities ,
+<li><p>Change the longitudinal momentum <em>dp</em> (cavities ,
 magnets with radiation)</p></li>
 <li><p>Have any time dependence (localized impedance, fast kickers etc)</p></li>
 </ol>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>ring</strong> (<a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><em>Lattice</em></a>) – Lattice description (radiation must be OFF)</p></li>
+<li><p><strong>ring</strong> (<a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><em>Lattice</em></a>) – Lattice description (<code class="docutils literal notranslate"><span class="pre">is_6d</span></code> must be <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a>)</p></li>
 <li><p><strong>dct</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>]</em>) – Path lengthening.</p></li>
 <li><p><strong>refpts</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><em>Optional</em></a><em>[</em><em>Refpts</em><em>]</em>) – Observation points</p></li>
-<li><p><strong>dp</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>]</em>) – Momentum deviation. Defaults to None</p></li>
+<li><p><strong>dp</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>]</em>) – Momentum deviation. Defaults to <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p></li>
+<li><p><strong>df</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>]</em>) – Deviation from the nominal RF frequency. If specified,
+<em>dct</em> is ignored and the off-momentum is deduced from the frequency
+deviation.</p></li>
 <li><p><strong>orbit</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><em>ndarray</em></a><em>]</em>) – Avoids looking for initial the closed orbit if it is
 already known ((6,) array). <a class="reference internal" href="#at.physics.orbit.find_sync_orbit" title="at.physics.orbit.find_sync_orbit"><code class="xref py py-func docutils literal notranslate"><span class="pre">find_sync_orbit()</span></code></a> propagates it
-to the specified <code class="docutils literal notranslate"><span class="pre">refpts</span></code>.</p></li>
+to the specified <em>refpts</em>.</p></li>
 <li><p><strong>keep_lattice</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Assume no lattice change since the previous tracking.
 Default: False</p></li>
 </ul>
@@ -893,7 +899,7 @@ Default: <a class="reference internal" href="at.lattice.options.html#at.lattice.
 <li><p><strong>orbit0</strong> – (6,) closed orbit vector at the entrance of the
 1-st element (x,px,y,py,dp,0)</p></li>
 <li><p><strong>orbit</strong> – (Nrefs, 6) closed orbit vector at each location
-specified in <code class="docutils literal notranslate"><span class="pre">refpts</span></code></p></li>
+specified in <em>refpts</em></p></li>
 </ul>
 </dd>
 </dl>

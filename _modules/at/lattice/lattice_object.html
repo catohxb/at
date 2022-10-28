@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>at.lattice.lattice_object &#8212; Accelerator Toolbox 0.1.dev1+g63bf0a1 documentation</title>
+    <title>at.lattice.lattice_object &#8212; Accelerator Toolbox 0.1.dev1+g0eebb34 documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -579,7 +579,7 @@
 <span class="sd">        Parameters:</span>
 <span class="sd">            params:         Dictionary of Lattice attributes</span>
 <span class="sd">            elem_filter:    Element filter</span>
-<span class="sd">            *args:          Arguments provided to ``elem_filter``</span>
+<span class="sd">            *args:          Arguments provided to *elem_filter*</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_std_attributes</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
@@ -590,7 +590,8 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">s_range</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]:</span>
-        <span class="sd">&quot;&quot;&quot;Range of interest: (s_min, s_max). ``None`` means the full cell.&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Range of interest: (s_min, s_max). :py:obj:`None` means</span>
+<span class="sd">          the full cell.&quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_s_range</span>
         <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
@@ -641,13 +642,58 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_energy</span> <span class="o">=</span> <span class="n">energy</span>
 
     <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">cell_length</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Cell length (1 cell) [m]</span>
+
+<span class="sd">        See Also:</span>
+
+<span class="sd">            :py:meth:`circumference`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_s_pos</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">cell_revolution_frequency</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Revolution frequency for 1 cell [Hz]</span>
+
+<span class="sd">        See Also:</span>
+
+<span class="sd">            :py:meth:`revolution_frequency`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">beta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta</span>
+        <span class="k">return</span> <span class="n">beta</span> <span class="o">*</span> <span class="n">clight</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">cell_length</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">cell_harmnumber</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Harmonic number per cell</span>
+
+<span class="sd">        See Also:</span>
+
+<span class="sd">            :py:meth:`harmonic_number`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cell_harmnumber</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s1">&#39;harmonic_number undefined: &#39;</span>
+                                 <span class="s1">&#39;No cavity found in the lattice&#39;</span><span class="p">)</span> <span class="kn">from</span> <span class="bp">None</span>
+
+    <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">circumference</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Ring circumference (full self) [m]&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Ring circumference (full ring) [m]</span>
+
+<span class="sd">        See Also:</span>
+
+<span class="sd">            :py:meth:`cell_length`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">periodicity</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_s_pos</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">revolution_frequency</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Revolution frequency (fullring) [Hz]&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Revolution frequency (full ring) [Hz]</span>
+
+<span class="sd">        See Also:</span>
+
+<span class="sd">            :py:meth:`cell_revolution_frequency`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">beta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta</span>
         <span class="k">return</span> <span class="n">beta</span> <span class="o">*</span> <span class="n">clight</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">circumference</span>
 
@@ -745,7 +791,12 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">harmonic_number</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Ring harmonic number (full self)&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Ring harmonic number (full ring)</span>
+
+<span class="sd">        See Also:</span>
+
+<span class="sd">            :py:meth:`cell_harmnumber`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">periodicity</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cell_harmnumber</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
@@ -840,7 +891,7 @@
 
 <span class="sd">        Parameters:</span>
 <span class="sd">            elem_modify : element selection function.</span>
-<span class="sd">              If ``elem_modify(elem)`` returns ``None``, the element is</span>
+<span class="sd">              If ``elem_modify(elem)`` returns :py:obj:`None`, the element is</span>
 <span class="sd">              unchanged. Otherwise, ``elem_modify(elem)`` must return a</span>
 <span class="sd">              dictionary of attribute name and values, to be set to elem.</span>
 <span class="sd">            copy:         If True, return a shallow copy of the lattice.</span>
@@ -848,7 +899,8 @@
 <span class="sd">              If False, the modification is done in-place</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            newring:    New lattice if copy is True, None if copy is False</span>
+<span class="sd">            newring:    New lattice if copy is :py:obj:`True`, :py:obj:`None`</span>
+<span class="sd">              if copy is :py:obj:`False`</span>
 
 <span class="sd">        Keyword Arguments:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -990,7 +1042,7 @@
 
 <span class="sd">        Keyword arguments:</span>
 <span class="sd">            all_pass:                   PassMethod overloading the default</span>
-<span class="sd">              values for all elements (``None`` or &#39;auto&#39;)</span>
+<span class="sd">              values for all elements (:py:obj:`None` or &#39;auto&#39;)</span>
 <span class="sd">            cavity_pass=&#39;auto&#39;:         PassMethod set on cavities</span>
 <span class="sd">            dipole_pass=&#39;auto&#39;:         PassMethod set on dipoles</span>
 <span class="sd">            quadrupole_pass=&#39;auto&#39;:     PassMethod set on quadrupoles</span>
@@ -1003,7 +1055,7 @@
 <span class="sd">              elements (:py:class:`.WakeElement`,...)</span>
 <span class="sd">            diffusion_pass=&#39;auto&#39;:      PassMethod set on</span>
 <span class="sd">              :py:class:`.QuantumDiffusion`</span>
-<span class="sd">            copy=False: If ``False``, the modification is done in-place,</span>
+<span class="sd">            copy=False: If :py:obj:`False`, the modification is done in-place,</span>
 <span class="sd">              If ``True``, return a shallow copy of the lattice. Only the</span>
 <span class="sd">              radiating elements are copied with PassMethod modified.</span>
 
@@ -1015,7 +1067,7 @@
 
 <span class="sd">        For PassMethod names, the convention is:</span>
 
-<span class="sd">        * ``None``:        No change</span>
+<span class="sd">        * :py:obj:`None`:        No change</span>
 <span class="sd">        * &#39;auto&#39;:          Use the default conversion (replace \*Pass by</span>
 <span class="sd">          \*RadPass)</span>
 <span class="sd">        * anything else:   set as the new PassMethod</span>
@@ -1088,7 +1140,7 @@
 
 <span class="sd">        Keyword arguments:</span>
 <span class="sd">            all_pass:                   PassMethod overloading the default</span>
-<span class="sd">              values for all elements (``None`` or &#39;auto&#39;)</span>
+<span class="sd">              values for all elements (:py:obj:`None` or &#39;auto&#39;)</span>
 <span class="sd">            cavity_pass=&#39;auto&#39;:         PassMethod set on cavities</span>
 <span class="sd">            dipole_pass=&#39;auto&#39;:         PassMethod set on dipoles</span>
 <span class="sd">            quadrupole_pass=auto:       PassMethod set on quadrupoles</span>
@@ -1101,7 +1153,7 @@
 <span class="sd">              elements (:py:class:`.WakeElement`,...)</span>
 <span class="sd">            diffusion_pass=&#39;auto&#39;:      PassMethod set on</span>
 <span class="sd">              :py:class:`.QuantumDiffusion`</span>
-<span class="sd">            copy=False: If ``False``, the modification is done in-place,</span>
+<span class="sd">            copy=False: If :py:obj:`False`, the modification is done in-place,</span>
 <span class="sd">              If ``True``, return a shallow copy of the lattice. Only the</span>
 <span class="sd">              radiating elements are copied with PassMethod modified.</span>
 
@@ -1113,7 +1165,7 @@
 
 <span class="sd">        For PassMethod names, the convention is:</span>
 
-<span class="sd">        * ``None``:        no change</span>
+<span class="sd">        * :py:obj:`None`:        no change</span>
 <span class="sd">        * &#39;auto&#39;:          Use the default conversion (replace \*RadPass by</span>
 <span class="sd">          \*Pass)</span>
 <span class="sd">        * anything else:   set as the new PassMethod</span>

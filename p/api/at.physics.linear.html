@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>at.physics.linear &#8212; Accelerator Toolbox 0.1.dev1+g63bf0a1 documentation</title>
+    <title>at.physics.linear &#8212; Accelerator Toolbox 0.1.dev1+g0eebb34 documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -639,17 +639,17 @@
 <tr class="row-even"><td><p><a class="reference internal" href="#at.physics.linear.get_optics" title="at.physics.linear.get_optics"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_optics</span></code></a>(ring[, refpts, dp, method])</p></td>
 <td><p>Linear analysis of a fully coupled lattice</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#at.physics.linear.get_tune" title="at.physics.linear.get_tune"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_tune</span></code></a>(ring[, method, dp, dct, orbit])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#at.physics.linear.get_tune" title="at.physics.linear.get_tune"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_tune</span></code></a>(ring, *[, method, dp, dct, df, orbit])</p></td>
 <td><p>Computes the tunes using several available methods</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#at.physics.linear.get_chrom" title="at.physics.linear.get_chrom"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_chrom</span></code></a>(ring[, method, dp, dct, cavpts])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#at.physics.linear.get_chrom" title="at.physics.linear.get_chrom"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_chrom</span></code></a>(ring, *[, method, dp, dct, df, cavpts])</p></td>
 <td><p>Computes the chromaticities using several available methods</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py function">
 <dt class="sig sig-object py" id="at.physics.linear.avlinopt">
-<span class="sig-name descname"><span class="pre">avlinopt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refpts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/physics/linear.html#avlinopt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.physics.linear.avlinopt" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">avlinopt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refpts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/physics/linear.html#avlinopt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.physics.linear.avlinopt" title="Permalink to this definition">#</a></dt>
 <dd><p>Linear analysis of a lattice with average values</p>
 <p><a class="reference internal" href="#at.physics.linear.avlinopt" title="at.physics.linear.avlinopt"><code class="xref py py-func docutils literal notranslate"><span class="pre">avlinopt()</span></code></a> returns average beta, mu, dispersion over the lattice
 elements.</p>
@@ -657,8 +657,8 @@ elements.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ring</strong> (<a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><em>Lattice</em></a>) – Lattice description.</p></li>
-<li><p><strong>dp</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>]</em>) – Momentum deviation.</p></li>
-<li><p><strong>refpts</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><em>Optional</em></a><em>[</em><em>Refpts</em><em>]</em>) – <p>Elements at which data is returned.
+<li><p><strong>dp</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Momentum deviation.</p></li>
+<li><p><strong>refpts</strong> (<em>Refpts</em>) – <p>Elements at which data is returned.
 It can be:</p>
 <ol class="arabic simple">
 <li><p>an integer in the range [-len(ring), len(ring)-1]
@@ -674,9 +674,10 @@ where selected elements are <a class="reference external" href="https://docs.pyt
 </dd>
 <dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>dct</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>]</em>) – Path lengthening. If specified, <code class="docutils literal notranslate"><span class="pre">dp</span></code> is
-ignored and the off-momentum is deduced from the path lengthening.</p></li>
-<li><p><strong>orbit</strong> (<a class="reference internal" href="at.physics.orbit.html#at.physics.orbit.Orbit" title="at.physics.orbit.Orbit"><em>Orbit</em></a>) – Avoids looking for the closed orbit if is
+<li><p><strong>dct</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Path lengthening. Defaults to <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p></li>
+<li><p><strong>df</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Deviation of RF frequency. Defaults to
+<a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p></li>
+<li><p><strong>orbit</strong> (<a class="reference internal" href="at.physics.orbit.html#at.physics.orbit.Orbit" title="at.physics.orbit.Orbit"><em>Orbit</em></a>) – Avoids looking for the closed orbit if it is
 already known ((6,) array)</p></li>
 <li><p><strong>get_chrom</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Compute chromaticities. Needs computing
 the tune at 2 different momentum deviations around the central one.</p></li>
@@ -707,15 +708,15 @@ are ignored.</p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>elemdata</strong> – Linear optics at the points refered to by <code class="docutils literal notranslate"><span class="pre">refpts</span></code>,
+<li><p><strong>elemdata</strong> – Linear optics at the points refered to by <em>refpts</em>,
 if refpts is <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a> an empty lindata structure is returned.</p></li>
 <li><p><strong>avebeta</strong> – Average beta functions [<span class="math notranslate nohighlight">\(\hat{\beta_x},\hat{\beta_y}\)</span>]
-at <code class="docutils literal notranslate"><span class="pre">refpts</span></code></p></li>
+at <em>refpts</em></p></li>
 <li><p><strong>avemu</strong> – Average phase advances [<span class="math notranslate nohighlight">\(\hat{\mu_x},\hat{\mu_y}\)</span>]
-at <code class="docutils literal notranslate"><span class="pre">refpts</span></code></p></li>
+at <em>refpts</em></p></li>
 <li><p><strong>avedisp</strong> – Average dispersion [<span class="math notranslate nohighlight">\(\hat{\eta_x}, \hat{\eta'_x},
-\hat{\eta_y}, \hat{\eta'_y}\)</span>] at <code class="docutils literal notranslate"><span class="pre">refpts</span></code></p></li>
-<li><p><strong>avespos</strong> – Average s position at <code class="docutils literal notranslate"><span class="pre">refpts</span></code></p></li>
+\hat{\eta_y}, \hat{\eta'_y}\)</span>] at <em>refpts</em></p></li>
+<li><p><strong>avespos</strong> – Average s position at <em>refpts</em></p></li>
 <li><p><strong>tune</strong> – [<span class="math notranslate nohighlight">\(\nu_1,\nu_2\)</span>], linear tunes for the two normal
 modes of linear motion [1]</p></li>
 <li><p><strong>chrom</strong> – [<span class="math notranslate nohighlight">\(\xi_1,\xi_2\)</span>], chromaticities</p></li>
@@ -730,22 +731,22 @@ modes of linear motion [1]</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="at.physics.linear.get_chrom">
-<span class="sig-name descname"><span class="pre">get_chrom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'linopt'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dct</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cavpts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/physics/linear.html#get_chrom"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.physics.linear.get_chrom" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_chrom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'linopt'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dct</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cavpts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/physics/linear.html#get_chrom"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.physics.linear.get_chrom" title="Permalink to this definition">#</a></dt>
 <dd><p>Computes the chromaticities using several available methods</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ring</strong> (<a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><em>Lattice</em></a>) – Lattice description.</p></li>
-<li><p><strong>method</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – <p><code class="docutils literal notranslate"><span class="pre">'linopt'</span></code> returns the tunes from the <a class="reference internal" href="#at.physics.linear.linopt6" title="at.physics.linear.linopt6"><code class="xref py py-func docutils literal notranslate"><span class="pre">linopt6()</span></code></a>
-function,</p>
+<li><p><strong>method</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – <p><code class="docutils literal notranslate"><span class="pre">'linopt'</span></code> returns the tunes from the
+<a class="reference internal" href="#at.physics.linear.linopt6" title="at.physics.linear.linopt6"><code class="xref py py-func docutils literal notranslate"><span class="pre">linopt6()</span></code></a> function,</p>
 <p><code class="docutils literal notranslate"><span class="pre">'fft'</span></code> tracks a single particle and computes the tunes with
 <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.fftpack.fft.html#scipy.fftpack.fft" title="(in SciPy v1.9.3)"><code class="xref py py-func docutils literal notranslate"><span class="pre">fft()</span></code></a>,</p>
 <p><code class="docutils literal notranslate"><span class="pre">'laskar'</span></code> tracks a single particle and computes the tunes with
 NAFF.</p>
 </p></li>
-<li><p><strong>dp</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>]</em>) – Momentum deviation.</p></li>
-<li><p><strong>dct</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>]</em>) – Path lengthening. If specified, <code class="docutils literal notranslate"><span class="pre">dp</span></code> is ignored and
-the off-momentum is deduced from the path lengthening.</p></li>
+<li><p><strong>dp</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Momentum deviation.</p></li>
+<li><p><strong>dct</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Path lengthening.</p></li>
+<li><p><strong>df</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Deviation of RF frequency.</p></li>
 <li><p><strong>cavpts</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><em>Optional</em></a><em>[</em><em>Refpts</em><em>]</em>) – If <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>, look for ring.cavpts, or
 otherwise take all cavities.</p></li>
 </ul>
@@ -786,7 +787,7 @@ Default: <a class="reference external" href="https://docs.python.org/3/library/c
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ring</strong> (<a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><em>Lattice</em></a>) – Lattice description.</p></li>
-<li><p><strong>refpts</strong> (<em>Optional</em><em>[</em><em>Refpts</em><em>]</em>) – <p>Elements at which data is returned.
+<li><p><strong>refpts</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><em>Optional</em></a><em>[</em><em>Refpts</em><em>]</em>) – <p>Elements at which data is returned.
 It can be:</p>
 <ol class="arabic simple">
 <li><p>an integer in the range [-len(ring), len(ring)-1]
@@ -798,7 +799,7 @@ of the last element,</p></li>
 where selected elements are <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a>.</p></li>
 </ol>
 </p></li>
-<li><p><strong>dp</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>]</em>) – Momentum deviation.</p></li>
+<li><p><strong>dp</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>]</em>) – Momentum deviation.</p></li>
 <li><p><strong>method</strong> (<em>Callable</em>) – <p>Method for linear optics:</p>
 <p><a class="reference internal" href="#at.physics.linear.linopt2" title="at.physics.linear.linopt2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linopt2</span></code></a>: no longitudinal motion, no H/V coupling,</p>
 <p><a class="reference internal" href="#at.physics.linear.linopt4" title="at.physics.linear.linopt4"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linopt4</span></code></a>: no longitudinal motion, Sagan/Rubin
@@ -810,9 +811,10 @@ motion, normal mode analysis</p>
 </dd>
 <dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>dct</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>]</em>) – Path lengthening. If specified, <code class="docutils literal notranslate"><span class="pre">dp</span></code> is
-ignored and the off-momentum is deduced from the path lengthening.</p></li>
-<li><p><strong>orbit</strong> (<a class="reference internal" href="at.physics.orbit.html#at.physics.orbit.Orbit" title="at.physics.orbit.Orbit"><em>Orbit</em></a>) – Avoids looking for the closed orbit if is
+<li><p><strong>dct</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Path lengthening. Defaults to <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p></li>
+<li><p><strong>df</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Deviation of RF frequency. Defaults to
+<a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p></li>
+<li><p><strong>orbit</strong> (<a class="reference internal" href="at.physics.orbit.html#at.physics.orbit.Orbit" title="at.physics.orbit.Orbit"><em>Orbit</em></a>) – Avoids looking for the closed orbit if it is
 already known ((6,) array)</p></li>
 <li><p><strong>get_chrom</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Compute chromaticities. Needs computing
 the tune at 2 different momentum deviations around the central one.</p></li>
@@ -845,7 +847,7 @@ are ignored.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>elemdata0</strong> – Linear optics data at the entrance of the ring</p></li>
 <li><p><strong>ringdata</strong> – Lattice properties</p></li>
-<li><p><strong>elemdata</strong> – Linear optics at the points refered to by <code class="docutils literal notranslate"><span class="pre">refpts</span></code>,
+<li><p><strong>elemdata</strong> – Linear optics at the points refered to by <em>refpts</em>,
 if refpts is <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a> an empty lindata structure is returned.</p></li>
 </ul>
 </dd>
@@ -859,22 +861,22 @@ See <a class="reference internal" href="#at.physics.linear.linopt2" title="at.ph
 
 <dl class="py function">
 <dt class="sig sig-object py" id="at.physics.linear.get_tune">
-<span class="sig-name descname"><span class="pre">get_tune</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'linopt'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dct</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orbit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/physics/linear.html#get_tune"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.physics.linear.get_tune" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_tune</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'linopt'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dct</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orbit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/physics/linear.html#get_tune"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.physics.linear.get_tune" title="Permalink to this definition">#</a></dt>
 <dd><p>Computes the tunes using several available methods</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ring</strong> (<a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><em>Lattice</em></a>) – Lattice description</p></li>
-<li><p><strong>method</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – <p><code class="docutils literal notranslate"><span class="pre">'linopt'</span></code> returns the tunes from the <a class="reference internal" href="#at.physics.linear.linopt6" title="at.physics.linear.linopt6"><code class="xref py py-func docutils literal notranslate"><span class="pre">linopt6()</span></code></a>
-function,</p>
+<li><p><strong>method</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – <p><code class="docutils literal notranslate"><span class="pre">'linopt'</span></code> returns the tunes from the
+<a class="reference internal" href="#at.physics.linear.linopt6" title="at.physics.linear.linopt6"><code class="xref py py-func docutils literal notranslate"><span class="pre">linopt6()</span></code></a> function,</p>
 <p><code class="docutils literal notranslate"><span class="pre">'fft'</span></code> tracks a single particle and computes the tunes with fft,</p>
 <p><code class="docutils literal notranslate"><span class="pre">'laskar'</span></code> tracks a single particle and computes the tunes with
 NAFF.</p>
 </p></li>
-<li><p><strong>dp</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>]</em>) – Momentum deviation.</p></li>
-<li><p><strong>dct</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>]</em>) – Path lengthening. If specified, <code class="docutils literal notranslate"><span class="pre">dp</span></code> is ignored and
-the off-momentum is deduced from the path lengthening.</p></li>
-<li><p><strong>orbit</strong> (<em>Optional</em><em>[</em><em>Orbit</em><em>]</em>) – Avoids looking for the closed orbit if is
+<li><p><strong>dp</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Momentum deviation.</p></li>
+<li><p><strong>dct</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Path lengthening.</p></li>
+<li><p><strong>df</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Deviation of RF frequency.</p></li>
+<li><p><strong>orbit</strong> (<em>Orbit</em>) – Avoids looking for the closed orbit if it is
 already known ((6,) array)</p></li>
 </ul>
 </dd>
@@ -886,7 +888,7 @@ already known ((6,) array)</p></li>
 <li><p><strong>nturns</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of turns. Default: 512</p></li>
 <li><p><strong>amplitude</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Amplitude of oscillation.
 Default: 1.E-6</p></li>
-<li><p><strong>(</strong><strong>bool</strong> (<em>remove_dc</em>) – Remove the mean of oscillation data.
+<li><p><strong>remove_dc</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Remove the mean of oscillation data.
 Default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a></p></li>
 <li><p><strong>num_harmonics</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of harmonic components to
 compute (before mask applied, default: 20)</p></li>
@@ -925,10 +927,11 @@ of the last element,</p></li>
 where selected elements are <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a>.</p></li>
 </ol>
 </p></li>
-<li><p><strong>dp</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>]</em>) – Momentum deviation.</p></li>
-<li><p><strong>dct</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>]</em>) – Path lengthening. If specified, <code class="docutils literal notranslate"><span class="pre">dp</span></code> is
-ignored and the off-momentum is deduced from the path lengthening.</p></li>
-<li><p><strong>orbit</strong> (<a class="reference internal" href="at.physics.orbit.html#at.physics.orbit.Orbit" title="at.physics.orbit.Orbit"><em>Orbit</em></a>) – Avoids looking for the closed orbit if is
+<li><p><strong>dp</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Momentum deviation. Defaults to <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p></li>
+<li><p><strong>dct</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Path lengthening. Defaults to <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p></li>
+<li><p><strong>df</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Deviation of RF frequency. Defaults to
+<a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p></li>
+<li><p><strong>orbit</strong> (<a class="reference internal" href="at.physics.orbit.html#at.physics.orbit.Orbit" title="at.physics.orbit.Orbit"><em>Orbit</em></a>) – Avoids looking for the closed orbit if it is
 already known ((6,) array)</p></li>
 <li><p><strong>get_chrom</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Compute chromaticities. Needs computing
 the tune at 2 different momentum deviations around the central one.</p></li>
@@ -961,7 +964,7 @@ are ignored.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>elemdata0</strong> – Linear optics data at the entrance of the ring</p></li>
 <li><p><strong>ringdata</strong> – Lattice properties</p></li>
-<li><p><strong>elemdata</strong> – Linear optics at the points refered to by <code class="docutils literal notranslate"><span class="pre">refpts</span></code>,
+<li><p><strong>elemdata</strong> – Linear optics at the points refered to by <em>refpts</em>,
 if refpts is <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a> an empty lindata structure is returned.</p></li>
 </ul>
 </dd>
@@ -993,14 +996,13 @@ to the entrance of the element <a class="footnote-reference brackets" href="#id5
 (modulo <span class="math notranslate nohighlight">\(2\pi\)</span>)</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>W</strong></p></td>
-<td><p><span class="math notranslate nohighlight">\(\left[ W_x,W_y \right]\)</span> only if <code class="docutils literal notranslate"><span class="pre">get_w</span></code>
+<td><p><span class="math notranslate nohighlight">\(\left[ W_x,W_y \right]\)</span> only if <em>get_w</em>
 is <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a>: chromatic amplitude function</p></td>
 </tr>
 </tbody>
 </table>
 <p>All values given at the entrance of each element specified in refpts.
-Field values can be obtained with either
-<code class="docutils literal notranslate"><span class="pre">lindata['idx']</span></code> or <code class="docutils literal notranslate"><span class="pre">lindata.idx</span></code></p>
+Field values can be obtained with either <em>lindata[‘idx’]</em> or <em>lindata.idx</em></p>
 <p><strong>ringdata</strong> is a record array with fields:</p>
 <table class="table">
 <tbody>
@@ -1008,7 +1010,7 @@ Field values can be obtained with either
 <td><p>Fractional tunes</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>chromaticity</strong></p></td>
-<td><p>Chromaticities, only computed if <code class="docutils literal notranslate"><span class="pre">get_chrom</span></code> is
+<td><p>Chromaticities, only computed if <em>get_chrom</em> is
 <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a></p></td>
 </tr>
 </tbody>
@@ -1056,10 +1058,11 @@ of the last element,</p></li>
 where selected elements are <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a>.</p></li>
 </ol>
 </p></li>
-<li><p><strong>dp</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>]</em>) – Momentum deviation.</p></li>
-<li><p><strong>dct</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>]</em>) – Path lengthening. If specified, <code class="docutils literal notranslate"><span class="pre">dp</span></code> is
-ignored and the off-momentum is deduced from the path lengthening.</p></li>
-<li><p><strong>orbit</strong> (<a class="reference internal" href="at.physics.orbit.html#at.physics.orbit.Orbit" title="at.physics.orbit.Orbit"><em>Orbit</em></a>) – Avoids looking for the closed orbit if is
+<li><p><strong>dp</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Momentum deviation. Defaults to <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p></li>
+<li><p><strong>dct</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Path lengthening. Defaults to <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p></li>
+<li><p><strong>df</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Deviation of RF frequency. Defaults to
+<a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p></li>
+<li><p><strong>orbit</strong> (<a class="reference internal" href="at.physics.orbit.html#at.physics.orbit.Orbit" title="at.physics.orbit.Orbit"><em>Orbit</em></a>) – Avoids looking for the closed orbit if it is
 already known ((6,) array)</p></li>
 <li><p><strong>get_chrom</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Compute chromaticities. Needs computing
 the tune at 2 different momentum deviations around the central one.</p></li>
@@ -1081,12 +1084,6 @@ Record array as output by <a class="reference internal" href="#at.physics.linear
 </dd>
 <dt>dispersion</dt><dd><p>Optional (6,) array, default 0</p>
 </dd>
-<dt>alpha, beta</dt><dd><p>mandatory (2,) arrays</p>
-</dd>
-<dt>closed_orbit</dt><dd><p>Optional (6,) array, default 0</p>
-</dd>
-<dt>dispersion</dt><dd><p>Optional (6,) array, default 0</p>
-</dd>
 </dl>
 <p>If present, the attribute <strong>R</strong> will be used, otherwise the
 attributes <strong>alpha</strong> and <strong>beta</strong> will be used. All other attributes
@@ -1098,7 +1095,7 @@ are ignored.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>elemdata0</strong> – Linear optics data at the entrance of the ring</p></li>
 <li><p><strong>ringdata</strong> – Lattice properties</p></li>
-<li><p><strong>elemdata</strong> – Linear optics at the points refered to by <code class="docutils literal notranslate"><span class="pre">refpts</span></code>,
+<li><p><strong>elemdata</strong> – Linear optics at the points refered to by <em>refpts</em>,
 if refpts is <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a> an empty lindata structure is returned.</p></li>
 </ul>
 </dd>
@@ -1134,14 +1131,14 @@ to the entrance of the element <a class="footnote-reference brackets" href="#id1
 eigenmodes <a class="footnote-reference brackets" href="#id11" id="id9" role="doc-noteref"><span class="fn-bracket">[</span>7<span class="fn-bracket">]</span></a></p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>W</strong></p></td>
-<td><p><span class="math notranslate nohighlight">\(\left[ W_x,W_y \right]\)</span> only if <code class="docutils literal notranslate"><span class="pre">get_w</span></code>
+<td><p><span class="math notranslate nohighlight">\(\left[ W_x,W_y \right]\)</span> only if <em>get_w</em>
 is <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a>: chromatic amplitude function</p></td>
 </tr>
 </tbody>
 </table>
 <p>All values given at the entrance of each element specified in refpts.
 Field values can be obtained with either
-<code class="docutils literal notranslate"><span class="pre">lindata['idx']</span></code> or <code class="docutils literal notranslate"><span class="pre">lindata.idx</span></code></p>
+<em>lindata[‘idx’]</em> or <em>lindata.idx</em></p>
 <p><strong>ringdata</strong> is a record array with fields:</p>
 <table class="table">
 <tbody>
@@ -1149,7 +1146,7 @@ Field values can be obtained with either
 <td><p>Fractional tunes</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>chromaticity</strong></p></td>
-<td><p>Chromaticities, only computed if <code class="docutils literal notranslate"><span class="pre">get_chrom</span></code> is
+<td><p>Chromaticities, only computed if <em>get_chrom</em> is
 <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a></p></td>
 </tr>
 </tbody>
@@ -1180,8 +1177,8 @@ vol.2 (1999)</p>
 <dd><p>Linear analysis of a fully coupled lattice using normal modes</p>
 <p>For circular machines, <a class="reference internal" href="#at.physics.linear.linopt6" title="at.physics.linear.linopt6"><code class="xref py py-func docutils literal notranslate"><span class="pre">linopt6()</span></code></a> analyses</p>
 <ul class="simple">
-<li><p>the 4x4 1-turn transfer matrix if radiation is OFF, or</p></li>
-<li><p>the 6x6 1-turn transfer matrix if radiation is ON.</p></li>
+<li><p>the 4x4 1-turn transfer matrix if <em>ring</em> is 4D, or</p></li>
+<li><p>the 6x6 1-turn transfer matrix if  <em>ring</em> is 6D.</p></li>
 </ul>
 <p>For a transfer line, The “twiss_in” intput must contain either:</p>
 <ul class="simple">
@@ -1206,10 +1203,11 @@ of the last element,</p></li>
 where selected elements are <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a>.</p></li>
 </ol>
 </p></li>
-<li><p><strong>dp</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>]</em>) – Momentum deviation.</p></li>
-<li><p><strong>dct</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>]</em>) – Path lengthening. If specified, <code class="docutils literal notranslate"><span class="pre">dp</span></code> is
-ignored and the off-momentum is deduced from the path lengthening.</p></li>
-<li><p><strong>orbit</strong> (<a class="reference internal" href="at.physics.orbit.html#at.physics.orbit.Orbit" title="at.physics.orbit.Orbit"><em>Orbit</em></a>) – Avoids looking for the closed orbit if is
+<li><p><strong>dp</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Momentum deviation. Defaults to <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p></li>
+<li><p><strong>dct</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Path lengthening. Defaults to <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p></li>
+<li><p><strong>df</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Deviation of RF frequency. Defaults to
+<a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p></li>
+<li><p><strong>orbit</strong> (<a class="reference internal" href="at.physics.orbit.html#at.physics.orbit.Orbit" title="at.physics.orbit.Orbit"><em>Orbit</em></a>) – Avoids looking for the closed orbit if it is
 already known ((6,) array)</p></li>
 <li><p><strong>get_chrom</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Compute chromaticities. Needs computing
 the tune at 2 different momentum deviations around the central one.</p></li>
@@ -1236,14 +1234,14 @@ Record array as output by <a class="reference internal" href="#at.physics.linear
 attributes <strong>alpha</strong> and <strong>beta</strong> will be used. All other attributes
 are ignored.</p>
 </p></li>
-<li><p><strong>cavpts</strong> (<em>Optional</em><em>[</em><em>Refpts</em><em>]</em>) – Cavity location for off-momentum tuning</p></li>
+<li><p><strong>cavpts</strong> (<em>Refpts</em>) – Cavity location for off-momentum tuning</p></li>
 </ul>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>elemdata0</strong> – Linear optics data at the entrance of the ring</p></li>
 <li><p><strong>ringdata</strong> – Lattice properties</p></li>
-<li><p><strong>elemdata</strong> – Linear optics at the points refered to by <code class="docutils literal notranslate"><span class="pre">refpts</span></code>,
+<li><p><strong>elemdata</strong> – Linear optics at the points refered to by <em>refpts</em>,
 if refpts is <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a> an empty lindata structure is returned.</p></li>
 </ul>
 </dd>
@@ -1281,14 +1279,14 @@ to the entrance of the element</p></td>
 (modulo <span class="math notranslate nohighlight">\(2\pi\)</span>)</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>W</strong></p></td>
-<td><p><span class="math notranslate nohighlight">\(\left[ W_x,W_y \right]\)</span> only if <code class="docutils literal notranslate"><span class="pre">get_w</span></code>
+<td><p><span class="math notranslate nohighlight">\(\left[ W_x,W_y \right]\)</span> only if <em>get_w</em>
 is <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a>: chromatic amplitude function</p></td>
 </tr>
 </tbody>
 </table>
 <p>All values given at the entrance of each element specified in refpts.
 Field values can be obtained with either
-<code class="docutils literal notranslate"><span class="pre">lindata['idx']</span></code> or <code class="docutils literal notranslate"><span class="pre">lindata.idx</span></code></p>
+<em>lindata[‘idx’]</em> or <em>lindata.idx</em></p>
 <p><strong>ringdata</strong> is a record array with fields:</p>
 <table class="table">
 <tbody>
@@ -1296,7 +1294,7 @@ Field values can be obtained with either
 <td><p>Fractional tunes</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>chromaticity</strong></p></td>
-<td><p>Chromaticities, only computed if <code class="docutils literal notranslate"><span class="pre">get_chrom</span></code> is
+<td><p>Chromaticities, only computed if <em>get_chrom</em> is
 <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a></p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>damping_time</strong></p></td>
