@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>at.load.tracy &#8212; Accelerator Toolbox 0.3.1 documentation</title>
+    <title>at.lattice.variable_elements &#8212; Accelerator Toolbox 0.3.1 documentation</title>
   <script>
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
@@ -41,11 +41,11 @@
     <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'p/api/at.load.tracy';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'p/api/at.lattice.variable_elements';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="at.load.utils" href="at.load.utils.html" />
-    <link rel="prev" title="at.load.reprfile" href="at.load.reprfile.html" />
+    <link rel="next" title="at.load" href="at.load.html" />
+    <link rel="prev" title="at.lattice.utils" href="at.lattice.utils.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="docsearch:language" content="en">
   </head>
@@ -307,22 +307,22 @@
 <li class="toctree-l2"><a class="reference internal" href="at.collective.wake_object.html">at.collective.wake_object</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="at.lattice.html">at.lattice</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="at.lattice.html">at.lattice</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="at.lattice.cavity_access.html">at.lattice.cavity_access</a></li>
 <li class="toctree-l2"><a class="reference internal" href="at.lattice.elements.html">at.lattice.elements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="at.lattice.lattice_object.html">at.lattice.lattice_object</a></li>
 <li class="toctree-l2"><a class="reference internal" href="at.lattice.options.html">at.lattice.options</a></li>
 <li class="toctree-l2"><a class="reference internal" href="at.lattice.particle_object.html">at.lattice.particle_object</a></li>
 <li class="toctree-l2"><a class="reference internal" href="at.lattice.utils.html">at.lattice.utils</a></li>
-<li class="toctree-l2"><a class="reference internal" href="at.lattice.variable_elements.html">at.lattice.variable_elements</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">at.lattice.variable_elements</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="at.load.html">at.load</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l1 has-children"><a class="reference internal" href="at.load.html">at.load</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="at.load.allfiles.html">at.load.allfiles</a></li>
 <li class="toctree-l2"><a class="reference internal" href="at.load.elegant.html">at.load.elegant</a></li>
 <li class="toctree-l2"><a class="reference internal" href="at.load.matfile.html">at.load.matfile</a></li>
 <li class="toctree-l2"><a class="reference internal" href="at.load.reprfile.html">at.load.reprfile</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">at.load.tracy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="at.load.tracy.html">at.load.tracy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="at.load.utils.html">at.load.utils</a></li>
 </ul>
 </li>
@@ -390,45 +390,102 @@
             
             <article class="bd-article" role="main">
               
-  <section id="module-at.load.tracy">
-<span id="at-load-tracy"></span><h1>at.load.tracy<a class="headerlink" href="#module-at.load.tracy" title="Permalink to this heading">#</a></h1>
-<p>Load a lattice from a Tracy file (.lat).</p>
-<p>This is not complete but can parse the example files that I have.
-This parser is quite similar to the Elegant parser in elegant.py.</p>
-<p class="rubric">Functions</p>
+  <section id="module-at.lattice.variable_elements">
+<span id="at-lattice-variable-elements"></span><h1>at.lattice.variable_elements<a class="headerlink" href="#module-at.lattice.variable_elements" title="Permalink to this heading">#</a></h1>
+<p class="rubric">Classes</p>
 <table class="autosummary longtable table autosummary">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#at.load.tracy.load_tracy" title="at.load.tracy.load_tracy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_tracy</span></code></a>(filename, **kwargs)</p></td>
-<td><p>Create a <a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lattice</span></code></a>  from a Tracy file</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#at.lattice.variable_elements.ACMode" title="at.lattice.variable_elements.ACMode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ACMode</span></code></a>(value)</p></td>
+<td><p>Class to define the excitation types</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#at.lattice.variable_elements.VariableMultipole" title="at.lattice.variable_elements.VariableMultipole"><code class="xref py py-obj docutils literal notranslate"><span class="pre">VariableMultipole</span></code></a>(family_name[, AmplitudeA, ...])</p></td>
+<td><p>Class to generate an AT variable thin multipole element</p></td>
 </tr>
 </tbody>
 </table>
-<dl class="py function">
-<dt class="sig sig-object py" id="at.load.tracy.load_tracy">
-<span class="sig-name descname"><span class="pre">load_tracy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/load/tracy.html#load_tracy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.load.tracy.load_tracy" title="Permalink to this definition">#</a></dt>
-<dd><p>Create a <a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lattice</span></code></a>  from a Tracy file</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="at.lattice.variable_elements.ACMode">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ACMode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/variable_elements.html#ACMode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.variable_elements.ACMode" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.IntEnum" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">IntEnum</span></code></a></p>
+<p>Class to define the excitation types</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="at.lattice.variable_elements.ACMode.ARBITRARY">
+<span class="sig-name descname"><span class="pre">ARBITRARY</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#at.lattice.variable_elements.ACMode.ARBITRARY" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="at.lattice.variable_elements.ACMode.SINE">
+<span class="sig-name descname"><span class="pre">SINE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#at.lattice.variable_elements.ACMode.SINE" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="at.lattice.variable_elements.ACMode.WHITENOISE">
+<span class="sig-name descname"><span class="pre">WHITENOISE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#at.lattice.variable_elements.ACMode.WHITENOISE" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="at.lattice.variable_elements.VariableMultipole">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">VariableMultipole</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">family_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">AmplitudeA</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">AmplitudeB</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">ACMode.SINE</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/variable_elements.html#VariableMultipole"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.variable_elements.VariableMultipole" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><code class="xref py py-class docutils literal notranslate"><span class="pre">Element</span></code></a></p>
+<p>Class to generate an AT variable thin multipole element</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Name of a Tracy file</p>
+<dd class="field-odd"><p><strong>family_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Element name</p>
 </dd>
 <dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Name of the lattice. Default: taken from
-the file.</p></li>
-<li><p><strong>energy</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Energy of the lattice [eV]</p></li>
-<li><p><strong>periodicity</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of periods. Default: taken from the
-elements, or 1</p></li>
-<li><p><strong>*</strong> – All other keywords will be set as Lattice
-attributes</p></li>
+<li><p><strong>AmplitudeA</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a><em>,</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Amplitude of the excitation for PolynomA. Default None</p></li>
+<li><p><strong>AmplitudeB</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a><em>,</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Amplitude of the excitation for PolynomB. Default None</p></li>
+<li><p><strong>mode</strong> (<a class="reference internal" href="#at.lattice.variable_elements.ACMode" title="at.lattice.variable_elements.ACMode"><em>ACMode</em></a>) – <p>defines the evaluation grid. Default ACMode.SINE</p>
+<ul>
+<li><p><a class="reference internal" href="#at.lattice.variable_elements.ACMode.SINE" title="at.lattice.variable_elements.ACMode.SINE"><code class="xref py py-attr docutils literal notranslate"><span class="pre">ACMode.SINE</span></code></a>: sine function</p></li>
+<li><p><a class="reference internal" href="#at.lattice.variable_elements.ACMode.WHITENOISE" title="at.lattice.variable_elements.ACMode.WHITENOISE"><code class="xref py py-attr docutils literal notranslate"><span class="pre">ACMode.WHITENOISE</span></code></a>: gaussian white noise</p></li>
+<li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">GridMode.ARBITRARY</span></code>: user defined turn-by-turn kick list</p></li>
 </ul>
-</dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>lattice</strong> (<em>Lattice</em>) – New <a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lattice</span></code></a> object</p>
+</p></li>
+<li><p><strong>FrequencyA</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Frequency of the sine excitation for PolynomA</p></li>
+<li><p><strong>FrequencyB</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Frequency of the sine excitation for PolynomB</p></li>
+<li><p><strong>PhaseA</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Phase of the sine excitation for PolynomA. Default 0</p></li>
+<li><p><strong>PhaseB</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Phase of the sine excitation for PolynomB. Default 0</p></li>
+<li><p><strong>MaxOrder</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Order of the multipole for scalar amplitude. Default 0</p></li>
+<li><p><strong>Seed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Seed of the random number generator for white
+noise excitation. Default datetime.now()</p></li>
+<li><p><strong>FuncA</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – User defined tbt kick list for PolynomA</p></li>
+<li><p><strong>FuncB</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – User defined tbt kick list for PolynomB</p></li>
+<li><p><strong>Periodic</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – If True (default) the user defined kick is repeated</p></li>
+<li><p><strong>Ramps</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – <dl class="simple">
+<dt>Vector (t0, t1, t2, t3) in turn number to define the ramping</dt><dd><p>of the excitation</p>
 </dd>
 </dl>
-<div class="admonition seealso">
-<p class="admonition-title">See also</p>
-<p><a class="reference internal" href="at.load.allfiles.html#at.load.allfiles.load_lattice" title="at.load.allfiles.load_lattice"><code class="xref py py-func docutils literal notranslate"><span class="pre">load_lattice()</span></code></a> for a generic lattice-loading function.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">t&lt;t0</span></code>: excitation amplitude is zero</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">t0&lt;t&lt;t1</span></code>: exciation amplitude is linearly ramped up</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">t1&lt;t&lt;t2</span></code>: exciation amplitude is constant</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">t2&lt;t&lt;t3</span></code>: exciation amplitude is linearly ramped down</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">t3&lt;t</span></code>: exciation amplitude is zero</p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">acmpole</span> <span class="o">=</span> <span class="n">at</span><span class="o">.</span><span class="n">VariableMultipole</span><span class="p">(</span><span class="s1">&#39;ACMPOLE&#39;</span><span class="p">,</span> <span class="n">AmplitudeB</span><span class="o">=</span><span class="n">amp</span><span class="p">,</span> <span class="n">FrequencyB</span><span class="o">=</span><span class="n">frequency</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">acmpole</span> <span class="o">=</span> <span class="n">at</span><span class="o">.</span><span class="n">VariableMultipole</span><span class="p">(</span><span class="s1">&#39;ACMPOLE&#39;</span><span class="p">,</span> <span class="n">AmplitudeB</span><span class="o">=</span><span class="n">amp</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">at</span><span class="o">.</span><span class="n">ACMode</span><span class="o">.</span><span class="n">WHITENOISE</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">acmpole</span> <span class="o">=</span> <span class="n">at</span><span class="o">.</span><span class="n">VariableMultipole</span><span class="p">(</span><span class="s1">&#39;ACMPOLE&#39;</span><span class="p">,</span> <span class="n">AmplitudeB</span><span class="o">=</span><span class="n">amp</span><span class="p">,</span> <span class="n">FuncB</span><span class="o">=</span><span class="n">fun</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">at</span><span class="o">.</span><span class="n">ACMode</span><span class="o">.</span><span class="n">ARBITRARY</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>For all excitation modes all least one amplitude has to be provided.
+The default excitation is <code class="docutils literal notranslate"><span class="pre">ACMode.SINE</span></code></p></li>
+<li><p>For <code class="docutils literal notranslate"><span class="pre">mode=ACMode.SINE</span></code> the <code class="docutils literal notranslate"><span class="pre">Frequency(A,B)</span></code> corresponding to the
+<code class="docutils literal notranslate"><span class="pre">Amplitude(A,B)</span></code> has to be provided</p></li>
+<li><p>For <code class="docutils literal notranslate"><span class="pre">mode=ACMode.ARBITRARY</span></code> the <code class="docutils literal notranslate"><span class="pre">Func(A,B)</span></code> corresponding to the
+<code class="docutils literal notranslate"><span class="pre">Amplitude(A,B)</span></code> has to be provided</p></li>
+</ul>
 </div>
 </dd></dl>
 
@@ -442,17 +499,17 @@ attributes</p></li>
             <footer class="bd-footer-article">
                 <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-  <a class='left-prev' id="prev-link" href="at.load.reprfile.html" title="previous page">
+  <a class='left-prev' id="prev-link" href="at.lattice.utils.html" title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
           <p class="prev-next-subtitle">previous</p>
-          <p class="prev-next-title">at.load.reprfile</p>
+          <p class="prev-next-title">at.lattice.utils</p>
       </div>
   </a>
-  <a class='right-next' id="next-link" href="at.load.utils.html" title="next page">
+  <a class='right-next' id="next-link" href="at.load.html" title="next page">
   <div class="prev-next-info">
       <p class="prev-next-subtitle">next</p>
-      <p class="prev-next-title">at.load.utils</p>
+      <p class="prev-next-title">at.load</p>
   </div>
   <i class="fa-solid fa-angle-right"></i>
   </a>
@@ -473,10 +530,48 @@ attributes</p></li>
 <nav id="bd-toc-nav" class="page-toc">
     <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#at.load.tracy.load_tracy">
+  <a class="reference internal nav-link" href="#at.lattice.variable_elements.ACMode">
    <code class="docutils literal notranslate">
     <span class="pre">
-     load_tracy()
+     ACMode
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.variable_elements.ACMode.ARBITRARY">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ACMode.ARBITRARY
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.variable_elements.ACMode.SINE">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ACMode.SINE
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.variable_elements.ACMode.WHITENOISE">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       ACMode.WHITENOISE
+      </span>
+     </code>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#at.lattice.variable_elements.VariableMultipole">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     VariableMultipole
     </span>
    </code>
   </a>
