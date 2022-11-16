@@ -292,22 +292,42 @@
               
   <h1>Source code for at.tracking.track</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">import</span> <span class="nn">functools</span>
 <span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
 <span class="c1"># noinspection PyUnresolvedReferences</span>
 <span class="kn">from</span> <span class="nn">.atpass</span> <span class="kn">import</span> <span class="n">atpass</span> <span class="k">as</span> <span class="n">_atpass</span><span class="p">,</span> <span class="n">elempass</span> <span class="k">as</span> <span class="n">_elempass</span>
 <span class="kn">from</span> <span class="nn">..lattice</span> <span class="kn">import</span> <span class="n">DConstant</span><span class="p">,</span> <span class="n">uint32_refpts</span>
 
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;lattice_pass&#39;</span><span class="p">,</span> <span class="s1">&#39;element_pass&#39;</span><span class="p">,</span> <span class="s1">&#39;atpass&#39;</span><span class="p">,</span> <span class="s1">&#39;elempass&#39;</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;fortran_align&#39;</span><span class="p">,</span> <span class="s1">&#39;lattice_pass&#39;</span><span class="p">,</span> <span class="s1">&#39;element_pass&#39;</span><span class="p">,</span> <span class="s1">&#39;atpass&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;elempass&#39;</span><span class="p">]</span>
 
 <span class="n">DIMENSION_ERROR</span> <span class="o">=</span> <span class="s1">&#39;Input to lattice_pass() must be a 6xN array.&#39;</span>
 
 
+<div class="viewcode-block" id="fortran_align"><a class="viewcode-back" href="../../../p/api/at.tracking.track.html#at.tracking.track.fortran_align">[docs]</a><span class="k">def</span> <span class="nf">fortran_align</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Ensure that r_in is Fortran-aligned&quot;&quot;&quot;</span>
+    <span class="nd">@functools</span><span class="o">.</span><span class="n">wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="n">lattice</span><span class="p">,</span> <span class="n">r_in</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="n">r_in</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">6</span> <span class="ow">and</span> <span class="n">r_in</span><span class="o">.</span><span class="n">ndim</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">DIMENSION_ERROR</span>
+        <span class="k">if</span> <span class="n">r_in</span><span class="o">.</span><span class="n">flags</span><span class="o">.</span><span class="n">f_contiguous</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="n">lattice</span><span class="p">,</span> <span class="n">r_in</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">r_fin</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asfortranarray</span><span class="p">(</span><span class="n">r_in</span><span class="p">)</span>
+            <span class="n">r_out</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">lattice</span><span class="p">,</span> <span class="n">r_fin</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="n">r_in</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">r_fin</span><span class="p">[:]</span>
+            <span class="k">return</span> <span class="n">r_out</span>
+
+    <span class="k">return</span> <span class="n">wrapper</span></div>
+
+
 <span class="c1"># noinspection PyIncorrectDocstring</span>
-<div class="viewcode-block" id="lattice_pass"><a class="viewcode-back" href="../../../p/api/at.tracking.track.html#at.tracking.track.lattice_pass">[docs]</a><span class="k">def</span> <span class="nf">lattice_pass</span><span class="p">(</span><span class="n">lattice</span><span class="p">,</span> <span class="n">r_in</span><span class="p">,</span> <span class="n">nturns</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">refpts</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">keep_lattice</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<div class="viewcode-block" id="lattice_pass"><a class="viewcode-back" href="../../../p/api/at.tracking.track.html#at.tracking.track.lattice_pass">[docs]</a><span class="nd">@fortran_align</span>
+<span class="k">def</span> <span class="nf">lattice_pass</span><span class="p">(</span><span class="n">lattice</span><span class="p">,</span> <span class="n">r_in</span><span class="p">,</span> <span class="n">nturns</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">refpts</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">keep_lattice</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                  <span class="n">omp_num_threads</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    lattice_pass(lattice, r_in, nturns=1, refpts=None, keep_lattice=False, keep_counter=False, turn=0, losses=False, omp_num_threads=None)</span>
+<span class="sd">    lattice_pass(lattice, r_in, nturns=1, refpts=None, keep_lattice=False,</span>
+<span class="sd">    keep_counter=False, turn=0, losses=False, omp_num_threads=None)</span>
 
 <span class="sd">    lattice_pass tracks particles through each element of a lattice</span>
 <span class="sd">    calling the element-specific tracking function specified in the Element&#39;s</span>
@@ -374,7 +394,6 @@
 <span class="sd">         ``r_in``.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">assert</span> <span class="n">r_in</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">6</span> <span class="ow">and</span> <span class="n">r_in</span><span class="o">.</span><span class="n">ndim</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">DIMENSION_ERROR</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">lattice</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
         <span class="n">lattice</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">lattice</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">refpts</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -390,22 +409,12 @@
     <span class="c1"># * A is number of particles;</span>
     <span class="c1"># * B is number of refpts</span>
     <span class="c1"># * C is the number of turns</span>
-    <span class="k">if</span> <span class="n">r_in</span><span class="o">.</span><span class="n">flags</span><span class="o">.</span><span class="n">f_contiguous</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">_atpass</span><span class="p">(</span><span class="n">lattice</span><span class="p">,</span> <span class="n">r_in</span><span class="p">,</span> <span class="n">nturns</span><span class="p">,</span> <span class="n">refpts</span><span class="o">=</span><span class="n">refs</span><span class="p">,</span>
-                       <span class="n">reuse</span><span class="o">=</span><span class="n">keep_lattice</span><span class="p">,</span>
-                       <span class="n">omp_num_threads</span><span class="o">=</span><span class="n">omp_num_threads</span><span class="p">,</span>
-                       <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">r_fin</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asfortranarray</span><span class="p">(</span><span class="n">r_in</span><span class="p">)</span>
-        <span class="n">r_out</span> <span class="o">=</span> <span class="n">_atpass</span><span class="p">(</span><span class="n">lattice</span><span class="p">,</span> <span class="n">r_fin</span><span class="p">,</span> <span class="n">nturns</span><span class="p">,</span> <span class="n">refpts</span><span class="o">=</span><span class="n">refs</span><span class="p">,</span>
-                        <span class="n">reuse</span><span class="o">=</span><span class="n">keep_lattice</span><span class="p">,</span>
-                        <span class="n">omp_num_threads</span><span class="o">=</span><span class="n">omp_num_threads</span><span class="p">,</span>
-                        <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="n">r_in</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">r_fin</span><span class="p">[:]</span>
-        <span class="k">return</span> <span class="n">r_out</span></div>
+    <span class="k">return</span> <span class="n">_atpass</span><span class="p">(</span><span class="n">lattice</span><span class="p">,</span> <span class="n">r_in</span><span class="p">,</span> <span class="n">nturns</span><span class="p">,</span> <span class="n">refpts</span><span class="o">=</span><span class="n">refs</span><span class="p">,</span> <span class="n">reuse</span><span class="o">=</span><span class="n">keep_lattice</span><span class="p">,</span>
+                   <span class="n">omp_num_threads</span><span class="o">=</span><span class="n">omp_num_threads</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="element_pass"><a class="viewcode-back" href="../../../p/api/at.tracking.track.html#at.tracking.track.element_pass">[docs]</a><span class="k">def</span> <span class="nf">element_pass</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">r_in</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="element_pass"><a class="viewcode-back" href="../../../p/api/at.tracking.track.html#at.tracking.track.element_pass">[docs]</a><span class="nd">@fortran_align</span>
+<span class="k">def</span> <span class="nf">element_pass</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">r_in</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Tracks particles through a single element.</span>
 
 <span class="sd">    Parameters:</span>
@@ -427,7 +436,6 @@
 <span class="sd">        r_out:              (6, N) array containing output the coordinates of</span>
 <span class="sd">          the particles at the exit of the element.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">r_in</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asfortranarray</span><span class="p">(</span><span class="n">r_in</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">_elempass</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">r_in</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 
