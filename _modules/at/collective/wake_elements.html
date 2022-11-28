@@ -306,9 +306,9 @@
     <span class="n">_BUILD_ATTRIBUTES</span> <span class="o">=</span> <span class="n">Element</span><span class="o">.</span><span class="n">_BUILD_ATTRIBUTES</span>
     <span class="n">default_pass</span> <span class="o">=</span> <span class="p">{</span><span class="kc">False</span><span class="p">:</span> <span class="s1">&#39;IdentityPass&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">:</span> <span class="s1">&#39;WakeFieldPass&#39;</span><span class="p">}</span>
     <span class="n">_conversions</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">Element</span><span class="o">.</span><span class="n">_conversions</span><span class="p">,</span> <span class="n">_nslice</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">_nturns</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span>
-                        <span class="n">_nelem</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">NumParticles</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">Circumference</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span>
+                        <span class="n">_nelem</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">_wakeFact</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span>
                         <span class="n">NormFact</span><span class="o">=</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="n">_array</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,)),</span>
-                        <span class="n">WakeFact</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span>
+                        <span class="n">ZCuts</span><span class="o">=</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="n">_array</span><span class="p">(</span><span class="n">v</span><span class="p">),</span>
                         <span class="n">_wakeDX</span><span class="o">=</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="n">_array</span><span class="p">(</span><span class="n">v</span><span class="p">),</span>
                         <span class="n">_wakeDY</span><span class="o">=</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="n">_array</span><span class="p">(</span><span class="n">v</span><span class="p">),</span>
                         <span class="n">_wakeQX</span><span class="o">=</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="n">_array</span><span class="p">(</span><span class="n">v</span><span class="p">),</span>
@@ -416,11 +416,11 @@
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">Nturns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Number of turn for the wake field&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nslice</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nturns</span>
 
     <span class="nd">@Nturns</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">Nturns</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nslice</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_nslice</span> <span class="o">=</span> <span class="n">nslice</span>
+    <span class="k">def</span> <span class="nf">Nturns</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nturns</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_nturns</span> <span class="o">=</span> <span class="n">nturns</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">clear_history</span><span class="p">()</span>
 
     <span class="nd">@property</span>
@@ -552,12 +552,7 @@
 <span class="sd">&quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">LongResonatorElement</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">family_name</span><span class="p">,</span> <span class="n">ring</span><span class="p">,</span> <span class="n">srange</span><span class="p">,</span>
                                                    <span class="n">WakeComponent</span><span class="o">.</span><span class="n">Z</span><span class="p">,</span> <span class="n">frequency</span><span class="p">,</span>
-                                                   <span class="n">qfactor</span><span class="p">,</span> <span class="n">rshunt</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-<div class="viewcode-block" id="LongResonatorElement.rebuild_wake"><a class="viewcode-back" href="../../../p/api/at.collective.wake_elements.html#at.collective.wake_elements.LongResonatorElement.rebuild_wake">[docs]</a>    <span class="k">def</span> <span class="nf">rebuild_wake</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">wake</span> <span class="o">=</span> <span class="n">Wake</span><span class="o">.</span><span class="n">long_resonator</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">WakeT</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resfrequency</span><span class="p">,</span>
-                                   <span class="bp">self</span><span class="o">.</span><span class="n">_qfactor</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rshunt</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_beta</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_build</span><span class="p">(</span><span class="n">wake</span><span class="p">)</span></div></div>
+                                                   <span class="n">qfactor</span><span class="p">,</span> <span class="n">rshunt</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ResWallElement"><a class="viewcode-back" href="../../../p/api/at.collective.wake_elements.html#at.collective.wake_elements.ResWallElement">[docs]</a><span class="k">class</span> <span class="nc">ResWallElement</span><span class="p">(</span><span class="n">WakeElement</span><span class="p">):</span>
@@ -642,18 +637,6 @@
     <span class="k">def</span> <span class="nf">Yokoya</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">yokoya</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_yokoya</span> <span class="o">=</span> <span class="n">yokoya</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rebuild_wake</span><span class="p">()</span></div>
-
-
-<div class="viewcode-block" id="set_wake_turnhistory"><a class="viewcode-back" href="../../../p/api/at.collective.wake_elements.html#at.collective.wake_elements.set_wake_turnhistory">[docs]</a><span class="k">def</span> <span class="nf">set_wake_turnhistory</span><span class="p">(</span><span class="n">ring</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Function to set the shape of the turn history</span>
-<span class="sd">    based on the number of slices, turns and bunches</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">welems</span> <span class="o">=</span> <span class="n">ring</span><span class="o">.</span><span class="n">get_elements</span><span class="p">(</span><span class="n">WakeElement</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">welems</span><span class="p">:</span>
-        <span class="n">w</span><span class="o">.</span><span class="n">clear_history</span><span class="p">(</span><span class="n">ring</span><span class="o">=</span><span class="n">ring</span><span class="p">)</span></div>
-
-
-<span class="n">Lattice</span><span class="o">.</span><span class="n">set_wake_turnhistory</span> <span class="o">=</span> <span class="n">set_wake_turnhistory</span>
 </pre></div>
 
             </article>

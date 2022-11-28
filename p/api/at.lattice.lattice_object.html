@@ -303,6 +303,7 @@
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="at.collective.html">at.collective</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="at.collective.beam_loading.html">at.collective.beam_loading</a></li>
 <li class="toctree-l2"><a class="reference internal" href="at.collective.haissinski.html">at.collective.haissinski</a></li>
 <li class="toctree-l2"><a class="reference internal" href="at.collective.wake_elements.html">at.collective.wake_elements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="at.collective.wake_functions.html">at.collective.wake_functions</a></li>
@@ -3471,9 +3472,10 @@ Any further modification will affect in both lattices.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="at.lattice.lattice_object.Lattice.set_wake_turnhistory">
-<span class="sig-name descname"><span class="pre">set_wake_turnhistory</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#at.lattice.lattice_object.Lattice.set_wake_turnhistory" title="Permalink to this definition">#</a></dt>
-<dd><p>Function to set the shape of the turn history
-based on the number of slices, turns and bunches</p>
+<span class="sig-name descname"><span class="pre">set_wake_turnhistory</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/lattice_object.html#Lattice.set_wake_turnhistory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.lattice_object.Lattice.set_wake_turnhistory" title="Permalink to this definition">#</a></dt>
+<dd><p>Function to reset the shape of the turn history
+in collective elements based on the number of slices,
+turns and bunches</p>
 </dd></dl>
 
 <dl class="py method">
@@ -3578,6 +3580,11 @@ selected elements</p></li>
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">attrs</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.11)"><span class="pre">Dict</span></a></em><a class="headerlink" href="#at.lattice.lattice_object.Lattice.attrs" title="Permalink to this definition">#</a></dt>
 <dd><p>Dictionary of lattice attributes</p>
 </dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="at.lattice.lattice_object.Lattice.beam_current">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">beam_current</span></span><a class="headerlink" href="#at.lattice.lattice_object.Lattice.beam_current" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="at.lattice.lattice_object.Lattice.beta">
@@ -4623,6 +4630,15 @@ Analyse elements for radiation state</p>
      <code class="docutils literal notranslate">
       <span class="pre">
        Lattice.attrs
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.beam_current">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.beam_current
       </span>
      </code>
     </a>
