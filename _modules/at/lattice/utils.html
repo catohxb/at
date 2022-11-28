@@ -601,8 +601,9 @@
     <span class="c1"># noinspection PyUnresolvedReferences</span>
     <span class="sd">&quot;&quot;&quot;Checks the presence or the value of an attribute</span>
 
-<span class="sd">        Returns a function to be used as an ``Element`` filter, which checks the</span>
-<span class="sd">        presence or the value of an attribute of the provided ``Element``.</span>
+<span class="sd">        Returns a function to be used as an ``Element`` filter, which</span>
+<span class="sd">        checks the presence or the value of an attribute of the</span>
+<span class="sd">        provided ``Element``.</span>
 <span class="sd">        This function can be used to extract from a ring all elements</span>
 <span class="sd">        having a given attribute.</span>
 
@@ -666,8 +667,8 @@
     <span class="c1"># noinspection PyUnresolvedReferences</span>
     <span class="sd">&quot;&quot;&quot;Checks the name of an element</span>
 
-<span class="sd">        Returns a function to be used as an ``Element`` filter, which checks the</span>
-<span class="sd">        name of the provided ``Element``.</span>
+<span class="sd">        Returns a function to be used as an ``Element`` filter,</span>
+<span class="sd">        which checks the name of the provided ``Element``.</span>
 <span class="sd">        This function can be used to extract from a ring all elements</span>
 <span class="sd">        having a given name.</span>
 
@@ -962,9 +963,11 @@
             <span class="nb">getattr</span><span class="p">(</span><span class="n">elem</span><span class="p">,</span> <span class="n">attrname</span><span class="p">)[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
 
     <span class="k">if</span> <span class="n">increment</span><span class="p">:</span>
-        <span class="n">attrvalues</span> <span class="o">+=</span> <span class="n">get_value_refpts</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">refpts</span><span class="p">,</span> <span class="n">attrname</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">index</span><span class="p">)</span>
+        <span class="n">attrvalues</span> <span class="o">+=</span> <span class="n">get_value_refpts</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">refpts</span><span class="p">,</span>
+                                       <span class="n">attrname</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">index</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">attrvalues</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span><span class="n">attrvalues</span><span class="p">,</span> <span class="p">(</span><span class="n">refpts_len</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">refpts</span><span class="p">),))</span>
+        <span class="n">attrvalues</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span><span class="n">attrvalues</span><span class="p">,</span>
+                                        <span class="p">(</span><span class="n">refpts_len</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">refpts</span><span class="p">),))</span>
 
     <span class="c1"># noinspection PyShadowingNames</span>
     <span class="nd">@make_copy</span><span class="p">(</span><span class="n">copy</span><span class="p">)</span>
@@ -1002,6 +1005,80 @@
     <span class="k">return</span> <span class="n">s_pos</span><span class="p">[</span><span class="n">refpts</span><span class="p">]</span></div>
 
 
+<span class="k">def</span> <span class="nf">rotate_elem</span><span class="p">(</span><span class="n">elem</span><span class="p">:</span> <span class="n">Element</span><span class="p">,</span> <span class="n">tilt</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">pitch</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+                <span class="n">yaw</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">relative</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Set the tilt, pitch and yaw angle of an ``Element``.</span>
+<span class="sd">    The tilt is a rotation around the ``s`` axis, the pitch is a</span>
+<span class="sd">    rotation around the ``x``-axis and the yaw is a rotation around</span>
+<span class="sd">    the ``y``-axis.</span>
+<span class="sd">    A positive angle represent a clockwise rotation when looking in</span>
+<span class="sd">    the direction of the roation axis.</span>
+<span class="sd">    </span>
+<span class="sd">    The transformations are not all commmutative, the tilt is always the</span>
+<span class="sd">    last transformation applied.</span>
+<span class="sd">    </span>
+<span class="sd">    In case ``relative=True``, the previous angle and shifts are derived</span>
+<span class="sd">    form the R and T matrix and incremented by the input arguments.</span>
+<span class="sd">    </span>
+<span class="sd">    The shift is always conserved regardless of the value of ``relative``</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        elem:           Element to be tilted</span>
+<span class="sd">        tilt:           Tilt angle [rd]</span>
+<span class="sd">        pitch:          Pitch angle [rd]</span>
+<span class="sd">        yaw:            Yaw angle [rd]</span>
+<span class="sd">        relative:       If True, the rotation is added to the previous one</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">_get_rm_tv</span><span class="p">(</span><span class="n">le</span><span class="p">,</span> <span class="n">tilt</span><span class="p">,</span> <span class="n">pitch</span><span class="p">,</span> <span class="n">yaw</span><span class="p">):</span>
+        <span class="n">tilt</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">tilt</span><span class="p">,</span> <span class="n">decimals</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+        <span class="n">pitch</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">pitch</span><span class="p">,</span> <span class="n">decimals</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+        <span class="n">yaw</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">yaw</span><span class="p">,</span> <span class="n">decimals</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+        <span class="n">ct</span><span class="p">,</span> <span class="n">st</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">tilt</span><span class="p">),</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">tilt</span><span class="p">)</span>
+        <span class="n">ap</span><span class="p">,</span> <span class="n">ay</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.5</span><span class="o">*</span><span class="n">le</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">pitch</span><span class="p">),</span> <span class="o">-</span><span class="mf">0.5</span><span class="o">*</span><span class="n">le</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">yaw</span><span class="p">)</span>
+        <span class="n">rr1</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asfortranarray</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">diag</span><span class="p">([</span><span class="n">ct</span><span class="p">,</span> <span class="n">ct</span><span class="p">,</span> <span class="n">ct</span><span class="p">,</span> <span class="n">ct</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]))</span>
+        <span class="n">rr1</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">st</span>
+        <span class="n">rr1</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">st</span>
+        <span class="n">rr1</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">st</span>
+        <span class="n">rr1</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">st</span>
+        <span class="n">rr2</span> <span class="o">=</span> <span class="n">rr1</span><span class="o">.</span><span class="n">T</span>
+        <span class="n">t1</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">ay</span><span class="p">,</span> <span class="o">-</span><span class="n">yaw</span><span class="p">,</span> <span class="n">ap</span><span class="p">,</span> <span class="o">-</span><span class="n">pitch</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="n">t2</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">ay</span><span class="p">,</span> <span class="n">yaw</span><span class="p">,</span> <span class="n">ap</span><span class="p">,</span> <span class="n">pitch</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="n">rt1</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s1">&#39;F&#39;</span><span class="p">)</span>
+        <span class="n">rt1</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="n">ct</span><span class="o">*</span><span class="n">t1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">rt1</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="n">ct</span><span class="o">*</span><span class="n">t1</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+        <span class="n">rt2</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s1">&#39;F&#39;</span><span class="p">)</span>
+        <span class="n">rt2</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="n">ct</span><span class="o">*</span><span class="n">t2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">rt2</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="n">ct</span><span class="o">*</span><span class="n">t2</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">rr1</span> <span class="o">@</span> <span class="n">rt1</span><span class="p">,</span> <span class="n">rt2</span> <span class="o">@</span> <span class="n">rr2</span><span class="p">,</span> <span class="n">t1</span><span class="p">,</span> <span class="n">t2</span>
+
+    <span class="n">tilt0</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">pitch0</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">yaw0</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">t10</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+    <span class="n">t20</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">elem</span><span class="p">,</span> <span class="s1">&#39;R1&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">elem</span><span class="p">,</span> <span class="s1">&#39;R2&#39;</span><span class="p">):</span>
+        <span class="n">rr10</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s1">&#39;F&#39;</span><span class="p">)</span>
+        <span class="n">rr10</span><span class="p">[:</span><span class="mi">4</span><span class="p">,</span> <span class="p">:</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="n">elem</span><span class="o">.</span><span class="n">R1</span><span class="p">[:</span><span class="mi">4</span><span class="p">,</span> <span class="p">:</span><span class="mi">4</span><span class="p">]</span>
+        <span class="n">rt10</span> <span class="o">=</span> <span class="n">rr10</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">elem</span><span class="o">.</span><span class="n">R1</span>
+        <span class="n">tilt0</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">arctan2</span><span class="p">(</span><span class="n">rr10</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">rr10</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="n">yaw0</span> <span class="o">=</span> <span class="o">-</span><span class="n">rt10</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span><span class="o">/</span><span class="n">rr10</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">pitch0</span> <span class="o">=</span> <span class="o">-</span><span class="n">rt10</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span><span class="o">/</span><span class="n">rr10</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">t10</span><span class="p">,</span> <span class="n">t20</span> <span class="o">=</span> <span class="n">_get_rm_tv</span><span class="p">(</span><span class="n">elem</span><span class="o">.</span><span class="n">Length</span><span class="p">,</span> <span class="n">tilt0</span><span class="p">,</span> <span class="n">pitch0</span><span class="p">,</span> <span class="n">yaw0</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">elem</span><span class="p">,</span> <span class="s1">&#39;T1&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">elem</span><span class="p">,</span> <span class="s1">&#39;T2&#39;</span><span class="p">):</span>
+        <span class="n">t10</span> <span class="o">=</span> <span class="n">elem</span><span class="o">.</span><span class="n">T1</span><span class="o">-</span><span class="n">t10</span>
+        <span class="n">t20</span> <span class="o">=</span> <span class="n">elem</span><span class="o">.</span><span class="n">T2</span><span class="o">-</span><span class="n">t20</span>
+    <span class="k">if</span> <span class="n">relative</span><span class="p">:</span>
+        <span class="n">tilt</span> <span class="o">+=</span> <span class="n">tilt0</span>
+        <span class="n">pitch</span> <span class="o">+=</span> <span class="n">pitch0</span>
+        <span class="n">yaw</span> <span class="o">+=</span> <span class="n">yaw0</span>
+
+    <span class="n">r1</span><span class="p">,</span> <span class="n">r2</span><span class="p">,</span> <span class="n">t1</span><span class="p">,</span> <span class="n">t2</span> <span class="o">=</span> <span class="n">_get_rm_tv</span><span class="p">(</span><span class="n">elem</span><span class="o">.</span><span class="n">Length</span><span class="p">,</span> <span class="n">tilt</span><span class="p">,</span> <span class="n">pitch</span><span class="p">,</span> <span class="n">yaw</span><span class="p">)</span>
+    <span class="n">elem</span><span class="o">.</span><span class="n">R1</span> <span class="o">=</span> <span class="n">r1</span>
+    <span class="n">elem</span><span class="o">.</span><span class="n">R2</span> <span class="o">=</span> <span class="n">r2</span>
+    <span class="n">elem</span><span class="o">.</span><span class="n">T1</span> <span class="o">=</span> <span class="n">t1</span><span class="o">+</span><span class="n">t10</span>
+    <span class="n">elem</span><span class="o">.</span><span class="n">T2</span> <span class="o">=</span> <span class="n">t2</span><span class="o">+</span><span class="n">t20</span>
+
+
 <div class="viewcode-block" id="tilt_elem"><a class="viewcode-back" href="../../../p/api/at.lattice.utils.html#at.lattice.utils.tilt_elem">[docs]</a><span class="k">def</span> <span class="nf">tilt_elem</span><span class="p">(</span><span class="n">elem</span><span class="p">:</span> <span class="n">Element</span><span class="p">,</span> <span class="n">rots</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">relative</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Set the tilt angle :math:`\theta` of an ``Element``</span>
 
@@ -1019,19 +1096,7 @@
 <span class="sd">          looking in the direction of the beam</span>
 <span class="sd">        relative:       If True, the rotation is added to the previous one</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">cs</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">rots</span><span class="p">)</span>
-    <span class="n">sn</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">rots</span><span class="p">)</span>
-    <span class="n">rm</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asfortranarray</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">diag</span><span class="p">([</span><span class="n">cs</span><span class="p">,</span> <span class="n">cs</span><span class="p">,</span> <span class="n">cs</span><span class="p">,</span> <span class="n">cs</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]))</span>
-    <span class="n">rm</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">sn</span>
-    <span class="n">rm</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">sn</span>
-    <span class="n">rm</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">sn</span>
-    <span class="n">rm</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">sn</span>
-    <span class="k">if</span> <span class="n">relative</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">elem</span><span class="p">,</span> <span class="s1">&#39;R1&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">elem</span><span class="p">,</span> <span class="s1">&#39;R2&#39;</span><span class="p">):</span>
-        <span class="n">elem</span><span class="o">.</span><span class="n">R1</span> <span class="o">=</span> <span class="n">elem</span><span class="o">.</span><span class="n">R1</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">rm</span><span class="p">)</span>
-        <span class="n">elem</span><span class="o">.</span><span class="n">R2</span> <span class="o">=</span> <span class="n">rm</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">elem</span><span class="o">.</span><span class="n">R2</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">elem</span><span class="o">.</span><span class="n">R1</span> <span class="o">=</span> <span class="n">rm</span>
-        <span class="n">elem</span><span class="o">.</span><span class="n">R2</span> <span class="o">=</span> <span class="n">rm</span><span class="o">.</span><span class="n">T</span></div>
+    <span class="n">rotate_elem</span><span class="p">(</span><span class="n">elem</span><span class="p">,</span> <span class="n">tilt</span><span class="o">=</span><span class="n">rots</span><span class="p">,</span> <span class="n">relative</span><span class="o">=</span><span class="n">relative</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="shift_elem"><a class="viewcode-back" href="../../../p/api/at.lattice.utils.html#at.lattice.utils.shift_elem">[docs]</a><span class="k">def</span> <span class="nf">shift_elem</span><span class="p">(</span><span class="n">elem</span><span class="p">:</span> <span class="n">Element</span><span class="p">,</span> <span class="n">deltax</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">deltaz</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
@@ -1053,6 +1118,27 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="n">elem</span><span class="o">.</span><span class="n">T1</span> <span class="o">=</span> <span class="o">-</span><span class="n">tr</span>
         <span class="n">elem</span><span class="o">.</span><span class="n">T2</span> <span class="o">=</span> <span class="n">tr</span></div>
+
+
+<span class="k">def</span> <span class="nf">set_rotation</span><span class="p">(</span><span class="n">ring</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Element</span><span class="p">],</span> <span class="n">tilts</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+                 <span class="n">pitches</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">yaws</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">relative</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Sets the tilts of a list of elements.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        ring:           Lattice description</span>
+<span class="sd">        tilts:          Sequence of tilt values as long as ring or</span>
+<span class="sd">          scalar tilt value applied to all elements, default=0</span>
+<span class="sd">        pitches:          Sequence of pitch values as long as ring or</span>
+<span class="sd">          scalar tilt value applied to all elements, default=0</span>
+<span class="sd">        yaws:          Sequence of yaw values as long as ring or</span>
+<span class="sd">          scalar tilt value applied to all elements, default=0</span>
+<span class="sd">        relative:       If True, the rotation is added to the previous one</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">tilts</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span><span class="n">tilts</span><span class="p">,</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ring</span><span class="p">),))</span>
+    <span class="n">pitches</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span><span class="n">tilts</span><span class="p">,</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ring</span><span class="p">),))</span>
+    <span class="n">yaws</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span><span class="n">tilts</span><span class="p">,</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ring</span><span class="p">),))</span>
+    <span class="k">for</span> <span class="n">el</span><span class="p">,</span> <span class="n">tilt</span><span class="p">,</span> <span class="n">pitch</span><span class="p">,</span> <span class="n">yaw</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">tilts</span><span class="p">,</span> <span class="n">pitches</span><span class="p">,</span> <span class="n">yaws</span><span class="p">):</span>
+        <span class="n">rotate_elem</span><span class="p">(</span><span class="n">el</span><span class="p">,</span> <span class="n">tilt</span><span class="o">=</span><span class="n">tilt</span><span class="p">,</span> <span class="n">pitch</span><span class="o">=</span><span class="n">pitch</span><span class="p">,</span> <span class="n">yaw</span><span class="o">=</span><span class="n">yaw</span><span class="p">,</span> <span class="n">relative</span><span class="o">=</span><span class="n">relative</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="set_tilt"><a class="viewcode-back" href="../../../p/api/at.lattice.utils.html#at.lattice.utils.set_tilt">[docs]</a><span class="k">def</span> <span class="nf">set_tilt</span><span class="p">(</span><span class="n">ring</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Element</span><span class="p">],</span> <span class="n">tilts</span><span class="p">,</span> <span class="n">relative</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
