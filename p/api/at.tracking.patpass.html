@@ -397,61 +397,60 @@
 <p class="rubric">Functions</p>
 <table class="autosummary longtable table autosummary">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#at.tracking.patpass.patpass" title="at.tracking.patpass.patpass"><code class="xref py py-obj docutils literal notranslate"><span class="pre">patpass</span></code></a>(ring, r_in[, nturns, refpts, ...])</p></td>
-<td><p>patpass(lattice, r_in, nturns=1, refpts=None, keep_lattice=False, keep_counter=False, turn=0, losses=False, omp_num_threads=None, pool_size=None, start_method=None)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#at.tracking.patpass.patpass" title="at.tracking.patpass.patpass"><code class="xref py py-obj docutils literal notranslate"><span class="pre">patpass</span></code></a>(lattice, r_in[, nturns, refpts, ...])</p></td>
+<td><p>Simple parallel implementation of <a class="reference internal" href="at.tracking.track.html#at.tracking.track.lattice_pass" title="at.tracking.track.lattice_pass"><code class="xref py py-func docutils literal notranslate"><span class="pre">lattice_pass()</span></code></a>.</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py function">
 <dt class="sig sig-object py" id="at.tracking.patpass.patpass">
-<span class="sig-name descname"><span class="pre">patpass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r_in</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nturns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refpts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pool_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/tracking/patpass.html#patpass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.tracking.patpass.patpass" title="Permalink to this definition">#</a></dt>
-<dd><p>patpass(lattice, r_in, nturns=1, refpts=None, keep_lattice=False,
-keep_counter=False, turn=0, losses=False, omp_num_threads=None,
-pool_size=None, start_method=None)</p>
-<p>Simple parallel implementation of atpass().  If more than one particle
-is supplied, use multiprocessing to run each particle in a separate
-process. In case a single particle is provided or the ring contains
-ImpedanceTablePass element, atpass() is returned</p>
-<p><code class="docutils literal notranslate"><span class="pre">patpass</span></code> tracks particles through each element of a lattice
+<span class="sig-name descname"><span class="pre">patpass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lattice</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r_in</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nturns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refpts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pool_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/tracking/patpass.html#patpass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.tracking.patpass.patpass" title="Permalink to this definition">#</a></dt>
+<dd><p>Simple parallel implementation of <a class="reference internal" href="at.tracking.track.html#at.tracking.track.lattice_pass" title="at.tracking.track.lattice_pass"><code class="xref py py-func docutils literal notranslate"><span class="pre">lattice_pass()</span></code></a>.
+If more than one particle is supplied, use multiprocessing. For a
+single particle or if the lattice contains <a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Collective" title="at.lattice.elements.Collective"><code class="xref py py-class docutils literal notranslate"><span class="pre">Collective</span></code></a>
+elements, <code class="xref py py-func docutils literal notranslate"><span class="pre">atpass()</span></code> is used.</p>
+<p><a class="reference internal" href="#at.tracking.patpass.patpass" title="at.tracking.patpass.patpass"><code class="xref py py-func docutils literal notranslate"><span class="pre">patpass()</span></code></a> tracks particles through each element of a lattice
 calling the element-specific tracking function specified in the Element’s
-<code class="docutils literal notranslate"><span class="pre">PassMethod</span></code> field.</p>
+<em>PassMethod</em> field.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>lattice</strong> (<em>Iterable</em><em>[</em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>]</em>) – list of elements</p></li>
-<li><p><strong>r_in</strong> – 6 x n_particles Fortran-ordered numpy array.
-On return, rin contains the final coordinates of the particles</p></li>
+<li><p><strong>lattice</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.11)"><em>Iterable</em></a><em>[</em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>]</em>) – list of elements</p></li>
+<li><p><strong>r_in</strong> – (6, N) array: input coordinates of N particles.
+<em>r_in</em> is modified in-place and reports the coordinates at
+the end of the element. For the best efficiency, <em>r_in</em>
+should be given as F_CONTIGUOUS numpy array.</p></li>
 <li><p><strong>nturns</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – number of turns to be tracked</p></li>
-<li><p><strong>refpts</strong> (<em>Uint32_refs</em>) – <p>numpy array of indices of elements where
+<li><p><strong>refpts</strong> (<em>Refpts</em>) – <p>numpy array of indices of elements where
 output is desired:</p>
 <ul>
+<li><p>len(line) means end of the last element (default)</p></li>
 <li><p>0 means entrance of the first element</p></li>
-<li><p>len(line) means end of the last element</p></li>
 </ul>
 </p></li>
+<li><p><strong>pool_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – number of processes. If None,
+<code class="docutils literal notranslate"><span class="pre">min(npart,nproc)</span></code> is used</p></li>
+<li><p><strong>start_method</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – python multiprocessing start method.
+<a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a> uses the python default that is considered safe.
+Available values: ‘<code class="docutils literal notranslate"><span class="pre">fork'</span></code>, <code class="docutils literal notranslate"><span class="pre">'spawn'</span></code>, <code class="docutils literal notranslate"><span class="pre">'forkserver'</span></code>.
+Default for linux is <code class="docutils literal notranslate"><span class="pre">'fork'</span></code>, default for macOS and  Windows is
+<code class="docutils literal notranslate"><span class="pre">'spawn'</span></code>. <code class="docutils literal notranslate"><span class="pre">'fork'</span></code> may be used on MacOS to speed up the
+calculation or to solve Runtime Errors, however it is considered
+unsafe.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>keep_lattice</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>]</em>) – use elements persisted from a previous
+<li><p><strong>keep_lattice</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Use elements persisted from a previous
 call. If True, assume that the lattice has not changed since
 the previous call.</p></li>
-<li><p><strong>keep_counter</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>]</em>) – Keep the turn number from the previous
+<li><p><strong>keep_counter</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Keep the turn number from the previous
 call.</p></li>
-<li><p><strong>turn</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>]</em>) – Starting turn number. Ignored if
+<li><p><strong>turn</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Starting turn number. Ignored if
 keep_counter is True. The turn number is necessary to compute the
 absolute path length used in RFCavityPass.</p></li>
-<li><p><strong>losses</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>]</em>) – Boolean to activate loss maps output</p></li>
-<li><p><strong>pool_size</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>]</em>) – number of processes. If None,
-<code class="docutils literal notranslate"><span class="pre">min(npart,nproc)</span></code> is used</p></li>
-<li><p><strong>start_method</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>]</em>) – This parameter allows to change the
-python multiprocessing start method, default=None uses the python
-defaults that is considered safe. Available parameters:
-‘<code class="docutils literal notranslate"><span class="pre">fork'</span></code>, <code class="docutils literal notranslate"><span class="pre">'spawn'</span></code>, <code class="docutils literal notranslate"><span class="pre">'forkserver'</span></code>. Default for linux is
-<code class="docutils literal notranslate"><span class="pre">'fork'</span></code>, default for macOS and  Windows is <code class="docutils literal notranslate"><span class="pre">'spawn'</span></code>. <code class="docutils literal notranslate"><span class="pre">'fork'</span></code>
-may be used for macOS to speed up the calculation or to solve
-Runtime Errors, however it is considered unsafe.</p></li>
-<li><p><strong>omp_num_threads</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>]</em>) – number of OpenMP threads
+<li><p><strong>losses</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Boolean to activate loss maps output</p></li>
+<li><p><strong>omp_num_threads</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of OpenMP threads
 (default: automatic)</p></li>
 </ul>
 </dd>
@@ -460,37 +459,59 @@ Runtime Errors, however it is considered unsafe.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Keyword Arguments<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>particle</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="at.lattice.particle_object.html#at.lattice.particle_object.Particle" title="at.lattice.particle_object.Particle"><em>Particle</em></a><em>]</em>) – circulating particle.
-Default: <code class="docutils literal notranslate"><span class="pre">lattice.particle</span></code> if existing,
-otherwise <code class="docutils literal notranslate"><span class="pre">Particle('relativistic')</span></code></p></li>
-<li><p><strong>energy</strong> (<em>Optiona</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>]</em>) – lattice energy. Default 0.</p></li>
+<li><p><strong>particle</strong> (<a class="reference internal" href="at.lattice.particle_object.html#at.lattice.particle_object.Particle" title="at.lattice.particle_object.Particle"><em>Particle</em></a>) – circulating particle.
+Default: <em>lattice.particle</em> if existing,
+otherwise <em>Particle(‘relativistic’)</em></p></li>
+<li><p><strong>energy</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – lattice energy. Default 0.</p></li>
 </ul>
 </dd>
 </dl>
-<p>If <code class="docutils literal notranslate"><span class="pre">energy</span></code> is not available, relativistic tracking if forced,
-<code class="docutils literal notranslate"><span class="pre">rest_energy</span></code> is ignored.</p>
+<p>If <em>energy</em> is not available, relativistic tracking if forced,
+<em>rest_energy</em> is ignored.</p>
 <dl class="field-list">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>r_out</strong> – (6, N, R, T) array containing output coordinates of N particles
-at R reference points for T turns.</p>
-<p>If losses ==True: {islost,turn,elem,coord} dictionary containing
-flag for particles lost (True -&gt; particle lost), turn, element and
-coordinates at which the particle is lost. Set to zero for particles
-that survived</p>
+<dd class="field-odd"><ul>
+<li><p><strong>r_out</strong> – (6, N, R, T) array containing output coordinates of N particles
+at R reference points for T turns.</p></li>
+<li><p><strong>loss_map</strong> – If <em>losses</em> is <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a>: dictionary with the
+following key:</p>
+<table class="table">
+<tbody>
+<tr class="row-odd"><td><p><strong>islost</strong></p></td>
+<td><p>(npart,) bool array indicating lost particles</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>turn</strong></p></td>
+<td><p>(npart,) int array indicating the turn at
+which the particle is lost</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>element</strong></p></td>
+<td><p>((npart,) int array indicating the element at
+which the particle is lost</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>coord</strong></p></td>
+<td><p>(6, npart) float array giving the coordinates at
+which the particle is lost (zero for surviving
+particles)</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
 </dd>
 </dl>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul class="simple">
 <li><p>For multiparticle tracking with large number of turn the size of
-<code class="docutils literal notranslate"><span class="pre">r_out</span></code> may increase excessively. To avoid memory issues
+<em>r_out</em> may increase excessively. To avoid memory issues
 <code class="docutils literal notranslate"><span class="pre">patpass(lattice,</span> <span class="pre">r_in,</span> <span class="pre">refpts=[])</span></code> can be used. An empty list
 is returned and the tracking results of the last turn are stored in
-<code class="docutils literal notranslate"><span class="pre">r_in</span></code>.</p></li>
-<li><p>By default, <code class="docutils literal notranslate"><span class="pre">patpass</span></code> will use all the available CPUs, to change
-the number of cores used in ALL functions using <code class="docutils literal notranslate"><span class="pre">patpass</span></code>
-(<code class="docutils literal notranslate"><span class="pre">acceptance</span></code> module for example) it is possible to set
-<code class="docutils literal notranslate"><span class="pre">at.DConstant.patpass_poolsize</span></code> to the desired value</p></li>
+<em>r_in</em>.</p></li>
+<li><p>By default, <a class="reference internal" href="#at.tracking.patpass.patpass" title="at.tracking.patpass.patpass"><code class="xref py py-func docutils literal notranslate"><span class="pre">patpass()</span></code></a> will use all the available CPUs.
+To change the number of cores used in ALL functions using
+<a class="reference internal" href="#at.tracking.patpass.patpass" title="at.tracking.patpass.patpass"><code class="xref py py-func docutils literal notranslate"><span class="pre">patpass()</span></code></a> (<a class="reference internal" href="at.acceptance.acceptance.html#module-at.acceptance.acceptance" title="at.acceptance.acceptance"><code class="xref py py-mod docutils literal notranslate"><span class="pre">acceptance</span></code></a> module for
+example) it is possible to set <code class="docutils literal notranslate"><span class="pre">at.DConstant.patpass_poolsize</span></code>
+to the desired value.</p></li>
 </ul>
 </div>
 </dd></dl>

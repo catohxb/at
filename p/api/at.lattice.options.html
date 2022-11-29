@@ -400,6 +400,9 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="#at.lattice.options.DConstant" title="at.lattice.options.DConstant"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DConstant</span></code></a></p></td>
 <td><p>Default values for AT algorithms</p></td>
 </tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#at.lattice.options.random" title="at.lattice.options.random"><code class="xref py py-obj docutils literal notranslate"><span class="pre">random</span></code></a></p></td>
+<td><p>Random generators for AT</p></td>
+</tr>
 </tbody>
 </table>
 <dl class="py data">
@@ -436,6 +439,78 @@
 <dd><p>Default number of OpenMP threads</p>
 </dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="at.lattice.options.patpass_poolsize">
+<span class="sig-name descname"><span class="pre">patpass_poolsize</span></span><a class="headerlink" href="#at.lattice.options.patpass_poolsize" title="Permalink to this definition">#</a></dt>
+<dd><p>Default size of multiprocessing pool</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="at.lattice.options.mpi">
+<span class="sig-name descname"><span class="pre">mpi</span></span><a class="headerlink" href="#at.lattice.options.mpi" title="Permalink to this definition">#</a></dt>
+<dd><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a> if MPI is active</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="at.lattice.options.openmp">
+<span class="sig-name descname"><span class="pre">openmp</span></span><a class="headerlink" href="#at.lattice.options.openmp" title="Permalink to this definition">#</a></dt>
+<dd><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a> if OpenMP is active</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="at.lattice.options.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attrname</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#at.lattice.options.reset" title="Permalink to this definition">#</a></dt>
+<dd><p>Reset the attribute to its default value</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="at.lattice.options.random">
+<span class="sig-name descname"><span class="pre">random</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;at.lattice.options._Random</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#at.lattice.options.random" title="Permalink to this definition">#</a></dt>
+<dd><p>Random generators for AT</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="at.lattice.options.common">
+<span class="sig-name descname"><span class="pre">common</span></span><a class="headerlink" href="#at.lattice.options.common" title="Permalink to this definition">#</a></dt>
+<dd><p>random generator common to
+all threads</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/random/generator.html#numpy.random.Generator" title="(in NumPy v1.23)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Generator</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="at.lattice.options.thread">
+<span class="sig-name descname"><span class="pre">thread</span></span><a class="headerlink" href="#at.lattice.options.thread" title="Permalink to this definition">#</a></dt>
+<dd><p>random generator specific to
+each thread</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/random/generator.html#numpy.random.Generator" title="(in NumPy v1.23)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Generator</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#id0" title="Permalink to this definition">#</a></dt>
+<dd><p>Reset the generators.</p>
+</dd></dl>
+
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">at</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">common</span><span class="o">.</span><span class="n">random</span><span class="p">()</span>
+<span class="go">0.8699988509120198</span>
+</pre></div>
+</div>
+<p>Generates a random number in [0, 1) which is identical in all threads</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">at</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">thread</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="go">array([-0.02326275, -0.89806482, -1.69086929, -0.74399398,  0.70156743])</span>
+</pre></div>
+</div>
+<p>Generates an array of Gaussian random values which is specific to
+each thread</p>
 </dd></dl>
 
 </section>
@@ -528,6 +603,78 @@
    <code class="docutils literal notranslate">
     <span class="pre">
      omp_num_threads
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#at.lattice.options.patpass_poolsize">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     patpass_poolsize
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#at.lattice.options.mpi">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     mpi
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#at.lattice.options.openmp">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     openmp
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#at.lattice.options.reset">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     reset()
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#at.lattice.options.random">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     random
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#at.lattice.options.common">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     common
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#at.lattice.options.thread">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     thread
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id0">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     reset()
     </span>
    </code>
   </a>

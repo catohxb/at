@@ -397,19 +397,19 @@
 <table class="autosummary longtable table autosummary">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#at.tracking.track.fortran_align" title="at.tracking.track.fortran_align"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fortran_align</span></code></a>(func)</p></td>
-<td><p>Ensure that r_in is Fortran-aligned</p></td>
+<td><p>decorator to ensure that <em>r_in</em> is Fortran-aligned</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#at.tracking.track.lattice_pass" title="at.tracking.track.lattice_pass"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lattice_pass</span></code></a>(lattice, r_in[, nturns, ...])</p></td>
-<td><p>lattice_pass(lattice, r_in, nturns=1, refpts=None, keep_lattice=False, keep_counter=False, turn=0, losses=False, omp_num_threads=None)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#at.tracking.track.lattice_pass" title="at.tracking.track.lattice_pass"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lattice_pass</span></code></a>(lattice, r_in[, nturns, refpts])</p></td>
+<td><p><a class="reference internal" href="#at.tracking.track.lattice_pass" title="at.tracking.track.lattice_pass"><code class="xref py py-func docutils literal notranslate"><span class="pre">lattice_pass()</span></code></a> tracks particles through each element of a lattice calling the element-specific tracking function specified in the Element's <em>PassMethod</em> field.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#at.tracking.track.element_pass" title="at.tracking.track.element_pass"><code class="xref py py-obj docutils literal notranslate"><span class="pre">element_pass</span></code></a>(element, r_in, **kwargs)</p></td>
 <td><p>Tracks particles through a single element.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">atpass</span></code>(line, r in, nturns[, refpts, reuse, ...])</p></td>
-<td><p>Track input particles <code class="docutils literal notranslate"><span class="pre">rin</span></code> along line for <code class="docutils literal notranslate"><span class="pre">nturns</span></code> turns.</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">atpass</span></code>(line, r_in, nturns[, refpts, reuse, ...])</p></td>
+<td><p>Track input particles <em>r_in</em> along line for <em>nturns</em> turns.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">elempass</span></code>(element, rin)</p></td>
-<td><p>Tracks input particles rin through a single element.</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">elempass</span></code>(element, r_in)</p></td>
+<td><p>Track input particles <em>r_in</em> through a single element.</p></td>
 </tr>
 </tbody>
 </table>
@@ -422,21 +422,22 @@
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>element</strong> (<a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a>) – AT element</p></li>
 <li><p><strong>r_in</strong> – (6, N) array: input coordinates of N particles.
-r_in is modified in-place and reports the coordinates at
-the end of the element. For the best efficiency, r_in
+<em>r_in</em> is modified in-place and reports the coordinates at
+the end of the element. For the best efficiency, <em>r_in</em>
 should be given as F_CONTIGUOUS numpy array.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>particle</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="at.lattice.particle_object.html#at.lattice.particle_object.Particle" title="at.lattice.particle_object.Particle"><em>Particle</em></a><em>]</em>) – circulating particle.
-Default: Particle(‘relativistic’)</p></li>
-<li><p><strong>energy</strong> (<em>Optiona</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>]</em>) – lattice energy</p></li>
+<li><p><strong>particle</strong> (<a class="reference internal" href="at.lattice.particle_object.html#at.lattice.particle_object.Particle" title="at.lattice.particle_object.Particle"><em>Particle</em></a>) – circulating particle.
+Default: <em>lattice.particle</em> if existing,
+otherwise <em>Particle(‘relativistic’)</em></p></li>
+<li><p><strong>energy</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – lattice energy. Default 0.</p></li>
 </ul>
 </dd>
 </dl>
-<p>If <code class="docutils literal notranslate"><span class="pre">energy</span></code> is not available, relativistic tracking if forced,
-<code class="docutils literal notranslate"><span class="pre">rest_energy</span></code> is ignored.</p>
+<p>If <em>energy</em> is not available, relativistic tracking if forced,
+<em>rest_energy</em> is ignored.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>r_out</strong> – (6, N) array containing output the coordinates of
@@ -448,45 +449,54 @@ the particles at the exit of the element.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="at.tracking.track.fortran_align">
 <span class="sig-name descname"><span class="pre">fortran_align</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/tracking/track.html#fortran_align"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.tracking.track.fortran_align" title="Permalink to this definition">#</a></dt>
-<dd><p>Ensure that r_in is Fortran-aligned</p>
+<dd><p>decorator to ensure that <em>r_in</em> is Fortran-aligned</p>
+<p><a class="reference internal" href="#at.tracking.track.fortran_align" title="at.tracking.track.fortran_align"><code class="xref py py-func docutils literal notranslate"><span class="pre">fortran_align()</span></code></a> ensures that the 2nd argument (usually <em>r_in</em>) of
+the decorated function is Fortran-aligned before calling the function</p>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@fortran_align</span>
+<span class="gp">... </span><span class="k">def</span> <span class="nf">element_pass</span><span class="p">(</span><span class="n">element</span><span class="p">:</span> <span class="n">Element</span><span class="p">,</span> <span class="n">r_in</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="gp">... </span><span class="o">...</span>
+</pre></div>
+</div>
+<p>Ensure than <em>r_in</em> is Fortran-aligned</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="at.tracking.track.lattice_pass">
-<span class="sig-name descname"><span class="pre">lattice_pass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lattice</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r_in</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nturns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refpts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_lattice</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">omp_num_threads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/tracking/track.html#lattice_pass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.tracking.track.lattice_pass" title="Permalink to this definition">#</a></dt>
-<dd><p>lattice_pass(lattice, r_in, nturns=1, refpts=None, keep_lattice=False,
-keep_counter=False, turn=0, losses=False, omp_num_threads=None)</p>
-<p>lattice_pass tracks particles through each element of a lattice
+<span class="sig-name descname"><span class="pre">lattice_pass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lattice</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r_in</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nturns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refpts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/tracking/track.html#lattice_pass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.tracking.track.lattice_pass" title="Permalink to this definition">#</a></dt>
+<dd><p><a class="reference internal" href="#at.tracking.track.lattice_pass" title="at.tracking.track.lattice_pass"><code class="xref py py-func docutils literal notranslate"><span class="pre">lattice_pass()</span></code></a> tracks particles through each element of a lattice
 calling the element-specific tracking function specified in the Element’s
-<code class="docutils literal notranslate"><span class="pre">PassMethod</span></code> field.</p>
+<em>PassMethod</em> field.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>lattice</strong> (<em>Iterable</em><em>[</em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>]</em>) – list of elements</p></li>
-<li><p><strong>r_in</strong> – 6 x n_particles Fortran-ordered numpy array.
-On return, rin contains the final coordinates of the particles</p></li>
+<li><p><strong>lattice</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.11)"><em>Iterable</em></a><em>[</em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>]</em>) – list of elements</p></li>
+<li><p><strong>r_in</strong> – (6, N) array: input coordinates of N particles.
+<em>r_in</em> is modified in-place and reports the coordinates at
+the end of the element. For the best efficiency, <em>r_in</em>
+should be given as F_CONTIGUOUS numpy array.</p></li>
 <li><p><strong>nturns</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – number of turns to be tracked</p></li>
-<li><p><strong>refpts</strong> (<em>Uint32_refs</em>) – <p>numpy array of indices of elements where
+<li><p><strong>refpts</strong> (<em>Refpts</em>) – <p>numpy array of indices of elements where
 output is desired:</p>
 <ul>
+<li><p>len(line) means end of the last element (default)</p></li>
 <li><p>0 means entrance of the first element</p></li>
-<li><p>len(line) means end of the last element</p></li>
 </ul>
 </p></li>
 </ul>
 </dd>
 <dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>keep_lattice</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>]</em>) – use elements persisted from a previous
+<li><p><strong>keep_lattice</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Use elements persisted from a previous
 call. If True, assume that the lattice has not changed since
 the previous call.</p></li>
-<li><p><strong>keep_counter</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>]</em>) – Keep the turn number from the previous
+<li><p><strong>keep_counter</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Keep the turn number from the previous
 call.</p></li>
-<li><p><strong>turn</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>]</em>) – Starting turn number. Ignored if
+<li><p><strong>turn</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Starting turn number. Ignored if
 keep_counter is True. The turn number is necessary to compute the
 absolute path length used in RFCavityPass.</p></li>
-<li><p><strong>losses</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>]</em>) – Boolean to activate loss maps output</p></li>
-<li><p><strong>omp_num_threads</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>]</em>) – number of OpenMP threads
+<li><p><strong>losses</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Boolean to activate loss maps output</p></li>
+<li><p><strong>omp_num_threads</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of OpenMP threads
 (default: automatic)</p></li>
 </ul>
 </dd>
@@ -495,23 +505,44 @@ absolute path length used in RFCavityPass.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Keyword Arguments<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>particle</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="at.lattice.particle_object.html#at.lattice.particle_object.Particle" title="at.lattice.particle_object.Particle"><em>Particle</em></a><em>]</em>) – circulating particle.
-Default: <code class="docutils literal notranslate"><span class="pre">lattice.particle</span></code> if existing,
-otherwise <code class="docutils literal notranslate"><span class="pre">Particle('relativistic')</span></code></p></li>
-<li><p><strong>energy</strong> (<em>Optiona</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>]</em>) – lattice energy. Default 0.</p></li>
+<li><p><strong>particle</strong> (<a class="reference internal" href="at.lattice.particle_object.html#at.lattice.particle_object.Particle" title="at.lattice.particle_object.Particle"><em>Particle</em></a>) – circulating particle.
+Default: <em>lattice.particle</em> if existing,
+otherwise <em>Particle(‘relativistic’)</em></p></li>
+<li><p><strong>energy</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – lattice energy. Default 0.</p></li>
 </ul>
 </dd>
 </dl>
-<p>If <code class="docutils literal notranslate"><span class="pre">energy</span></code> is not available, relativistic tracking if forced,
-<code class="docutils literal notranslate"><span class="pre">rest_energy</span></code> is ignored.</p>
+<p>If <em>energy</em> is not available, relativistic tracking if forced,
+<em>rest_energy</em> is ignored.</p>
 <dl class="field-list">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>r_out</strong> – (6, N, R, T) array containing output coordinates of N particles
-at R reference points for T turns.</p>
-<p>If losses is True: {islost,turn,elem,coord} dictionary containing
-flag for particles lost (True -&gt; particle lost), turn, element and
-coordinates at which the particle is lost. Set to zero for particles
-that survived</p>
+<dd class="field-odd"><ul>
+<li><p><strong>r_out</strong> – (6, N, R, T) array containing output coordinates of N particles
+at R reference points for T turns.</p></li>
+<li><p><strong>loss_map</strong> – If <em>losses</em> is <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a>: dictionary with the
+following key:</p>
+<table class="table">
+<tbody>
+<tr class="row-odd"><td><p><strong>islost</strong></p></td>
+<td><p>(npart,) bool array indicating lost particles</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>turn</strong></p></td>
+<td><p>(npart,) int array indicating the turn at
+which the particle is lost</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>element</strong></p></td>
+<td><p>((npart,) int array indicating the element at
+which the particle is lost</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>coord</strong></p></td>
+<td><p>(6, npart) float array giving the coordinates at
+which the particle is lost (zero for surviving
+particles)</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
 </dd>
 </dl>
 <div class="admonition note">
@@ -520,16 +551,16 @@ that survived</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">lattice_pass(lattice,</span> <span class="pre">r_in,</span> <span class="pre">refpts=len(line))</span></code> is the same as
 <code class="docutils literal notranslate"><span class="pre">lattice_pass(lattice,</span> <span class="pre">r_in)</span></code> since the reference point len(line) is
 the exit of the last element.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">lattice_pass(lattice,</span> <span class="pre">r_in,</span> <span class="pre">refpts=0)</span></code> is a copy of <code class="docutils literal notranslate"><span class="pre">r_in</span></code> since
+<li><p><code class="docutils literal notranslate"><span class="pre">lattice_pass(lattice,</span> <span class="pre">r_in,</span> <span class="pre">refpts=0)</span></code> is a copy of <em>r_in</em> since
 the reference point 0 is the entrance of the first element.</p></li>
 <li><p>To resume an interrupted tracking (for instance to get intermediate
-results), one must use one of the <code class="docutils literal notranslate"><span class="pre">turn</span></code> or <code class="docutils literal notranslate"><span class="pre">keep_counter</span></code>
+results), one must use one of the <em>turn</em> or <em>keep_counter</em>
 keywords to ensure the continuity of the turn number.</p></li>
 <li><p>For multiparticle tracking with large number of turn the size of
-<code class="docutils literal notranslate"><span class="pre">r_out</span></code> may increase excessively. To avoid memory issues
+<em>r_out</em> may increase excessively. To avoid memory issues
 <code class="docutils literal notranslate"><span class="pre">lattice_pass(lattice,</span> <span class="pre">r_in,</span> <span class="pre">refpts=[])</span></code> can be used. An empty list
 is returned and the tracking results of the last turn are stored in
-<code class="docutils literal notranslate"><span class="pre">r_in</span></code>.</p></li>
+<em>r_in</em>.</p></li>
 </ul>
 </div>
 </dd></dl>

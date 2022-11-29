@@ -296,18 +296,18 @@
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
 <span class="kn">import</span> <span class="nn">multiprocessing</span>
-<span class="kn">from</span> <span class="nn">at.lattice</span> <span class="kn">import</span> <span class="n">uint32_refpts</span>
+<span class="kn">from</span> <span class="nn">..lattice</span> <span class="kn">import</span> <span class="n">AtWarning</span><span class="p">,</span> <span class="n">Element</span><span class="p">,</span> <span class="n">uint32_refpts</span><span class="p">,</span> <span class="n">DConstant</span><span class="p">,</span> <span class="n">random</span>
+<span class="kn">from</span> <span class="nn">..lattice</span> <span class="kn">import</span> <span class="n">Refpts</span>
 <span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
 <span class="c1"># noinspection PyUnresolvedReferences</span>
-<span class="kn">from</span> <span class="nn">.atpass</span> <span class="kn">import</span> <span class="n">atpass</span> <span class="k">as</span> <span class="n">_atpass</span>
+<span class="kn">from</span> <span class="nn">.atpass</span> <span class="kn">import</span> <span class="n">reset_rng</span><span class="p">,</span> <span class="n">atpass</span> <span class="k">as</span> <span class="n">_atpass</span><span class="p">,</span> <span class="n">common_rng</span><span class="p">,</span> <span class="n">thread_rng</span>
 <span class="kn">from</span> <span class="nn">.track</span> <span class="kn">import</span> <span class="n">fortran_align</span>
-<span class="kn">from</span> <span class="nn">at.lattice</span> <span class="kn">import</span> <span class="n">AtWarning</span><span class="p">,</span> <span class="n">DConstant</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;patpass&#39;</span><span class="p">]</span>
 
-<span class="n">_atpassf</span> <span class="o">=</span> <span class="n">fortran_align</span><span class="p">(</span><span class="n">_atpass</span><span class="p">)</span>
+<span class="n">_imax</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">iinfo</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span><span class="o">.</span><span class="n">max</span>
 
 <span class="n">globring</span> <span class="o">=</span> <span class="kc">None</span>
 
@@ -325,113 +325,130 @@
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">lout</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_atpass_one</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">rin</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="c1"># kwargs[&#39;id&#39;] = multiprocessing.current_process().ident</span>
-    <span class="k">if</span> <span class="n">ring</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="n">_atpass</span><span class="p">(</span><span class="n">globring</span><span class="p">,</span> <span class="n">rin</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="n">_atpass</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">rin</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">_atpass_fork</span><span class="p">(</span><span class="n">seed</span><span class="p">,</span> <span class="n">rank</span><span class="p">,</span> <span class="n">rin</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Single forked job&quot;&quot;&quot;</span>
+    <span class="n">reset_rng</span><span class="p">(</span><span class="n">rank</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">_atpass</span><span class="p">(</span><span class="n">globring</span><span class="p">,</span> <span class="n">rin</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">rin</span><span class="p">,</span> <span class="n">result</span>
 
 
-<span class="nd">@fortran_align</span>
+<span class="k">def</span> <span class="nf">_atpass_spawn</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">seed</span><span class="p">,</span> <span class="n">rank</span><span class="p">,</span> <span class="n">rin</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Single spawned job&quot;&quot;&quot;</span>
+    <span class="n">reset_rng</span><span class="p">(</span><span class="n">rank</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">_atpass</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">rin</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">rin</span><span class="p">,</span> <span class="n">result</span>
+
+
 <span class="k">def</span> <span class="nf">_pass</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">r_in</span><span class="p">,</span> <span class="n">pool_size</span><span class="p">,</span> <span class="n">start_method</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="n">ctx</span> <span class="o">=</span> <span class="n">multiprocessing</span><span class="o">.</span><span class="n">get_context</span><span class="p">(</span><span class="n">start_method</span><span class="p">)</span>
-    <span class="n">args</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array_split</span><span class="p">(</span><span class="n">r_in</span><span class="p">,</span> <span class="n">pool_size</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># Split input in as many slices as processes</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array_split</span><span class="p">(</span><span class="n">r_in</span><span class="p">,</span> <span class="n">pool_size</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+    <span class="c1"># Generate a new starting point for C RNGs</span>
+    <span class="n">seed</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">common</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="n">_imax</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+    <span class="k">global</span> <span class="n">globring</span>
+    <span class="n">globring</span> <span class="o">=</span> <span class="n">ring</span>
     <span class="k">if</span> <span class="n">ctx</span><span class="o">.</span><span class="n">get_start_method</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;fork&#39;</span><span class="p">:</span>
-        <span class="k">global</span> <span class="n">globring</span>
-        <span class="n">globring</span> <span class="o">=</span> <span class="n">ring</span>
-        <span class="k">with</span> <span class="n">ctx</span><span class="o">.</span><span class="n">Pool</span><span class="p">(</span><span class="n">pool_size</span><span class="p">)</span> <span class="k">as</span> <span class="n">pool</span><span class="p">:</span>
-            <span class="n">results</span> <span class="o">=</span> <span class="n">pool</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">partial</span><span class="p">(</span><span class="n">_atpass_one</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">),</span> <span class="n">args</span><span class="p">)</span>
-        <span class="n">globring</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">passfunc</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">_atpass_fork</span><span class="p">,</span> <span class="n">seed</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">with</span> <span class="n">ctx</span><span class="o">.</span><span class="n">Pool</span><span class="p">(</span><span class="n">pool_size</span><span class="p">)</span> <span class="k">as</span> <span class="n">pool</span><span class="p">:</span>
-            <span class="n">results</span> <span class="o">=</span> <span class="n">pool</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">partial</span><span class="p">(</span><span class="n">_atpass_one</span><span class="p">,</span> <span class="n">ring</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">),</span> <span class="n">args</span><span class="p">)</span>
+        <span class="n">passfunc</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">_atpass_spawn</span><span class="p">,</span> <span class="n">ring</span><span class="p">,</span> <span class="n">seed</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="c1"># Start the parallel jobs</span>
+    <span class="k">with</span> <span class="n">ctx</span><span class="o">.</span><span class="n">Pool</span><span class="p">(</span><span class="n">pool_size</span><span class="p">)</span> <span class="k">as</span> <span class="n">pool</span><span class="p">:</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="n">pool</span><span class="o">.</span><span class="n">starmap</span><span class="p">(</span><span class="n">passfunc</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+    <span class="n">globring</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="c1"># Gather the results</span>
     <span class="n">losses</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;losses&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">format_results</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">r_in</span><span class="p">,</span> <span class="n">losses</span><span class="p">)</span>
 
 
-<span class="c1"># noinspection PyIncorrectDocstring</span>
-<div class="viewcode-block" id="patpass"><a class="viewcode-back" href="../../../p/api/at.tracking.patpass.html#at.tracking.patpass.patpass">[docs]</a><span class="k">def</span> <span class="nf">patpass</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">r_in</span><span class="p">,</span> <span class="n">nturns</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">refpts</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pool_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-            <span class="n">start_method</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="patpass"><a class="viewcode-back" href="../../../p/api/at.tracking.patpass.html#at.tracking.patpass.patpass">[docs]</a><span class="nd">@fortran_align</span>
+<span class="k">def</span> <span class="nf">patpass</span><span class="p">(</span><span class="n">lattice</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Element</span><span class="p">],</span> <span class="n">r_in</span><span class="p">,</span> <span class="n">nturns</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="n">refpts</span><span class="p">:</span> <span class="n">Refpts</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">pool_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">start_method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    patpass(lattice, r_in, nturns=1, refpts=None, keep_lattice=False,</span>
-<span class="sd">    keep_counter=False, turn=0, losses=False, omp_num_threads=None,</span>
-<span class="sd">    pool_size=None, start_method=None)</span>
+<span class="sd">    Simple parallel implementation of :py:func:`.lattice_pass`.</span>
+<span class="sd">    If more than one particle is supplied, use multiprocessing. For a</span>
+<span class="sd">    single particle or if the lattice contains :py:class:`.Collective`</span>
+<span class="sd">    elements, :py:func:`.atpass` is used.</span>
 
-<span class="sd">    Simple parallel implementation of atpass().  If more than one particle</span>
-<span class="sd">    is supplied, use multiprocessing to run each particle in a separate</span>
-<span class="sd">    process. In case a single particle is provided or the ring contains</span>
-<span class="sd">    ImpedanceTablePass element, atpass() is returned</span>
-
-<span class="sd">    ``patpass`` tracks particles through each element of a lattice</span>
+<span class="sd">    :py:func:`patpass` tracks particles through each element of a lattice</span>
 <span class="sd">    calling the element-specific tracking function specified in the Element&#39;s</span>
-<span class="sd">    ``PassMethod`` field.</span>
+<span class="sd">    *PassMethod* field.</span>
 
 <span class="sd">    Parameters:</span>
-<span class="sd">        lattice (Iterable[Element]): list of elements</span>
-<span class="sd">        r_in:                   6 x n_particles Fortran-ordered numpy array.</span>
-<span class="sd">          On return, rin contains the final coordinates of the particles</span>
-<span class="sd">        nturns (int):           number of turns to be tracked</span>
-<span class="sd">        refpts (Uint32_refs):   numpy array of indices of elements where</span>
+<span class="sd">        lattice:                list of elements</span>
+<span class="sd">        r_in:                   (6, N) array: input coordinates of N particles.</span>
+<span class="sd">          *r_in* is modified in-place and reports the coordinates at</span>
+<span class="sd">          the end of the element. For the best efficiency, *r_in*</span>
+<span class="sd">          should be given as F_CONTIGUOUS numpy array.</span>
+<span class="sd">        nturns:                 number of turns to be tracked</span>
+<span class="sd">        refpts:                 numpy array of indices of elements where</span>
 <span class="sd">          output is desired:</span>
 
+<span class="sd">          * len(line) means end of the last element (default)</span>
 <span class="sd">          * 0 means entrance of the first element</span>
-<span class="sd">          * len(line) means end of the last element</span>
+<span class="sd">        pool_size:              number of processes. If None,</span>
+<span class="sd">          ``min(npart,nproc)`` is used</span>
+<span class="sd">        start_method:           python multiprocessing start method.</span>
+<span class="sd">          :py:obj:`None` uses the python default that is considered safe.</span>
+<span class="sd">          Available values: &#39;``fork&#39;``, ``&#39;spawn&#39;``, ``&#39;forkserver&#39;``.</span>
+<span class="sd">          Default for linux is ``&#39;fork&#39;``, default for macOS and  Windows is</span>
+<span class="sd">          ``&#39;spawn&#39;``. ``&#39;fork&#39;`` may be used on MacOS to speed up the</span>
+<span class="sd">          calculation or to solve Runtime Errors, however it is considered</span>
+<span class="sd">          unsafe.</span>
 
 <span class="sd">    Keyword arguments:</span>
-<span class="sd">        keep_lattice (Optional[bool]):  use elements persisted from a previous</span>
+<span class="sd">        keep_lattice (bool):    Use elements persisted from a previous</span>
 <span class="sd">          call. If True, assume that the lattice has not changed since</span>
 <span class="sd">          the previous call.</span>
-<span class="sd">        keep_counter (Optional[bool]):  Keep the turn number from the previous</span>
+<span class="sd">        keep_counter (bool):    Keep the turn number from the previous</span>
 <span class="sd">          call.</span>
-<span class="sd">        turn (Optional[int]):           Starting turn number. Ignored if</span>
+<span class="sd">        turn (int):             Starting turn number. Ignored if</span>
 <span class="sd">          keep_counter is True. The turn number is necessary to compute the</span>
 <span class="sd">          absolute path length used in RFCavityPass.</span>
-<span class="sd">        losses (Optional[bool]):        Boolean to activate loss maps output</span>
-<span class="sd">        pool_size (Optional[int]):      number of processes. If None,</span>
-<span class="sd">          ``min(npart,nproc)`` is used</span>
-<span class="sd">        start_method (Optional[str]):   This parameter allows to change the</span>
-<span class="sd">          python multiprocessing start method, default=None uses the python</span>
-<span class="sd">          defaults that is considered safe. Available parameters:</span>
-<span class="sd">          &#39;``fork&#39;``, ``&#39;spawn&#39;``, ``&#39;forkserver&#39;``. Default for linux is</span>
-<span class="sd">          ``&#39;fork&#39;``, default for macOS and  Windows is ``&#39;spawn&#39;``. ``&#39;fork&#39;``</span>
-<span class="sd">          may be used for macOS to speed up the calculation or to solve</span>
-<span class="sd">          Runtime Errors, however it is considered unsafe.</span>
-<span class="sd">        omp_num_threads (Optional[int]): number of OpenMP threads</span>
+<span class="sd">        losses (bool):          Boolean to activate loss maps output</span>
+<span class="sd">        omp_num_threads (int):  Number of OpenMP threads</span>
 <span class="sd">          (default: automatic)</span>
 
 <span class="sd">    The following keyword arguments overload the Lattice values</span>
 
 <span class="sd">    Keyword arguments:</span>
-<span class="sd">        particle (Optional[Particle]):  circulating particle.</span>
-<span class="sd">          Default: ``lattice.particle`` if existing,</span>
-<span class="sd">          otherwise ``Particle(&#39;relativistic&#39;)``</span>
-<span class="sd">        energy (Optiona[float]):        lattice energy. Default 0.</span>
+<span class="sd">        particle (Particle):    circulating particle.</span>
+<span class="sd">          Default: *lattice.particle* if existing,</span>
+<span class="sd">          otherwise *Particle(&#39;relativistic&#39;)*</span>
+<span class="sd">        energy (float):         lattice energy. Default 0.</span>
 
-<span class="sd">    If ``energy`` is not available, relativistic tracking if forced,</span>
-<span class="sd">    ``rest_energy`` is ignored.</span>
+<span class="sd">    If *energy* is not available, relativistic tracking if forced,</span>
+<span class="sd">    *rest_energy* is ignored.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        r_out: (6, N, R, T) array containing output coordinates of N particles</span>
 <span class="sd">          at R reference points for T turns.</span>
+<span class="sd">        loss_map: If *losses* is :py:obj:`True`: dictionary with the</span>
+<span class="sd">          following key:</span>
 
-<span class="sd">          If losses ==True: {islost,turn,elem,coord} dictionary containing</span>
-<span class="sd">          flag for particles lost (True -&gt; particle lost), turn, element and</span>
-<span class="sd">          coordinates at which the particle is lost. Set to zero for particles</span>
-<span class="sd">          that survived</span>
+<span class="sd">          ==============    ===================================================</span>
+<span class="sd">          **islost**        (npart,) bool array indicating lost particles</span>
+<span class="sd">          **turn**          (npart,) int array indicating the turn at</span>
+<span class="sd">                            which the particle is lost</span>
+<span class="sd">          **element**       ((npart,) int array indicating the element at</span>
+<span class="sd">                            which the particle is lost</span>
+<span class="sd">          **coord**         (6, npart) float array giving the coordinates at</span>
+<span class="sd">                            which the particle is lost (zero for surviving</span>
+<span class="sd">                            particles)</span>
+<span class="sd">          ==============    ===================================================</span>
 
 <span class="sd">    .. note::</span>
 
 <span class="sd">       * For multiparticle tracking with large number of turn the size of</span>
-<span class="sd">         ``r_out`` may increase excessively. To avoid memory issues</span>
+<span class="sd">         *r_out* may increase excessively. To avoid memory issues</span>
 <span class="sd">         ``patpass(lattice, r_in, refpts=[])`` can be used. An empty list</span>
 <span class="sd">         is returned and the tracking results of the last turn are stored in</span>
-<span class="sd">         ``r_in``.</span>
-<span class="sd">       * By default, ``patpass`` will use all the available CPUs, to change</span>
-<span class="sd">         the number of cores used in ALL functions using ``patpass``</span>
-<span class="sd">         (``acceptance`` module for example) it is possible to set</span>
-<span class="sd">         ``at.DConstant.patpass_poolsize`` to the desired value</span>
+<span class="sd">         *r_in*.</span>
+<span class="sd">       * By default, :py:func:`patpass` will use all the available CPUs.</span>
+<span class="sd">         To change the number of cores used in ALL functions using</span>
+<span class="sd">         :py:func:`patpass` (:py:mod:`~at.acceptance.acceptance` module for</span>
+<span class="sd">         example) it is possible to set ``at.DConstant.patpass_poolsize``</span>
+<span class="sd">         to the desired value.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">collective</span><span class="p">(</span><span class="n">rg</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
@@ -441,28 +458,29 @@
                 <span class="k">return</span> <span class="kc">True</span>
         <span class="k">return</span> <span class="kc">False</span>
 
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
-        <span class="n">ring</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">ring</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">lattice</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="n">lattice</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">lattice</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">refpts</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">refpts</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ring</span><span class="p">)</span>
-    <span class="n">refpts</span> <span class="o">=</span> <span class="n">uint32_refpts</span><span class="p">(</span><span class="n">refpts</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">ring</span><span class="p">))</span>
-    <span class="n">bunch_currents</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="s1">&#39;bunch_currents&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
-    <span class="n">bunch_spos</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="s1">&#39;bunch_spos&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+        <span class="n">refpts</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">lattice</span><span class="p">)</span>
+    <span class="n">refpts</span> <span class="o">=</span> <span class="n">uint32_refpts</span><span class="p">(</span><span class="n">refpts</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">lattice</span><span class="p">))</span>
+    <span class="n">bunch_currents</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">lattice</span><span class="p">,</span> <span class="s1">&#39;bunch_currents&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+    <span class="n">bunch_spos</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">lattice</span><span class="p">,</span> <span class="s1">&#39;bunch_spos&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
     <span class="n">kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">bunch_currents</span><span class="o">=</span><span class="n">bunch_currents</span><span class="p">,</span> <span class="n">bunch_spos</span><span class="o">=</span><span class="n">bunch_spos</span><span class="p">)</span>
-    <span class="n">any_collective</span> <span class="o">=</span> <span class="n">collective</span><span class="p">(</span><span class="n">ring</span><span class="p">)</span>
+    <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;reuse&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;keep_lattice&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+    <span class="n">any_collective</span> <span class="o">=</span> <span class="n">collective</span><span class="p">(</span><span class="n">lattice</span><span class="p">)</span>
     <span class="n">rshape</span> <span class="o">=</span> <span class="n">r_in</span><span class="o">.</span><span class="n">shape</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">rshape</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">rshape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">any_collective</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">pool_size</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">pool_size</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">r_in</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">multiprocessing</span><span class="o">.</span><span class="n">cpu_count</span><span class="p">(),</span>
                             <span class="n">DConstant</span><span class="o">.</span><span class="n">patpass_poolsize</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">_pass</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">r_in</span><span class="p">,</span> <span class="n">pool_size</span><span class="p">,</span> <span class="n">start_method</span><span class="p">,</span> <span class="n">nturns</span><span class="o">=</span><span class="n">nturns</span><span class="p">,</span>
+        <span class="k">return</span> <span class="n">_pass</span><span class="p">(</span><span class="n">lattice</span><span class="p">,</span> <span class="n">r_in</span><span class="p">,</span> <span class="n">pool_size</span><span class="p">,</span> <span class="n">start_method</span><span class="p">,</span> <span class="n">nturns</span><span class="o">=</span><span class="n">nturns</span><span class="p">,</span>
                      <span class="n">refpts</span><span class="o">=</span><span class="n">refpts</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">any_collective</span><span class="p">:</span>
             <span class="n">warn</span><span class="p">(</span><span class="n">AtWarning</span><span class="p">(</span><span class="s1">&#39;Collective PassMethod found: use single process&#39;</span><span class="p">))</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">warn</span><span class="p">(</span><span class="n">AtWarning</span><span class="p">(</span><span class="s1">&#39;no parallel computation for a single particle&#39;</span><span class="p">))</span>
-        <span class="k">return</span> <span class="n">_atpassf</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">r_in</span><span class="p">,</span> <span class="n">nturns</span><span class="o">=</span><span class="n">nturns</span><span class="p">,</span> <span class="n">refpts</span><span class="o">=</span><span class="n">refpts</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">_atpass</span><span class="p">(</span><span class="n">lattice</span><span class="p">,</span> <span class="n">r_in</span><span class="p">,</span> <span class="n">nturns</span><span class="o">=</span><span class="n">nturns</span><span class="p">,</span> <span class="n">refpts</span><span class="o">=</span><span class="n">refpts</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 </pre></div>
 
             </article>
