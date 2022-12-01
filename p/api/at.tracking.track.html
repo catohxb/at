@@ -505,10 +505,14 @@ absolute path length used in RFCavityPass.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Keyword Arguments<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>particle</strong> (<a class="reference internal" href="at.lattice.particle_object.html#at.lattice.particle_object.Particle" title="at.lattice.particle_object.Particle"><em>Particle</em></a>) – circulating particle.
-Default: <em>lattice.particle</em> if existing,
-otherwise <em>Particle(‘relativistic’)</em></p></li>
-<li><p><strong>energy</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – lattice energy. Default 0.</p></li>
+<li><p><strong>particle</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="at.lattice.particle_object.html#at.lattice.particle_object.Particle" title="at.lattice.particle_object.Particle"><em>Particle</em></a><em>]</em>) – circulating particle.
+Default: <code class="docutils literal notranslate"><span class="pre">lattice.particle</span></code> if existing,
+otherwise <code class="docutils literal notranslate"><span class="pre">Particle('relativistic')</span></code></p></li>
+<li><p><strong>energy</strong> (<em>Optiona</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>]</em>) – lattice energy. Default 0.</p></li>
+<li><p><strong>unfold_beam</strong> (<em>Bool</em>) – internal beam folding activate, this
+assumes the input particles are in bucket 0, works only
+if all bucket see the same RF Voltage.
+Default: <code class="docutils literal notranslate"><span class="pre">True</span></code></p></li>
 </ul>
 </dd>
 </dl>
@@ -561,6 +565,11 @@ keywords to ensure the continuity of the turn number.</p></li>
 <code class="docutils literal notranslate"><span class="pre">lattice_pass(lattice,</span> <span class="pre">r_in,</span> <span class="pre">refpts=[])</span></code> can be used. An empty list
 is returned and the tracking results of the last turn are stored in
 <em>r_in</em>.</p></li>
+<li><p>To model buckets with different RF voltage <code class="docutils literal notranslate"><span class="pre">unfold_beam=False</span></code> has to
+be used. The beam can be unfolded using the function
+<code class="docutils literal notranslate"><span class="pre">at.traccking.utils.unfold_beam</span></code>. This function takes into account the
+true voltage in each bucket and distributes the particles in the bunches
+defined by <code class="docutils literal notranslate"><span class="pre">ring.fillpattern</span></code> using a 6D orbit search.</p></li>
 </ul>
 </div>
 </dd></dl>

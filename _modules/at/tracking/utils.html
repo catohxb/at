@@ -295,20 +295,26 @@
 <span class="sd">Utility functions for tracking simulations</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">from</span> <span class="nn">at.lattice</span> <span class="kn">import</span> <span class="n">Lattice</span><span class="p">,</span> <span class="n">DConstant</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
 
 
-<div class="viewcode-block" id="get_bunches"><a class="viewcode-back" href="../../../p/api/at.tracking.utils.html#at.tracking.utils.get_bunches">[docs]</a><span class="k">def</span> <span class="nf">get_bunches</span><span class="p">(</span><span class="n">r_in</span><span class="p">,</span> <span class="n">nbunch</span><span class="p">,</span> <span class="n">selected_bunches</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;get_bunches&#39;</span><span class="p">,</span> <span class="s1">&#39;get_bunches_std_mean&#39;</span><span class="p">,</span> <span class="s1">&#39;unfold_beam&#39;</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="get_bunches"><a class="viewcode-back" href="../../../p/api/at.tracking.utils.html#at.tracking.utils.get_bunches">[docs]</a><span class="k">def</span> <span class="nf">get_bunches</span><span class="p">(</span><span class="n">r_in</span><span class="p">:</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">nbunch</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+                <span class="n">selected_bunches</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Function to get the bunches particles 6D coordinates</span>
-<span class="sd">    </span>
+
 <span class="sd">    Parameters:</span>
 <span class="sd">      r_in: 6 x n_particles Fortran-ordered numpy array.</span>
 <span class="sd">      nbunch: integer, total number of bunches</span>
 <span class="sd">      selected_bunches: integer or array of integers, index</span>
 <span class="sd">      of the selected bunches</span>
-<span class="sd">      </span>
+
 <span class="sd">    Returns:</span>
 <span class="sd">      List of ndarray containing the 6 x n particles coordinates</span>
-<span class="sd">      of the selected bunches     </span>
+<span class="sd">      of the selected bunches</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">selected_bunches</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">selected_bunches</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">nbunch</span><span class="p">)</span>
@@ -316,30 +322,63 @@
         <span class="n">selected_bunches</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">selected_bunches</span><span class="p">)</span>
     <span class="n">bunches</span> <span class="o">=</span> <span class="p">[</span><span class="n">r_in</span><span class="o">.</span><span class="n">T</span><span class="p">[</span><span class="n">ib</span><span class="p">::</span><span class="n">nbunch</span><span class="p">]</span><span class="o">.</span><span class="n">T</span> <span class="k">for</span> <span class="n">ib</span> <span class="ow">in</span> <span class="n">selected_bunches</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">bunches</span></div>
-    
-    
-<div class="viewcode-block" id="get_bunches_std_mean"><a class="viewcode-back" href="../../../p/api/at.tracking.utils.html#at.tracking.utils.get_bunches_std_mean">[docs]</a><span class="k">def</span> <span class="nf">get_bunches_std_mean</span><span class="p">(</span><span class="n">r_in</span><span class="p">,</span> <span class="n">nbunch</span><span class="p">,</span> <span class="n">selected_bunches</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+
+<div class="viewcode-block" id="get_bunches_std_mean"><a class="viewcode-back" href="../../../p/api/at.tracking.utils.html#at.tracking.utils.get_bunches_std_mean">[docs]</a><span class="k">def</span> <span class="nf">get_bunches_std_mean</span><span class="p">(</span><span class="n">r_in</span><span class="p">:</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">nbunch</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+                         <span class="n">selected_bunches</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Function to get the bunches standard deviation and center</span>
 <span class="sd">    of mass</span>
-<span class="sd">            </span>
+
 <span class="sd">    Parameters:</span>
 <span class="sd">      r_in: 6 x n_particles Fortran-ordered numpy array.</span>
 <span class="sd">      nbunch: integer, total number of bunches</span>
 <span class="sd">      selected_bunches: integer or array of integers, index</span>
 <span class="sd">      of the selected bunches</span>
-<span class="sd">      </span>
+
 <span class="sd">    Returns:</span>
 <span class="sd">      Lists of ndarray containing the 6D standard deviation</span>
-<span class="sd">      and center of mass (std, mean) </span>
+<span class="sd">      and center of mass (std, mean)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">bunches</span> <span class="o">=</span> <span class="n">get_bunches</span><span class="p">(</span><span class="n">r_in</span><span class="p">,</span> <span class="n">nbunch</span><span class="p">,</span> <span class="n">selected_bunches</span><span class="p">)</span>
     <span class="n">std</span> <span class="o">=</span> <span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">nanstd</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">bunches</span><span class="p">]</span>
     <span class="n">mean</span> <span class="o">=</span> <span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">bunches</span><span class="p">]</span>
-    <span class="k">return</span> <span class="n">std</span><span class="p">,</span> <span class="n">mean</span> </div>
-    
-        
+    <span class="k">return</span> <span class="n">std</span><span class="p">,</span> <span class="n">mean</span></div>
 
 
+<div class="viewcode-block" id="unfold_beam"><a class="viewcode-back" href="../../../p/api/at.tracking.utils.html#at.tracking.utils.unfold_beam">[docs]</a><span class="k">def</span> <span class="nf">unfold_beam</span><span class="p">(</span><span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span> <span class="n">beam</span><span class="p">:</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+                <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Function to unfold the beam based on the ring fill pattern.</span>
+<span class="sd">    The input particle distribution has to be in on bucket 0.</span>
+<span class="sd">    Particle are distributed in bunches using ``i%ring.nbunch``</span>
+<span class="sd">    where i is the particle index.</span>
+<span class="sd">    For each bunches the absolute ``ct`` is computed using the 6D</span>
+<span class="sd">    closed orbit search, this closed orbit is added to the input</span>
+<span class="sd">    particles.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        ring: Lattice description</span>
+<span class="sd">        beam: array with shape(6, nparticles)</span>
+
+<span class="sd">    Keyword Arguments:</span>
+<span class="sd">        convergence (float):    Convergence criterion for 6D orbit</span>
+<span class="sd">          Default: :py:data:`DConstant.OrbConvergence &lt;.DConstant&gt;`</span>
+<span class="sd">        max_iterations (int):   Maximum number of iterations for</span>
+<span class="sd">          6D orbit.</span>
+<span class="sd">          Default: :py:data:`DConstant.OrbMaxIter &lt;.DConstant&gt;`</span>
+<span class="sd">    Return:</span>
+<span class="sd">        beam (numpy.ndarray): unfolded beam</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">conv</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;convergence&#39;</span><span class="p">,</span> <span class="n">DConstant</span><span class="o">.</span><span class="n">OrbConvergence</span><span class="p">)</span>
+    <span class="n">maxiter</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;max_iterations&#39;</span><span class="p">,</span> <span class="n">DConstant</span><span class="o">.</span><span class="n">OrbMaxIter</span><span class="p">)</span>
+    <span class="n">o60</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">ring</span><span class="o">.</span><span class="n">find_orbit</span><span class="p">(</span><span class="n">max_iterations</span><span class="o">=</span><span class="n">maxiter</span><span class="p">,</span> <span class="n">convergence</span><span class="o">=</span><span class="n">conv</span><span class="p">)</span>
+    <span class="n">unfolded_beam</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">beam</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">spos</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ring</span><span class="o">.</span><span class="n">bunch_spos</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]):</span>
+        <span class="n">guess</span> <span class="o">=</span> <span class="n">o60</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">guess</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">-=</span> <span class="n">spos</span>
+        <span class="n">o6</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">ring</span><span class="o">.</span><span class="n">find_orbit</span><span class="p">(</span><span class="n">guess</span><span class="o">=</span><span class="n">guess</span><span class="p">,</span> <span class="n">max_iterations</span><span class="o">=</span><span class="n">maxiter</span><span class="p">,</span>
+                                <span class="n">convergence</span><span class="o">=</span><span class="n">conv</span><span class="p">)</span>
+        <span class="n">unfolded_beam</span><span class="p">[:,</span> <span class="n">i</span><span class="p">::</span><span class="n">ring</span><span class="o">.</span><span class="n">nbunch</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">beam</span><span class="p">[:,</span> <span class="n">i</span><span class="p">::</span><span class="n">ring</span><span class="o">.</span><span class="n">nbunch</span><span class="p">]</span><span class="o">.</span><span class="n">T</span> <span class="o">+</span> <span class="n">o6</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+    <span class="k">return</span> <span class="n">unfolded_beam</span></div>
 </pre></div>
 
             </article>

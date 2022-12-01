@@ -380,10 +380,15 @@
 <span class="sd">    The following keyword arguments overload the Lattice values</span>
 
 <span class="sd">    Keyword arguments:</span>
-<span class="sd">        particle (Particle):    circulating particle.</span>
-<span class="sd">          Default: *lattice.particle* if existing,</span>
-<span class="sd">          otherwise *Particle(&#39;relativistic&#39;)*</span>
-<span class="sd">        energy (float):         lattice energy. Default 0.</span>
+
+<span class="sd">        particle (Optional[Particle]):  circulating particle.</span>
+<span class="sd">          Default: ``lattice.particle`` if existing,</span>
+<span class="sd">          otherwise ``Particle(&#39;relativistic&#39;)``</span>
+<span class="sd">        energy (Optiona[float]):        lattice energy. Default 0.</span>
+<span class="sd">        unfold_beam (Bool): internal beam folding activate, this </span>
+<span class="sd">            assumes the input particles are in bucket 0, works only</span>
+<span class="sd">            if all bucket see the same RF Voltage.</span>
+<span class="sd">            Default: ``True``</span>
 
 <span class="sd">    If *energy* is not available, relativistic tracking if forced,</span>
 <span class="sd">    *rest_energy* is ignored.</span>
@@ -420,7 +425,11 @@
 <span class="sd">         ``lattice_pass(lattice, r_in, refpts=[])`` can be used. An empty list</span>
 <span class="sd">         is returned and the tracking results of the last turn are stored in</span>
 <span class="sd">         *r_in*.</span>
-
+<span class="sd">       * To model buckets with different RF voltage ``unfold_beam=False`` has to</span>
+<span class="sd">         be used. The beam can be unfolded using the function</span>
+<span class="sd">         ``at.traccking.utils.unfold_beam``. This function takes into account the</span>
+<span class="sd">         true voltage in each bucket and distributes the particles in the bunches</span>
+<span class="sd">         defined by ``ring.fillpattern`` using a 6D orbit search.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">lattice</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
         <span class="n">lattice</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">lattice</span><span class="p">)</span>
@@ -430,7 +439,11 @@
     <span class="c1"># define properties if lattice is not a Lattice object</span>
     <span class="n">nbunch</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">lattice</span><span class="p">,</span> <span class="s1">&#39;nbunch&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
     <span class="n">bunch_currents</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">lattice</span><span class="p">,</span> <span class="s1">&#39;bunch_currents&#39;</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
-    <span class="n">bunch_spos</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">lattice</span><span class="p">,</span> <span class="s1">&#39;bunch_spos&#39;</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+    <span class="n">unfold_beam</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;unfold_beam&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">unfold_beam</span><span class="p">:</span>
+        <span class="n">bunch_spos</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">lattice</span><span class="p">,</span> <span class="s1">&#39;bunch_spos&#39;</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">bunch_spos</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">bunch_currents</span><span class="p">))</span>
     <span class="n">kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">bunch_currents</span><span class="o">=</span><span class="n">bunch_currents</span><span class="p">,</span> <span class="n">bunch_spos</span><span class="o">=</span><span class="n">bunch_spos</span><span class="p">)</span>
     <span class="n">no_bm</span> <span class="o">=</span> <span class="n">_set_beam_monitors</span><span class="p">(</span><span class="n">lattice</span><span class="p">,</span> <span class="n">nbunch</span><span class="p">,</span> <span class="n">nturns</span><span class="p">)</span>
     <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;reuse&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;keep_lattice&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="ow">and</span> <span class="n">no_bm</span>
