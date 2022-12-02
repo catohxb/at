@@ -41,6 +41,8 @@
     <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'p/api/at.tracking.particles';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -398,71 +400,75 @@
 <table class="autosummary longtable table autosummary">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#at.tracking.particles.beam" title="at.tracking.particles.beam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">beam</span></code></a>(nparts, sigma[, orbit])</p></td>
-<td><p>Generates an array of random particles according to the given sigma matrix</p></td>
+<td><p>Generates an array of random particles according to the given <span class="math notranslate nohighlight">\(\Sigma\)</span>-matrix</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#at.tracking.particles.sigma_matrix" title="at.tracking.particles.sigma_matrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sigma_matrix</span></code></a>([ring, twiss_in, betax, ...])</p></td>
-<td><p>Calculate the correlation matrix to be used for particle generation</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#at.tracking.particles.sigma_matrix" title="at.tracking.particles.sigma_matrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sigma_matrix</span></code></a>([ring])</p></td>
+<td><p>Calculate the correlation matrix <span class="math notranslate nohighlight">\(\Sigma\)</span> to be used for particle generation</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py function">
 <dt class="sig sig-object py" id="at.tracking.particles.beam">
 <span class="sig-name descname"><span class="pre">beam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nparts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orbit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/tracking/particles.html#beam"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.tracking.particles.beam" title="Permalink to this definition">#</a></dt>
-<dd><p>Generates an array of random particles according to the given sigma
-matrix</p>
+<dd><p>Generates an array of random particles according to the given
+<span class="math notranslate nohighlight">\(\Sigma\)</span>-matrix</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>nparts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of particles</p></li>
-<li><p><strong>sigma</strong> – sigma_matrix as calculated by at.sigma_matrix</p></li>
-<li><p><strong>orbit</strong> – An orbit can be provided to give a center of
+<li><p><strong>sigma</strong> – <span class="math notranslate nohighlight">\(\Sigma\)</span>-matrix as calculated by
+<a class="reference internal" href="#at.tracking.particles.sigma_matrix" title="at.tracking.particles.sigma_matrix"><code class="xref py py-func docutils literal notranslate"><span class="pre">sigma_matrix()</span></code></a></p></li>
+<li><p><strong>orbit</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><em>ndarray</em></a><em>]</em>) – An orbit can be provided to give a center of
 mass offset to the distribution</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>particle_dist</strong> – a (6, <code class="docutils literal notranslate"><span class="pre">nparts</span></code>) matrix of coordinates</p>
+<dd class="field-even"><p><strong>particle_dist</strong> – a (6, <em>nparts</em>) matrix of coordinates</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="at.tracking.particles.sigma_matrix">
-<span class="sig-name descname"><span class="pre">sigma_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">twiss_in</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">betax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">emitx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">betay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alphay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">emity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blength</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">espread</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/tracking/particles.html#sigma_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.tracking.particles.sigma_matrix" title="Permalink to this definition">#</a></dt>
-<dd><p>Calculate the correlation matrix to be used for particle generation</p>
+<span class="sig-name descname"><span class="pre">sigma_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/tracking/particles.html#sigma_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.tracking.particles.sigma_matrix" title="Permalink to this definition">#</a></dt>
+<dd><p>Calculate the correlation matrix <span class="math notranslate nohighlight">\(\Sigma\)</span> to be used for particle
+generation</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>ring</strong> – Lattice object or list of twiss parameters.</p></li>
+<dd class="field-odd"><p><strong>ring</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><em>Optional</em></a><em>[</em><a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><em>Lattice</em></a><em>]</em>) – Lattice object or list of twiss parameters.</p>
+</dd>
+<dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>beam</strong> – Particle coordinates</p></li>
 <li><p><strong>twiss_in</strong> – Data structure containing input twiss parameters.</p></li>
-<li><p><strong>betax</strong> – Input horizontal beta function [m]</p></li>
-<li><p><strong>alphax</strong> – Input horizontal alpha function [m]</p></li>
-<li><p><strong>emitx</strong> – Horizontal emittance [m.rad]</p></li>
-<li><p><strong>betay</strong> – Input vertical beta function [m]</p></li>
-<li><p><strong>alphay</strong> – Input vertical alpha function [m]</p></li>
-<li><p><strong>emity</strong> – Vertical emittance [m.rad]</p></li>
-<li><p><strong>blength</strong> – One sigma bunch length [m]</p></li>
-<li><p><strong>espread</strong> – One sigma energy spread [dp/p]</p></li>
-<li><p><strong>verbose</strong> – Boolean flag on whether to print information
-to the terminal</p></li>
+<li><p><strong>betax</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Input horizontal beta function [m]</p></li>
+<li><p><strong>alphax</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Input horizontal alpha function [m]</p></li>
+<li><p><strong>emitx</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Horizontal emittance [m.rad]</p></li>
+<li><p><strong>betay</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Input vertical beta function [m]</p></li>
+<li><p><strong>alphay</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Input vertical alpha function [m]</p></li>
+<li><p><strong>emity</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Vertical emittance [m.rad]</p></li>
+<li><p><strong>blength</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – One sigma bunch length [m]</p></li>
+<li><p><strong>espread</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – One sigma energy spread [dp/p]</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>sigma_matrix</strong> – 6x6 correlation matrix</p>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>sigma_matrix</strong> – (6, 6) <span class="math notranslate nohighlight">\(\Sigma\)</span>-matrix</p>
 </dd>
 </dl>
-<p>If the lattice object is provided <code class="docutils literal notranslate"><span class="pre">ohmi_envelope</span></code> is used to
-compute the correlated sigma matrix and missing emittances
-and longitudinal parameters</p>
-<p>If emittances and longitudinal parameters are provided, then
-the 2x2 uncorrelated matrices are computed for each plane (x,y,z)
-using the initial optics computed from ring.get_optics,
-and are combined together into the 6x6 matrix.</p>
-<p>If <code class="docutils literal notranslate"><span class="pre">twiss_in</span></code> is provided, it has to be produced with <code class="docutils literal notranslate"><span class="pre">linopt6</span></code> and
-contain the rmatrix. <code class="docutils literal notranslate"><span class="pre">ring</span></code> is used only to compute missing emittances.</p>
-<p>If neither a lattice object nor a twiss_in is provided,
-then the <code class="docutils literal notranslate"><span class="pre">beta</span></code>, <code class="docutils literal notranslate"><span class="pre">alpha</span></code> and <code class="docutils literal notranslate"><span class="pre">emittance</span></code> for horizontal and
-vertical are required, as well as <code class="docutils literal notranslate"><span class="pre">blength</span></code> and <code class="docutils literal notranslate"><span class="pre">espread</span></code>.
-This then computes the analytical uncoupled sigma matrix</p>
+<p><em>beam</em> is a (6, nparticles) coordinates array of a particle population.
+If provided, all other parameters are ignored.</p>
+<p>If <em>twiss_in</em> is provided, its <em>R</em> or <em>alpha</em> and <em>beta</em> fields are used,
+<em>emitx</em> and <em>emity</em> must be provided.</p>
+<p>If <em>ring</em> is provided:</p>
+<ul class="simple">
+<li><p>for a 6d lattice, <a class="reference internal" href="at.physics.radiation.html#at.physics.radiation.ohmi_envelope" title="at.physics.radiation.ohmi_envelope"><code class="xref py py-func docutils literal notranslate"><span class="pre">ohmi_envelope()</span></code></a> is called to compute the
+equilibrium emittances. <em>emitx</em>, <em>emity</em> may overload these values.</p></li>
+<li><p>for a 4d lattice, <em>emitx</em>, <em>emity</em> must be provided.</p></li>
+</ul>
+<p>Otherwise, <em>alphax</em>, <em>betax</em>, <em>emitx</em>, <em>alphay</em>, <em>betay</em> and <em>emity</em>
+must be provided. The result is an uncoupled <span class="math notranslate nohighlight">\(\Sigma\)</span>-matrix</p>
+<p>If <em>espread</em> and <em>blength</em> are not specified, the results is a
+monochromatic beam.</p>
 </dd></dl>
 
 </section>
