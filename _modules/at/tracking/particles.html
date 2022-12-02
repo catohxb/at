@@ -416,7 +416,7 @@
     <span class="k">elif</span> <span class="s1">&#39;twiss_in&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
         <span class="n">twin</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;twiss_in&#39;</span><span class="p">)</span>
         <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;&#39;twiss_in&#39; is provided&quot;</span>
-        <span class="n">orbit</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;orbit&#39;</span><span class="p">,</span> <span class="n">twin</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;closed_orbit&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">6</span><span class="p">)))</span>
+<span class="c1">#       orbit = kwargs.pop(&#39;orbit&#39;, twin.getattr(&#39;closed_orbit&#39;, np.zeros(6)))</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">Rin</span> <span class="o">=</span> <span class="n">twin</span><span class="p">[</span><span class="s1">&#39;R&#39;</span><span class="p">]</span>
         <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">KeyError</span><span class="p">):</span>  <span class="c1"># record arrays throw ValueError !</span>
@@ -443,7 +443,7 @@
         <span class="n">alphax</span><span class="p">,</span> <span class="n">alphay</span><span class="p">,</span> <span class="n">betax</span><span class="p">,</span> <span class="n">betay</span> <span class="o">=</span> <span class="n">require</span><span class="p">(</span>
             <span class="s1">&#39;Neither &quot;twiss_in&quot; nor &quot;ring&quot; is provided&#39;</span><span class="p">,</span>
             <span class="s1">&#39;alphax&#39;</span><span class="p">,</span> <span class="s1">&#39;alphay&#39;</span><span class="p">,</span> <span class="s1">&#39;betax&#39;</span><span class="p">,</span> <span class="s1">&#39;betay&#39;</span><span class="p">)</span>
-        <span class="n">orbit</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;orbit&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">6</span><span class="p">))</span>
+        <span class="c1"># orbit = kwargs.pop(&#39;orbit&#39;, np.zeros(6))</span>
         <span class="n">Rm</span> <span class="o">=</span> <span class="n">r_4d</span><span class="p">(</span><span class="n">alphax</span><span class="p">,</span> <span class="n">alphay</span><span class="p">,</span> <span class="n">betax</span><span class="p">,</span> <span class="n">betay</span><span class="p">)</span>
         <span class="n">sigmat</span> <span class="o">=</span> <span class="n">sigma_from_rmat</span><span class="p">(</span><span class="n">Rm</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
