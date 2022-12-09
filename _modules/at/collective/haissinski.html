@@ -296,13 +296,32 @@
 <span class="kn">from</span> <span class="nn">at.constants</span> <span class="kn">import</span> <span class="n">clight</span><span class="p">,</span> <span class="n">qe</span>
 <span class="kn">from</span> <span class="nn">scipy.interpolate</span> <span class="kn">import</span> <span class="n">interp1d</span>
 <span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">at.collective</span> <span class="kn">import</span> <span class="n">Wake</span>
+<span class="kn">from</span> <span class="nn">at.lattice</span> <span class="kn">import</span> <span class="n">Lattice</span>
 
 
 <div class="viewcode-block" id="Haissinski"><a class="viewcode-back" href="../../../p/api/at.collective.haissinski.html#at.collective.haissinski.Haissinski">[docs]</a><span class="k">class</span> <span class="nc">Haissinski</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Class to find the longitudinal distribution in the presence</span>
 <span class="sd">    of a short range wakefield.</span>
 
+<span class="sd">    Parameters: </span>
+<span class="sd">    </span>
+<span class="sd">        wake_object:    class initialized with Wake that contains a </span>
+<span class="sd">          longitudinal wake Z and equivalent srange.</span>
+<span class="sd">        ring:           a lattice object that is used to extract </span>
+<span class="sd">         machine parameters</span>
+
+<span class="sd">    Keyword Args:</span>
+<span class="sd">        m (int):        the number of points in the full</span>
+<span class="sd">          distribution</span>
+<span class="sd">        kmax:           the min and max of the range of the distribution.</span>
+<span class="sd">          See equation 27. In units of [:math:`\sigma_z0`]</span>
+<span class="sd">        current:        bunch current.</span>
+<span class="sd">        numIters (int): the number of iterations</span>
+<span class="sd">        eps:            the convergence criteria.</span>
+<span class="sd">    </span>
+<span class="sd">    </span>
 <span class="sd">    This class is a direct implementation of the following paper:</span>
 <span class="sd">    &quot;Numerical solution of the Haïssinski equation for the equilibrium</span>
 <span class="sd">    state of  a stored electron beam&quot;, R. Warnock, K.Bane, Phys. Rev. Acc.</span>
@@ -312,27 +331,17 @@
 <span class="sd">    The equation number of key formula are written next to the relevant</span>
 <span class="sd">    function.</span>
 
-<span class="sd">    As input:</span>
-<span class="sd">    wake_object is a object that contains an srange and Z array.</span>
-<span class="sd">    ring is a ring instance which is needed for machine parameters</span>
-<span class="sd">    (sigma_l, sigma_e, etc)</span>
-
-<span class="sd">    m is the number of points in the full distribution that you want</span>
-<span class="sd">    kmax is the min and max of the range of the distribution.</span>
-<span class="sd">    See equation 27. In units of sigma_z0</span>
-<span class="sd">    current is the bunch current.</span>
-<span class="sd">    numIters is the number of iterations</span>
-<span class="sd">    eps is the convergence criteria.</span>
-
-<span class="sd">    the functions solve or solve_steps can be used after initialisation</span>
+<span class="sd">    The functions solve or solve_steps can be used after initialisation</span>
+<span class="sd">    An example usage can be found in:</span>
+<span class="sd">      at/pyat/examples/Collective/LongDistribution.py</span>
 
 <span class="sd">    Future developments of this class:</span>
 <span class="sd">        Adding LR wake or harmonic cavity as done at SOLEIL. Needs</span>
 <span class="sd">        to be added WITH this class which is just for short range wake.</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">wake_object</span><span class="p">,</span> <span class="n">ring</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">kmax</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                 <span class="n">current</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">,</span> <span class="n">numIters</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="mf">1e-10</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">wake_object</span><span class="p">:</span> <span class="n">Wake</span><span class="p">,</span> <span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span> <span class="n">m</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">12</span><span class="p">,</span> <span class="n">kmax</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+                 <span class="n">current</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-4</span><span class="p">,</span> <span class="n">numIters</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">eps</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-10</span><span class="p">):</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">circumference</span> <span class="o">=</span> <span class="n">ring</span><span class="o">.</span><span class="n">circumference</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">energy</span> <span class="o">=</span> <span class="n">ring</span><span class="o">.</span><span class="n">energy</span>
@@ -354,7 +363,7 @@
 
         <span class="c1">#  negative s to be consistent with paper and negative Wz</span>
         <span class="n">s</span> <span class="o">=</span> <span class="n">wake_object</span><span class="o">.</span><span class="n">srange</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">sigma_l</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ds</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">s</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ds</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">s</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">s</span> <span class="o">=</span> <span class="o">-</span><span class="n">s</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">wtot_fun</span> <span class="o">=</span> <span class="n">interp1d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="p">,</span> <span class="o">-</span><span class="n">wake_object</span><span class="o">.</span><span class="n">Z</span><span class="p">,</span>
                                  <span class="n">bounds_error</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fill_value</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
@@ -396,8 +405,6 @@
 <span class="sd">        Equation 16</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Computing integrated wake potential&#39;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">q_array</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ds</span><span class="p">)</span>
         <span class="n">sr</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">amin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">q_array</span><span class="p">),</span>
                           <span class="n">numpy</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">amin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">q_array</span><span class="p">))</span>
                           <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ds</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ds</span><span class="p">)</span>

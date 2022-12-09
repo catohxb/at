@@ -41,6 +41,8 @@
     <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'p/api/at.collective.haissinski';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -407,6 +409,27 @@
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Class to find the longitudinal distribution in the presence
 of a short range wakefield.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wake_object</strong> (<a class="reference internal" href="at.collective.wake_object.html#at.collective.wake_object.Wake" title="at.collective.wake_object.Wake"><em>Wake</em></a>) – class initialized with Wake that contains a
+longitudinal wake Z and equivalent srange.</p></li>
+<li><p><strong>ring</strong> (<a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><em>Lattice</em></a>) – a lattice object that is used to extract
+machine parameters</p></li>
+</ul>
+</dd>
+<dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>m</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – the number of points in the full
+distribution</p></li>
+<li><p><strong>kmax</strong> – the min and max of the range of the distribution.
+See equation 27. In units of [<span class="math notranslate nohighlight">\(\sigma_z0\)</span>]</p></li>
+<li><p><strong>current</strong> – bunch current.</p></li>
+<li><p><strong>numIters</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – the number of iterations</p></li>
+<li><p><strong>eps</strong> – the convergence criteria.</p></li>
+</ul>
+</dd>
+</dl>
 <p>This class is a direct implementation of the following paper:
 “Numerical solution of the Haïssinski equation for the equilibrium
 state of  a stored electron beam”, R. Warnock, K.Bane, Phys. Rev. Acc.
@@ -414,17 +437,11 @@ and Beams 21, 124401 (2018)</p>
 <p>The reader is referred to this paper for a description of the methods.
 The equation number of key formula are written next to the relevant
 function.</p>
-<p>As input:
-wake_object is a object that contains an srange and Z array.
-ring is a ring instance which is needed for machine parameters
-(sigma_l, sigma_e, etc)</p>
-<p>m is the number of points in the full distribution that you want
-kmax is the min and max of the range of the distribution.
-See equation 27. In units of sigma_z0
-current is the bunch current.
-numIters is the number of iterations
-eps is the convergence criteria.</p>
-<p>the functions solve or solve_steps can be used after initialisation</p>
+<p>The functions solve or solve_steps can be used after initialisation
+An example usage can be found in:</p>
+<blockquote>
+<div><p>at/pyat/examples/Collective/LongDistribution.py</p>
+</div></blockquote>
 <dl class="simple">
 <dt>Future developments of this class:</dt><dd><p>Adding LR wake or harmonic cavity as done at SOLEIL. Needs
 to be added WITH this class which is just for short range wake.</p>

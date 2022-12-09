@@ -303,12 +303,12 @@
     <span class="sd">&quot;&quot;&quot;Convolution of a wake function with a pulse of rms</span>
 <span class="sd">    length sigs, this is use to generate a wake potential</span>
 <span class="sd">    that can be added to the output of EM code like GDFIDL&quot;&quot;&quot;</span>
-    <span class="n">sigt</span> <span class="o">=</span> <span class="n">sigs</span><span class="o">/</span><span class="n">clight</span>
+    <span class="n">sigt</span> <span class="o">=</span> <span class="n">sigs</span> <span class="o">/</span> <span class="n">clight</span>
     <span class="n">min_step</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">srange</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">t_out</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">srange</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">srange</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">min_step</span><span class="p">)</span>
     <span class="n">sdiff</span> <span class="o">=</span> <span class="n">t_out</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">t_out</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">npoints</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">t_out</span><span class="p">)</span>
-    <span class="n">nt</span> <span class="o">=</span> <span class="n">npoints</span><span class="o">+</span><span class="n">npoints</span><span class="o">-</span><span class="mi">1</span>
+    <span class="n">nt</span> <span class="o">=</span> <span class="n">npoints</span> <span class="o">+</span> <span class="n">npoints</span><span class="o">-</span><span class="mi">1</span>
     <span class="n">func</span> <span class="o">=</span> <span class="n">interp1d</span><span class="p">(</span><span class="n">srange</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">bounds_error</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">wout</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">t_out</span><span class="p">)</span>
     <span class="n">wout</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">wout</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">nt</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">wout</span><span class="p">)))</span>
@@ -329,6 +329,7 @@
 <span class="sd">    with the given parameters according to Alex Chao&#39;s resonator</span>
 <span class="sd">    model (Eq. 2.82) and definitions of the resonator in HEADTAIL.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">omega</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">frequency</span>
     <span class="n">alpha</span> <span class="o">=</span> <span class="n">omega</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">qfactor</span><span class="p">)</span>
     <span class="n">omegabar</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">omega</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">alpha</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
@@ -380,19 +381,14 @@
 <span class="sd">    HEADTAIL</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">if</span> <span class="n">numpy</span><span class="o">.</span><span class="n">amin</span><span class="p">(</span><span class="n">srange</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">                        Provided srange has either negative values or 0s</span>
-<span class="s2">                        This is not allowed for the transverse resistive wall</span>
-<span class="s2">                        wake function. Please correct.</span>
-<span class="s2">                        &quot;&quot;&quot;</span><span class="p">)</span>
-
     <span class="n">z0</span> <span class="o">=</span> <span class="mf">119.9169832</span> <span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">pi</span>
     <span class="n">dt</span> <span class="o">=</span> <span class="o">-</span><span class="n">srange</span><span class="o">/</span><span class="p">(</span><span class="n">beta</span> <span class="o">*</span> <span class="n">clight</span><span class="p">)</span>
     <span class="n">wake</span> <span class="o">=</span> <span class="p">(</span><span class="n">yokoya_factor</span> <span class="o">*</span> <span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.</span> <span class="o">*</span>
             <span class="n">beta</span> <span class="o">*</span> <span class="n">length</span> <span class="o">/</span> <span class="n">numpy</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="n">rvac</span><span class="o">**</span><span class="mi">3</span> <span class="o">*</span>
             <span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="o">-</span><span class="n">z0</span> <span class="o">*</span> <span class="n">clight</span> <span class="o">/</span> <span class="n">conduct</span> <span class="o">/</span> <span class="n">numpy</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="n">dt</span><span class="p">))</span>
-
+            
+    <span class="n">wake</span><span class="p">[</span><span class="n">srange</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+    
     <span class="k">return</span> <span class="n">wake</span></div>
 </pre></div>
 

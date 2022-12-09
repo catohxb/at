@@ -355,6 +355,8 @@
 <span class="sd">    Components may be retrieved using :code:`wake.DX` for example</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">srange</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">srange</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">srange</span><span class="p">)),</span> \
+            <span class="s2">&quot;srange must contain unique values&quot;</span>            
         <span class="bp">self</span><span class="o">.</span><span class="n">_srange</span> <span class="o">=</span> <span class="n">srange</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">components</span> <span class="o">=</span> <span class="p">{</span><span class="n">WakeComponent</span><span class="o">.</span><span class="n">DX</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
                            <span class="n">WakeComponent</span><span class="o">.</span><span class="n">DY</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
@@ -434,10 +436,20 @@
 
     <span class="k">def</span> <span class="nf">_resonator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">wcomp</span><span class="p">,</span> <span class="n">frequency</span><span class="p">,</span> <span class="n">qfactor</span><span class="p">,</span> <span class="n">rshunt</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span>
                    <span class="n">yokoya_factor</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">numpy</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_srange</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">):</span>
-            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">AtWarning</span><span class="p">(</span><span class="s1">&#39;You are adding a wake function with &#39;</span>
-                                    <span class="s1">&#39;negative srange. This may cause issues &#39;</span>
-                                    <span class="s1">&#39;interpolating around zero.</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">))</span>
+        
+        <span class="k">if</span> <span class="n">numpy</span><span class="o">.</span><span class="n">amin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_srange</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">                            Provided srange has negative values.</span>
+<span class="s2">                            This is not allowed for the resonator</span>
+<span class="s2">                            wake function. Please correct.</span>
+<span class="s2">                            &quot;&quot;&quot;</span><span class="p">)</span>
+
+        <span class="c1"># It is needed to have a point at 0 and 1e-24 to sample properly</span>
+        <span class="c1"># the discontinuity in the longitudinal plane</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_srange</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1e-24</span><span class="p">],</span>
+                                                        <span class="bp">self</span><span class="o">.</span><span class="n">_srange</span><span class="p">)))</span>
+
         <span class="k">if</span> <span class="n">wcomp</span> <span class="ow">is</span> <span class="n">WakeComponent</span><span class="o">.</span><span class="n">Z</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">long_resonator_wf</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_srange</span><span class="p">,</span> <span class="n">frequency</span><span class="p">,</span>
                                      <span class="n">qfactor</span><span class="p">,</span> <span class="n">rshunt</span><span class="p">,</span> <span class="n">beta</span><span class="p">)</span>
@@ -449,10 +461,20 @@
             <span class="k">raise</span> <span class="n">AtError</span><span class="p">(</span><span class="s1">&#39;Invalid WakeComponent: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">wcomp</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">_reswall</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">wcomp</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">rvac</span><span class="p">,</span> <span class="n">conduct</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">yokoya_factor</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">numpy</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_srange</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">):</span>
-            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">AtWarning</span><span class="p">(</span><span class="s1">&#39;You are adding a wake function with &#39;</span>
-                                    <span class="s1">&#39;negative srange. This may cause issues &#39;</span>
-                                    <span class="s1">&#39;interpolating around zero.</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">))</span>
+    
+        <span class="k">if</span> <span class="n">numpy</span><span class="o">.</span><span class="n">amin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_srange</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">                            Provided srange has negative values.</span>
+<span class="s2">                            This is not allowed for the resistive wall</span>
+<span class="s2">                            wake function. Please correct.</span>
+<span class="s2">                            &quot;&quot;&quot;</span><span class="p">)</span>
+
+        <span class="c1"># It is needed to have a point at 0 and 1e-24 to sample properly</span>
+        <span class="c1"># the discontinuity in the longitudinal plane (if combining with</span>
+        <span class="c1"># longres)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_srange</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1e-24</span><span class="p">],</span>
+                                                       <span class="bp">self</span><span class="o">.</span><span class="n">_srange</span><span class="p">)))</span>
+
         <span class="k">if</span> <span class="n">wcomp</span> <span class="ow">is</span> <span class="n">WakeComponent</span><span class="o">.</span><span class="n">Z</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">AtError</span><span class="p">(</span><span class="s1">&#39;Resitive wall not available &#39;</span>
                           <span class="s1">&#39;for WakeComponent: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">wcomp</span><span class="p">))</span>
@@ -482,7 +504,7 @@
 <span class="sd">        Several resonators can be built in one step by setting ``nelems``&gt; 1</span>
 <span class="sd">        and giving array parameters</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">wake</span> <span class="o">=</span> <span class="n">Wake</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">srange</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="mi">0</span><span class="p">)))</span>
+        <span class="n">wake</span> <span class="o">=</span> <span class="n">Wake</span><span class="p">(</span><span class="n">srange</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">wakecomp</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span><span class="n">wakecomp</span><span class="p">,</span> <span class="p">(</span><span class="n">nelems</span><span class="p">,</span> <span class="p">))</span>
             <span class="n">frequency</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span><span class="n">frequency</span><span class="p">,</span> <span class="p">(</span><span class="n">nelems</span><span class="p">,</span> <span class="p">))</span>
@@ -524,8 +546,8 @@
 <span class="sd">            &gt;&gt;&gt; Q = 1</span>
 <span class="sd">            &gt;&gt;&gt; Rs = 1e4</span>
 <span class="sd">            &gt;&gt;&gt; wake = Wake.long_resonator(srange, freq, Q, Rs, ring.beta)</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">Wake</span><span class="o">.</span><span class="n">resonator</span><span class="p">(</span><span class="n">srange</span><span class="p">,</span> <span class="n">WakeComponent</span><span class="o">.</span><span class="n">Z</span><span class="p">,</span> <span class="n">rshunt</span><span class="p">,</span> <span class="n">qfactor</span><span class="p">,</span>
+<span class="sd">        &quot;&quot;&quot;</span> 
+        <span class="k">return</span> <span class="n">Wake</span><span class="o">.</span><span class="n">resonator</span><span class="p">(</span><span class="n">srange</span><span class="p">,</span> <span class="n">WakeComponent</span><span class="o">.</span><span class="n">Z</span><span class="p">,</span> <span class="n">frequency</span><span class="p">,</span> <span class="n">qfactor</span><span class="p">,</span>
                               <span class="n">rshunt</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">nelems</span><span class="o">=</span><span class="n">nelems</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Wake.resistive_wall"><a class="viewcode-back" href="../../../p/api/at.collective.wake_object.html#at.collective.wake_object.Wake.resistive_wall">[docs]</a>    <span class="nd">@staticmethod</span>
@@ -544,7 +566,7 @@
 <span class="sd">            yokoya_factor:  Yokoya factor</span>
 <span class="sd">            nelems:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">wake</span> <span class="o">=</span> <span class="n">Wake</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">srange</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="mi">0</span><span class="p">)))</span>
+        <span class="n">wake</span> <span class="o">=</span> <span class="n">Wake</span><span class="p">(</span><span class="n">srange</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">wakecomp</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span><span class="n">wakecomp</span><span class="p">,</span> <span class="p">(</span><span class="n">nelems</span><span class="p">,</span> <span class="p">))</span>
             <span class="n">length</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span><span class="n">length</span><span class="p">,</span> <span class="p">(</span><span class="n">nelems</span><span class="p">,</span> <span class="p">))</span>
