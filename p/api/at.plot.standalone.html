@@ -399,32 +399,37 @@
 <p class="rubric">Functions</p>
 <table class="autosummary longtable table autosummary">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#at.plot.standalone.plot_acceptance" title="at.plot.standalone.plot_acceptance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_acceptance</span></code></a>(ring, *args, **kwargs)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#at.plot.standalone.plot_acceptance" title="at.plot.standalone.plot_acceptance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_acceptance</span></code></a>(ring, planes, *args, **kwargs)</p></td>
 <td><p>Plots the acceptance</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#at.plot.standalone.plot_geometry" title="at.plot.standalone.plot_geometry"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_geometry</span></code></a>(ring[, start_coordinates, ...])</p></td>
-<td><p>Compute the 2D ring geometry in cartesian coordinates.</p></td>
+<td><p>Compute and plot the 2D ring geometry in cartesian coordinates.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#at.plot.standalone.plot_sigma" title="at.plot.standalone.plot_sigma"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_sigma</span></code></a>(sigma[, axis, scale, ax])</p></td>
+<td><p>Plot the projection of the phase space defined by a <span class="math notranslate nohighlight">\(\Sigma\)</span>-matrix on the selected plane.</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py function">
 <dt class="sig sig-object py" id="at.plot.standalone.plot_acceptance">
-<span class="sig-name descname"><span class="pre">plot_acceptance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/plot/standalone.html#plot_acceptance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.plot.standalone.plot_acceptance" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">plot_acceptance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">planes</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/plot/standalone.html#plot_acceptance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.plot.standalone.plot_acceptance" title="Permalink to this definition">#</a></dt>
 <dd><p>Plots the acceptance</p>
 <p>Computes the acceptance at repfts observation points using
 <a class="reference internal" href="at.acceptance.acceptance.html#at.acceptance.acceptance.get_acceptance" title="at.acceptance.acceptance.get_acceptance"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_acceptance()</span></code></a> and plots the tracked
 and survived particles, and the acceptance boundary.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>ring</strong> (<a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><em>Lattice</em></a>) – Lattice definition</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ring</strong> (<a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><em>Lattice</em></a>) – Lattice definition</p></li>
+<li><p><strong>planes</strong> – max. dimension 2, Plane(s) to scan for the acceptance.
+Allowed values are: <em>‘x’</em>, <em>‘xp’</em>, <em>‘y’</em>,
+<em>‘yp’</em>, <em>‘dp’</em>, <em>‘ct’</em></p></li>
+</ul>
 </dd>
 <dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
 <li><p><strong>acceptance</strong> (<em>Tuple</em><em>[</em><em>ndarray</em><em>, </em><em>ndarray</em><em>, </em><em>ndarray</em><em>]</em>) – Tuple containing
-pre-computed acceptance <code class="docutils literal notranslate"><span class="pre">(boundary,</span> <span class="pre">survived,</span> <span class="pre">grid)</span></code></p></li>
-<li><p><strong>planes</strong> – max. dimension 2, Plane(s) to scan for the acceptance.
-Allowed values are: <code class="docutils literal notranslate"><span class="pre">'x'</span></code>, <code class="docutils literal notranslate"><span class="pre">'xp'</span></code>, <code class="docutils literal notranslate"><span class="pre">'y'</span></code>,
-<code class="docutils literal notranslate"><span class="pre">'yp'</span></code>, <code class="docutils literal notranslate"><span class="pre">'dp'</span></code>, <code class="docutils literal notranslate"><span class="pre">'ct'</span></code></p></li>
+pre-computed acceptance <em>(boundary, survived, grid)</em></p></li>
 <li><p><strong>npoints</strong> – (len(planes),) array: number of points in each
 dimension</p></li>
 <li><p><strong>amplitudes</strong> – <p>(len(planes),) array: set the search range:</p>
@@ -455,7 +460,7 @@ It can be used to select quadrants. For example, default values are:</p>
 </p></li>
 <li><p><strong>use_mp</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Use python multiprocessing (<a class="reference internal" href="at.tracking.patpass.html#at.tracking.patpass.patpass" title="at.tracking.patpass.patpass"><code class="xref py py-func docutils literal notranslate"><span class="pre">patpass()</span></code></a>,
 default use <a class="reference internal" href="at.tracking.track.html#at.tracking.track.lattice_pass" title="at.tracking.track.lattice_pass"><code class="xref py py-func docutils literal notranslate"><span class="pre">lattice_pass()</span></code></a>). In case multiprocessing is not
-enabled, <code class="docutils literal notranslate"><span class="pre">grid_mode</span></code> is forced to <a class="reference internal" href="at.acceptance.boundary.html#at.acceptance.boundary.GridMode.RECURSIVE" title="at.acceptance.boundary.GridMode.RECURSIVE"><code class="xref py py-attr docutils literal notranslate"><span class="pre">GridMode.RECURSIVE</span></code></a>
+enabled, <em>grid_mode</em> is forced to <a class="reference internal" href="at.acceptance.boundary.html#at.acceptance.boundary.GridMode.RECURSIVE" title="at.acceptance.boundary.GridMode.RECURSIVE"><code class="xref py py-attr docutils literal notranslate"><span class="pre">GridMode.RECURSIVE</span></code></a>
 (most efficient in single core)</p></li>
 <li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Print out some information</p></li>
 <li><p><strong>divider</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Value of the divider used in
@@ -463,9 +468,9 @@ enabled, <code class="docutils literal notranslate"><span class="pre">grid_mode<
 <li><p><strong>shift_zero</strong> – </p></li>
 <li><p><strong>start_method</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Python multiprocessing start method. The default
 <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a> uses the python default that is considered safe.
-Available parameters: <code class="docutils literal notranslate"><span class="pre">'fork'</span></code>, <code class="docutils literal notranslate"><span class="pre">'spawn'</span></code>, <code class="docutils literal notranslate"><span class="pre">'forkserver'</span></code>.
-The default for linux is <code class="docutils literal notranslate"><span class="pre">'fork'</span></code>, the default for macOS and
-Windows is <code class="docutils literal notranslate"><span class="pre">'spawn'</span></code>. <code class="docutils literal notranslate"><span class="pre">'fork'</span></code> may used for macOS to speed up
+Available parameters: <em>‘fork’</em>, <em>‘spawn’</em>, <em>‘forkserver’</em>.
+The default for linux is <em>‘fork’</em>, the default for macOS and
+Windows is <em>‘spawn’</em>. <em>‘fork’</em> may used for macOS to speed up
 the calculation or to solve runtime errors, however  it is
 considered unsafe.</p></li>
 </ul>
@@ -487,31 +492,54 @@ considered unsafe.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="at.plot.standalone.plot_geometry">
-<span class="sig-name descname"><span class="pre">plot_geometry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_coordinates</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">centered</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/plot/standalone.html#plot_geometry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.plot.standalone.plot_geometry" title="Permalink to this definition">#</a></dt>
-<dd><p>Compute the 2D ring geometry in cartesian coordinates.</p>
-<p>Usage:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ring</span><span class="o">.</span><span class="n">plot_geometry</span><span class="p">()</span>
-</pre></div>
-</div>
+<span class="sig-name descname"><span class="pre">plot_geometry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_coordinates</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">centered</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/plot/standalone.html#plot_geometry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.plot.standalone.plot_geometry" title="Permalink to this definition">#</a></dt>
+<dd><p>Compute and plot the 2D ring geometry in cartesian coordinates.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ring</strong> (<a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><em>Lattice</em></a>) – Lattice description</p></li>
-<li><p><strong>start_coordinates</strong> – x,y,angle at starting point</p></li>
-<li><p><strong>centered</strong> – it True the coordinates origin is the center of the ring</p></li>
-<li><p><strong>offset</strong> – (dx, dy) offsets coordinates by the given amount</p></li>
-<li><p><strong>ax</strong> – axes where to plot, if not given axes are created</p></li>
-<li><p><strong>label</strong> – label of curve</p></li>
+<li><p><strong>start_coordinates</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.11)"><em>Tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>]</em>) – x,y,angle at starting point</p></li>
+<li><p><strong>centered</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – it True the coordinates origin is the center of the ring</p></li>
+<li><p><strong>ax</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://matplotlib.org/stable/api/axes_api.html#matplotlib.axes.Axes" title="(in Matplotlib v3.6.2)"><em>Axes</em></a><em>]</em>) – axes for the plot. If not given, new axes are created</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><ul class="simple">
+</dl>
+<p>Keyword arguments are forwarded to the underlying
+<a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html#matplotlib.pyplot.plot" title="(in Matplotlib v3.6.2)"><code class="xref py py-func docutils literal notranslate"><span class="pre">plot()</span></code></a> function</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
 <li><p><strong>geomdata</strong> – recarray containing, x, y, angle</p></li>
 <li><p><strong>radius</strong> – machine radius</p></li>
 <li><p><strong>ax</strong> – plot axis</p></li>
 </ul>
 </dd>
 </dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ring</span><span class="o">.</span><span class="n">plot_geometry</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="at.plot.standalone.plot_sigma">
+<span class="sig-name descname"><span class="pre">plot_sigma</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sigma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">('x',</span> <span class="pre">'xp')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/plot/standalone.html#plot_sigma"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.plot.standalone.plot_sigma" title="Permalink to this definition">#</a></dt>
+<dd><p>Plot the projection of the phase space defined by a
+<span class="math notranslate nohighlight">\(\Sigma\)</span>-matrix on the selected plane.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sigma</strong> – <span class="math notranslate nohighlight">\(\Sigma\)</span>-matrix</p></li>
+<li><p><strong>axis</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.11)"><em>Tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>]</em>) – tuple if indices defining the plane of the <span class="math notranslate nohighlight">\(\Sigma\)</span>
+projection. Allowed values are: <em>‘x’</em>, <em>‘xp’</em>, <em>‘y’</em>,
+<em>‘yp’</em>, <em>‘dp’</em>, <em>‘ct’</em>. Default: (<em>‘x’</em>, <em>‘xp’</em>)</p></li>
+<li><p><strong>scale</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Scaling factor for the emittance</p></li>
+<li><p><strong>ax</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://matplotlib.org/stable/api/axes_api.html#matplotlib.axes.Axes" title="(in Matplotlib v3.6.2)"><em>Axes</em></a><em>]</em>) – axes for the plot. If not given, new axes are created</p></li>
+</ul>
+</dd>
+</dl>
+<p>Keyword arguments are forwarded to the underlying
+<a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html#matplotlib.pyplot.plot" title="(in Matplotlib v3.6.2)"><code class="xref py py-func docutils literal notranslate"><span class="pre">plot()</span></code></a> function</p>
 </dd></dl>
 
 </section>
@@ -568,6 +596,15 @@ considered unsafe.</p></li>
    <code class="docutils literal notranslate">
     <span class="pre">
      plot_geometry()
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#at.plot.standalone.plot_sigma">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     plot_sigma()
     </span>
    </code>
   </a>
