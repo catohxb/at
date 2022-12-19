@@ -430,8 +430,8 @@ should be given as F_CONTIGUOUS numpy array.</p></li>
 <dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
 <li><p><strong>particle</strong> (<a class="reference internal" href="at.lattice.particle_object.html#at.lattice.particle_object.Particle" title="at.lattice.particle_object.Particle"><em>Particle</em></a>) – circulating particle.
-Default: <em>lattice.particle</em> if existing,
-otherwise <em>Particle(‘relativistic’)</em></p></li>
+Default: <code class="code docutils literal notranslate"><span class="pre">lattice.particle</span></code> if existing,
+otherwise <code class="code docutils literal notranslate"><span class="pre">Particle('relativistic')</span></code></p></li>
 <li><p><strong>energy</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – lattice energy. Default 0.</p></li>
 </ul>
 </dd>
@@ -488,13 +488,13 @@ output is desired:</p>
 <dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
 <li><p><strong>keep_lattice</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Use elements persisted from a previous
-call. If True, assume that the lattice has not changed since
-the previous call.</p></li>
+call. If <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a>, assume that the lattice has not changed
+since the previous call.</p></li>
 <li><p><strong>keep_counter</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Keep the turn number from the previous
 call.</p></li>
 <li><p><strong>turn</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Starting turn number. Ignored if
-keep_counter is True. The turn number is necessary to compute the
-absolute path length used in RFCavityPass.</p></li>
+<em>keep_counter</em> is <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a>. The turn number is necessary to
+compute the absolute path length used in RFCavityPass.</p></li>
 <li><p><strong>losses</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Boolean to activate loss maps output</p></li>
 <li><p><strong>omp_num_threads</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of OpenMP threads
 (default: automatic)</p></li>
@@ -506,13 +506,13 @@ absolute path length used in RFCavityPass.</p></li>
 <dt class="field-odd">Keyword Arguments<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>particle</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="at.lattice.particle_object.html#at.lattice.particle_object.Particle" title="at.lattice.particle_object.Particle"><em>Particle</em></a><em>]</em>) – circulating particle.
-Default: <code class="docutils literal notranslate"><span class="pre">lattice.particle</span></code> if existing,
-otherwise <code class="docutils literal notranslate"><span class="pre">Particle('relativistic')</span></code></p></li>
+Default: <code class="code docutils literal notranslate"><span class="pre">lattice.particle</span></code> if existing,
+otherwise <code class="code docutils literal notranslate"><span class="pre">Particle('relativistic')</span></code></p></li>
 <li><p><strong>energy</strong> (<em>Optiona</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>]</em>) – lattice energy. Default 0.</p></li>
-<li><p><strong>unfold_beam</strong> (<em>Bool</em>) – internal beam folding activate, this
+<li><p><strong>unfold_beam</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Internal beam folding activate, this
 assumes the input particles are in bucket 0, works only
 if all bucket see the same RF Voltage.
-Default: <code class="docutils literal notranslate"><span class="pre">True</span></code></p></li>
+Default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a></p></li>
 </ul>
 </dd>
 </dl>
@@ -552,24 +552,24 @@ particles)</p></td>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">lattice_pass(lattice,</span> <span class="pre">r_in,</span> <span class="pre">refpts=len(line))</span></code> is the same as
-<code class="docutils literal notranslate"><span class="pre">lattice_pass(lattice,</span> <span class="pre">r_in)</span></code> since the reference point len(line) is
-the exit of the last element.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">lattice_pass(lattice,</span> <span class="pre">r_in,</span> <span class="pre">refpts=0)</span></code> is a copy of <em>r_in</em> since
-the reference point 0 is the entrance of the first element.</p></li>
+<li><p><code class="code highlight pycode python docutils literal highlight-python"><span class="n">lattice_pass</span><span class="p">(</span><span class="n">lattice</span><span class="p">,</span> <span class="n">r_in</span><span class="p">,</span> <span class="n">refpts</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">))</span></code> is the same as
+<code class="code highlight pycode python docutils literal highlight-python"><span class="n">lattice_pass</span><span class="p">(</span><span class="n">lattice</span><span class="p">,</span> <span class="n">r_in</span><span class="p">)</span></code> since the reference point
+len(line) is the exit of the last element.</p></li>
+<li><p><code class="code highlight pycode python docutils literal highlight-python"><span class="n">lattice_pass</span><span class="p">(</span><span class="n">lattice</span><span class="p">,</span> <span class="n">r_in</span><span class="p">,</span> <span class="n">refpts</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></code> is a copy of <em>r_in</em>
+since the reference point 0 is the entrance of the first element.</p></li>
 <li><p>To resume an interrupted tracking (for instance to get intermediate
 results), one must use one of the <em>turn</em> or <em>keep_counter</em>
 keywords to ensure the continuity of the turn number.</p></li>
 <li><p>For multiparticle tracking with large number of turn the size of
 <em>r_out</em> may increase excessively. To avoid memory issues
-<code class="docutils literal notranslate"><span class="pre">lattice_pass(lattice,</span> <span class="pre">r_in,</span> <span class="pre">refpts=[])</span></code> can be used. An empty list
-is returned and the tracking results of the last turn are stored in
-<em>r_in</em>.</p></li>
-<li><p>To model buckets with different RF voltage <code class="docutils literal notranslate"><span class="pre">unfold_beam=False</span></code> has to
-be used. The beam can be unfolded using the function
-<code class="docutils literal notranslate"><span class="pre">at.traccking.utils.unfold_beam</span></code>. This function takes into account the
-true voltage in each bucket and distributes the particles in the bunches
-defined by <code class="docutils literal notranslate"><span class="pre">ring.fillpattern</span></code> using a 6D orbit search.</p></li>
+<code class="code highlight pycode python docutils literal highlight-python"><span class="n">lattice_pass</span><span class="p">(</span><span class="n">lattice</span><span class="p">,</span> <span class="n">r_in</span><span class="p">,</span> <span class="n">refpts</span><span class="o">=</span><span class="p">[])</span></code> can be used.
+An empty list is returned and the tracking results of the last turn
+are stored in <em>r_in</em>.</p></li>
+<li><p>To model buckets with different RF voltage <code class="code highlight pycode python docutils literal highlight-python"><span class="n">unfold_beam</span><span class="o">=</span><span class="kc">False</span></code>
+has to be used. The beam can be unfolded using the function
+<a class="reference internal" href="at.tracking.utils.html#at.tracking.utils.unfold_beam" title="at.tracking.utils.unfold_beam"><code class="xref py py-func docutils literal notranslate"><span class="pre">unfold_beam()</span></code></a>. This function takes into account
+the true voltage in each bucket and distributes the particles in the
+bunches defined by <code class="code docutils literal notranslate"><span class="pre">ring.fillpattern</span></code> using a 6D orbit search.</p></li>
 </ul>
 </div>
 </dd></dl>

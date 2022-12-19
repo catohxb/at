@@ -432,9 +432,9 @@ output is desired:</p>
 <code class="docutils literal notranslate"><span class="pre">min(npart,nproc)</span></code> is used</p></li>
 <li><p><strong>start_method</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – python multiprocessing start method.
 <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a> uses the python default that is considered safe.
-Available values: ‘<code class="docutils literal notranslate"><span class="pre">fork'</span></code>, <code class="docutils literal notranslate"><span class="pre">'spawn'</span></code>, <code class="docutils literal notranslate"><span class="pre">'forkserver'</span></code>.
+Available values: <code class="docutils literal notranslate"><span class="pre">'fork'</span></code>, <code class="docutils literal notranslate"><span class="pre">'spawn'</span></code>, <code class="docutils literal notranslate"><span class="pre">'forkserver'</span></code>.
 Default for linux is <code class="docutils literal notranslate"><span class="pre">'fork'</span></code>, default for macOS and  Windows is
-<code class="docutils literal notranslate"><span class="pre">'spawn'</span></code>. <code class="docutils literal notranslate"><span class="pre">'fork'</span></code> may be used on MacOS to speed up the
+<code class="docutils literal notranslate"><span class="pre">'spawn'</span></code>. <code class="docutils literal notranslate"><span class="pre">'fork'</span></code> may be used on macOS to speed up the
 calculation or to solve Runtime Errors, however it is considered
 unsafe.</p></li>
 </ul>
@@ -442,13 +442,13 @@ unsafe.</p></li>
 <dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
 <li><p><strong>keep_lattice</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Use elements persisted from a previous
-call. If True, assume that the lattice has not changed since
-the previous call.</p></li>
+call. If <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a>, assume that the lattice has not changed
+since the previous call.</p></li>
 <li><p><strong>keep_counter</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Keep the turn number from the previous
 call.</p></li>
 <li><p><strong>turn</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Starting turn number. Ignored if
-keep_counter is True. The turn number is necessary to compute the
-absolute path length used in RFCavityPass.</p></li>
+<em>keep_counter</em> is <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a>. The turn number is necessary to
+compute the absolute path length used in RFCavityPass.</p></li>
 <li><p><strong>losses</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Boolean to activate loss maps output</p></li>
 <li><p><strong>omp_num_threads</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of OpenMP threads
 (default: automatic)</p></li>
@@ -504,9 +504,9 @@ particles)</p></td>
 <ul class="simple">
 <li><p>For multiparticle tracking with large number of turn the size of
 <em>r_out</em> may increase excessively. To avoid memory issues
-<code class="docutils literal notranslate"><span class="pre">patpass(lattice,</span> <span class="pre">r_in,</span> <span class="pre">refpts=[])</span></code> can be used. An empty list
-is returned and the tracking results of the last turn are stored in
-<em>r_in</em>.</p></li>
+<code class="code highlight pycode python docutils literal highlight-python"><span class="n">lattice_pass</span><span class="p">(</span><span class="n">lattice</span><span class="p">,</span> <span class="n">r_in</span><span class="p">,</span> <span class="n">refpts</span><span class="o">=</span><span class="p">[])</span></code> can be used.
+An empty list is returned and the tracking results of the last turn
+are stored in <em>r_in</em>.</p></li>
 <li><p>By default, <a class="reference internal" href="#at.tracking.patpass.patpass" title="at.tracking.patpass.patpass"><code class="xref py py-func docutils literal notranslate"><span class="pre">patpass()</span></code></a> will use all the available CPUs.
 To change the number of cores used in ALL functions using
 <a class="reference internal" href="#at.tracking.patpass.patpass" title="at.tracking.patpass.patpass"><code class="xref py py-func docutils literal notranslate"><span class="pre">patpass()</span></code></a> (<a class="reference internal" href="at.acceptance.acceptance.html#module-at.acceptance.acceptance" title="at.acceptance.acceptance"><code class="xref py py-mod docutils literal notranslate"><span class="pre">acceptance</span></code></a> module for

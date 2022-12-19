@@ -294,7 +294,6 @@
 <span></span><span class="kn">import</span> <span class="nn">numpy</span>
 <span class="kn">import</span> <span class="nn">functools</span>
 <span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
-<span class="c1"># noinspection PyUnresolvedReferences</span>
 <span class="kn">from</span> <span class="nn">.atpass</span> <span class="kn">import</span> <span class="n">atpass</span> <span class="k">as</span> <span class="n">_atpass</span><span class="p">,</span> <span class="n">elempass</span> <span class="k">as</span> <span class="n">_elempass</span>
 <span class="kn">from</span> <span class="nn">..lattice</span> <span class="kn">import</span> <span class="n">Element</span><span class="p">,</span> <span class="n">Particle</span><span class="p">,</span> <span class="n">Refpts</span><span class="p">,</span> <span class="n">uint32_refpts</span>
 <span class="kn">from</span> <span class="nn">..lattice</span> <span class="kn">import</span> <span class="n">elements</span><span class="p">,</span> <span class="n">get_elements</span>
@@ -366,13 +365,13 @@
 
 <span class="sd">    Keyword arguments:</span>
 <span class="sd">        keep_lattice (bool):    Use elements persisted from a previous</span>
-<span class="sd">          call. If True, assume that the lattice has not changed since</span>
-<span class="sd">          the previous call.</span>
+<span class="sd">          call. If :py:obj:`True`, assume that the lattice has not changed</span>
+<span class="sd">          since the previous call.</span>
 <span class="sd">        keep_counter (bool):    Keep the turn number from the previous</span>
 <span class="sd">          call.</span>
 <span class="sd">        turn (int):             Starting turn number. Ignored if</span>
-<span class="sd">          keep_counter is True. The turn number is necessary to compute the</span>
-<span class="sd">          absolute path length used in RFCavityPass.</span>
+<span class="sd">          *keep_counter* is :py:obj:`True`. The turn number is necessary to</span>
+<span class="sd">          compute the absolute path length used in RFCavityPass.</span>
 <span class="sd">        losses (bool):          Boolean to activate loss maps output</span>
 <span class="sd">        omp_num_threads (int):  Number of OpenMP threads</span>
 <span class="sd">          (default: automatic)</span>
@@ -382,13 +381,13 @@
 <span class="sd">    Keyword arguments:</span>
 
 <span class="sd">        particle (Optional[Particle]):  circulating particle.</span>
-<span class="sd">          Default: ``lattice.particle`` if existing,</span>
-<span class="sd">          otherwise ``Particle(&#39;relativistic&#39;)``</span>
+<span class="sd">          Default: :code:`lattice.particle` if existing,</span>
+<span class="sd">          otherwise :code:`Particle(&#39;relativistic&#39;)`</span>
 <span class="sd">        energy (Optiona[float]):        lattice energy. Default 0.</span>
-<span class="sd">        unfold_beam (Bool): internal beam folding activate, this </span>
+<span class="sd">        unfold_beam (bool): Internal beam folding activate, this</span>
 <span class="sd">            assumes the input particles are in bucket 0, works only</span>
 <span class="sd">            if all bucket see the same RF Voltage.</span>
-<span class="sd">            Default: ``True``</span>
+<span class="sd">            Default: :py:obj:`True`</span>
 
 <span class="sd">    If *energy* is not available, relativistic tracking if forced,</span>
 <span class="sd">    *rest_energy* is ignored.</span>
@@ -412,24 +411,24 @@
 
 <span class="sd">    .. note::</span>
 
-<span class="sd">       * ``lattice_pass(lattice, r_in, refpts=len(line))`` is the same as</span>
-<span class="sd">         ``lattice_pass(lattice, r_in)`` since the reference point len(line) is</span>
-<span class="sd">         the exit of the last element.</span>
-<span class="sd">       * ``lattice_pass(lattice, r_in, refpts=0)`` is a copy of *r_in* since</span>
-<span class="sd">         the reference point 0 is the entrance of the first element.</span>
+<span class="sd">       * :pycode:`lattice_pass(lattice, r_in, refpts=len(line))` is the same as</span>
+<span class="sd">         :pycode:`lattice_pass(lattice, r_in)` since the reference point</span>
+<span class="sd">         len(line) is the exit of the last element.</span>
+<span class="sd">       * :pycode:`lattice_pass(lattice, r_in, refpts=0)` is a copy of *r_in*</span>
+<span class="sd">         since the reference point 0 is the entrance of the first element.</span>
 <span class="sd">       * To resume an interrupted tracking (for instance to get intermediate</span>
 <span class="sd">         results), one must use one of the *turn* or *keep_counter*</span>
 <span class="sd">         keywords to ensure the continuity of the turn number.</span>
 <span class="sd">       * For multiparticle tracking with large number of turn the size of</span>
 <span class="sd">         *r_out* may increase excessively. To avoid memory issues</span>
-<span class="sd">         ``lattice_pass(lattice, r_in, refpts=[])`` can be used. An empty list</span>
-<span class="sd">         is returned and the tracking results of the last turn are stored in</span>
-<span class="sd">         *r_in*.</span>
-<span class="sd">       * To model buckets with different RF voltage ``unfold_beam=False`` has to</span>
-<span class="sd">         be used. The beam can be unfolded using the function</span>
-<span class="sd">         ``at.traccking.utils.unfold_beam``. This function takes into account the</span>
-<span class="sd">         true voltage in each bucket and distributes the particles in the bunches</span>
-<span class="sd">         defined by ``ring.fillpattern`` using a 6D orbit search.</span>
+<span class="sd">         :pycode:`lattice_pass(lattice, r_in, refpts=[])` can be used.</span>
+<span class="sd">         An empty list is returned and the tracking results of the last turn</span>
+<span class="sd">         are stored in *r_in*.</span>
+<span class="sd">       * To model buckets with different RF voltage :pycode:`unfold_beam=False`</span>
+<span class="sd">         has to be used. The beam can be unfolded using the function</span>
+<span class="sd">         :py:func:`.unfold_beam`. This function takes into account</span>
+<span class="sd">         the true voltage in each bucket and distributes the particles in the</span>
+<span class="sd">         bunches defined by :code:`ring.fillpattern` using a 6D orbit search.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">lattice</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
         <span class="n">lattice</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">lattice</span><span class="p">)</span>
@@ -467,8 +466,8 @@
 
 <span class="sd">    Keyword arguments:</span>
 <span class="sd">        particle (Particle):    circulating particle.</span>
-<span class="sd">          Default: *lattice.particle* if existing,</span>
-<span class="sd">          otherwise *Particle(&#39;relativistic&#39;)*</span>
+<span class="sd">          Default: :code:`lattice.particle` if existing,</span>
+<span class="sd">          otherwise :code:`Particle(&#39;relativistic&#39;)`</span>
 <span class="sd">        energy (float):         lattice energy. Default 0.</span>
 
 <span class="sd">    If *energy* is not available, relativistic tracking if forced,</span>
