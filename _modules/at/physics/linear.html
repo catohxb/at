@@ -300,8 +300,8 @@
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">scipy.linalg</span> <span class="kn">import</span> <span class="n">solve</span>
 <span class="kn">from</span> <span class="nn">..constants</span> <span class="kn">import</span> <span class="n">clight</span>
-<span class="kn">from</span> <span class="nn">..lattice</span> <span class="kn">import</span> <span class="n">DConstant</span><span class="p">,</span> <span class="n">get_s_pos</span><span class="p">,</span> <span class="n">Refpts</span>
-<span class="kn">from</span> <span class="nn">..lattice</span> <span class="kn">import</span> <span class="n">AtWarning</span><span class="p">,</span> <span class="n">Lattice</span><span class="p">,</span> <span class="n">check_6d</span>
+<span class="kn">from</span> <span class="nn">..lattice</span> <span class="kn">import</span> <span class="n">DConstant</span><span class="p">,</span> <span class="n">Refpts</span><span class="p">,</span> <span class="n">get_bool_index</span><span class="p">,</span> <span class="n">get_uint32_index</span>
+<span class="kn">from</span> <span class="nn">..lattice</span> <span class="kn">import</span> <span class="n">AtWarning</span><span class="p">,</span> <span class="n">Lattice</span><span class="p">,</span> <span class="n">check_6d</span><span class="p">,</span> <span class="n">get_s_pos</span>
 <span class="kn">from</span> <span class="nn">..tracking</span> <span class="kn">import</span> <span class="n">lattice_pass</span>
 <span class="kn">from</span> <span class="nn">.orbit</span> <span class="kn">import</span> <span class="n">Orbit</span><span class="p">,</span> <span class="n">find_orbit4</span><span class="p">,</span> <span class="n">find_orbit6</span>
 <span class="kn">from</span> <span class="nn">.matrix</span> <span class="kn">import</span> <span class="n">find_m44</span><span class="p">,</span> <span class="n">find_m66</span>
@@ -350,7 +350,7 @@
 
 
 <span class="k">def</span> <span class="nf">_twiss22</span><span class="p">(</span><span class="n">t12</span><span class="p">,</span> <span class="n">alpha0</span><span class="p">,</span> <span class="n">beta0</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Propagate Twiss parameters&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Propagate Twiss parameters&quot;&quot;&quot;</span>
     <span class="n">bbb</span> <span class="o">=</span> <span class="n">t12</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
     <span class="n">aaa</span> <span class="o">=</span> <span class="n">t12</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">beta0</span> <span class="o">-</span> <span class="n">bbb</span> <span class="o">*</span> <span class="n">alpha0</span>
     <span class="n">beta</span> <span class="o">=</span> <span class="p">(</span><span class="n">aaa</span> <span class="o">*</span> <span class="n">aaa</span> <span class="o">+</span> <span class="n">bbb</span> <span class="o">*</span> <span class="n">bbb</span><span class="p">)</span> <span class="o">/</span> <span class="n">beta0</span>
@@ -378,7 +378,7 @@
 
 <span class="c1"># noinspection PyShadowingNames,PyPep8Naming</span>
 <span class="k">def</span> <span class="nf">_tunes</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">ring</span><span class="o">.</span><span class="n">is_6d</span><span class="p">:</span>
         <span class="n">mt</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">find_m66</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
@@ -389,7 +389,7 @@
 
 
 <span class="k">def</span> <span class="nf">_analyze2</span><span class="p">(</span><span class="n">mt</span><span class="p">,</span> <span class="n">ms</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Analysis of a 2D 1-turn transfer matrix&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Analysis of a 2D 1-turn transfer matrix&quot;&quot;&quot;</span>
     <span class="n">A</span> <span class="o">=</span> <span class="n">mt</span><span class="p">[:</span><span class="mi">2</span><span class="p">,</span> <span class="p">:</span><span class="mi">2</span><span class="p">]</span>
     <span class="n">B</span> <span class="o">=</span> <span class="n">mt</span><span class="p">[</span><span class="mi">2</span><span class="p">:,</span> <span class="mi">2</span><span class="p">:]</span>
     <span class="n">alp0_a</span><span class="p">,</span> <span class="n">bet0_a</span><span class="p">,</span> <span class="n">vp_a</span> <span class="o">=</span> <span class="n">_closure</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
@@ -407,7 +407,7 @@
 
 
 <span class="k">def</span> <span class="nf">_analyze4</span><span class="p">(</span><span class="n">mt</span><span class="p">,</span> <span class="n">ms</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Analysis of a 4D 1-turn transfer matrix according to Sagan, Rubin&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Analysis of a 4D 1-turn transfer matrix according to Sagan, Rubin&quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">propagate</span><span class="p">(</span><span class="n">t12</span><span class="p">):</span>
         <span class="n">M</span> <span class="o">=</span> <span class="n">t12</span><span class="p">[:</span><span class="mi">2</span><span class="p">,</span> <span class="p">:</span><span class="mi">2</span><span class="p">]</span>
         <span class="n">N</span> <span class="o">=</span> <span class="n">t12</span><span class="p">[</span><span class="mi">2</span><span class="p">:,</span> <span class="mi">2</span><span class="p">:]</span>
@@ -468,14 +468,14 @@
 
 
 <span class="k">def</span> <span class="nf">_analyze6</span><span class="p">(</span><span class="n">mt</span><span class="p">,</span> <span class="n">ms</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Analysis of a 2D, 4D, 6D 1-turn transfer matrix</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Analysis of a 2D, 4D, 6D 1-turn transfer matrix</span>
 <span class="sd">    according to Wolski&quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">get_phase</span><span class="p">(</span><span class="n">a22</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return the phase for A standardization&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the phase for A standardization&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">atan2</span><span class="p">(</span><span class="n">a22</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">a22</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
 
     <span class="k">def</span> <span class="nf">standardize</span><span class="p">(</span><span class="n">aa</span><span class="p">,</span> <span class="n">slcs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Apply rotation to put A in std form&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Apply rotation to put A in std form&quot;&quot;&quot;</span>
         <span class="k">def</span> <span class="nf">rot2</span><span class="p">(</span><span class="n">slc</span><span class="p">):</span>
             <span class="n">rot</span> <span class="o">=</span> <span class="o">-</span><span class="n">get_phase</span><span class="p">(</span><span class="n">aa</span><span class="p">[</span><span class="n">slc</span><span class="p">,</span> <span class="n">slc</span><span class="p">])</span>
             <span class="n">cs</span> <span class="o">=</span> <span class="n">cos</span><span class="p">(</span><span class="n">rot</span><span class="p">)</span>
@@ -542,9 +542,9 @@
             <span class="n">orbit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">twiss_in</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">get_chrom</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">get_w</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
             <span class="n">keep_lattice</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">mname</span><span class="o">=</span><span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="n">add0</span><span class="o">=</span><span class="p">(),</span> <span class="n">adds</span><span class="o">=</span><span class="p">(),</span> <span class="n">cavpts</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;&quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">build_sigma</span><span class="p">(</span><span class="n">twin</span><span class="p">,</span> <span class="n">orbit</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Build the initial distribution at entrance of the transfer line&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Build the initial distribution at entrance of the transfer line&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">orbit</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">orbit</span> <span class="o">=</span> <span class="n">twiss_in</span><span class="p">[</span><span class="s1">&#39;closed_orbit&#39;</span><span class="p">]</span>
@@ -569,7 +569,7 @@
         <span class="k">return</span> <span class="n">orbit</span><span class="p">,</span> <span class="n">sigm</span><span class="p">,</span> <span class="n">d0</span>
 
     <span class="k">def</span> <span class="nf">chrom_w</span><span class="p">(</span><span class="n">ringup</span><span class="p">,</span> <span class="n">ringdn</span><span class="p">,</span> <span class="n">orbitup</span><span class="p">,</span> <span class="n">orbitdn</span><span class="p">,</span> <span class="n">refpts</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Compute the chromaticity and W-functions&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute the chromaticity and W-functions&quot;&quot;&quot;</span>
         <span class="c1"># noinspection PyShadowingNames</span>
         <span class="k">def</span> <span class="nf">off_momentum</span><span class="p">(</span><span class="n">rng</span><span class="p">,</span> <span class="n">orb0</span><span class="p">):</span>
             <span class="n">mt</span><span class="p">,</span> <span class="n">ms</span> <span class="o">=</span> <span class="n">get_matrix</span><span class="p">(</span><span class="n">rng</span><span class="p">,</span> <span class="n">refpts</span><span class="o">=</span><span class="n">refpts</span><span class="p">,</span> <span class="n">orbit</span><span class="o">=</span><span class="n">orb0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -578,7 +578,7 @@
             <span class="k">return</span> <span class="n">tunes</span><span class="p">,</span> <span class="n">el0</span><span class="p">,</span> <span class="n">els</span>
 
         <span class="k">def</span> <span class="nf">wget</span><span class="p">(</span><span class="n">ddp</span><span class="p">,</span> <span class="n">elup</span><span class="p">,</span> <span class="n">eldn</span><span class="p">):</span>
-            <span class="sd">&quot;&quot;&quot;Compute the chromatic amplitude function&quot;&quot;&quot;</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;Compute the chromatic amplitude function&quot;&quot;&quot;</span>
             <span class="n">alpha_up</span><span class="p">,</span> <span class="n">beta_up</span> <span class="o">=</span> <span class="n">elup</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>  <span class="c1"># Extract alpha and beta</span>
             <span class="n">alpha_dn</span><span class="p">,</span> <span class="n">beta_dn</span> <span class="o">=</span> <span class="n">eldn</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
             <span class="n">db</span> <span class="o">=</span> <span class="p">(</span><span class="n">beta_up</span> <span class="o">-</span> <span class="n">beta_dn</span><span class="p">)</span> <span class="o">/</span> <span class="n">ddp</span>
@@ -598,7 +598,7 @@
         <span class="k">return</span> <span class="n">chrom</span><span class="p">,</span> <span class="n">w0</span><span class="p">,</span> <span class="n">ws</span>
 
     <span class="k">def</span> <span class="nf">unwrap</span><span class="p">(</span><span class="n">mu</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Remove the phase jumps&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Remove the phase jumps&quot;&quot;&quot;</span>
         <span class="n">dmu</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">dms</span><span class="p">)),</span>
                                             <span class="n">mu</span><span class="p">)),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
         <span class="n">jumps</span> <span class="o">=</span> <span class="n">dmu</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mf">1.e-3</span>
@@ -648,8 +648,7 @@
     <span class="c1"># Propagate the closed orbit</span>
     <span class="n">orb0</span><span class="p">,</span> <span class="n">orbs</span> <span class="o">=</span> <span class="n">get_orbit</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">refpts</span><span class="o">=</span><span class="n">refpts</span><span class="p">,</span> <span class="n">orbit</span><span class="o">=</span><span class="n">orbit</span><span class="p">,</span>
                            <span class="n">keep_lattice</span><span class="o">=</span><span class="n">keep_lattice</span><span class="p">)</span>
-    <span class="c1"># avoid problem if refpts is None</span>
-    <span class="n">spos</span> <span class="o">=</span> <span class="n">ring</span><span class="o">.</span><span class="n">get_s_pos</span><span class="p">(</span><span class="n">ring</span><span class="o">.</span><span class="n">uint32_refpts</span><span class="p">(</span><span class="n">refpts</span><span class="p">))</span>
+    <span class="n">spos</span> <span class="o">=</span> <span class="n">ring</span><span class="o">.</span><span class="n">get_s_pos</span><span class="p">(</span><span class="n">refpts</span><span class="p">)</span>
 
     <span class="n">nrefs</span> <span class="o">=</span> <span class="n">orbs</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">dms</span> <span class="o">=</span> <span class="n">vps</span><span class="o">.</span><span class="n">size</span>
@@ -731,7 +730,7 @@
 
 <div class="viewcode-block" id="linopt2"><a class="viewcode-back" href="../../../p/api/at.physics.linear.html#at.physics.linear.linopt2">[docs]</a><span class="nd">@check_6d</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">linopt2</span><span class="p">(</span><span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Linear analysis of an uncoupled lattice</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Linear analysis of an uncoupled lattice</span>
 
 <span class="sd">    Parameters:</span>
 <span class="sd">        ring:   Lattice description.</span>
@@ -827,7 +826,7 @@
 
 <div class="viewcode-block" id="linopt4"><a class="viewcode-back" href="../../../p/api/at.physics.linear.html#at.physics.linear.linopt4">[docs]</a><span class="nd">@check_6d</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">linopt4</span><span class="p">(</span><span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Linear analysis of a H/V coupled lattice</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Linear analysis of a H/V coupled lattice</span>
 
 <span class="sd">    4D-analysis of coupled motion following Sagan/Rubin</span>
 
@@ -927,7 +926,7 @@
 
 
 <div class="viewcode-block" id="linopt6"><a class="viewcode-back" href="../../../p/api/at.physics.linear.html#at.physics.linear.linopt6">[docs]</a><span class="k">def</span> <span class="nf">linopt6</span><span class="p">(</span><span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Linear analysis of a fully coupled lattice using normal modes</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Linear analysis of a fully coupled lattice using normal modes</span>
 
 <span class="sd">    For circular machines, :py:func:`linopt6` analyses</span>
 
@@ -1034,7 +1033,7 @@
 
 
 <span class="k">def</span> <span class="nf">linopt_auto</span><span class="p">(</span><span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This is a convenience function to automatically switch to the faster</span>
 <span class="sd">    :py:func:`linopt2` in case the *coupled* keyword argument is</span>
 <span class="sd">    :py:obj:`False` **and** ring.is_6d is :py:obj:`False`.</span>
@@ -1068,7 +1067,7 @@
                <span class="n">dp</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                <span class="n">method</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="n">linopt6</span><span class="p">,</span>
                <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Linear analysis of a fully coupled lattice</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Linear analysis of a fully coupled lattice</span>
 
 <span class="sd">    Parameters:</span>
 <span class="sd">        ring:                   Lattice description.</span>
@@ -1141,7 +1140,7 @@
 <span class="nd">@check_6d</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">linopt</span><span class="p">(</span><span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span> <span class="n">dp</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">refpts</span><span class="p">:</span> <span class="n">Refpts</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
            <span class="n">get_chrom</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Linear analysis of a H/V coupled lattice (deprecated)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Linear analysis of a H/V coupled lattice (deprecated)</span>
 
 <span class="sd">    Parameters:</span>
 <span class="sd">        ring:           lattice description.</span>
@@ -1216,7 +1215,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">analyze</span> <span class="o">=</span> <span class="n">_analyze4</span> <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;coupled&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span> <span class="k">else</span> <span class="n">_analyze2</span>
     <span class="n">eld0</span><span class="p">,</span> <span class="n">bd</span><span class="p">,</span> <span class="n">eld</span> <span class="o">=</span> <span class="n">_linopt</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">analyze</span><span class="p">,</span> <span class="n">refpts</span><span class="p">,</span> <span class="n">dp</span><span class="o">=</span><span class="n">dp</span><span class="p">,</span> <span class="n">get_chrom</span><span class="o">=</span><span class="n">get_chrom</span><span class="p">,</span>
-                            <span class="n">add0</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,),</span> <span class="n">adds</span><span class="o">=</span><span class="p">(</span><span class="n">ring</span><span class="o">.</span><span class="n">uint32_refpts</span><span class="p">(</span><span class="n">refpts</span><span class="p">),),</span>
+                            <span class="n">add0</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,),</span> <span class="n">adds</span><span class="o">=</span><span class="p">(</span><span class="n">get_uint32_index</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">refpts</span><span class="p">),),</span>
                             <span class="n">addtype</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;idx&#39;</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">uint32</span><span class="p">)],</span>
                             <span class="n">mname</span><span class="o">=</span><span class="s1">&#39;m44&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">eld0</span><span class="p">,</span> <span class="n">bd</span><span class="o">.</span><span class="n">tune</span><span class="p">,</span> <span class="n">bd</span><span class="o">.</span><span class="n">chromaticity</span><span class="p">,</span> <span class="n">eld</span>
@@ -1225,7 +1224,7 @@
 <span class="c1"># noinspection PyPep8Naming</span>
 <div class="viewcode-block" id="avlinopt"><a class="viewcode-back" href="../../../p/api/at.physics.linear.html#at.physics.linear.avlinopt">[docs]</a><span class="nd">@check_6d</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">avlinopt</span><span class="p">(</span><span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span> <span class="n">dp</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">refpts</span><span class="p">:</span> <span class="n">Refpts</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Linear analysis of a lattice with average values</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Linear analysis of a lattice with average values</span>
 
 <span class="sd">    :py:func:`avlinopt` returns average beta, mu, dispersion over the lattice</span>
 <span class="sd">    elements.</span>
@@ -1310,10 +1309,10 @@
     <span class="k">def</span> <span class="nf">dispfoc</span><span class="p">(</span><span class="n">dispp0</span><span class="p">,</span> <span class="n">dispp1</span><span class="p">,</span> <span class="n">k2</span><span class="p">,</span> <span class="n">lg</span><span class="p">):</span>
         <span class="k">return</span> <span class="p">(</span><span class="n">dispp0</span> <span class="o">-</span> <span class="n">dispp1</span><span class="p">)</span> <span class="o">/</span> <span class="n">k2</span> <span class="o">/</span> <span class="n">lg</span>
 
-    <span class="n">boolrefs</span> <span class="o">=</span> <span class="n">ring</span><span class="o">.</span><span class="n">bool_refpts</span><span class="p">(</span><span class="n">refpts</span><span class="p">)</span>
+    <span class="n">boolrefs</span> <span class="o">=</span> <span class="n">get_bool_index</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">refpts</span><span class="p">)</span>
     <span class="n">length</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">el</span><span class="o">.</span><span class="n">Length</span> <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="n">ring</span><span class="p">[</span><span class="n">boolrefs</span><span class="p">]])</span>
     <span class="n">strength</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">get_strength</span><span class="p">(</span><span class="n">el</span><span class="p">)</span> <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="n">ring</span><span class="p">[</span><span class="n">boolrefs</span><span class="p">]])</span>
-    <span class="n">longelem</span> <span class="o">=</span> <span class="n">ring</span><span class="o">.</span><span class="n">bool_refpts</span><span class="p">([])</span>
+    <span class="n">longelem</span> <span class="o">=</span> <span class="n">get_bool_index</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
     <span class="n">longelem</span><span class="p">[</span><span class="n">boolrefs</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">length</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
 
     <span class="n">shorti_refpts</span> <span class="o">=</span> <span class="p">(</span><span class="o">~</span><span class="n">longelem</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">boolrefs</span>
@@ -1361,7 +1360,7 @@
 <div class="viewcode-block" id="get_tune"><a class="viewcode-back" href="../../../p/api/at.physics.linear.html#at.physics.linear.get_tune">[docs]</a><span class="k">def</span> <span class="nf">get_tune</span><span class="p">(</span><span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;linopt&#39;</span><span class="p">,</span>
              <span class="n">dp</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">dct</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">df</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
              <span class="n">orbit</span><span class="p">:</span> <span class="n">Orbit</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Computes the tunes using several available methods</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Computes the tunes using several available methods</span>
 
 <span class="sd">    Parameters:</span>
 <span class="sd">        ring:                   Lattice description</span>
@@ -1434,7 +1433,7 @@
 <div class="viewcode-block" id="get_chrom"><a class="viewcode-back" href="../../../p/api/at.physics.linear.html#at.physics.linear.get_chrom">[docs]</a><span class="k">def</span> <span class="nf">get_chrom</span><span class="p">(</span><span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;linopt&#39;</span><span class="p">,</span>
               <span class="n">dp</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">dct</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">df</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
               <span class="n">cavpts</span><span class="p">:</span> <span class="n">Refpts</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Computes the chromaticities using several available methods</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Computes the chromaticities using several available methods</span>
 
 <span class="sd">    Parameters:</span>
 <span class="sd">        ring:               Lattice description.</span>

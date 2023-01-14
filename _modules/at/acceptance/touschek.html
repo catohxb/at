@@ -308,7 +308,7 @@
 
 
 <div class="viewcode-block" id="get_bunch_length_espread"><a class="viewcode-back" href="../../../p/api/at.acceptance.touschek.html#at.acceptance.touschek.get_bunch_length_espread">[docs]</a><span class="k">def</span> <span class="nf">get_bunch_length_espread</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">zn</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">bunch_curr</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">espread</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Haissinski equation solver</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Haissinski equation solver</span>
 <span class="sd">    </span>
 <span class="sd">    Solves the Haissinski formula and returns the bunch length and energy</span>
 <span class="sd">    spread for given bunch current and :math:`Z/n`. If both ``zn`` and</span>
@@ -369,7 +369,7 @@
 
 
 <span class="k">def</span> <span class="nf">int_piwinski</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">km</span><span class="p">,</span> <span class="n">B1</span><span class="p">,</span> <span class="n">B2</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Integrand of the piwinski formula</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">t</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">k</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
@@ -386,7 +386,7 @@
 
 <div class="viewcode-block" id="get_lifetime"><a class="viewcode-back" href="../../../p/api/at.acceptance.touschek.html#at.acceptance.touschek.get_lifetime">[docs]</a><span class="k">def</span> <span class="nf">get_lifetime</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">emity</span><span class="p">,</span> <span class="n">bunch_curr</span><span class="p">,</span> <span class="n">emitx</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sigs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sigp</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">zn</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">momap</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">refpts</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Touschek lifetime calculation</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Touschek lifetime calculation</span>
 <span class="sd">    </span>
 <span class="sd">    Computes the touschek lifetime using the Piwinski formula</span>
 

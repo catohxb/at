@@ -301,7 +301,7 @@
 
 
 <div class="viewcode-block" id="Haissinski"><a class="viewcode-back" href="../../../p/api/at.collective.haissinski.html#at.collective.haissinski.Haissinski">[docs]</a><span class="k">class</span> <span class="nc">Haissinski</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Class to find the longitudinal distribution in the presence</span>
 <span class="sd">    of a short range wakefield.</span>
 
@@ -391,7 +391,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">compute_Smat</span><span class="p">()</span>
 
 <div class="viewcode-block" id="Haissinski.set_weights"><a class="viewcode-back" href="../../../p/api/at.collective.haissinski.html#at.collective.haissinski.Haissinski.set_weights">[docs]</a>    <span class="k">def</span> <span class="nf">set_weights</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Page 7 second paragraph, in the text</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">weights</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">npoints</span><span class="p">)</span><span class="o">*</span><span class="mi">2</span>
@@ -401,7 +401,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">weights</span> <span class="o">*=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dq</span><span class="o">/</span><span class="mi">3</span></div>
 
 <div class="viewcode-block" id="Haissinski.precompute_S"><a class="viewcode-back" href="../../../p/api/at.collective.haissinski.html#at.collective.haissinski.Haissinski.precompute_S">[docs]</a>    <span class="k">def</span> <span class="nf">precompute_S</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Equation 16</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Computing integrated wake potential&#39;</span><span class="p">)</span>
@@ -425,7 +425,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">Sfun</span> <span class="o">=</span> <span class="n">interp1d</span><span class="p">(</span><span class="n">sr</span><span class="p">,</span> <span class="n">res</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Haissinski.compute_Smat"><a class="viewcode-back" href="../../../p/api/at.collective.haissinski.html#at.collective.haissinski.Haissinski.compute_Smat">[docs]</a>    <span class="k">def</span> <span class="nf">compute_Smat</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        The sampling of the integrated wake potential S</span>
 <span class="sd">        is only made at certain places. So all possibilities</span>
 <span class="sd">        are loaded into a matrix for speed.</span>
@@ -436,7 +436,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">Smat</span><span class="p">[</span><span class="n">iq1</span><span class="p">,</span> <span class="n">iq2</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Sfun</span><span class="p">(</span><span class="n">q1</span><span class="o">-</span><span class="n">q2</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Haissinski.set_I"><a class="viewcode-back" href="../../../p/api/at.collective.haissinski.html#at.collective.haissinski.Haissinski.set_I">[docs]</a>    <span class="k">def</span> <span class="nf">set_I</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">current</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Equation 11</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">N</span> <span class="o">=</span> <span class="n">current</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">circumference</span><span class="o">/</span><span class="p">(</span><span class="n">clight</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">betrel</span><span class="o">*</span><span class="n">qe</span><span class="p">)</span>
@@ -446,7 +446,7 @@
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Normalised current: &#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Ic</span><span class="o">*</span><span class="mf">1e12</span><span class="p">,</span> <span class="s1">&#39; pC/V&#39;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Haissinski.initial_phi"><a class="viewcode-back" href="../../../p/api/at.collective.haissinski.html#at.collective.haissinski.Haissinski.initial_phi">[docs]</a>    <span class="k">def</span> <span class="nf">initial_phi</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Simply a gaussian but using the normalised units.</span>
 <span class="sd">        Page 5 top right, in the text.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
@@ -454,7 +454,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">phi_0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">phi</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="Haissinski.Fi"><a class="viewcode-back" href="../../../p/api/at.collective.haissinski.html#at.collective.haissinski.Haissinski.Fi">[docs]</a>    <span class="k">def</span> <span class="nf">Fi</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Equation 28</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">allFi</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">npoints</span><span class="p">)</span>
@@ -500,7 +500,7 @@
         <span class="k">return</span> <span class="n">val</span></div>
 
 <div class="viewcode-block" id="Haissinski.dFi_dphij"><a class="viewcode-back" href="../../../p/api/at.collective.haissinski.html#at.collective.haissinski.Haissinski.dFi_dphij">[docs]</a>    <span class="k">def</span> <span class="nf">dFi_dphij</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Equation 30</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtFlag</span><span class="p">:</span>
@@ -524,7 +524,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">phi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">phi_1</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="Haissinski.convergence"><a class="viewcode-back" href="../../../p/api/at.collective.haissinski.html#at.collective.haissinski.Haissinski.convergence">[docs]</a>    <span class="k">def</span> <span class="nf">convergence</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Equation 32</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">conv</span> <span class="o">=</span> <span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">phi_1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">phi</span><span class="p">)))</span> \
@@ -551,7 +551,7 @@
                   <span class="s1">&#39;current then use the solution as a starting point&#39;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Haissinski.solve_steps"><a class="viewcode-back" href="../../../p/api/at.collective.haissinski.html#at.collective.haissinski.Haissinski.solve_steps">[docs]</a>    <span class="k">def</span> <span class="nf">solve_steps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">currents</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        INPUT:</span>
 <span class="sd">            currents  an array of currents to solve. If 0 is given,</span>
 <span class="sd">                      a current of 10uA is used to prevent failure.</span>

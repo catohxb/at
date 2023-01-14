@@ -304,7 +304,7 @@
 
 <div class="viewcode-block" id="get_bunches"><a class="viewcode-back" href="../../../p/api/at.tracking.utils.html#at.tracking.utils.get_bunches">[docs]</a><span class="k">def</span> <span class="nf">get_bunches</span><span class="p">(</span><span class="n">r_in</span><span class="p">:</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">nbunch</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
                 <span class="n">selected_bunches</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Function to get the bunches particles 6D coordinates</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Function to get the bunches particles 6D coordinates</span>
 
 <span class="sd">    Parameters:</span>
 <span class="sd">      r_in: 6 x n_particles Fortran-ordered numpy array.</span>
@@ -326,7 +326,7 @@
 
 <div class="viewcode-block" id="get_bunches_std_mean"><a class="viewcode-back" href="../../../p/api/at.tracking.utils.html#at.tracking.utils.get_bunches_std_mean">[docs]</a><span class="k">def</span> <span class="nf">get_bunches_std_mean</span><span class="p">(</span><span class="n">r_in</span><span class="p">:</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">nbunch</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
                          <span class="n">selected_bunches</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Function to get the bunches standard deviation and center</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Function to get the bunches standard deviation and center</span>
 <span class="sd">    of mass</span>
 
 <span class="sd">    Parameters:</span>
@@ -347,7 +347,7 @@
 
 <div class="viewcode-block" id="unfold_beam"><a class="viewcode-back" href="../../../p/api/at.tracking.utils.html#at.tracking.utils.unfold_beam">[docs]</a><span class="k">def</span> <span class="nf">unfold_beam</span><span class="p">(</span><span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span> <span class="n">beam</span><span class="p">:</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
                 <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Function to unfold the beam based on the ring fill pattern.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Function to unfold the beam based on the ring fill pattern.</span>
 <span class="sd">    The input particle distribution has to be in on bucket 0.</span>
 <span class="sd">    Particle are distributed in bunches using ``i%ring.nbunch``</span>
 <span class="sd">    where i is the particle index.</span>

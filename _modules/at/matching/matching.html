@@ -304,7 +304,7 @@
 
 
 <div class="viewcode-block" id="Variable"><a class="viewcode-back" href="../../../p/api/at.matching.matching.html#at.matching.matching.Variable">[docs]</a><span class="k">class</span> <span class="nc">Variable</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;A :py:class:`Variable` is a scalar value acting on a lattice through the</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A :py:class:`Variable` is a scalar value acting on a lattice through the</span>
 <span class="sd">    user-defined functions setfun and getfun</span>
 
 <span class="sd">    Parameters:</span>
@@ -345,11 +345,11 @@
         <span class="nb">super</span><span class="p">(</span><span class="n">Variable</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 
 <div class="viewcode-block" id="Variable.set"><a class="viewcode-back" href="../../../p/api/at.matching.matching.html#at.matching.matching.Variable.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Set the variable value&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the variable value&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setfun</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Variable.get"><a class="viewcode-back" href="../../../p/api/at.matching.matching.html#at.matching.matching.Variable.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Get the actual variable value&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the actual variable value&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">getfun</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Variable.header"><a class="viewcode-back" href="../../../p/api/at.matching.matching.html#at.matching.matching.Variable.header">[docs]</a>    <span class="nd">@staticmethod</span>
@@ -364,7 +364,7 @@
 
 
 <div class="viewcode-block" id="ElementVariable"><a class="viewcode-back" href="../../../p/api/at.matching.matching.html#at.matching.matching.ElementVariable">[docs]</a><span class="k">class</span> <span class="nc">ElementVariable</span><span class="p">(</span><span class="n">Variable</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;An :py:class:`ElementVariable` is:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;An :py:class:`ElementVariable` is:</span>
 
 <span class="sd">    * a scalar attribute or</span>
 <span class="sd">    * an element of an array attribute</span>
@@ -401,7 +401,7 @@
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_access</span><span class="p">(</span><span class="n">index</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Access to element attributes&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Access to element attributes&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">index</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">setf</span> <span class="o">=</span> <span class="nb">setattr</span>
             <span class="n">getf</span> <span class="o">=</span> <span class="nb">getattr</span>
@@ -415,7 +415,7 @@
 
 
 <div class="viewcode-block" id="Constraints"><a class="viewcode-back" href="../../../p/api/at.matching.matching.html#at.matching.matching.Constraints">[docs]</a><span class="k">class</span> <span class="nc">Constraints</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Container for generic constraints:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Container for generic constraints:</span>
 
 <span class="sd">    * a constraint is defined by a user-defined evaluation function,</span>
 <span class="sd">    * constraints are added to the container with the :py:meth:`add` method.</span>
@@ -461,7 +461,7 @@
 
 <div class="viewcode-block" id="Constraints.add"><a class="viewcode-back" href="../../../p/api/at.matching.matching.html#at.matching.matching.Constraints.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fun</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
             <span class="n">weight</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)):</span>
-        <span class="sd">&quot;&quot;&quot;Add a target to the :py:class:`Constraints` container</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add a target to the :py:class:`Constraints` container</span>
 
 <span class="sd">        .. highlight:: python</span>
 
@@ -498,11 +498,11 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">ubound</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ubound</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Constraints.values"><a class="viewcode-back" href="../../../p/api/at.matching.matching.html#at.matching.matching.Constraints.values">[docs]</a>    <span class="k">def</span> <span class="nf">values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return the list of actual parameter values&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the list of actual parameter values&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">fun</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span> <span class="k">for</span> <span class="n">fun</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fun</span><span class="p">]</span></div>
 
 <div class="viewcode-block" id="Constraints.evaluate"><a class="viewcode-back" href="../../../p/api/at.matching.matching.html#at.matching.matching.Constraints.evaluate">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return a flattened array of weighted residuals&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a flattened array of weighted residuals&quot;&quot;&quot;</span>
 
         <span class="k">def</span> <span class="nf">res</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">lbound</span><span class="p">,</span> <span class="n">ubound</span><span class="p">):</span>
             <span class="n">diff</span> <span class="o">=</span> <span class="n">value</span> <span class="o">-</span> <span class="n">target</span>   <span class="c1"># broadcast here =&gt; at least 1 dimension</span>
@@ -519,12 +519,12 @@
 
 <div class="viewcode-block" id="Constraints.header"><a class="viewcode-back" href="../../../p/api/at.matching.matching.html#at.matching.matching.Constraints.header">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">header</span><span class="p">():</span>
-        <span class="sd">&quot;&quot;&quot;Header for the display of constraint values and residuals&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Header for the display of constraint values and residuals&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="si">{:&gt;12s}{:&gt;13s}{:&gt;16s}{:&gt;16s}{:&gt;16s}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
             <span class="s1">&#39;Name&#39;</span><span class="p">,</span> <span class="s1">&#39;Initial&#39;</span><span class="p">,</span> <span class="s1">&#39;Final &#39;</span><span class="p">,</span> <span class="s1">&#39;Target&#39;</span><span class="p">,</span> <span class="s1">&#39;Residual&#39;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Constraints.status"><a class="viewcode-back" href="../../../p/api/at.matching.matching.html#at.matching.matching.Constraints.status">[docs]</a>    <span class="k">def</span> <span class="nf">status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span> <span class="n">initial</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return a string giving the actual state of constraints&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a string giving the actual state of constraints&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">initial</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">initial</span> <span class="o">=</span> <span class="n">repeat</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">NaN</span><span class="p">)</span>
         <span class="n">strs</span> <span class="o">=</span> <span class="p">[]</span>
@@ -540,7 +540,7 @@
 
 
 <div class="viewcode-block" id="ElementConstraints"><a class="viewcode-back" href="../../../p/api/at.matching.matching.html#at.matching.matching.ElementConstraints">[docs]</a><span class="k">class</span> <span class="nc">ElementConstraints</span><span class="p">(</span><span class="n">Constraints</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Base class for position-related constraints: handle the refpoints</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Base class for position-related constraints: handle the refpoints</span>
 <span class="sd">    of each target&quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">nelems</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ring</span><span class="p">)</span>
@@ -550,7 +550,7 @@
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_arrayaccess</span><span class="p">(</span><span class="n">index</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Access to array elements&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Access to array elements&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">index</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">def</span> <span class="nf">getv</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
                 <span class="k">return</span> <span class="n">x</span>
@@ -561,7 +561,7 @@
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_recordaccess</span><span class="p">(</span><span class="n">index</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Access to optics parameters&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Access to optics parameters&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">index</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">getf</span> <span class="o">=</span> <span class="nb">getattr</span>
         <span class="k">else</span><span class="p">:</span>
@@ -576,7 +576,7 @@
 
 <div class="viewcode-block" id="ElementConstraints.add"><a class="viewcode-back" href="../../../p/api/at.matching.matching.html#at.matching.matching.ElementConstraints.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fun</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span>
             <span class="n">refpts</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Refpts</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Add a target to the :py:class:`ElementConstraints` container</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add a target to the :py:class:`ElementConstraints` container</span>
 
 <span class="sd">        Parameters:</span>
 <span class="sd">            fun:          Evaluation function. Called as:</span>
@@ -617,7 +617,7 @@
         <span class="k">return</span> <span class="p">[</span><span class="n">fun</span><span class="p">(</span><span class="n">loc</span><span class="p">,</span> <span class="o">*</span><span class="n">vglob</span><span class="p">)</span> <span class="k">for</span> <span class="n">fun</span><span class="p">,</span> <span class="n">loc</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fun</span><span class="p">,</span> <span class="n">vloc</span><span class="p">)]</span></div>
 
 <div class="viewcode-block" id="ElementConstraints.compute"><a class="viewcode-back" href="../../../p/api/at.matching.matching.html#at.matching.matching.ElementConstraints.compute">[docs]</a>    <span class="k">def</span> <span class="nf">compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Dummy computation. Compute must return:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Dummy computation. Compute must return:</span>
 <span class="sd">        - an iterator over local data for each target</span>
 <span class="sd">        - a tuple of global data</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -626,7 +626,7 @@
 
 <div class="viewcode-block" id="LinoptConstraints"><a class="viewcode-back" href="../../../p/api/at.matching.matching.html#at.matching.matching.LinoptConstraints">[docs]</a><span class="k">class</span> <span class="nc">LinoptConstraints</span><span class="p">(</span><span class="n">ElementConstraints</span><span class="p">):</span>
     <span class="c1"># noinspection PyUnresolvedReferences</span>
-    <span class="sd">&quot;&quot;&quot;Container for linear optics constraints:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Container for linear optics constraints:</span>
 
 <span class="sd">    * a constraint can be set on any result of at.get_optics</span>
 <span class="sd">    * constraints are added to the container with the LinoptConstraints.add</span>
@@ -689,7 +689,7 @@
 <div class="viewcode-block" id="LinoptConstraints.add"><a class="viewcode-back" href="../../../p/api/at.matching.matching.html#at.matching.matching.LinoptConstraints.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">param</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">refpts</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Refpts</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
             <span class="n">index</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">slice</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
             <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Add a target to the LinoptConstraints container</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add a target to the LinoptConstraints container</span>
 
 <span class="sd">        Parameters:</span>
 <span class="sd">            param:         2 possibilities:</span>
@@ -764,7 +764,7 @@
                                            <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="LinoptConstraints.compute"><a class="viewcode-back" href="../../../p/api/at.matching.matching.html#at.matching.matching.LinoptConstraints.compute">[docs]</a>    <span class="k">def</span> <span class="nf">compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Optics computation before evaluation of all constraints&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Optics computation before evaluation of all constraints&quot;&quot;&quot;</span>
         <span class="n">ld0</span><span class="p">,</span> <span class="n">bd</span><span class="p">,</span> <span class="n">ld</span> <span class="o">=</span> <span class="n">get_optics</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">refpts</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">refpts</span><span class="p">,</span>
                                  <span class="n">get_chrom</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">get_chrom</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">return</span> <span class="p">(</span><span class="n">ld</span><span class="p">[</span><span class="n">ref</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">refpts</span><span class="p">]]</span> <span class="k">for</span> <span class="n">ref</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">refs</span><span class="p">),</span> \
@@ -773,7 +773,7 @@
 
 <div class="viewcode-block" id="OrbitConstraints"><a class="viewcode-back" href="../../../p/api/at.matching.matching.html#at.matching.matching.OrbitConstraints">[docs]</a><span class="k">class</span> <span class="nc">OrbitConstraints</span><span class="p">(</span><span class="n">ElementConstraints</span><span class="p">):</span>
     <span class="c1"># noinspection PyUnresolvedReferences</span>
-    <span class="sd">&quot;&quot;&quot;Container for orbit constraints:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Container for orbit constraints:</span>
 <span class="sd">    The closed orbit can be handled with :py:class`LinoptConstraints`, but for</span>
 <span class="sd">    problems which do not involve parameters other than orbit, like steering or</span>
 <span class="sd">    orbit bumps, :py:class:`OrbitConstraints` is much faster.</span>
@@ -807,7 +807,7 @@
 <div class="viewcode-block" id="OrbitConstraints.add"><a class="viewcode-back" href="../../../p/api/at.matching.matching.html#at.matching.matching.OrbitConstraints.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">refpts</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Refpts</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
             <span class="n">index</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">slice</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
             <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Add a target to the OrbitConstraints container</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add a target to the OrbitConstraints container</span>
 
 <span class="sd">        Parameters:</span>
 <span class="sd">            target:       desired value.</span>
@@ -835,13 +835,13 @@
                                           <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="OrbitConstraints.compute"><a class="viewcode-back" href="../../../p/api/at.matching.matching.html#at.matching.matching.OrbitConstraints.compute">[docs]</a>    <span class="k">def</span> <span class="nf">compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Orbit computation before evaluation of all constraints&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Orbit computation before evaluation of all constraints&quot;&quot;&quot;</span>
         <span class="n">orbit0</span><span class="p">,</span> <span class="n">orbit</span> <span class="o">=</span> <span class="n">find_orbit</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">refpts</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">refpts</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">return</span> <span class="p">(</span><span class="n">orbit</span><span class="p">[</span><span class="n">ref</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">refpts</span><span class="p">]]</span><span class="o">.</span><span class="n">T</span> <span class="k">for</span> <span class="n">ref</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">refs</span><span class="p">),</span> <span class="p">()</span></div></div>
 
 
 <div class="viewcode-block" id="EnvelopeConstraints"><a class="viewcode-back" href="../../../p/api/at.matching.matching.html#at.matching.matching.EnvelopeConstraints">[docs]</a><span class="k">class</span> <span class="nc">EnvelopeConstraints</span><span class="p">(</span><span class="n">ElementConstraints</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Container for envelope constraints:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Container for envelope constraints:</span>
 
 <span class="sd">    * a constraint can be set on any result of :py:func:`.ohmi_envelope`,</span>
 <span class="sd">    * constraints are added to the container with the :py:meth:`add` method.</span>
@@ -858,7 +858,7 @@
 <div class="viewcode-block" id="EnvelopeConstraints.add"><a class="viewcode-back" href="../../../p/api/at.matching.matching.html#at.matching.matching.EnvelopeConstraints.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">param</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">refpts</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Refpts</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
             <span class="n">index</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">slice</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
             <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Add a target to the :py:class:`EnvelopeConstraints` container</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add a target to the :py:class:`EnvelopeConstraints` container</span>
 
 <span class="sd">        Parameters:</span>
 <span class="sd">            param:        2 possibilities:</span>
@@ -922,7 +922,7 @@
                                              <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="EnvelopeConstraints.compute"><a class="viewcode-back" href="../../../p/api/at.matching.matching.html#at.matching.matching.EnvelopeConstraints.compute">[docs]</a>    <span class="k">def</span> <span class="nf">compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Optics computation before evaluation of all constraints&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Optics computation before evaluation of all constraints&quot;&quot;&quot;</span>
         <span class="n">em0</span><span class="p">,</span> <span class="n">beamdata</span><span class="p">,</span> <span class="n">em</span> <span class="o">=</span> <span class="n">ohmi_envelope</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">refpts</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">refpts</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">return</span> <span class="p">(</span><span class="n">em</span><span class="p">[</span><span class="n">ref</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">refpts</span><span class="p">]]</span> <span class="k">for</span> <span class="n">ref</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">refs</span><span class="p">),</span> <span class="p">(</span><span class="n">beamdata</span><span class="p">,)</span></div></div>
 
@@ -932,7 +932,7 @@
           <span class="n">max_nfev</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span>
           <span class="n">diff_step</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0e-10</span><span class="p">,</span>
           <span class="n">method</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">copy</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Perform matching of constraints by varying variables</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Perform matching of constraints by varying variables</span>
 
 <span class="sd">    Parameters:</span>
 <span class="sd">        ring:               Lattice description</span>

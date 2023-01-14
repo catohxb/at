@@ -312,6 +312,7 @@
 </li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="at.lattice.html">at.lattice</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="at.lattice.cavity_access.html">at.lattice.cavity_access</a></li>
+<li class="toctree-l2"><a class="reference internal" href="at.lattice.deprecated.html">at.lattice.deprecated</a></li>
 <li class="toctree-l2"><a class="reference internal" href="at.lattice.elements.html">at.lattice.elements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="at.lattice.lattice_object.html">at.lattice.lattice_object</a></li>
 <li class="toctree-l2"><a class="reference internal" href="at.lattice.options.html">at.lattice.options</a></li>
@@ -396,23 +397,45 @@
   <section id="module-at.lattice.utils">
 <span id="at-lattice-utils"></span><h1>at.lattice.utils<a class="headerlink" href="#module-at.lattice.utils" title="Permalink to this heading">#</a></h1>
 <p>Helper functions for working with AT lattices.</p>
-<p>A lattice as understood by pyAT is any sequence of elements.  These functions
+<p>A lattice as understood by pyAT is a sequence of elements.  These functions
 are useful for working with these sequences.</p>
-<p>The <em>refpts</em> argument allow functions to select points in the lattice,
-returned values are given at the entrance of each element specified in <em>refpts</em>.
-<em>refpts</em> can be:</p>
+<p id="refpts"><strong>Selecting elements in a lattice:</strong></p>
+<p>The <em>refpts</em> argument allows functions to select locations in the lattice. The
+location is defined as the entrance of the selected element. <em>refpts</em> may be:</p>
 <ol class="arabic simple">
-<li><p>an integer in the range [-len(ring), len(ring)-1] selecting the element
-according to python indexing rules. As a special case, len(ring) is
-allowed and refers to the end of the last element,</p></li>
-<li><p>an ordered sequence of such integers without duplicates,</p></li>
-<li><p>a sequence of booleans of maximum length len(ring)+1, where selected
-elements are <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a>.</p></li>
+<li><p>an integer in the range <em>[-len(lattice), len(lattice)-1]</em>
+selecting an element according to the python indexing rules.
+As a special case, <em>len(lattice)</em> is allowed and refers to the end
+of the last element,</p></li>
+<li><p>an ordered list of such integers without duplicates,</p></li>
+<li><p>a numpy array of booleans of maximum length <em>len(lattice)+1</em>,
+where selected elements are <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a>,</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>, meaning an empty selection,</p></li>
+<li><p><a class="reference internal" href="#at.lattice.utils.All" title="at.lattice.utils.All"><code class="xref py py-obj docutils literal notranslate"><span class="pre">All</span></code></a>, meaning “all possible reference points”: the entrance of all
+elements plus the end of the last element,</p></li>
+<li><p><a class="reference internal" href="#at.lattice.utils.End" title="at.lattice.utils.End"><code class="xref py py-obj docutils literal notranslate"><span class="pre">End</span></code></a>, selecting the end of the last element,</p></li>
+<li><p>an element type, selecting all the elements of that type in
+the lattice, e.g. <code class="code highlight pycode python docutils literal highlight-python"><span class="n">at</span><span class="o">.</span><span class="n">Sextupole</span></code>,</p></li>
+<li><p>a string, selecting all the elements whose <cite>FamName</cite> attribute matches it.
+Unix shell-style wildcards are accepted, e.g. <cite>“Q[FD]*”</cite>,</p></li>
+<li><p>a callable <code class="code highlight pycode python docutils literal highlight-python"><span class="n">filtfunc</span></code> such that <code class="code highlight pycode python docutils literal highlight-python"><span class="n">filtfunc</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span></code>
+is <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a> for selected elements.</p></li>
 </ol>
+<p class="rubric">Module Attributes</p>
+<table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#at.lattice.utils.All" title="at.lattice.utils.All"><code class="xref py py-obj docutils literal notranslate"><span class="pre">All</span></code></a></p></td>
+<td><p><a class="reference internal" href="#at.lattice.utils.All" title="at.lattice.utils.All"><code class="xref py py-obj docutils literal notranslate"><span class="pre">All</span></code></a> is a special value to be used as <em>refpts</em>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#at.lattice.utils.End" title="at.lattice.utils.End"><code class="xref py py-obj docutils literal notranslate"><span class="pre">End</span></code></a></p></td>
+<td><p><a class="reference internal" href="#at.lattice.utils.End" title="at.lattice.utils.End"><code class="xref py py-obj docutils literal notranslate"><span class="pre">End</span></code></a> is a special value to be used as <em>refpts</em>.</p></td>
+</tr>
+</tbody>
+</table>
 <p class="rubric">Functions</p>
 <table class="autosummary longtable table autosummary">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#at.lattice.utils.axis_descr" title="at.lattice.utils.axis_descr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">axis_descr</span></code></a>(axis [ ,coord][, key])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#at.lattice.utils.axis_descr" title="at.lattice.utils.axis_descr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">axis_descr</span></code></a>(axis [ ,axis][, key])</p></td>
 <td><p>Return a tuple containing for each input argument the requested information</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_radiation</span></code>(rad)</p></td>
@@ -430,11 +453,17 @@ elements are <a class="reference external" href="https://docs.python.org/3/libra
 <tr class="row-even"><td><p><a class="reference internal" href="#at.lattice.utils.make_copy" title="at.lattice.utils.make_copy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_copy</span></code></a>(copy)</p></td>
 <td><p>Decorator for optics functions</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#at.lattice.utils.uint32_refpts" title="at.lattice.utils.uint32_refpts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">uint32_refpts</span></code></a>(refpts, n_elements)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#at.lattice.utils.uint32_refpts" title="at.lattice.utils.uint32_refpts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">uint32_refpts</span></code></a>(refpts, n_elements[, ...])</p></td>
 <td><p>Return a <a class="reference external" href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.uint32" title="(in NumPy v1.24)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">uint32</span></code></a> array of element indices selecting ring elements.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#at.lattice.utils.bool_refpts" title="at.lattice.utils.bool_refpts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bool_refpts</span></code></a>(refpts, n_elements)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#at.lattice.utils.bool_refpts" title="at.lattice.utils.bool_refpts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bool_refpts</span></code></a>(refpts, n_elements[, endpoint, ...])</p></td>
 <td><p>Returns a <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a> array of element indices, selecting ring elements.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#at.lattice.utils.get_uint32_index" title="at.lattice.utils.get_uint32_index"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_uint32_index</span></code></a>(ring, refpts[, endpoint])</p></td>
+<td><p>Returns an integer array of element indices, selecting ring elements.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#at.lattice.utils.get_bool_index" title="at.lattice.utils.get_bool_index"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_bool_index</span></code></a>(ring, refpts[, endpoint])</p></td>
+<td><p>Returns a bool array of element indices, selecting ring elements.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#at.lattice.utils.checkattr" title="at.lattice.utils.checkattr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">checkattr</span></code></a>(attrname[, attrvalue])</p></td>
 <td><p>Checks the presence or the value of an attribute</p></td>
@@ -445,53 +474,43 @@ elements are <a class="reference external" href="https://docs.python.org/3/libra
 <tr class="row-odd"><td><p><a class="reference internal" href="#at.lattice.utils.checkname" title="at.lattice.utils.checkname"><code class="xref py py-obj docutils literal notranslate"><span class="pre">checkname</span></code></a>(pattern)</p></td>
 <td><p>Checks the name of an element</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#at.lattice.utils.get_cells" title="at.lattice.utils.get_cells"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_cells</span></code></a>(-&gt; BoolRefpts
- -&gt; BoolRefpts)</p></td>
-<td><p>Returns a bool array of element indices, selecting ring elements.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#at.lattice.utils.get_elements" title="at.lattice.utils.get_elements"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_elements</span></code></a>(ring, key[, quiet])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#at.lattice.utils.get_elements" title="at.lattice.utils.get_elements"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_elements</span></code></a>(ring, refpts[, quiet])</p></td>
 <td><p>Returns a list of elements selected by <em>key</em>.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#at.lattice.utils.get_refpts" title="at.lattice.utils.get_refpts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_refpts</span></code></a>(ring, key[, quiet])</p></td>
-<td><p>Return a <a class="reference external" href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.uint32" title="(in NumPy v1.24)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">uint32</span></code></a> array of element indices selecting ring elements.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#at.lattice.utils.get_s_pos" title="at.lattice.utils.get_s_pos"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_s_pos</span></code></a>(ring[, refpts])</p></td>
 <td><p>Returns the locations of selected elements</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#at.lattice.utils.refpts_count" title="at.lattice.utils.refpts_count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">refpts_count</span></code></a>(refpts, n_elements)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#at.lattice.utils.refpts_count" title="at.lattice.utils.refpts_count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">refpts_count</span></code></a>(refpts, n_elements[, endpoint, ...])</p></td>
 <td><p>Returns the number of reference points</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#at.lattice.utils.refpts_len" title="at.lattice.utils.refpts_len"><code class="xref py py-obj docutils literal notranslate"><span class="pre">refpts_len</span></code></a>(ring, refpts)</p></td>
-<td><p>Returns the number of reference points</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#at.lattice.utils.refpts_iterator" title="at.lattice.utils.refpts_iterator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">refpts_iterator</span></code></a>(ring, refpts)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#at.lattice.utils.refpts_iterator" title="at.lattice.utils.refpts_iterator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">refpts_iterator</span></code></a>(ring, refpts)</p></td>
 <td><p>Return an iterator over selected elements in a lattice</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#at.lattice.utils.set_shift" title="at.lattice.utils.set_shift"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_shift</span></code></a>(ring, dxs, dzs[, relative])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#at.lattice.utils.set_shift" title="at.lattice.utils.set_shift"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_shift</span></code></a>(ring, dxs, dzs[, relative])</p></td>
 <td><p>Sets the translations of a list of elements.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#at.lattice.utils.set_tilt" title="at.lattice.utils.set_tilt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_tilt</span></code></a>(ring, tilts[, relative])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#at.lattice.utils.set_tilt" title="at.lattice.utils.set_tilt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_tilt</span></code></a>(ring, tilts[, relative])</p></td>
 <td><p>Sets the tilts of a list of elements.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#at.lattice.utils.set_rotation" title="at.lattice.utils.set_rotation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_rotation</span></code></a>(ring[, tilts, pitches, yaws, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#at.lattice.utils.set_rotation" title="at.lattice.utils.set_rotation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_rotation</span></code></a>(ring[, tilts, pitches, yaws, ...])</p></td>
 <td><p>Sets the tilts of a list of elements.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#at.lattice.utils.tilt_elem" title="at.lattice.utils.tilt_elem"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tilt_elem</span></code></a>(elem, rots[, relative])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#at.lattice.utils.tilt_elem" title="at.lattice.utils.tilt_elem"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tilt_elem</span></code></a>(elem, rots[, relative])</p></td>
 <td><p>Set the tilt angle <span class="math notranslate nohighlight">\(\theta\)</span> of an <a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><code class="xref py py-class docutils literal notranslate"><span class="pre">Element</span></code></a></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#at.lattice.utils.shift_elem" title="at.lattice.utils.shift_elem"><code class="xref py py-obj docutils literal notranslate"><span class="pre">shift_elem</span></code></a>(elem[, deltax, deltaz, relative])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#at.lattice.utils.shift_elem" title="at.lattice.utils.shift_elem"><code class="xref py py-obj docutils literal notranslate"><span class="pre">shift_elem</span></code></a>(elem[, deltax, deltaz, relative])</p></td>
 <td><p>Sets the transverse displacement of an <a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><code class="xref py py-class docutils literal notranslate"><span class="pre">Element</span></code></a></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#at.lattice.utils.rotate_elem" title="at.lattice.utils.rotate_elem"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rotate_elem</span></code></a>(elem[, tilt, pitch, yaw, relative])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#at.lattice.utils.rotate_elem" title="at.lattice.utils.rotate_elem"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rotate_elem</span></code></a>(elem[, tilt, pitch, yaw, relative])</p></td>
 <td><p>Set the tilt, pitch and yaw angle of an <a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><code class="xref py py-class docutils literal notranslate"><span class="pre">Element</span></code></a>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#at.lattice.utils.get_value_refpts" title="at.lattice.utils.get_value_refpts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_value_refpts</span></code></a>(ring, refpts, attrname[, index])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#at.lattice.utils.get_value_refpts" title="at.lattice.utils.get_value_refpts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_value_refpts</span></code></a>(ring, refpts, attrname[, index])</p></td>
 <td><p>Extracts attribute values from selected lattice <a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><code class="xref py py-class docutils literal notranslate"><span class="pre">Element</span></code></a>s.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#at.lattice.utils.set_value_refpts" title="at.lattice.utils.set_value_refpts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_value_refpts</span></code></a>(ring, refpts, attrname, ...)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#at.lattice.utils.set_value_refpts" title="at.lattice.utils.set_value_refpts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_value_refpts</span></code></a>(ring, refpts, attrname, ...)</p></td>
 <td><p>Set the values of an attribute of an array of elements based on their refpts</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#at.lattice.utils.get_geometry" title="at.lattice.utils.get_geometry"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_geometry</span></code></a>(ring[, start_coordinates, centered])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#at.lattice.utils.get_geometry" title="at.lattice.utils.get_geometry"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_geometry</span></code></a>(ring[, start_coordinates, centered])</p></td>
 <td><p>Compute the 2D ring geometry in cartesian coordinates</p></td>
 </tr>
 </tbody>
@@ -521,7 +540,7 @@ elements are <a class="reference external" href="https://docs.python.org/3/libra
 
 <dl class="py function">
 <dt class="sig sig-object py" id="at.lattice.utils.axis_descr">
-<span class="sig-name descname"><span class="pre">axis_descr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">axis</span></span></em>, <span class="optional">[</span><em class="sig-param"><span class="n"><span class="pre">coord</span></span></em>, <span class="optional">]</span><em class="sig-param"><span class="n"><span class="pre">key=None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/utils.html#axis_descr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.utils.axis_descr" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">axis_descr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">axis</span></span></em>, <span class="optional">[</span><em class="sig-param"><span class="n"><span class="pre">axis</span></span></em>, <span class="optional">]</span><em class="sig-param"><span class="n"><span class="pre">key=None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/utils.html#axis_descr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.utils.axis_descr" title="Permalink to this definition">#</a></dt>
 <dd><p>Return a tuple containing for each input argument the requested information</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -569,20 +588,26 @@ dictionary, selecting the desired information. One of :</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="at.lattice.utils.bool_refpts">
-<span class="sig-name descname"><span class="pre">bool_refpts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">refpts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_elements</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/utils.html#bool_refpts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.utils.bool_refpts" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">bool_refpts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">refpts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_elements</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endpoint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">types</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'None,</span> <span class="pre">All,</span> <span class="pre">End,</span> <span class="pre">int,</span> <span class="pre">bool'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/utils.html#bool_refpts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.utils.bool_refpts" title="Permalink to this definition">#</a></dt>
 <dd><p>Returns a <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a> array of element indices, selecting ring
 elements.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>refpts</strong> (<em>Refpts</em>) – <p><em>refpts</em> may be:</p>
+<li><p><strong>refpts</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.11)"><em>Union</em></a><em>[</em><em>None</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.11)"><em>Sequence</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.11)"><em>Sequence</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>]</em><em>, </em><em>RefptsCode</em><em>]</em>) – <p>Element selector. <em>refpts</em> may be:</p>
 <ol class="arabic simple">
 <li><p>an integer or a sequence of integers
-(0 indicating the first element)</p></li>
-<li><p>a sequence of booleans marking the selected elements</p></li>
+(0 indicating the first element),</p></li>
+<li><p>a sequence of booleans marking the selected elements,</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>, meaning empty selection,</p></li>
+<li><p><a class="reference internal" href="#at.lattice.utils.All" title="at.lattice.utils.All"><code class="xref py py-obj docutils literal notranslate"><span class="pre">All</span></code></a>, meaning “all possible reference points”,</p></li>
+<li><p><a class="reference internal" href="#at.lattice.utils.End" title="at.lattice.utils.End"><code class="xref py py-obj docutils literal notranslate"><span class="pre">End</span></code></a>, selecting the end of the last element.</p></li>
 </ol>
 </p></li>
 <li><p><strong>n_elements</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Length of the lattice</p></li>
+<li><p><strong>endpoint</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – if <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a>, allow <em>n_elements</em> as a
+special index, referring to the end of the last element.</p></li>
+<li><p><strong>types</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Allowed types</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -704,63 +729,56 @@ having a given type.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="at.lattice.utils.get_cells">
-<span class="sig-name descname"><span class="pre">get_cells</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filtfunc</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">BoolRefpts</span></span></span><a class="reference internal" href="../../_modules/at/lattice/utils.html#get_cells"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.utils.get_cells" title="Permalink to this definition">#</a></dt>
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">get_cells</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrname</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">BoolRefpts</span></span></span></dt>
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">get_cells</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrvalue</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">BoolRefpts</span></span></span></dt>
+<dt class="sig sig-object py" id="at.lattice.utils.get_bool_index">
+<span class="sig-name descname"><span class="pre">get_bool_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refpts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endpoint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/utils.html#get_bool_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.utils.get_bool_index" title="Permalink to this definition">#</a></dt>
 <dd><p>Returns a bool array of element indices, selecting ring elements.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>ring</strong> (<em>Sequence</em><em>[</em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>]</em>) – Lattice description</p></li>
-<li><p><strong>filtfunc</strong> (<em>ElementFilter</em>) – Filter function. Selects
-<a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><code class="xref py py-class docutils literal notranslate"><span class="pre">Element</span></code></a>s satisfying the filter function</p></li>
-<li><p><strong>attrname</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Attribute name</p></li>
-<li><p><strong>attrvalue</strong> (<em>Any</em>) – Attribute value. If absent, select the
-presence of an <em>attrname</em> attribute. If present, select
-<a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><code class="xref py py-class docutils literal notranslate"><span class="pre">Element</span></code></a>s with <code class="code highlight pycode python docutils literal highlight-python"><span class="n">attrname</span> <span class="o">==</span> <span class="n">attrvalue</span></code>.</p></li>
+<li><p><strong>refpts</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.11)"><em>Union</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Type" title="(in Python v3.11)"><em>Type</em></a><em>[</em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>]</em><em>, </em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.11)"><em>Callable</em></a><em>[</em><em>[</em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>None</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.11)"><em>Sequence</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.11)"><em>Sequence</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>]</em><em>, </em><em>RefptsCode</em><em>]</em>) – Element selection key.
+See “<a class="reference internal" href="#refpts"><span class="std std-ref">Selecting elements in a lattice</span></a>”</p></li>
+<li><p><strong>endpoint</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – if <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a>, allow <em>len(ring)</em> as a
+special index, referring to the end of the last element.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>bool_refs</strong> (<em>BoolRefpts</em>) – numpy Array of <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bool</span></code></a> with length
-len(ring)+1</p>
+<dd class="field-even"><p><strong>bool_refs</strong> (<em>BoolRefpts</em>) – A bool numpy array used for indexing
+<a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><code class="xref py py-class docutils literal notranslate"><span class="pre">Element</span></code></a>s in a lattice.</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">refpts</span> <span class="o">=</span> <span class="n">get_cells</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="s1">&#39;Frequency&#39;</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">refpts</span> <span class="o">=</span> <span class="n">get_bool_index</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">at</span><span class="o">.</span><span class="n">Quadrupole</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Returns a numpy array of booleans where all elements having a
-<code class="code highlight pycode python docutils literal highlight-python"><span class="n">Frequency</span></code> attribute are <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a></p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">refpts</span> <span class="o">=</span> <span class="n">get_cells</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="s1">&#39;K&#39;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+<p>Returns a numpy array of booleans where all <a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Quadrupole" title="at.lattice.elements.Quadrupole"><code class="xref py py-class docutils literal notranslate"><span class="pre">Quadrupole</span></code></a>
+are <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a></p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">refpts</span> <span class="o">=</span> <span class="n">get_bool_index</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="s2">&quot;Q[FD]*&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Returns a numpy array of booleans where all elements having a
-<code class="code highlight pycode python docutils literal highlight-python"><span class="n">K</span></code> attribute equal to 0.0 are <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a></p>
+<p>Returns a numpy array of booleans where all elements whose <em>FamName</em>
+matches “Q[FD]*” are <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a></p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">refpts</span> <span class="o">=</span> <span class="n">get_bool_index</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">at</span><span class="o">.</span><span class="n">checkattr</span><span class="p">(</span><span class="s1">&#39;K&#39;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Returns a numpy array of booleans where all elements whose <em>K</em>
+attribute is 0.0 are <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a></p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">refpts</span> <span class="o">=</span> <span class="n">get_bool_index</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Returns a numpy array of <em>len(ring)+1</em> <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a> values</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="at.lattice.utils.get_elements">
-<span class="sig-name descname"><span class="pre">get_elements</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quiet</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/utils.html#get_elements"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.utils.get_elements" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_elements</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refpts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quiet</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/utils.html#get_elements"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.utils.get_elements" title="Permalink to this definition">#</a></dt>
 <dd><p>Returns a list of elements selected by <em>key</em>.</p>
+<p>Deprecated: <code class="code highlight pycode python docutils literal highlight-python"><span class="n">get_elements</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">refpts</span><span class="p">)</span></code> is <code class="code highlight pycode python docutils literal highlight-python"><span class="n">ring</span><span class="p">[</span><span class="n">refpts</span><span class="p">]</span></code></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ring</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.11)"><em>Sequence</em></a><em>[</em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>]</em>) – Lattice description</p></li>
-<li><p><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.11)"><em>Union</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Type" title="(in Python v3.11)"><em>Type</em></a><em>[</em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>]</em><em>, </em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>]</em>) – <p>Element selection key. May be:</p>
-<ol class="arabic simple">
-<li><p>an element instance, will return all elements of the same
-type in the lattice, e.g. <code class="code highlight pycode python docutils literal highlight-python"><span class="n">Drift</span><span class="p">(</span><span class="s1">&#39;d1&#39;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span></code></p></li>
-<li><p>an element type, will return all elements of that type in
-the lattice, e.g. <code class="code highlight pycode python docutils literal highlight-python"><span class="n">at</span><span class="o">.</span><span class="n">Sextupole</span></code></p></li>
-<li><p>a string to match against elements’ <code class="docutils literal notranslate"><span class="pre">FamName</span></code>, supports
-Unix shell-style wildcards, e.g. <code class="docutils literal notranslate"><span class="pre">'BPM_*1'</span></code></p></li>
-</ol>
-</p></li>
-<li><p><strong>quiet</strong> – if false print information about matched elements for FamName
-matches.</p></li>
+<li><p><strong>refpts</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.11)"><em>Union</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Type" title="(in Python v3.11)"><em>Type</em></a><em>[</em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>]</em><em>, </em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.11)"><em>Callable</em></a><em>[</em><em>[</em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>None</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.11)"><em>Sequence</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.11)"><em>Sequence</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>]</em><em>, </em><em>RefptsCode</em><em>]</em>) – Element selection key.
+See “<a class="reference internal" href="#refpts"><span class="std std-ref">Selecting elements in a lattice</span></a>”</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -796,62 +814,64 @@ center of the ring</p></li>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="at.lattice.utils.get_refpts">
-<span class="sig-name descname"><span class="pre">get_refpts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quiet</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/utils.html#get_refpts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.utils.get_refpts" title="Permalink to this definition">#</a></dt>
-<dd><p>Return a <a class="reference external" href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.uint32" title="(in NumPy v1.24)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">uint32</span></code></a> array of element indices selecting
-ring elements.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>ring</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.11)"><em>Sequence</em></a><em>[</em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>]</em>) – Lattice description</p></li>
-<li><p><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.11)"><em>Union</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Type" title="(in Python v3.11)"><em>Type</em></a><em>[</em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>]</em><em>, </em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>]</em>) – <p>Element selection key. May be:</p>
-<ol class="arabic simple">
-<li><p>an element instance, will return all elements of the same
-type in the lattice, e.g. <code class="code highlight pycode python docutils literal highlight-python"><span class="n">Drift</span><span class="p">(</span><span class="s1">&#39;d1&#39;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span></code></p></li>
-<li><p>an element type, will return all elements of that type in
-the lattice, e.g. <code class="code highlight pycode python docutils literal highlight-python"><span class="n">at</span><span class="o">.</span><span class="n">Sextupole</span></code></p></li>
-<li><p>a string to match against elements’ <code class="docutils literal notranslate"><span class="pre">FamName</span></code>, supports
-Unix shell-style wildcards, e.g. <code class="docutils literal notranslate"><span class="pre">'BPM_*1'</span></code></p></li>
-</ol>
-</p></li>
-<li><p><strong>quiet</strong> – if <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a>, print information about matched elements
-for FamName matches.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>uint32_refs</strong> (<em>Uint32Refs</em>) – <a class="reference external" href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.uint32" title="(in NumPy v1.24)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">uint32</span></code></a> numpy array as
-long as the number of refpts</p>
-</dd>
-</dl>
-<div class="admonition seealso">
-<p class="admonition-title">See also</p>
-<p><a class="reference internal" href="#at.lattice.utils.get_cells" title="at.lattice.utils.get_cells"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_cells()</span></code></a></p>
-</div>
-</dd></dl>
-
-<dl class="py function">
 <dt class="sig sig-object py" id="at.lattice.utils.get_s_pos">
-<span class="sig-name descname"><span class="pre">get_s_pos</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refpts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/utils.html#get_s_pos"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.utils.get_s_pos" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_s_pos</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refpts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">RefptsCode.All</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/utils.html#get_s_pos"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.utils.get_s_pos" title="Permalink to this definition">#</a></dt>
 <dd><p>Returns the locations of selected elements</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ring</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.11)"><em>Sequence</em></a><em>[</em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>]</em>) – Lattice description</p></li>
-<li><p><strong>refpts</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><em>Optional</em></a><em>[</em><em>Refpts</em><em>]</em>) – <p>refpts may be:</p>
-<ol class="arabic simple">
-<li><p>an integer or a sequence of integers
-(0 indicating the first element)</p></li>
-<li><p>a sequence of booleans marking the selected elements</p></li>
-<li><p>a callable <code class="code highlight pycode python docutils literal highlight-python"><span class="n">filtfunc</span></code> such that <code class="code highlight pycode python docutils literal highlight-python"><span class="n">filtfunc</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span></code>
-is <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a> for selected elements</p></li>
-</ol>
-</p></li>
+<li><p><strong>refpts</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.11)"><em>Union</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Type" title="(in Python v3.11)"><em>Type</em></a><em>[</em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>]</em><em>, </em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.11)"><em>Callable</em></a><em>[</em><em>[</em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>None</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.11)"><em>Sequence</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.11)"><em>Sequence</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>]</em><em>, </em><em>RefptsCode</em><em>]</em>) – Element selection key.
+See “<a class="reference internal" href="#refpts"><span class="std std-ref">Selecting elements in a lattice</span></a>”</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>s_pos</strong> – Array of locations of the elements selected by <em>refpts</em></p>
 </dd>
 </dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_s_pos</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">at</span><span class="o">.</span><span class="n">End</span><span class="p">)</span>
+<span class="go">array([26.37428795])</span>
+</pre></div>
+</div>
+<p>Position at the end of the last element: length of the lattice</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="at.lattice.utils.get_uint32_index">
+<span class="sig-name descname"><span class="pre">get_uint32_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refpts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endpoint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/utils.html#get_uint32_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.utils.get_uint32_index" title="Permalink to this definition">#</a></dt>
+<dd><p>Returns an integer array of element indices, selecting ring elements.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>refpts</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.11)"><em>Union</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Type" title="(in Python v3.11)"><em>Type</em></a><em>[</em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>]</em><em>, </em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.11)"><em>Callable</em></a><em>[</em><em>[</em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>None</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.11)"><em>Sequence</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.11)"><em>Sequence</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>]</em><em>, </em><em>RefptsCode</em><em>]</em>) – Element selection key.
+See “<a class="reference internal" href="#refpts"><span class="std std-ref">Selecting elements in a lattice</span></a>”</p></li>
+<li><p><strong>endpoint</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – if <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a>, allow <em>len(ring)</em> as a
+special index, referring to the end of the last element.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>uint32_ref</strong> (<em>Uint32Refpts</em>) – uint32 numpy array used for indexing
+<a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><code class="xref py py-class docutils literal notranslate"><span class="pre">Element</span></code></a>s in a lattice.</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_uint32_index</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">at</span><span class="o">.</span><span class="n">Sextupole</span><span class="p">)</span>
+<span class="go">array([ 21,  27,  35,  89,  97, 103], dtype=uint32)</span>
+</pre></div>
+</div>
+<p>numpy array of indices of all <a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Sextupole" title="at.lattice.elements.Sextupole"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sextupole</span></code></a>s</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_uint32_index</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">at</span><span class="o">.</span><span class="n">End</span><span class="p">)</span>
+<span class="go">array([121], dtype=uint32)</span>
+</pre></div>
+</div>
+<p>numpy array([<code class="code highlight pycode python docutils literal highlight-python"><span class="nb">len</span><span class="p">(</span><span class="n">ring</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span></code>])</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_uint32_index</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">at</span><span class="o">.</span><span class="n">checkattr</span><span class="p">(</span><span class="s1">&#39;Frequency&#39;</span><span class="p">))</span>
+<span class="go">array([0], dtype=uint32)</span>
+</pre></div>
+</div>
+<p>numpy array of indices of all elements having a ‘Frequency’
+attribute</p>
 </dd></dl>
 
 <dl class="py function">
@@ -862,15 +882,8 @@ is <a class="reference external" href="https://docs.python.org/3/library/constan
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ring</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.11)"><em>Sequence</em></a><em>[</em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>]</em>) – Lattice description</p></li>
-<li><p><strong>refpts</strong> (<em>Refpts</em>) – <p>refpts may be:</p>
-<ol class="arabic simple">
-<li><p>an integer or a sequence of integers
-(0 indicating the first element)</p></li>
-<li><p>a sequence of booleans marking the selected elements</p></li>
-<li><p>a callable <code class="code highlight pycode python docutils literal highlight-python"><span class="n">filtfunc</span></code> such that <code class="code highlight pycode python docutils literal highlight-python"><span class="n">filtfunc</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span></code>
-is <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a> for selected elements</p></li>
-</ol>
-</p></li>
+<li><p><strong>refpts</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.11)"><em>Union</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Type" title="(in Python v3.11)"><em>Type</em></a><em>[</em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>]</em><em>, </em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.11)"><em>Callable</em></a><em>[</em><em>[</em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>None</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.11)"><em>Sequence</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.11)"><em>Sequence</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>]</em><em>, </em><em>RefptsCode</em><em>]</em>) – Element selection key.
+See “<a class="reference internal" href="#refpts"><span class="std std-ref">Selecting elements in a lattice</span></a>”</p></li>
 <li><p><strong>attrname</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Attribute name</p></li>
 <li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>]</em>) – <p>index of the value to retrieve if <em>attrname</em> is
 an array.</p>
@@ -904,19 +917,24 @@ is applied to the copy, and the new <code class="code highlight pycode python do
 
 <dl class="py function">
 <dt class="sig sig-object py" id="at.lattice.utils.refpts_count">
-<span class="sig-name descname"><span class="pre">refpts_count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">refpts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_elements</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/utils.html#refpts_count"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.utils.refpts_count" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">refpts_count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">refpts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_elements</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endpoint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">types</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'None,</span> <span class="pre">All,</span> <span class="pre">End,</span> <span class="pre">int,</span> <span class="pre">bool'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/utils.html#refpts_count"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.utils.refpts_count" title="Permalink to this definition">#</a></dt>
 <dd><p>Returns the number of reference points</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>refpts</strong> (<em>Refpts</em>) – <p>refpts may be:</p>
+<li><p><strong>refpts</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.11)"><em>Union</em></a><em>[</em><em>None</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.11)"><em>Sequence</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.11)"><em>Sequence</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>]</em><em>, </em><em>RefptsCode</em><em>]</em>) – <p>refpts may be:</p>
 <ol class="arabic simple">
 <li><p>an integer or a sequence of integers
-(0 indicating the first element)</p></li>
-<li><p>a sequence of booleans marking the selected elements</p></li>
+(0 indicating the first element),</p></li>
+<li><p>a sequence of booleans marking the selected elements,</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>, meaning empty selection,</p></li>
+<li><p><a class="reference internal" href="#at.lattice.utils.All" title="at.lattice.utils.All"><code class="xref py py-obj docutils literal notranslate"><span class="pre">All</span></code></a>, meaning “all possible reference points”,</p></li>
+<li><p><a class="reference internal" href="#at.lattice.utils.End" title="at.lattice.utils.End"><code class="xref py py-obj docutils literal notranslate"><span class="pre">End</span></code></a>, selecting the end of the last element.</p></li>
 </ol>
 </p></li>
 <li><p><strong>n_elements</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Lattice length</p></li>
+<li><p><strong>endpoint</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – if <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a>, allow <em>n_elements</em> as a
+special index, referring to the end of the last element.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -933,45 +951,13 @@ is applied to the copy, and the new <code class="code highlight pycode python do
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ring</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.11)"><em>Sequence</em></a><em>[</em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>]</em>) – Lattice description</p></li>
-<li><p><strong>refpts</strong> (<em>Refpts</em>) – <p>refpts may be:</p>
-<ol class="arabic simple">
-<li><p>an integer or a sequence of integers
-(0 indicating the first element)</p></li>
-<li><p>a sequence of booleans marking the selected elements</p></li>
-<li><p>a callable <code class="code highlight pycode python docutils literal highlight-python"><span class="n">filtfunc</span></code> such that <code class="code highlight pycode python docutils literal highlight-python"><span class="n">filtfunc</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span></code>
-is <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a> for selected elements</p></li>
-</ol>
-</p></li>
+<li><p><strong>refpts</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.11)"><em>Union</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Type" title="(in Python v3.11)"><em>Type</em></a><em>[</em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>]</em><em>, </em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.11)"><em>Callable</em></a><em>[</em><em>[</em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>None</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.11)"><em>Sequence</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.11)"><em>Sequence</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>]</em><em>, </em><em>RefptsCode</em><em>]</em>) – Element selection key.
+See “<a class="reference internal" href="#refpts"><span class="std std-ref">Selecting elements in a lattice</span></a>”</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>elem_iter</strong> (<em>Iterator[Element]</em>) – Iterator over the elements in <em>ring</em>
 selected by <em>refpts</em>.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="at.lattice.utils.refpts_len">
-<span class="sig-name descname"><span class="pre">refpts_len</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refpts</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/utils.html#refpts_len"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.utils.refpts_len" title="Permalink to this definition">#</a></dt>
-<dd><p>Returns the number of reference points</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>ring</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.11)"><em>Sequence</em></a><em>[</em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>]</em>) – Lattice description</p></li>
-<li><p><strong>refpts</strong> (<em>Refpts</em>) – <p>refpts may be:</p>
-<ol class="arabic simple">
-<li><p>an integer or a sequence of integers
-(0 indicating the first element)</p></li>
-<li><p>a sequence of booleans marking the selected elements</p></li>
-<li><p>a callable <code class="code highlight pycode python docutils literal highlight-python"><span class="n">filtfunc</span></code> such that <code class="code highlight pycode python docutils literal highlight-python"><span class="n">filtfunc</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span></code>
-is <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a> for selected elements</p></li>
-</ol>
-</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>nrefs</strong> (<em>int</em>) – The number of reference points</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1103,15 +1089,8 @@ their refpts</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ring</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.11)"><em>Sequence</em></a><em>[</em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>]</em>) – Lattice description</p></li>
-<li><p><strong>refpts</strong> (<em>Refpts</em>) – <p>refpts may be:</p>
-<ol class="arabic simple">
-<li><p>an integer or a sequence of integers
-(0 indicating the first element)</p></li>
-<li><p>a sequence of booleans marking the selected elements</p></li>
-<li><p>a callable <code class="code highlight pycode python docutils literal highlight-python"><span class="n">filtfunc</span></code> such that <code class="code highlight pycode python docutils literal highlight-python"><span class="n">filtfunc</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span></code>
-is <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a> for selected elements</p></li>
-</ol>
-</p></li>
+<li><p><strong>refpts</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.11)"><em>Union</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Type" title="(in Python v3.11)"><em>Type</em></a><em>[</em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>]</em><em>, </em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.11)"><em>Callable</em></a><em>[</em><em>[</em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>None</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.11)"><em>Sequence</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.11)"><em>Sequence</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>]</em><em>, </em><em>RefptsCode</em><em>]</em>) – Element selection key.
+See “<a class="reference internal" href="#refpts"><span class="std std-ref">Selecting elements in a lattice</span></a>”</p></li>
 <li><p><strong>attrname</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Attribute name</p></li>
 <li><p><strong>attrvalues</strong> – Attribute values</p></li>
 <li><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>]</em>) – index of the value to set if <em>attrname</em> is
@@ -1180,20 +1159,26 @@ existing one</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="at.lattice.utils.uint32_refpts">
-<span class="sig-name descname"><span class="pre">uint32_refpts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">refpts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_elements</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/utils.html#uint32_refpts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.utils.uint32_refpts" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">uint32_refpts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">refpts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_elements</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endpoint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">types</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'None,</span> <span class="pre">All,</span> <span class="pre">End,</span> <span class="pre">int,</span> <span class="pre">bool'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/utils.html#uint32_refpts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.utils.uint32_refpts" title="Permalink to this definition">#</a></dt>
 <dd><p>Return a <a class="reference external" href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.uint32" title="(in NumPy v1.24)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">uint32</span></code></a> array of element indices selecting
 ring elements.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>refpts</strong> (<em>Refpts</em>) – <p>refpts may be:</p>
+<li><p><strong>refpts</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.11)"><em>Union</em></a><em>[</em><em>None</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.11)"><em>Sequence</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.11)"><em>Sequence</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>]</em><em>, </em><em>RefptsCode</em><em>]</em>) – <p>Element selector. <em>refpts</em> may be:</p>
 <ol class="arabic simple">
 <li><p>an integer or a sequence of integers
-(0 indicating the first element)</p></li>
-<li><p>a sequence of booleans marking the selected elements</p></li>
+(0 indicating the first element),</p></li>
+<li><p>a sequence of booleans marking the selected elements,</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>, meaning empty selection,</p></li>
+<li><p><a class="reference internal" href="#at.lattice.utils.All" title="at.lattice.utils.All"><code class="xref py py-obj docutils literal notranslate"><span class="pre">All</span></code></a>, meaning “all possible reference points”,</p></li>
+<li><p><a class="reference internal" href="#at.lattice.utils.End" title="at.lattice.utils.End"><code class="xref py py-obj docutils literal notranslate"><span class="pre">End</span></code></a>, selecting the end of the last element.</p></li>
 </ol>
 </p></li>
-<li><p><strong>n_elements</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Length of the lattice</p></li>
+<li><p><strong>n_elements</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Length of the sequence of elements</p></li>
+<li><p><strong>endpoint</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – if <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a>, allow <em>n_elements</em> as a
+special index, referring to the end of the last element.</p></li>
+<li><p><strong>types</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Allowed types</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -1201,6 +1186,21 @@ ring elements.</p>
 for indexing <a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><code class="xref py py-class docutils literal notranslate"><span class="pre">Element</span></code></a>s in a lattice.</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="at.lattice.utils.All">
+<span class="sig-name descname"><span class="pre">All</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">RefptsCode.All</span></em><a class="headerlink" href="#at.lattice.utils.All" title="Permalink to this definition">#</a></dt>
+<dd><p><a class="reference internal" href="#at.lattice.utils.All" title="at.lattice.utils.All"><code class="xref py py-obj docutils literal notranslate"><span class="pre">All</span></code></a> is a special value to be used as <em>refpts</em>. It means
+“all possible reference points”: the entrance of all elements plus the end
+of the last element.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="at.lattice.utils.End">
+<span class="sig-name descname"><span class="pre">End</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">RefptsCode.End</span></em><a class="headerlink" href="#at.lattice.utils.End" title="Permalink to this definition">#</a></dt>
+<dd><p><a class="reference internal" href="#at.lattice.utils.End" title="at.lattice.utils.End"><code class="xref py py-obj docutils literal notranslate"><span class="pre">End</span></code></a> is a special value to be used as <em>refpts</em>. It refers to the
+end of the last element.</p>
 </dd></dl>
 
 </section>
@@ -1316,10 +1316,10 @@ for indexing <a class="reference internal" href="at.lattice.elements.html#at.lat
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#at.lattice.utils.get_cells">
+  <a class="reference internal nav-link" href="#at.lattice.utils.get_bool_index">
    <code class="docutils literal notranslate">
     <span class="pre">
-     get_cells()
+     get_bool_index()
     </span>
    </code>
   </a>
@@ -1343,19 +1343,19 @@ for indexing <a class="reference internal" href="at.lattice.elements.html#at.lat
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#at.lattice.utils.get_refpts">
+  <a class="reference internal nav-link" href="#at.lattice.utils.get_s_pos">
    <code class="docutils literal notranslate">
     <span class="pre">
-     get_refpts()
+     get_s_pos()
     </span>
    </code>
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#at.lattice.utils.get_s_pos">
+  <a class="reference internal nav-link" href="#at.lattice.utils.get_uint32_index">
    <code class="docutils literal notranslate">
     <span class="pre">
-     get_s_pos()
+     get_uint32_index()
     </span>
    </code>
   </a>
@@ -1392,15 +1392,6 @@ for indexing <a class="reference internal" href="at.lattice.elements.html#at.lat
    <code class="docutils literal notranslate">
     <span class="pre">
      refpts_iterator()
-    </span>
-   </code>
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#at.lattice.utils.refpts_len">
-   <code class="docutils literal notranslate">
-    <span class="pre">
-     refpts_len()
     </span>
    </code>
   </a>
@@ -1482,6 +1473,24 @@ for indexing <a class="reference internal" href="at.lattice.elements.html#at.lat
    <code class="docutils literal notranslate">
     <span class="pre">
      uint32_refpts()
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#at.lattice.utils.All">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     All
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#at.lattice.utils.End">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     End
     </span>
    </code>
   </a>

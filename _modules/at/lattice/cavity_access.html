@@ -296,7 +296,7 @@
 <span class="kn">import</span> <span class="nn">numpy</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
 <span class="kn">from</span> <span class="nn">.elements</span> <span class="kn">import</span> <span class="n">RFCavity</span>
-<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">AtError</span><span class="p">,</span> <span class="n">checktype</span><span class="p">,</span> <span class="n">make_copy</span><span class="p">,</span> <span class="n">get_cells</span><span class="p">,</span> <span class="n">Refpts</span>
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">AtError</span><span class="p">,</span> <span class="n">make_copy</span><span class="p">,</span> <span class="n">Refpts</span><span class="p">,</span> <span class="n">get_bool_index</span>
 <span class="kn">from</span> <span class="nn">.lattice_object</span> <span class="kn">import</span> <span class="n">Lattice</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;get_rf_frequency&#39;</span><span class="p">,</span> <span class="s1">&#39;get_rf_voltage&#39;</span><span class="p">,</span> <span class="s1">&#39;set_rf_voltage&#39;</span><span class="p">,</span>
@@ -304,22 +304,22 @@
 
 
 <div class="viewcode-block" id="Frf"><a class="viewcode-back" href="../../../p/api/at.lattice.cavity_access.html#at.lattice.cavity_access.Frf">[docs]</a><span class="k">class</span> <span class="nc">Frf</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Enum class for frequency setting&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Enum class for frequency setting&quot;&quot;&quot;</span>
     <span class="n">NOMINAL</span> <span class="o">=</span> <span class="s1">&#39;nominal&#39;</span></div>
 
 
 <span class="k">def</span> <span class="nf">_select_cav</span><span class="p">(</span><span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span> <span class="n">cavpts</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Select the cavities&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Select the cavities&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">cavpts</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">cavpts</span> <span class="o">=</span> <span class="n">ring</span><span class="o">.</span><span class="n">cavpts</span>
         <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
-            <span class="n">cavpts</span> <span class="o">=</span> <span class="n">get_cells</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">checktype</span><span class="p">(</span><span class="n">RFCavity</span><span class="p">))</span>
+            <span class="n">cavpts</span> <span class="o">=</span> <span class="n">get_bool_index</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">RFCavity</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">cavpts</span>
 
 
 <span class="k">def</span> <span class="nf">_singlev</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">attr</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Return the single value&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the single value&quot;&quot;&quot;</span>
     <span class="n">vals</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">vals</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
         <span class="k">raise</span> <span class="n">AtError</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{0}</span><span class="s1"> not equal for all cavities&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">attr</span><span class="p">))</span>
@@ -328,7 +328,7 @@
 
 <span class="c1"># noinspection PyUnusedLocal</span>
 <span class="k">def</span> <span class="nf">_sumv</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">attr</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Return the sum of values&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the sum of values&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
 
 
@@ -353,7 +353,7 @@
 
 
 <div class="viewcode-block" id="get_rf_frequency"><a class="viewcode-back" href="../../../p/api/at.lattice.cavity_access.html#at.lattice.cavity_access.get_rf_frequency">[docs]</a><span class="k">def</span> <span class="nf">get_rf_frequency</span><span class="p">(</span><span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Return the RF frequency</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the RF frequency</span>
 
 <span class="sd">    Parameters:</span>
 <span class="sd">        ring:           Lattice description</span>
@@ -373,7 +373,7 @@
 
 
 <div class="viewcode-block" id="get_rf_voltage"><a class="viewcode-back" href="../../../p/api/at.lattice.cavity_access.html#at.lattice.cavity_access.get_rf_voltage">[docs]</a><span class="k">def</span> <span class="nf">get_rf_voltage</span><span class="p">(</span><span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Return the total RF voltage (full ring)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the total RF voltage (full ring)</span>
 
 <span class="sd">    Parameters:</span>
 <span class="sd">        ring:           Lattice description</span>
@@ -394,7 +394,7 @@
 
 
 <div class="viewcode-block" id="get_rf_timelag"><a class="viewcode-back" href="../../../p/api/at.lattice.cavity_access.html#at.lattice.cavity_access.get_rf_timelag">[docs]</a><span class="k">def</span> <span class="nf">get_rf_timelag</span><span class="p">(</span><span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Return the RF time lag</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the RF time lag</span>
 
 <span class="sd">    Parameters:</span>
 <span class="sd">        ring:           Lattice description</span>
@@ -414,7 +414,7 @@
 
 
 <div class="viewcode-block" id="set_rf_voltage"><a class="viewcode-back" href="../../../p/api/at.lattice.cavity_access.html#at.lattice.cavity_access.set_rf_voltage">[docs]</a><span class="k">def</span> <span class="nf">set_rf_voltage</span><span class="p">(</span><span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span> <span class="n">voltage</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Set the RF voltage for the full ring</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Set the RF voltage for the full ring</span>
 
 <span class="sd">    Parameters:</span>
 <span class="sd">        ring:           Lattice description</span>
@@ -434,7 +434,7 @@
 
 
 <div class="viewcode-block" id="set_rf_timelag"><a class="viewcode-back" href="../../../p/api/at.lattice.cavity_access.html#at.lattice.cavity_access.set_rf_timelag">[docs]</a><span class="k">def</span> <span class="nf">set_rf_timelag</span><span class="p">(</span><span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span> <span class="n">timelag</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Set the RF time lag</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Set the RF time lag</span>
 
 <span class="sd">    Parameters:</span>
 <span class="sd">        ring:           Lattice description</span>
@@ -460,7 +460,7 @@
                <span class="n">cavpts</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Refpts</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                <span class="n">copy</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
                <span class="n">array</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Set the parameters of the RF cavities</span>
 
 <span class="sd">    Parameters:</span>

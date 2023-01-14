@@ -304,7 +304,7 @@
 
 
 <div class="viewcode-block" id="WakeType"><a class="viewcode-back" href="../../../p/api/at.collective.wake_object.html#at.collective.wake_object.WakeType">[docs]</a><span class="k">class</span> <span class="nc">WakeType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Enum class for wake type&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Enum class for wake type&quot;&quot;&quot;</span>
     <span class="n">FILE</span> <span class="o">=</span> <span class="mi">1</span>        <span class="c1">#: Import from file</span>
     <span class="n">TABLE</span> <span class="o">=</span> <span class="mi">2</span>       <span class="c1">#: Provide vectors</span>
     <span class="n">RESONATOR</span> <span class="o">=</span> <span class="mi">3</span>   <span class="c1">#: Analytical resonator</span>
@@ -312,7 +312,7 @@
 
 
 <div class="viewcode-block" id="WakeComponent"><a class="viewcode-back" href="../../../p/api/at.collective.wake_object.html#at.collective.wake_object.WakeComponent">[docs]</a><span class="k">class</span> <span class="nc">WakeComponent</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Enum class for wake component&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Enum class for wake component&quot;&quot;&quot;</span>
     <span class="n">DX</span> <span class="o">=</span> <span class="mi">1</span>          <span class="c1">#: Dipole X</span>
     <span class="n">DY</span> <span class="o">=</span> <span class="mi">2</span>          <span class="c1">#: Dipole Y</span>
     <span class="n">QX</span> <span class="o">=</span> <span class="mi">3</span>          <span class="c1">#: Quadrupole X</span>
@@ -323,7 +323,7 @@
 <span class="c1"># noinspection PyPep8Naming</span>
 <div class="viewcode-block" id="Wake"><a class="viewcode-back" href="../../../p/api/at.collective.wake_object.html#at.collective.wake_object.Wake">[docs]</a><span class="k">class</span> <span class="nc">Wake</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="c1"># noinspection PyUnresolvedReferences</span>
-    <span class="sd">&quot;&quot;&quot;Class to generate a wake object</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Class to generate a wake object</span>
 
 <span class="sd">    The wake object is defined by its srange, specified</span>
 <span class="sd">    at initialization, and one or several components corresponding</span>
@@ -370,31 +370,31 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">DX</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Dipole X component&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Dipole X component&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="n">WakeComponent</span><span class="o">.</span><span class="n">DX</span><span class="p">]</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">DY</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Dipole Y component&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Dipole Y component&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="n">WakeComponent</span><span class="o">.</span><span class="n">DY</span><span class="p">]</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">QX</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Quadrupole X component&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Quadrupole X component&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="n">WakeComponent</span><span class="o">.</span><span class="n">QX</span><span class="p">]</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">QY</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Quadrupole Y component&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Quadrupole Y component&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="n">WakeComponent</span><span class="o">.</span><span class="n">QY</span><span class="p">]</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">Z</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Longitudinal component&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Longitudinal component&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="n">WakeComponent</span><span class="o">.</span><span class="n">Z</span><span class="p">]</span>
 
 <div class="viewcode-block" id="Wake.add"><a class="viewcode-back" href="../../../p/api/at.collective.wake_object.html#at.collective.wake_object.Wake.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">wtype</span><span class="p">:</span> <span class="n">WakeType</span><span class="p">,</span> <span class="n">wcomp</span><span class="p">:</span> <span class="n">WakeComponent</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Add a component to a :py:class:`.Wake`</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add a component to a :py:class:`.Wake`</span>
 
 <span class="sd">        Parameters:</span>
 <span class="sd">            wtype:      Wake type</span>
@@ -488,7 +488,7 @@
     <span class="k">def</span> <span class="nf">resonator</span><span class="p">(</span><span class="n">srange</span><span class="p">,</span> <span class="n">wakecomp</span><span class="p">,</span>
                   <span class="n">frequency</span><span class="p">,</span> <span class="n">qfactor</span><span class="p">,</span> <span class="n">rshunt</span><span class="p">,</span>
                   <span class="n">beta</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">yokoya_factor</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">nelems</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Factory method to build a resonator wake object</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Factory method to build a resonator wake object</span>
 
 <span class="sd">        Parameters:</span>
 <span class="sd">            srange:         vector of s position where to sample the wake</span>
@@ -523,7 +523,7 @@
 <div class="viewcode-block" id="Wake.long_resonator"><a class="viewcode-back" href="../../../p/api/at.collective.wake_object.html#at.collective.wake_object.Wake.long_resonator">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">long_resonator</span><span class="p">(</span><span class="n">srange</span><span class="p">,</span> <span class="n">frequency</span><span class="p">,</span> <span class="n">qfactor</span><span class="p">,</span> <span class="n">rshunt</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">nelems</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
         <span class="c1"># noinspection PyUnresolvedReferences</span>
-        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Factory method to build a longitudinal resonator wake object</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Factory method to build a longitudinal resonator wake object</span>
 
 <span class="sd">        Parameters:</span>
 <span class="sd">            srange:         vector of s position where to sample the wake</span>
@@ -554,7 +554,7 @@
     <span class="k">def</span> <span class="nf">resistive_wall</span><span class="p">(</span><span class="n">srange</span><span class="p">,</span> <span class="n">wakecomp</span><span class="p">:</span> <span class="n">WakeComponent</span><span class="p">,</span>
                        <span class="n">length</span><span class="p">,</span> <span class="n">rvac</span><span class="p">,</span> <span class="n">conduct</span><span class="p">,</span> <span class="n">beta</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
                        <span class="n">yokoya_factor</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">nelems</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Factory method to build a resistive wall wake object</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Factory method to build a resistive wall wake object</span>
 
 <span class="sd">        Parameters:</span>
 <span class="sd">            srange:         vector of s position where to sample the wake</span>
@@ -585,7 +585,7 @@
     <span class="k">def</span> <span class="nf">build_srange</span><span class="p">(</span><span class="n">start</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">bunch_ext</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">short_step</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
                      <span class="n">long_step</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
                      <span class="n">bunch_interval</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">totallength</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Function to build the wake table s column.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Function to build the wake table s column.</span>
 <span class="sd">        This is not the slicing but the look-up table,</span>
 <span class="sd">        however it generates data where bunches are located</span>
 <span class="sd">        to avoid using too much memory to store the table.</span>

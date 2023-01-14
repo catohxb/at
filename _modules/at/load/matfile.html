@@ -322,7 +322,7 @@
 
 <span class="k">def</span> <span class="nf">matfile_generator</span><span class="p">(</span><span class="n">params</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">mat_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span>\
         <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="n">Element</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
-    <span class="sd">&quot;&quot;&quot;Run through Matlab cells and generate AT elements</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Run through Matlab cells and generate AT elements</span>
 
 <span class="sd">    Parameters:</span>
 <span class="sd">        params:         Lattice building parameters (see :py:class:`.Lattice`)</span>
@@ -376,7 +376,7 @@
 
 <span class="k">def</span> <span class="nf">ringparam_filter</span><span class="p">(</span><span class="n">params</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">elem_iterator</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>\
         <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="n">Element</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
-    <span class="sd">&quot;&quot;&quot;Run through all elements, process and optionally removes</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Run through all elements, process and optionally removes</span>
 <span class="sd">    RingParam elements</span>
 
 <span class="sd">    Parameters:</span>
@@ -427,7 +427,7 @@
 
 
 <div class="viewcode-block" id="load_mat"><a class="viewcode-back" href="../../../p/api/at.load.matfile.html#at.load.matfile.load_mat">[docs]</a><span class="k">def</span> <span class="nf">load_mat</span><span class="p">(</span><span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Lattice</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Create a :py:class:`.Lattice`  from a Matlab mat-file</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a :py:class:`.Lattice`  from a Matlab mat-file</span>
 
 <span class="sd">    Parameters:</span>
 <span class="sd">        filename:           Name of a &#39;.mat&#39; file</span>
@@ -465,7 +465,7 @@
 
 <span class="k">def</span> <span class="nf">mfile_generator</span><span class="p">(</span><span class="n">params</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">m_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span>\
         <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="n">Element</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
-    <span class="sd">&quot;&quot;&quot;Run through the lines of a Matlab m-file and generate AT elements</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Run through the lines of a Matlab m-file and generate AT elements</span>
 
 <span class="sd">    Parameters:</span>
 <span class="sd">        params:         Lattice building parameters (see :py:class:`.Lattice`)</span>
@@ -493,7 +493,7 @@
 
 
 <div class="viewcode-block" id="load_m"><a class="viewcode-back" href="../../../p/api/at.load.matfile.html#at.load.matfile.load_m">[docs]</a><span class="k">def</span> <span class="nf">load_m</span><span class="p">(</span><span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Lattice</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Create a :py:class:`.Lattice`  from a Matlab m-file</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a :py:class:`.Lattice`  from a Matlab m-file</span>
 
 <span class="sd">    Parameters:</span>
 <span class="sd">        filename:           Name of a &#39;.m&#39; file</span>
@@ -521,7 +521,7 @@
 
 
 <div class="viewcode-block" id="load_var"><a class="viewcode-back" href="../../../p/api/at.load.matfile.html#at.load.matfile.load_var">[docs]</a><span class="k">def</span> <span class="nf">load_var</span><span class="p">(</span><span class="n">matlat</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">dict</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Lattice</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Create a :py:class:`.Lattice` from a Matlab cell array</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a :py:class:`.Lattice` from a Matlab cell array</span>
 
 <span class="sd">    Parameters:</span>
 <span class="sd">        matlat:             Matlab lattice</span>
@@ -551,7 +551,7 @@
 
 
 <span class="k">def</span> <span class="nf">matlab_ring</span><span class="p">(</span><span class="n">ring</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="n">Element</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
-    <span class="sd">&quot;&quot;&quot;Prepend a RingParam element to a lattice&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Prepend a RingParam element to a lattice&quot;&quot;&quot;</span>
     <span class="n">dct</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">((</span><span class="n">_matattr_map</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">k</span><span class="o">.</span><span class="n">title</span><span class="p">()),</span> <span class="n">v</span><span class="p">)</span>
                <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">ring</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
     <span class="n">famname</span> <span class="o">=</span> <span class="n">dct</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;FamName&#39;</span><span class="p">)</span>
@@ -563,7 +563,7 @@
 
 <div class="viewcode-block" id="save_mat"><a class="viewcode-back" href="../../../p/api/at.load.matfile.html#at.load.matfile.save_mat">[docs]</a><span class="k">def</span> <span class="nf">save_mat</span><span class="p">(</span><span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
              <span class="n">mat_key</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;RING&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Save a :py:class:`.Lattice` as a Matlab mat-file</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Save a :py:class:`.Lattice` as a Matlab mat-file</span>
 
 <span class="sd">    Parameters:</span>
 <span class="sd">        ring:           Lattice description</span>
@@ -579,7 +579,7 @@
 
 
 <div class="viewcode-block" id="save_m"><a class="viewcode-back" href="../../../p/api/at.load.matfile.html#at.load.matfile.save_m">[docs]</a><span class="k">def</span> <span class="nf">save_m</span><span class="p">(</span><span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Save a :py:class:`.Lattice` as a Matlab m-file</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Save a :py:class:`.Lattice` as a Matlab m-file</span>
 
 <span class="sd">    Parameters:</span>
 <span class="sd">        ring:           Lattice description</span>

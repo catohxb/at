@@ -306,7 +306,7 @@
 
 <span class="c1"># data generating function</span>
 <div class="viewcode-block" id="pldata_beta_disp"><a class="viewcode-back" href="../../../p/api/at.plot.specific.html#at.plot.specific.pldata_beta_disp">[docs]</a><span class="k">def</span> <span class="nf">pldata_beta_disp</span><span class="p">(</span><span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span> <span class="n">refpts</span><span class="p">:</span> <span class="n">Refpts</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Generates data for plotting beta functions and dispersion&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generates data for plotting beta functions and dispersion&quot;&quot;&quot;</span>
 
     <span class="c1"># compute linear optics at the required locations</span>
     <span class="n">data0</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">get_optics</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="n">refpts</span><span class="o">=</span><span class="n">refpts</span><span class="p">,</span> <span class="n">get_chrom</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -327,7 +327,7 @@
 
 <span class="c1"># Convenience function to make the call simpler</span>
 <div class="viewcode-block" id="plot_beta"><a class="viewcode-back" href="../../../p/api/at.plot.specific.html#at.plot.specific.plot_beta">[docs]</a><span class="k">def</span> <span class="nf">plot_beta</span><span class="p">(</span><span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Plot beta functions and dispersion</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot beta functions and dispersion</span>
 
 <span class="sd">    Parameters:</span>
 <span class="sd">        ring:               Lattice description.</span>
@@ -365,10 +365,10 @@
 
 <span class="c1"># data generating function</span>
 <div class="viewcode-block" id="pldata_linear"><a class="viewcode-back" href="../../../p/api/at.plot.specific.html#at.plot.specific.pldata_linear">[docs]</a><span class="k">def</span> <span class="nf">pldata_linear</span><span class="p">(</span><span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span> <span class="n">refpts</span><span class="p">:</span> <span class="n">Refpts</span><span class="p">,</span> <span class="o">*</span><span class="n">keys</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;data extraction function for plotting results of get_optics&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;data extraction function for plotting results of get_optics&quot;&quot;&quot;</span>
 
     <span class="k">class</span> <span class="nc">Lind</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;helper class for lindata extraction&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;helper class for lindata extraction&quot;&quot;&quot;</span>
         <span class="n">lab2</span> <span class="o">=</span> <span class="s2">&quot;xz&quot;</span>
         <span class="n">lab6</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;x&#39;&quot;</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">,</span> <span class="s2">&quot;z&#39;&quot;</span><span class="p">,</span> <span class="s2">&quot;l&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">delta&quot;</span><span class="p">)</span>
         <span class="n">id6</span> <span class="o">=</span> <span class="s2">&quot;123456&quot;</span>
@@ -404,7 +404,7 @@
 
 <span class="c1"># Convenience function to make the call simpler</span>
 <div class="viewcode-block" id="plot_linear"><a class="viewcode-back" href="../../../p/api/at.plot.specific.html#at.plot.specific.plot_linear">[docs]</a><span class="k">def</span> <span class="nf">plot_linear</span><span class="p">(</span><span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span> <span class="o">*</span><span class="n">keys</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Plot linear optical functions returned by :py:func:`.get_optics`</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot linear optical functions returned by :py:func:`.get_optics`</span>
 
 <span class="sd">    Parameters:</span>
 <span class="sd">        ring:           Lattice description.</span>
@@ -471,7 +471,7 @@
 
 <span class="c1"># Here the data generating function is embedded in the convenience function</span>
 <div class="viewcode-block" id="plot_trajectory"><a class="viewcode-back" href="../../../p/api/at.plot.specific.html#at.plot.specific.plot_trajectory">[docs]</a><span class="k">def</span> <span class="nf">plot_trajectory</span><span class="p">(</span><span class="n">ring</span><span class="p">:</span> <span class="n">Lattice</span><span class="p">,</span> <span class="n">r_in</span><span class="p">,</span> <span class="n">nturns</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Plot a particle&#39;s trajectory</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot a particle&#39;s trajectory</span>
 
 <span class="sd">    Parameters:</span>
 <span class="sd">        ring:           Lattice object</span>
