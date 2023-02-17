@@ -399,41 +399,17 @@
 <p class="rubric">Functions</p>
 <table class="autosummary longtable table autosummary">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#at.physics.revolution.frequency_control" title="at.physics.revolution.frequency_control"><code class="xref py py-obj docutils literal notranslate"><span class="pre">frequency_control</span></code></a>(func)</p></td>
-<td><p>Function to be used as decorator for <code class="code highlight pycode python docutils literal highlight-python"><span class="n">func</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#at.physics.revolution.get_mcf" title="at.physics.revolution.get_mcf"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_mcf</span></code></a>(ring[, dp, keep_lattice])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#at.physics.revolution.get_mcf" title="at.physics.revolution.get_mcf"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_mcf</span></code></a>(ring[, dp, keep_lattice])</p></td>
 <td><p>Compute the momentum compaction factor <span class="math notranslate nohighlight">\(\alpha\)</span></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#at.physics.revolution.get_slip_factor" title="at.physics.revolution.get_slip_factor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_slip_factor</span></code></a>(ring, **kwargs)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#at.physics.revolution.get_slip_factor" title="at.physics.revolution.get_slip_factor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_slip_factor</span></code></a>(ring, **kwargs)</p></td>
 <td><p>Compute the slip factor <span class="math notranslate nohighlight">\(\eta\)</span></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#at.physics.revolution.get_revolution_frequency" title="at.physics.revolution.get_revolution_frequency"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_revolution_frequency</span></code></a>(ring[, dp, dct, df])</p></td>
-<td><p>Compute the revolution frequency of the full ring [Hz]</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#at.physics.revolution.set_rf_frequency" title="at.physics.revolution.set_rf_frequency"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_rf_frequency</span></code></a>(ring[, frequency, dp, dct, df])</p></td>
 <td><p>Set the RF frequency</p></td>
 </tr>
 </tbody>
 </table>
-<dl class="py function">
-<dt class="sig sig-object py" id="at.physics.revolution.frequency_control">
-<span class="sig-name descname"><span class="pre">frequency_control</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/physics/revolution.html#frequency_control"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.physics.revolution.frequency_control" title="Permalink to this definition">#</a></dt>
-<dd><p>Function to be used as decorator for <code class="code highlight pycode python docutils literal highlight-python"><span class="n">func</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code></p>
-<p>If <code class="code highlight pycode python docutils literal highlight-python"><span class="n">ring</span><span class="o">.</span><span class="n">is_6d</span></code> is <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a> <strong>and</strong> <em>dp</em>, <em>dct</em> or <em>df</em>
-is specified in <em>kwargs</em>, make a copy of <em>ring</em> with a modified
-RF frequency, remove <em>dp</em>, <em>dct</em> or <em>df</em> from <em>kwargs</em> and call
-<em>func</em> with the modified <em>ring</em>.</p>
-<p>If <code class="code highlight pycode python docutils literal highlight-python"><span class="n">ring</span><span class="o">.</span><span class="n">is_6d</span></code> is <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a> <strong>or</strong> no <em>dp</em>, <em>dct</em> or
-<em>df</em> is specified in <em>kwargs</em>, <em>func</em> is called unchanged.</p>
-<p class="rubric">Examples</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@frequency_control</span>
-<span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">dp</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dct</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="k">pass</span>
-</pre></div>
-</div>
-</dd></dl>
-
 <dl class="py function">
 <dt class="sig sig-object py" id="at.physics.revolution.get_mcf">
 <span class="sig-name descname"><span class="pre">get_mcf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_lattice</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/physics/revolution.html#get_mcf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.physics.revolution.get_mcf" title="Permalink to this definition">#</a></dt>
@@ -454,25 +430,6 @@ Default: <a class="reference internal" href="at.lattice.options.html#at.lattice.
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>mcf</strong> (<em>float</em>) – Momentum compaction factor <span class="math notranslate nohighlight">\(\alpha\)</span></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="at.physics.revolution.get_revolution_frequency">
-<span class="sig-name descname"><span class="pre">get_revolution_frequency</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ring</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dct</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/physics/revolution.html#get_revolution_frequency"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.physics.revolution.get_revolution_frequency" title="Permalink to this definition">#</a></dt>
-<dd><p>Compute the revolution frequency of the full ring [Hz]</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>ring</strong> (<a class="reference internal" href="at.lattice.lattice_object.html#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><em>Lattice</em></a>) – Lattice description</p></li>
-<li><p><strong>dp</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>]</em>) – Momentum deviation. Defaults to <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p></li>
-<li><p><strong>dct</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>]</em>) – Path lengthening. Defaults to <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p></li>
-<li><p><strong>df</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>]</em>) – Deviation of RF frequency. Defaults to <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>frev</strong> – Revolution frequency [Hz]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -573,28 +530,10 @@ cavities. The value must be broadcastable to the number of cavities.</p>
 <nav id="bd-toc-nav" class="page-toc">
     <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#at.physics.revolution.frequency_control">
-   <code class="docutils literal notranslate">
-    <span class="pre">
-     frequency_control()
-    </span>
-   </code>
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#at.physics.revolution.get_mcf">
    <code class="docutils literal notranslate">
     <span class="pre">
      get_mcf()
-    </span>
-   </code>
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#at.physics.revolution.get_revolution_frequency">
-   <code class="docutils literal notranslate">
-    <span class="pre">
-     get_revolution_frequency()
     </span>
    </code>
   </a>
