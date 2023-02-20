@@ -554,7 +554,10 @@
                                           <span class="n">num_harmonics</span><span class="o">=</span><span class="n">num_harmonics</span><span class="p">,</span>
                                           <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span>
                                           <span class="n">hann</span><span class="o">=</span><span class="n">hann</span><span class="p">)</span>
-        <span class="n">tunes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_max_spectrum</span><span class="p">(</span><span class="n">freq</span><span class="p">,</span> <span class="n">amp</span><span class="p">,</span> <span class="n">fmin</span><span class="p">,</span> <span class="n">fmax</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>                                 
+            <span class="n">tunes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_max_spectrum</span><span class="p">(</span><span class="n">freq</span><span class="p">,</span> <span class="n">amp</span><span class="p">,</span> <span class="n">fmin</span><span class="p">,</span> <span class="n">fmax</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="n">tunes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
 
     <span class="k">return</span> <span class="n">tunes</span></div>
 </pre></div>
