@@ -398,7 +398,7 @@
 <p class="rubric">Functions</p>
 <table class="autosummary longtable table autosummary">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#at.collective.wake_functions.convolve_wakefun" title="at.collective.wake_functions.convolve_wakefun"><code class="xref py py-obj docutils literal notranslate"><span class="pre">convolve_wakefun</span></code></a>(srange, w, sigs)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#at.collective.wake_functions.convolve_wakefun" title="at.collective.wake_functions.convolve_wakefun"><code class="xref py py-obj docutils literal notranslate"><span class="pre">convolve_wakefun</span></code></a>(srange, w, sigs[, gauss_sigma])</p></td>
 <td><p>Convolution of a wake function with a pulse of rms length sigs, this is use to generate a wake potential that can be added to the output of EM code like GDFIDL</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#at.collective.wake_functions.long_resonator_wf" title="at.collective.wake_functions.long_resonator_wf"><code class="xref py py-obj docutils literal notranslate"><span class="pre">long_resonator_wf</span></code></a>(srange, frequency, ...)</p></td>
@@ -414,7 +414,7 @@
 </table>
 <dl class="py function">
 <dt class="sig sig-object py" id="at.collective.wake_functions.convolve_wakefun">
-<span class="sig-name descname"><span class="pre">convolve_wakefun</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">srange</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/collective/wake_functions.html#convolve_wakefun"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.collective.wake_functions.convolve_wakefun" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">convolve_wakefun</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">srange</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gauss_sigma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/collective/wake_functions.html#convolve_wakefun"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.collective.wake_functions.convolve_wakefun" title="Permalink to this definition">#</a></dt>
 <dd><p>Convolution of a wake function with a pulse of rms
 length sigs, this is use to generate a wake potential
 that can be added to the output of EM code like GDFIDL</p>
