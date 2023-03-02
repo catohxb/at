@@ -886,7 +886,7 @@ else changed</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="at.lattice.lattice_object.Lattice.envelope_parameters">
-<span class="sig-name descname"><span class="pre">envelope_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#at.lattice.lattice_object.Lattice.envelope_parameters" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">envelope_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orbit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_lattice</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#at.lattice.lattice_object.Lattice.envelope_parameters" title="Permalink to this definition">#</a></dt>
 <dd><p>Compute ring parameters from ohmi_envelope</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -894,6 +894,10 @@ else changed</p>
 <li><p><strong>ring</strong> (<a class="reference internal" href="#at.lattice.lattice_object.Lattice" title="at.lattice.lattice_object.Lattice"><em>Lattice</em></a>) – Lattice description.</p></li>
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><em>Optional</em></a><em>[</em><a class="reference internal" href="at.physics.ring_parameters.html#at.physics.ring_parameters.RingParameters" title="at.physics.ring_parameters.RingParameters"><em>RingParameters</em></a><em>]</em>) – <a class="reference internal" href="at.physics.ring_parameters.html#at.physics.ring_parameters.RingParameters" title="at.physics.ring_parameters.RingParameters"><code class="xref py py-class docutils literal notranslate"><span class="pre">RingParameters</span></code></a> object to be updated.
 Default: create a new one</p></li>
+<li><p><strong>orbit</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><em>ndarray</em></a><em>]</em>) – Avoids looking for the closed orbit if it is
+already known ((6,) array)</p></li>
+<li><p><strong>keep_lattice</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Assume no lattice change since the
+previous tracking.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -2320,6 +2324,114 @@ This behavior can be changed by setting
 <dd><p>Insert object before index.</p>
 <dl class="field-list simple">
 </dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="at.lattice.lattice_object.Lattice.lattice_pass">
+<span class="sig-name descname"><span class="pre">lattice_pass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r_in</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nturns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refpts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">RefptsCode.End</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#at.lattice.lattice_object.Lattice.lattice_pass" title="Permalink to this definition">#</a></dt>
+<dd><p><a class="reference internal" href="#at.lattice.lattice_object.Lattice.lattice_pass" title="at.lattice.lattice_object.Lattice.lattice_pass"><code class="xref py py-func docutils literal notranslate"><span class="pre">lattice_pass()</span></code></a> tracks particles through each element of a lattice
+calling the element-specific tracking function specified in the Element’s
+<em>PassMethod</em> field.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lattice</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.11)"><em>Iterable</em></a><em>[</em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>]</em>) – list of elements</p></li>
+<li><p><strong>r_in</strong> – (6, N) array: input coordinates of N particles.
+<em>r_in</em> is modified in-place and reports the coordinates at
+the end of the element. For the best efficiency, <em>r_in</em>
+should be given as F_CONTIGUOUS numpy array.</p></li>
+<li><p><strong>nturns</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – number of turns to be tracked</p></li>
+<li><p><strong>refpts</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.11)"><em>Union</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Type" title="(in Python v3.11)"><em>Type</em></a><em>[</em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>]</em><em>, </em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.11)"><em>Callable</em></a><em>[</em><em>[</em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>None</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.11)"><em>Sequence</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.11)"><em>Sequence</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em>]</em><em>, </em><em>RefptsCode</em><em>]</em>) – Selects the location of coordinates output.
+See “<a class="reference internal" href="at.lattice.utils.html#refpts"><span class="std std-ref">Selecting elements in a lattice</span></a>”</p></li>
+</ul>
+</dd>
+<dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>keep_lattice</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Use elements persisted from a previous
+call. If <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a>, assume that the lattice has not changed
+since the previous call.</p></li>
+<li><p><strong>keep_counter</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Keep the turn number from the previous
+call.</p></li>
+<li><p><strong>turn</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Starting turn number. Ignored if
+<em>keep_counter</em> is <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a>. The turn number is necessary to
+compute the absolute path length used in RFCavityPass.</p></li>
+<li><p><strong>losses</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Boolean to activate loss maps output</p></li>
+<li><p><strong>omp_num_threads</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of OpenMP threads
+(default: automatic)</p></li>
+</ul>
+</dd>
+</dl>
+<p>The following keyword arguments overload the Lattice values</p>
+<dl class="field-list simple">
+<dt class="field-odd">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>particle</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="at.lattice.particle_object.html#at.lattice.particle_object.Particle" title="at.lattice.particle_object.Particle"><em>Particle</em></a><em>]</em>) – circulating particle.
+Default: <code class="code docutils literal notranslate"><span class="pre">lattice.particle</span></code> if existing,
+otherwise <code class="code docutils literal notranslate"><span class="pre">Particle('relativistic')</span></code></p></li>
+<li><p><strong>energy</strong> (<em>Optiona</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em>]</em>) – lattice energy. Default 0.</p></li>
+<li><p><strong>unfold_beam</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Internal beam folding activate, this
+assumes the input particles are in bucket 0, works only
+if all bucket see the same RF Voltage.
+Default: <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a></p></li>
+</ul>
+</dd>
+</dl>
+<p>If <em>energy</em> is not available, relativistic tracking if forced,
+<em>rest_energy</em> is ignored.</p>
+<dl class="field-list">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><ul>
+<li><p><strong>r_out</strong> – (6, N, R, T) array containing output coordinates of N particles
+at R reference points for T turns.</p></li>
+<li><p><strong>loss_map</strong> – If <em>losses</em> is <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a>: dictionary with the
+following key:</p>
+<table class="table">
+<tbody>
+<tr class="row-odd"><td><p><strong>islost</strong></p></td>
+<td><p>(npart,) bool array indicating lost particles</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>turn</strong></p></td>
+<td><p>(npart,) int array indicating the turn at
+which the particle is lost</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>element</strong></p></td>
+<td><p>((npart,) int array indicating the element at
+which the particle is lost</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>coord</strong></p></td>
+<td><p>(6, npart) float array giving the coordinates at
+which the particle is lost (zero for surviving
+particles)</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p><code class="code highlight pycode python docutils literal highlight-python"><span class="n">lattice_pass</span><span class="p">(</span><span class="n">lattice</span><span class="p">,</span> <span class="n">r_in</span><span class="p">,</span> <span class="n">refpts</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">))</span></code> is the same as
+<code class="code highlight pycode python docutils literal highlight-python"><span class="n">lattice_pass</span><span class="p">(</span><span class="n">lattice</span><span class="p">,</span> <span class="n">r_in</span><span class="p">)</span></code> since the reference point
+len(line) is the exit of the last element.</p></li>
+<li><p><code class="code highlight pycode python docutils literal highlight-python"><span class="n">lattice_pass</span><span class="p">(</span><span class="n">lattice</span><span class="p">,</span> <span class="n">r_in</span><span class="p">,</span> <span class="n">refpts</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></code> is a copy of <em>r_in</em>
+since the reference point 0 is the entrance of the first element.</p></li>
+<li><p>To resume an interrupted tracking (for instance to get intermediate
+results), one must use one of the <em>turn</em> or <em>keep_counter</em>
+keywords to ensure the continuity of the turn number.</p></li>
+<li><p>For multiparticle tracking with large number of turn the size of
+<em>r_out</em> may increase excessively. To avoid memory issues
+<code class="code highlight pycode python docutils literal highlight-python"><span class="n">lattice_pass</span><span class="p">(</span><span class="n">lattice</span><span class="p">,</span> <span class="n">r_in</span><span class="p">,</span> <span class="n">refpts</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code> can be used.
+An empty list is returned and the tracking results of the last turn
+are stored in <em>r_in</em>.</p></li>
+<li><p>To model buckets with different RF voltage <code class="code highlight pycode python docutils literal highlight-python"><span class="n">unfold_beam</span><span class="o">=</span><span class="kc">False</span></code>
+has to be used. The beam can be unfolded using the function
+<a class="reference internal" href="at.tracking.utils.html#at.tracking.utils.unfold_beam" title="at.tracking.utils.unfold_beam"><code class="xref py py-func docutils literal notranslate"><span class="pre">unfold_beam()</span></code></a>. This function takes into account
+the true voltage in each bucket and distributes the particles in the
+bunches defined by <code class="code docutils literal notranslate"><span class="pre">ring.fillpattern</span></code> using a 6D orbit search.</p></li>
+</ul>
+</div>
 </dd></dl>
 
 <dl class="py method">
@@ -4442,6 +4554,15 @@ Analyse elements for radiation state</p>
      <code class="docutils literal notranslate">
       <span class="pre">
        Lattice.insert()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.lattice_pass">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.lattice_pass()
       </span>
      </code>
     </a>

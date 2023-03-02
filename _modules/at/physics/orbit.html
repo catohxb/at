@@ -296,7 +296,7 @@
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">numpy</span>
 <span class="kn">from</span> <span class="nn">at.constants</span> <span class="kn">import</span> <span class="n">clight</span>
-<span class="kn">from</span> <span class="nn">at.lattice</span> <span class="kn">import</span> <span class="n">AtError</span><span class="p">,</span> <span class="n">AtWarning</span><span class="p">,</span> <span class="n">check_6d</span><span class="p">,</span> <span class="n">DConstant</span>
+<span class="kn">from</span> <span class="nn">at.lattice</span> <span class="kn">import</span> <span class="n">AtError</span><span class="p">,</span> <span class="n">AtWarning</span><span class="p">,</span> <span class="n">check_6d</span><span class="p">,</span> <span class="n">DConstant</span><span class="p">,</span> <span class="n">Orbit</span>
 <span class="kn">from</span> <span class="nn">at.lattice</span> <span class="kn">import</span> <span class="n">Lattice</span><span class="p">,</span> <span class="n">get_s_pos</span><span class="p">,</span> <span class="n">Refpts</span>
 <span class="kn">from</span> <span class="nn">at.lattice</span> <span class="kn">import</span> <span class="n">set_cavity</span>
 <span class="kn">from</span> <span class="nn">at.tracking</span> <span class="kn">import</span> <span class="n">lattice_pass</span>
@@ -304,8 +304,7 @@
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">import</span> <span class="nn">functools</span>
 
-<span class="n">Orbit</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span>
-
+<span class="c1"># For backward compatibility, Orbit is redefined from .lattice</span>
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Orbit&#39;</span><span class="p">,</span> <span class="s1">&#39;find_orbit4&#39;</span><span class="p">,</span> <span class="s1">&#39;find_sync_orbit&#39;</span><span class="p">,</span> <span class="s1">&#39;find_orbit6&#39;</span><span class="p">,</span>
            <span class="s1">&#39;find_orbit&#39;</span><span class="p">,</span> <span class="s1">&#39;get_revolution_frequency&#39;</span><span class="p">,</span> <span class="s1">&#39;frequency_control&#39;</span><span class="p">]</span>
            
