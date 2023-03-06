@@ -540,7 +540,7 @@ energy and periodicity if not yet defined.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – Dictionary of Lattice attributes</p></li>
-<li><p><strong>elem_filter</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.11)"><em>Callable</em></a><em>[</em><em>[</em><em>...</em><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.11)"><em>Iterable</em></a><em>[</em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>]</em><em>]</em>) – Element filter</p></li>
+<li><p><strong>elem_filter</strong> (<a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.11)"><em>Callable</em></a><em>[</em><em>[</em><em>...</em><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable" title="(in Python v3.11)"><em>Iterable</em></a><em>[</em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>]</em><em>]</em>) – Element filter</p></li>
 <li><p><strong>*args</strong> – Arguments provided to <em>elem_filter</em></p></li>
 </ul>
 </dd>
@@ -682,6 +682,20 @@ attribute is 0.0 are <a class="reference external" href="https://docs.python.org
 <span class="sig-name descname"><span class="pre">deepcopy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/lattice_object.html#Lattice.deepcopy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.lattice_object.Lattice.deepcopy" title="Permalink to this definition">#</a></dt>
 <dd><p>Returns a deep copy of the lattice</p>
 <dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="at.lattice.lattice_object.Lattice.develop">
+<span class="sig-name descname"><span class="pre">develop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/lattice_object.html#Lattice.develop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.lattice_object.Lattice.develop" title="Permalink to this definition">#</a></dt>
+<dd><p>Develop a periodical lattice by repeating its elements
+<em>self.periodicity</em> times</p>
+<p>The elements of the new lattice are deep copies ot the original
+elements, so that they are all independent.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>newlattice</strong> – The developed lattice</p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -2913,7 +2927,7 @@ Default: <a class="reference external" href="https://docs.python.org/3/library/c
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>elem_modify</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.11)"><em>Callable</em></a>) – element selection function.
+<li><p><strong>elem_modify</strong> (<a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.11)"><em>Callable</em></a>) – element selection function.
 If <code class="docutils literal notranslate"><span class="pre">elem_modify(elem)</span></code> returns <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>, the element is
 unchanged. Otherwise, <code class="docutils literal notranslate"><span class="pre">elem_modify(elem)</span></code> must return a
 dictionary of attribute name and values, to be set to elem.</p></li>
@@ -3808,7 +3822,7 @@ attribute</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="at.lattice.lattice_object.Lattice.attrs">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">attrs</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.11)"><span class="pre">Dict</span></a></em><a class="headerlink" href="#at.lattice.lattice_object.Lattice.attrs" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">attrs</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a></em><a class="headerlink" href="#at.lattice.lattice_object.Lattice.attrs" title="Permalink to this definition">#</a></dt>
 <dd><p>Dictionary of lattice attributes</p>
 </dd></dl>
 
@@ -4005,7 +4019,7 @@ amplitudes such that <code class="docutils literal notranslate"><span class="pre
 
 <dl class="py property">
 <dt class="sig sig-object py" id="at.lattice.lattice_object.Lattice.s_range">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">s_range</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.11)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.11)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#at.lattice.lattice_object.Lattice.s_range" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">s_range</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.11)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#at.lattice.lattice_object.Lattice.s_range" title="Permalink to this definition">#</a></dt>
 <dd><p>(s_min, s_max). <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a> means
 the full cell.</p>
 <dl class="field-list simple">
@@ -4031,7 +4045,7 @@ the full cell.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>params</strong> – Dictionary of Lattice attributes</p></li>
-<li><p><strong>elems</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.11)"><em>Iterable</em></a><em>[</em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>]</em>) – Iterable of lattice <code class="docutils literal notranslate"><span class="pre">Elements</span></code></p></li>
+<li><p><strong>elems</strong> (<a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable" title="(in Python v3.11)"><em>Iterable</em></a><em>[</em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>]</em>) – Iterable of lattice <code class="docutils literal notranslate"><span class="pre">Elements</span></code></p></li>
 </ul>
 </dd>
 <dt class="field-even">Yields<span class="colon">:</span></dt>
@@ -4065,7 +4079,7 @@ the full cell.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>params</strong> – Dictionary of Lattice attributes</p></li>
-<li><p><strong>elems</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.11)"><em>Iterable</em></a><em>[</em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>]</em>) – Iterable of lattice <code class="docutils literal notranslate"><span class="pre">Elements</span></code></p></li>
+<li><p><strong>elems</strong> (<a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable" title="(in Python v3.11)"><em>Iterable</em></a><em>[</em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>]</em>) – Iterable of lattice <code class="docutils literal notranslate"><span class="pre">Elements</span></code></p></li>
 </ul>
 </dd>
 <dt class="field-even">Yields<span class="colon">:</span></dt>
@@ -4083,7 +4097,7 @@ Remove the Energy attribute of non-radiating elements</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>params</strong> – Dictionary of Lattice attributes</p></li>
-<li><p><strong>elem_filter</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.11)"><em>Callable</em></a><em>[</em><em>[</em><em>...</em><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.11)"><em>Iterable</em></a><em>[</em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>]</em><em>]</em>) – Next <code class="docutils literal notranslate"><span class="pre">Elements</span></code> filter</p></li>
+<li><p><strong>elem_filter</strong> (<a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.11)"><em>Callable</em></a><em>[</em><em>[</em><em>...</em><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable" title="(in Python v3.11)"><em>Iterable</em></a><em>[</em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>]</em><em>]</em>) – Next <code class="docutils literal notranslate"><span class="pre">Elements</span></code> filter</p></li>
 <li><p><strong>args</strong> – Arguments forwarded to <strong>elem_filter</strong></p></li>
 </ul>
 </dd>
@@ -4123,7 +4137,7 @@ Analyse elements for radiation state</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>params</strong> – Dictionary of Lattice attributes</p></li>
-<li><p><strong>elems</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.11)"><em>Iterable</em></a><em>[</em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>]</em>) – Iterable of lattice <code class="docutils literal notranslate"><span class="pre">Elements</span></code></p></li>
+<li><p><strong>elems</strong> (<a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable" title="(in Python v3.11)"><em>Iterable</em></a><em>[</em><a class="reference internal" href="at.lattice.elements.html#at.lattice.elements.Element" title="at.lattice.elements.Element"><em>Element</em></a><em>]</em>) – Iterable of lattice <code class="docutils literal notranslate"><span class="pre">Elements</span></code></p></li>
 </ul>
 </dd>
 <dt class="field-even">Yields<span class="colon">:</span></dt>
@@ -4231,6 +4245,15 @@ Analyse elements for radiation state</p>
      <code class="docutils literal notranslate">
       <span class="pre">
        Lattice.deepcopy()
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#at.lattice.lattice_object.Lattice.develop">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Lattice.develop()
       </span>
      </code>
     </a>
