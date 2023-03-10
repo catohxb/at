@@ -401,22 +401,25 @@
 <p class="rubric">Functions</p>
 <table class="autosummary longtable table autosummary">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#at.lattice.cavity_access.get_rf_frequency" title="at.lattice.cavity_access.get_rf_frequency"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_rf_frequency</span></code></a>(ring, **kwargs)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#at.lattice.cavity_access.frequency_control" title="at.lattice.cavity_access.frequency_control"><code class="xref py py-obj docutils literal notranslate"><span class="pre">frequency_control</span></code></a>(func)</p></td>
+<td><p>Function to be used as decorator for <code class="code highlight pycode python docutils literal highlight-python"><span class="n">func</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#at.lattice.cavity_access.get_rf_frequency" title="at.lattice.cavity_access.get_rf_frequency"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_rf_frequency</span></code></a>(ring, **kwargs)</p></td>
 <td><p>Return the RF frequency</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#at.lattice.cavity_access.get_rf_voltage" title="at.lattice.cavity_access.get_rf_voltage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_rf_voltage</span></code></a>(ring, **kwargs)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#at.lattice.cavity_access.get_rf_voltage" title="at.lattice.cavity_access.get_rf_voltage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_rf_voltage</span></code></a>(ring, **kwargs)</p></td>
 <td><p>Return the total RF voltage (full ring)</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#at.lattice.cavity_access.set_rf_voltage" title="at.lattice.cavity_access.set_rf_voltage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_rf_voltage</span></code></a>(ring, voltage, **kwargs)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#at.lattice.cavity_access.set_rf_voltage" title="at.lattice.cavity_access.set_rf_voltage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_rf_voltage</span></code></a>(ring, voltage, **kwargs)</p></td>
 <td><p>Set the RF voltage for the full ring</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#at.lattice.cavity_access.get_rf_timelag" title="at.lattice.cavity_access.get_rf_timelag"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_rf_timelag</span></code></a>(ring, **kwargs)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#at.lattice.cavity_access.get_rf_timelag" title="at.lattice.cavity_access.get_rf_timelag"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_rf_timelag</span></code></a>(ring, **kwargs)</p></td>
 <td><p>Return the RF time lag</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#at.lattice.cavity_access.set_rf_timelag" title="at.lattice.cavity_access.set_rf_timelag"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_rf_timelag</span></code></a>(ring, timelag, **kwargs)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#at.lattice.cavity_access.set_rf_timelag" title="at.lattice.cavity_access.set_rf_timelag"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_rf_timelag</span></code></a>(ring, timelag, **kwargs)</p></td>
 <td><p>Set the RF time lag</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#at.lattice.cavity_access.set_cavity" title="at.lattice.cavity_access.set_cavity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_cavity</span></code></a>(ring[, Voltage, Frequency, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#at.lattice.cavity_access.set_cavity" title="at.lattice.cavity_access.set_cavity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_cavity</span></code></a>(ring[, Voltage, Frequency, ...])</p></td>
 <td><p>Set the parameters of the RF cavities</p></td>
 </tr>
 </tbody>
@@ -439,6 +442,25 @@
 <span class="sig-name descname"><span class="pre">NOMINAL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'nominal'</span></em><a class="headerlink" href="#at.lattice.cavity_access.Frf.NOMINAL" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="at.lattice.cavity_access.frequency_control">
+<span class="sig-name descname"><span class="pre">frequency_control</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/at/lattice/cavity_access.html#frequency_control"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#at.lattice.cavity_access.frequency_control" title="Permalink to this definition">#</a></dt>
+<dd><p>Function to be used as decorator for
+<code class="code highlight pycode python docutils literal highlight-python"><span class="n">func</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code></p>
+<p>If <code class="code highlight pycode python docutils literal highlight-python"><span class="n">ring</span><span class="o">.</span><span class="n">is_6d</span></code> is <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a> <strong>and</strong> <em>dp</em>, <em>dct</em> or <em>df</em>
+is specified in <em>kwargs</em>, make a copy of <em>ring</em> with a modified
+RF frequency, remove <em>dp</em>, <em>dct</em> or <em>df</em> from <em>kwargs</em> and call
+<em>func</em> with the modified <em>ring</em>.</p>
+<p>If <code class="code highlight pycode python docutils literal highlight-python"><span class="n">ring</span><span class="o">.</span><span class="n">is_6d</span></code> is <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a> <strong>or</strong> no <em>dp</em>, <em>dct</em> or
+<em>df</em> is specified in <em>kwargs</em>, <em>func</em> is called unchanged.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@frequency_control</span>
+<span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">ring</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">dp</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dct</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py function">
@@ -649,6 +671,15 @@ cavity elements. Otherwise, modify <code class="docutils literal notranslate"><s
     </a>
    </li>
   </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#at.lattice.cavity_access.frequency_control">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     frequency_control()
+    </span>
+   </code>
+  </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#at.lattice.cavity_access.get_rf_frequency">
